@@ -4,6 +4,7 @@
                data-auth-add="{:auth('{{controllerUrl}}/add')}"
                data-auth-edit="{:auth('{{controllerUrl}}/edit')}"
                data-auth-delete="{:auth('{{controllerUrl}}/delete')}"
+               searchTableShow = "false"
                lay-filter="currentTable">
         </table>
     </div>
