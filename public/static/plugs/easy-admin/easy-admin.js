@@ -1708,7 +1708,7 @@ define(["jquery", "tableSelect", "miniTheme", "xmSelect"], function ($, tableSel
                         that = this,
                         html = '<option value=""></option>';
                     var fields = selectFields.replace(/\s/g, "").split(',');
-                    if (fields.length !== 2) {
+                    if ([2,3].includes(fields.length) === false) {
                         return admin.msg.error('下拉选择字段有误');
                     }
                     admin.request.get(
@@ -1720,11 +1720,12 @@ define(["jquery", "tableSelect", "miniTheme", "xmSelect"], function ($, tableSel
                         }, function (res) {
                             var list = res.data;
                             list.forEach(val => {
+                                var extend = fields[2]? ' data-extend="'+val[fields[2]]+'"' : '';
                                 var key = val[fields[0]];
                                 if (value !== undefined && key.toString() === value) {
-                                    html += '<option value="' + key + '" selected="">' + val[fields[1]] + '</option>';
+                                    html += '<option value="' + key + '" '+extend+' selected="">' + val[fields[1]] + '</option>';
                                 } else {
-                                    html += '<option value="' + key + '">' + val[fields[1]] + '</option>';
+                                    html += '<option value="' + key + '" '+extend+'>' + val[fields[1]] + '</option>';
                                 }
                             });
                             $(that).html(html);
