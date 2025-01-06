@@ -194,7 +194,7 @@ class Install extends BaseController
                 $this->error('mysql版本最低要求 5.7.x');
             }
         }catch (\PDOException $e) {
-            $this->error($e->getMessage());
+            $this->error('PDO '.$e->getMessage());
         }
         return true;
     }
