@@ -1,0 +1,802 @@
+// 通常用于背景色
+$black-color :rgb(2, 17, 20);
+// 通常用于字体颜色
+$main-color :rgb(126, 252, 246);
+// 通常用于边框
+$less-main-color:rgb(6, 216, 215);
+
+$plus-main-color:rgb(0, 125, 124);
+
+// 通常用于激活状态,通常跟背景色搭配
+$cover-color :rgba(62, 251, 251, 0.05);
+// 更强的激活状态,适合做选项操作时使用
+$active-color :rgba(62, 251, 251, 0.5);
+
+
+$red-color :rgb(255, 0, 0);
+$yellow-color:rgb(255, 255, 153);
+$green-color :rgb(0, 255, 0);
+
+& {
+  background-color: $black-color;
+  color: $main-color;
+}
+
+.layuimini-main {
+  background-color: $black-color;
+}
+
+.layuimini-container {
+  background-color: $black-color;
+}
+
+.layuimini-container .layui-table-tool {
+  background-color: $black-color;
+}
+
+$box-shape: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 0);
+
+.layui-btn {
+
+  &.layui-btn-lg {
+
+    padding-right: 25px;
+  }
+
+  clip-path : $box-shape;
+  padding-right : 10px;
+  position : relative;
+  background-color: transparent;
+  border : 1px solid;
+  color : rgb(126, 252, 246);
+  text-shadow : rgb(126, 252, 246) 0px 0px 1px;
+  background-color: rgb(126, 252, 246);
+
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: -1;
+    clip-path: $box-shape;
+    width: 100%;
+    height: 100%;
+    left: -0.5px;
+    top: -0.5px;
+    background-color: $black-color;
+  }
+
+  &:hover::after {
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: -1;
+    clip-path: $box-shape;
+    width: 100%;
+    height: 100%;
+    left: -0.5px;
+    top: -0.5px;
+    background-color: rgba(126, 252, 246, 0.2);
+  }
+
+  &.layui-btn-disabled {
+    &::after {
+      // todo:实现按钮禁用样式
+    }
+  }
+
+  &.layui-btn-success {
+    text-shadow: rgb(0, 255, 0) 0px 0px 1px;
+    color: rgb(0, 255, 0);
+    background-color: rgba(0, 255, 0);
+    border: unset;
+
+    &:hover::after {
+      background-color: rgba(0, 255, 0, 0.2);
+    }
+  }
+
+  &.layui-btn-danger {
+    text-shadow: rgb(255, 0, 0) 0px 0px 1px;
+    color: rgb(255, 0, 0);
+    background-color: rgb(255, 0, 0);
+    border: unset;
+
+    &:hover::after {
+      background-color: rgba(255, 0, 0, 0.2);
+    }
+  }
+
+  &.layuimini-btn-primary {
+    text-shadow: rgb(255, 255, 153) 0px 0px 1px;
+    color: rgb(255, 255, 153);
+    background-color: rgb(255, 255, 153);
+    border: unset;
+
+    &:hover::after {
+      background-color: rgba(255, 255, 153, 0.2);
+    }
+
+  }
+
+  &.layui-btn-primary {
+    border: unset;
+  }
+
+  &.layui-btn-normal {
+    color: $black-color;
+    background-color: $main-color;
+    border: unset;
+
+    &::before {
+      background-color: $main-color;
+    }
+
+    &:hover::after {
+      background-color: $main-color;
+    }
+  }
+}
+
+.layui-table {
+  background: $black-color;
+  color: $main-color;
+
+
+  tr {
+    background-color: $cover-color;
+  }
+
+  td {
+    border-color: $less-main-color;
+  }
+
+}
+
+.layui-table-header {
+  background-color: $black-color;
+}
+
+.layuimini-container .layui-table-box {
+  border-color: $less-main-color;
+}
+
+.layuimini-container .layui-table-box .layui-table-header th {
+  color: $main-color !important;
+}
+
+.layui-table-tool .layui-inline[lay-event] {
+  color: $main-color;
+  border: none;
+  position: relative;
+
+  &::after {
+    border-color: $main-color;
+    border-width: 1px;
+    border-style: solid;
+    clip-path: $box-shape;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: calc(100% - 1px);
+    height: calc(100% - 1px);
+    content: '';
+    display: block;
+  }
+}
+
+.layui-table tbody tr:hover {
+  background-color: rgba(126, 252, 246, 0.1);
+}
+
+.layuimini-main {
+  border-color: $less-main-color;
+}
+
+.layui-table-header {
+  border-color: $less-main-color;
+}
+
+
+
+.color-content>ul>li>a>div>span:nth-child(2) {
+  background-color: $black-color !important;
+}
+
+.layuimini-color .elem-content li {
+  clip-path: $box-shape;
+}
+
+.layuimini-color .elem-content li.layui-this {
+  background-color: $main-color;
+  color: $black-color !important;
+  border-color: $less-main-color;
+}
+
+.layuimini-color .more-menu-item {
+  color: $main-color;
+
+  &:hover {
+    background-color: rgba(62, 251, 251, 0.05);
+  }
+}
+
+.layui-layout-admin .layui-header {
+  background-color: $cover-color !important;
+}
+
+.layuimini-tab .layui-tab-title {
+  background-color: $cover-color !important;
+  border-color: $less-main-color;
+
+}
+
+.layuimini-tab .layui-tab-title span {
+  color: $active-color;
+}
+
+.layui-header .layuimini-menu-header-pc.layui-nav .layui-nav-item a:hover,
+.layui-header .layuimini-header-menu.layuimini-pc-show.layui-nav .layui-this a {
+  color: $black-color !important;
+}
+
+.layui-layout-admin .layui-header .layui-nav .layui-nav-item a {
+  color: $main-color !important;
+}
+
+.layui-layout-admin .layui-header .layui-nav .layui-nav-item {
+  background-color: $active-color;
+
+}
+
+
+.layui-layout-admin .layui-header .layuimini-header-content>ul>.layui-nav-item.layui-this,
+.layuimini-tool i:hover {
+  background-color: $main-color !important;
+}
+
+.layuimini-tab .layui-tab-control>li {
+  background-color: $black-color;
+  border-color: $less-main-color;
+}
+
+.layuimini-tab .layui-tab-title li {
+  border-color: $less-main-color;
+}
+
+.layui-flow-more a *,
+.layui-laypage input,
+.layui-table-view select[lay-ignore] {
+  border-color: $less-main-color;
+  background-color: $black-color;
+  color: $main-color;
+}
+
+.layui-laypage button,
+.layui-laypage input {
+  border-color: $less-main-color;
+  background-color: $black-color;
+  color: $main-color;
+
+}
+
+.layuimini-container .layui-form-switch {
+  border-color: $less-main-color !important;
+  background-color: $black-color !important;
+
+}
+
+.layuimini-container .layui-form-onswitch {
+  background-color: $main-color !important;
+}
+
+.layuimini-container .layui-form-switch.layui-form-onswitch i {
+  background-color: $black-color !important;
+}
+.layuimini-container .layui-laypage .layui-laypage-curr .layui-laypage-em {
+  background-color: $main-color !important;
+}
+
+.layui-laypage .layui-laypage-curr em {
+  color: $black-color !important;
+}
+
+.layuimini-tab .layui-tab-title .layui-this .layuimini-tab-active {
+  background-color: $less-main-color;
+
+}
+
+.layui-table-view .layui-form-checkbox.layui-form-checked[lay-skin="primary"] i {
+  border-color: $main-color;
+  background-color: $main-color;
+  color: $black-color;
+}
+
+.layui-table-view .layui-form-checkbox[lay-skin="primary"] i {
+  background-color: $cover-color;
+}
+
+.layui-table-init {
+  background-color: $black-color;
+}
+
+.box-border-line {
+  position: relative;
+  border: 1px solid $less-main-color;
+  border-width: 1px;
+  $border-offset: 3px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 20px;
+    transition: all 0.2s;
+    border: 1px solid $less-main-color;
+    top: -$border-offset;
+    left: -$border-offset;
+    border-right: none;
+    border-bottom: none;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 20px;
+    transition: all 0.2s;
+    border: 1px solid $less-main-color;
+    bottom: -$border-offset;
+    right: -$border-offset;
+    border-left: none;
+    border-top: none;
+    pointer-events: none;
+  }
+
+  &:hover {
+
+    &::after,
+    &::before {
+      width: calc(100% + $border-offset);
+      height: calc(100% + $border-offset);
+    }
+  }
+}
+
+.table-search-fieldset {
+  .layui-input-inline {
+    margin-right: 0;
+  }
+
+
+
+  .layui-form-item:not(:last-child) {
+    margin-right: 10px;
+    @extend .box-border-line;
+  }
+
+  .layui-form-label {
+    border: unset;
+  }
+}
+
+.layui-form-pane .layui-form-label {
+  background-color: $cover-color;
+  color: $main-color;
+}
+
+.layuimini-container .table-search-fieldset {
+  color: $main-color;
+  border-color: $less-main-color;
+
+}
+
+.layui-form-select,
+.layui-form-autocomplete {
+  dl {
+
+    color: $main-color;
+    background-color: $black-color;
+    border-color: $less-main-color;
+
+    dd {
+      &.layui-this {
+        background-color: $main-color !important;
+        color: $black-color;
+      }
+
+      &:hover {
+        background-color: $less-main-color !important;
+        color: $black-color;
+      }
+    }
+  }
+}
+
+.layui-iconpicker-item,
+.layui-iconpicker-item:hover {
+  border-color: $less-main-color !important;
+  color: $black-color;
+
+  .layui-iconpicker-icon:hover {
+    border-color: $less-main-color !important;
+  }
+}
+
+
+.layui-nav-child {
+  background-color: $black-color;
+  color: $main-color;
+}
+
+.layui-layout-admin .layui-header .layui-nav .layui-nav-item .layui-nav-child a {
+  color: $main-color !important;
+}
+
+.layui-badge,
+.layui-badge-dot,
+.layui-badge-rim {
+  background-color: $main-color;
+}
+
+.layui-nav .layui-nav-child a:hover {
+  background-color: $active-color;
+}
+
+.layui-table-tool-panel {
+  background-color: $black-color;
+}
+
+.layui-form-checkbox[lay-skin="primary"] span {
+  color: $main-color;
+}
+
+.layui-table-tool-panel li:hover {
+  background-color: $active-color;
+}
+
+.layui-side.layui-bg-black,
+.layui-side.layui-bg-black>.layuimini-menu-left>ul,
+.layuimini-menu-left-zoom>ul {
+  background-color: $black-color !important;
+
+}
+
+.layui-side {
+  border-right: 1px solid $main-color;
+}
+
+.layui-bg-blue {
+  background-color: #0000ff !important;
+}
+
+.layui-bg-orange {
+  background-color: $yellow-color !important;
+  color: $black-color !important;
+}
+
+.layui-bg-green {
+  background-color: $green-color !important;
+  color: $black-color !important;
+}
+
+.layui-table-hover {
+  background-color: $cover-color;
+}
+
+.layui-table-grid-down {
+  background-color: $black-color;
+  color: $main-color;
+  border-color: unset;
+}
+
+.layui-table-tips-main {
+  background-color: $main-color;
+  color: $black-color;
+}
+
+.layui-layout-admin .layui-header .layuimini-tool i {
+  color: $main-color;
+}
+
+.color-red {
+  color: $red-color !important;
+}
+
+.layuimini-tab .layui-tab-title .layui-this span {
+  color: $main-color;
+}
+
+.layui-card {
+
+  background-color: $cover-color;
+  border-radius: 0;
+
+  @extend .box-border-line;
+
+  .layui-card-header {
+    color: $main-color;
+  }
+}
+
+.layui-text {
+  color: $main-color;
+}
+
+
+.layuimini-qiuck-module {
+  cursor: pointer;
+
+  a i {
+    background-color: $cover-color;
+    color: $active-color;
+  }
+
+  a cite {
+    color: $active-color;
+  }
+
+
+  &:hover {
+    a i {
+      background-color: $active-color;
+      color: $main-color;
+    }
+
+    a cite {
+      color: $main-color;
+    }
+
+  }
+}
+
+.layui-bg-number {
+  background-color: $cover-color;
+}
+
+.layui-input,
+.layui-select,
+.layui-textarea,
+.city-picker-span,
+.main-input {
+  background-color: $cover-color;
+  color: $main-color;
+}
+
+.city-picker-span>.title>span {
+  color: $main-color;
+
+  &:hover {
+    background-color: $main-color;
+    color: $black-color;
+  }
+}
+
+.layui-form-radio:hover *,
+.layui-form-radioed,
+.layui-form-radioed>i {
+  color: $main-color;
+}
+
+.layui-form-checked[lay-skin="primary"] i {
+  border-color: $main-color !important;
+  background-color: $main-color;
+  color: $black-color;
+}
+
+.layui-input:focus,
+.layui-textarea:focus {
+  border-color: $main-color !important;
+}
+
+.layui-input:hover,
+.layui-textarea:hover {
+  border-color: $main-color !important;
+
+}
+
+.layui-badge-rim,
+.layui-border,
+.layui-colla-content,
+.layui-colla-item,
+.layui-collapse,
+.layui-elem-field,
+.layui-form-pane .layui-form-item[pane],
+.layui-form-pane .layui-form-label,
+.layui-input,
+.layui-layedit,
+.layui-layedit-tool,
+.layui-panel,
+.layui-quote-nm,
+.layui-select,
+.layui-tab-bar,
+.layui-tab-card,
+.layui-tab-title,
+.layui-tab-title .layui-this::after,
+.layui-textarea {
+  border-color: $main-color !important;
+}
+
+.form-search .layui-input-inline input,
+.form-search .layui-input-inline select {
+  border-width: 0 0 0 1px;
+}
+
+.layuimini-tab .layui-tab-tool .layui-nav-child {
+  border-color: $main-color;
+}
+
+.layui-nav .layui-nav-child a {
+  color: $main-color;
+}
+
+.layui-form-item {
+  margin-bottom: 12px;
+}
+
+.layuimini-upload .layuimini-upload-btn {
+  background-color: $black-color;
+}
+
+.layui-layer {
+  border: 1px solid $main-color;
+  background-color: $black-color;
+}
+
+.layui-layer-easy .layui-layer-title {
+  background-color: $plus-main-color !important;
+  color: $main-color !important;
+}
+
+
+
+.layui-table td,
+.layui-table th,
+.layui-table-col-set,
+.layui-table-fixed-r,
+.layui-table-grid-down,
+.layui-table-header,
+.layui-table-page,
+.layui-table-tips-main,
+.layui-table-tool,
+.layui-table-total,
+.layui-table-view,
+.layui-table[lay-skin="line"],
+.layui-table[lay-skin="row"] {
+  border-color: $less-main-color;
+}
+
+.layui-table tbody tr:hover,
+.layui-table thead tr,
+.layui-table-click,
+.layui-table-header,
+.layui-table-hover,
+.layui-table-mend,
+.layui-table-patch,
+.layui-table-tool,
+.layui-table-total,
+.layui-table-total tr {
+  background-color: $black-color;
+}
+
+.hr-line {
+  color: $main-color;
+  border-color: $less-main-color;
+  background-color: $main-color;
+}
+
+.layui-layer-easy .layui-layer-btn {
+  background-color: $black-color;
+  border-top: 1px solid $less-main-color;
+}
+
+.layui-layer-easy .layui-layer-btn .layui-layer-btn0 {
+  background-color: $main-color;
+  border-color: $less-main-color;
+  color: $main-color !important;
+  clip-path: $box-shape;
+}
+
+.layui-layer-easy .layui-layer-btn a {
+  @extend .layui-btn
+}
+
+.layui-layer-shade {
+  background-color: #fff !important;
+}
+
+.layuimini-menu-left {
+  .layui-nav-tree .layui-nav-item {
+
+    margin: 5px;
+    width: calc(100% - 10px);
+  }
+
+  .layui-nav .layui-nav-item {
+    clip-path: $box-shape;
+    color: $main-color;
+    background-color: $active-color;
+
+    &.layui-this a {
+      background-color: $main-color !important;
+      color: $black-color !important;
+    }
+
+    &.layui-this {
+      background-color: $main-color !important;
+      color: $black-color !important;
+
+      span {
+        background-color: $main-color !important;
+        color: $black-color !important;
+
+      }
+    }
+  }
+
+  .layui-nav .layui-nav-item a:hover {
+    background-color: $active-color !important;
+  }
+
+}
+
+.layuimini-menu-left .layui-nav .layui-nav-item a,
+.layuimini-menu-left-zoom.layui-nav .layui-nav-item a {
+  color: $main-color !important;
+}
+
+.layuimini-menu-left .layui-nav-item a span {
+  color: $main-color !important;
+
+}
+
+.layuimini-menu-left .layui-nav-item:hover a span {
+  color: $black-color !important;
+
+}
+
+.layui-layout-admin .layuimini-logo {
+  background-color: $black-color !important;
+
+}
+
+.layuimini-menu-left .layui-nav-itemed>.layui-nav-child {
+  background-color: $black-color !important;
+}
+
+.layuimini-menu-left .layui-nav-tree .layui-this,
+.layuimini-menu-left .layui-nav-tree .layui-this>a,
+.layuimini-menu-left .layui-nav-tree .layui-nav-child dd.layui-this,
+.layuimini-menu-left .layui-nav-tree .layui-nav-child dd.layui-this a,
+.layuimini-menu-left-zoom.layui-nav-tree .layui-this,
+.layuimini-menu-left-zoom.layui-nav-tree .layui-this>a,
+.layuimini-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this,
+.layuimini-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this a {
+  background-color: $main-color !important;
+  color: $black-color !important;
+
+  .layui-left-nav {
+    color: $black-color !important;
+  }
+}
+
+
+.layui-iconpicker-icon {
+  border-color: $less-main-color !important;
+  background-color: $less-main-color !important;
+}
+
+.layui-iconpicker .layui-anim {
+  background-color: $black-color;
+}
+
+.layui-iconpicker .layui-iconpicker-list {
+  background-color: $black-color;
+}
+
+.layui-header .layui-nav .layui-nav-child dd.layui-this a,
+.layui-header .layui-nav-child dd.layui-this,
+.layui-layout-admin .layui-header .layui-nav .layui-nav-item .layui-nav-child .layui-this a {
+  background-color: $active-color !important;
+}

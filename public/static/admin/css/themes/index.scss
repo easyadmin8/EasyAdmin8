@@ -1,0 +1,41 @@
+.elem-style-normal {
+    @import 'normal';
+}
+
+.elem-style-demo {
+    @import 'demo';
+}
+
+.elem-style-sicfi {
+    @import 'sicfi';
+}
+
+.elem-style-gtk {
+    @import 'gtk';
+}
+
+.elem-style-nes {
+    @import 'nes';
+
+}
+
+.elem-style-win7 {
+    @import 'win7';
+}
+.elem-style-neomorphic {
+    @import 'neomorphic';
+}
+.elem-style-dark {
+    @import 'dark';
+}
+
+@font-face {
+    font-family: "ark-pixel";
+    src        : url('./nes/ark-pixel-font-12px/ark-pixel-12px-zh_cn.ttf') format('truetype'),
+        url('./nes/ark-pixel-font-12px/ark-pixel-12px-zh_hk.ttf') format('truetype'),
+        url('./nes/ark-pixel-font-12px/ark-pixel-12px-zh_tr.ttf') format('truetype'),
+        url('./nes/ark-pixel-font-12px/ark-pixel-12px-zh_tw.ttf') format('truetype'),
+        url('./nes/ark-pixel-font-12px/ark-pixel-12px-ja.ttf') format('truetype'),
+        url('./nes/ark-pixel-font-12px/ark-pixel-12px-ko.ttf') format('truetype'),
+        url('./nes/ark-pixel-font-12px/ark-pixel-12px-latin.ttf') format('truetype');
+}

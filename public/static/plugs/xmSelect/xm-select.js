@@ -212,7 +212,10 @@
                     var n = t.b[e];
                     n && n.calcPosition && n.calcPosition()
                 }))
-            }))), "object" === ("undefined" == typeof exports ? "undefined" : _typeof(exports)) ? e.exports = t.c : "function" == typeof define && n(221) ? define(xmSelect) : window.layui && layui.define && layui.define((function (e) {
+            }))), "object" === ("undefined" == typeof exports ? "undefined" : _typeof(exports)) ? e.exports = t.c : "function" == typeof define && n(221)
+                ? define(function () {
+                    return t.c
+                }) : window.layui && layui.define && layui.define((function (e) {
                 e("xmSelect", t.c)
             })), window.xmSelect = t.c
         }.call(this, n(215)(e))

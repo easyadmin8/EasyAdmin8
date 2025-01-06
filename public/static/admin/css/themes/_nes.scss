@@ -1,0 +1,344 @@
+a,
+button {
+    cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0, pointer
+}
+
+& {
+    cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABFklEQVRYR9WXURLDIAhE6/0PbSdOtUpcd1Gnpv1KGpTHBpCE1/cXq+vrMph7dGvXZTtpfW10DCA5jrH1H0Jhs5E0hnZdCR+vb5S8Nn8mQCeS9BdSalYJqMBjAGzq59xAESN7VFVUgV8AZB/dZBR7QTFDCqGquvUBVVoEtgIwpQRzmANSFHgWQKExHdIrPeuMvQNDarXe6nC/AutgV3JW+6bgqQLeV8FekRtgV+ToDKEKnACYKsfZjjkam7a0ZpYTytwmgainpC3HvwBocgKOxqRjehoR9DFKNFYtOwCGYCszobeCbl26N6yyQ6g8X/Wex/rBPsNEV6qAMaJPMynIHQCoSqS9JSMmwef51LflTgCRszU7DvAGiV6mHWfsaVUAAAAASUVORK5CYII=), auto;
+    font-family: "ark-pixel";
+}
+
+$border-line-width:3px;
+
+.public-border {
+    border-style: solid;
+    border-width: $border-line-width;
+    border-image-slice: 2;
+    border-image-width: 2;
+    border-image-repeat: stretch;
+    border-image-source: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8" ?><svg version="1.1" width="5" height="5" xmlns="http://www.w3.org/2000/svg"><path d="M2 1 h1 v1 h-1 z M1 2 h1 v1 h-1 z M3 2 h1 v1 h-1 z M2 3 h1 v1 h-1 z" fill="rgb(33,37,41)" /></svg>');
+    border-image-outset: 2;
+}
+
+
+
+.layui-btn {
+
+    @extend .public-border;
+    line-height: 32px;
+
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0, pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #212529;
+    background-color: #fff;
+    border-image-repeat: stretch;
+
+    &::after {
+        position: absolute;
+        top: -$border-line-width;
+        right: -$border-line-width;
+        bottom: -$border-line-width;
+        left: -$border-line-width;
+        content: "";
+        box-shadow: inset (-$border-line-width) (-$border-line-width) #adafbc;
+    }
+
+    &:hover {
+        color: #212529;
+        text-decoration: none;
+        background-color: #e7e7e7;
+    }
+
+    &.layui-btn-sm {
+        line-height: 100%;
+    }
+
+    &.layui-btn-xs {
+        line-height: 16px;
+    }
+
+    &.layui-btn-normal {
+        color: #fff;
+        background-color: #209cee;
+
+        &::after {
+            box-shadow: inset (-$border-line-width) (-$border-line-width) #006bb3;
+        }
+
+        &:hover {
+            background-color: #108de0;
+        }
+    }
+
+    &.layui-btn-success {
+        color: #fff;
+        background-color: #92cc41;
+
+        &::after {
+            box-shadow: inset (-$border-line-width) (-$border-line-width) #4aa52e;
+        }
+
+        &:hover {
+            background-color: #92cc41;
+        }
+    }
+
+    &.layui-btn-danger {
+        color: #fff;
+        background-color: #e76e55;
+
+        &::after {
+            box-shadow: inset (-$border-line-width) (-$border-line-width) #8c2022;
+        }
+
+        &:hover {
+            background-color: #ce372b;
+        }
+    }
+
+    &.layui-btn-warm {
+        color: #212529;
+        background-color: #f7d51d;
+
+        &::after {
+            box-shadow: inset (-$border-line-width) (-$border-line-width) #e59400;
+        }
+
+        &:hover {
+            color: #212529;
+            background-color: #f2c409;
+        }
+    }
+}
+
+.form-search .layui-btn {
+    line-height: 16px;
+    font-size: 14px;
+}
+
+
+.layuimini-container .layui-table-tool .layui-inline[lay-event] {
+    @extend .layui-btn;
+    line-height: 24px;
+}
+
+.layui-table img {
+    image-rendering: pixelated;
+}
+
+.layui-form-checkbox[lay-skin="primary"] i {
+    @extend .public-border;
+    position: relative;
+}
+
+.layui-form-checked[lay-skin="primary"] i {
+    background-color: unset;
+    color: #212529;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.layui-btn {
+    font-size: 18px;
+}
+
+.layui-btn-sm {
+    font-size: 16px;
+}
+
+.layui-btn-xs {
+    font-size: 14px;
+}
+
+.layui-nav * {
+    font-size: 16px;
+
+}
+
+.layui-tab-title li {
+    font-size: 18px;
+}
+
+.layui-nav-tree .layui-nav-item {
+    border-bottom: 3px solid #212529;
+}
+
+.layuimini-header-menu>.layui-nav-item {
+
+    @extend .public-border;
+
+    border-image-outset: 0;
+}
+
+.layui-table td,
+.layui-table th {
+    font-size: 16px;
+    border-width: 0 2px 2px 0;
+    border-style: solid;
+    border-color: #212529
+}
+
+.layui-input,
+.layui-select,
+.layui-textarea {
+    @extend .public-border;
+}
+
+.layui-form-label {
+    background-color: unset;
+    border: unset;
+    text-align: right;
+    color: #212529;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.layuimini-form>.layui-form-item>.layui-input-block tip,
+.layuimini-form>.layui-form-item>.layui-inline tip {
+    font-size: 14px;
+}
+
+.layui-layer-easy .layui-layer-title {
+    background: unset !important;
+    color: #212529 !important;
+    font-size: 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.layui-layer-easy .layui-layer-btn {
+    background: unset !important;
+}
+
+.layui-layer-easy .layui-layer-btn a {
+    @extend .layui-btn;
+    color: #212529 !important;
+
+    &.layui-layer-btn0 {
+        color: #fff !important;
+        background-color: #209cee;
+
+        &::after {
+            box-shadow: inset (-$border-line-width) (-$border-line-width) #006bb3;
+        }
+
+        &:hover {
+            background-color: #108de0;
+        }
+    }
+}
+
+
+.layui-layer-dialog .layui-layer-content {
+    font-size: 16px;
+}
+
+.layui-layer-easy .layui-layer-setwin>span {
+    color: #212529;
+}
+
+.layui-layer-easy .layui-layer-setwin>span:after {
+
+    color: #212529;
+}
+
+.layui-layer-easy .layui-layer-setwin .layui-layer-max::after,
+.layui-layer-easy .layui-layer-setwin .layui-layer-max::before {
+    border-color: #212529;
+}
+
+.layui-layer-easy .layui-layer-setwin .layui-layer-min::before {
+    background-color: #212529;
+}
+
+
+.layui-layer {
+    @extend .public-border;
+
+}
+
+.layui-card {
+    @extend .public-border;
+
+    .layui-card-header {
+        font-size: 18px;
+    }
+
+}
+
+.layuimini-main {
+    @extend .public-border;
+}
+
+.layui-table-box {
+    @extend .public-border;
+    border-image-outset: 1;
+    margin-top: 5px;
+}
+
+.layuimini-container .layui-table-box .layui-table-header th {
+
+    color: #212529 !important;
+}
+
+.layui-table tbody tr:hover,
+.layui-table thead tr,
+.layui-table-click,
+.layui-table-header,
+.layui-table-hover,
+.layui-table-mend,
+.layui-table-patch,
+.layui-table-tool,
+.layui-table-total,
+.layui-table-total tr {
+    background-color: unset;
+}
+
+.layui-table-header .layui-table {
+    margin-bottom: 0;
+}
+
+.layui-badge,
+.layui-badge-rim {
+    position: relative;
+    border-radius: 0;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        pointer-events: none;
+        box-shadow: 0 4px #209cee, 0 -4px #209cee, 4px 0 #209cee, -4px 0 #209cee;
+    }
+
+    &.layui-bg-blue {
+        background-color: #209cee;
+
+        &::after {
+            box-shadow: 0 4px #209cee, 0 -4px #209cee, 4px 0 #209cee, -4px 0 #209cee;
+
+        }
+    }
+
+    &.layui-bg-gray {
+        background-color: #92cc41;
+
+        &::after {
+            box-shadow: 0 4px #92cc41, 0 -4px #92cc41, 4px 0 #92cc41, -4px 0 #92cc41;
+
+        }
+    }
+}
+
+.layuimini-color .elem-content li {
+    cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0, pointer;
+}

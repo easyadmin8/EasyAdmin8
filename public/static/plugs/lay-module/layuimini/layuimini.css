@@ -607,7 +607,6 @@
 }
 
 .layuimini-color .more-menu-item {
-    color: #595959;
     height: 50px;
     line-height: 50px;
     font-size: 16px;
@@ -615,10 +614,6 @@
     border-bottom: 1px solid #e8e8e8;
     font-style: normal;
     display: block;
-}
-
-.layuimini-color .more-menu-item:hover {
-    background-color: whitesmoke;
 }
 
 .layuimini-color .more-menu-item:after {

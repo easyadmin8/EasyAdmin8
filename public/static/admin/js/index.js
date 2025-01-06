@@ -1,4 +1,4 @@
-define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTab", "swiper"], function ($, ea, echarts, undefined, miniAdmin, miniTab) {
+define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTheme", "miniTab", "swiper"], function ($, ea, echarts, undefined, miniAdmin, miniTheme, miniTab) {
 
     return {
         index: function () {
@@ -24,28 +24,6 @@ define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTa
                         window.location = ea.url('login/index');
                     })
                 });
-            });
-            layui.form.on('switch(header-theme-mode)', function (data) {
-                let dark_mode = this.checked
-                let that = $('iframe').contents()
-                if (dark_mode) {
-                    $('#layuicss-theme-dark').attr({
-                        rel: "stylesheet",
-                        type: "text/css",
-                        href: "/static/admin/css/layui-theme-dark.css"
-                    })
-                        .appendTo("head");
-                    that.find("html").addClass('dark')
-                    $('html').addClass('dark')
-                } else {
-                    $('#layuicss-theme-dark').attr({
-                        rel: "stylesheet",
-                        type: "text/css",
-                        href: ""
-                    })
-                    that.find("html").removeClass('dark')
-                    $('html').removeClass('dark')
-                }
             });
         },
         welcome: function () {

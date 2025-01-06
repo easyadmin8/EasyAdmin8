@@ -1,19 +1,21 @@
 @import url("../../plugs/layui-v2.x/css/layui.css");
 @import url("../../plugs/font-awesome-4.7.0/css/font-awesome.min.css");
+@import url("../css/color.css");
+@import url("../css/themes/index.css");
 @import url("../css/iconfont.css");
 
-html, body {
+html,
+body {
     height: 100%;
-    background: #f2f2f2;
-}
-
-html.dark, body {
-    height: 100%;
-    background: var(--lay-color-bg-1);
 }
 
 .ws-header-theme .layui-form-switch {
     vertical-align: baseline;
+}
+
+.ws-header-theme .layui-form-onswitch {
+    background: #333333;
+    border: 1px solid rgba(255, 255, 255, .7);
 }
 
 .layuimini-container {
@@ -58,10 +60,8 @@ html.dark, body {
 }
 
 .hr-line {
-    color: #fff;
     height: 1px;
     margin: 30px 0;
-    background-color: #fff;
     border-top: 1px dashed #e7eaec;
 }
 
@@ -84,7 +84,6 @@ html.dark, body {
     margin: 0;
     border: 1px solid #e6e6e6;
     padding: 10px 20px 5px 20px;
-    color: #6b6b6b;
 }
 
 /**数据表格-搜索表单样式*/
@@ -265,7 +264,6 @@ table样式
 
 .layuimini-container .layui-table-box .layui-table-header th {
     font-weight: bold !important;
-    color: #565656 !important;
 }
 
 /**
@@ -340,7 +338,7 @@ table样式
 弹出层样式
  */
 .layui-layer-easy .layui-layer-title {
-    background: #2c3e50 !important;
+    background: var(--lay-color-bg-5);
     color: #fff !important;
     border-bottom: none;
 }
@@ -363,7 +361,6 @@ table样式
 .layui-layer-easy .layui-layer-btn {
     text-align: center !important;
     padding: 10px !important;
-    background: #ecf0f1;
     overflow: hidden;
 }
 

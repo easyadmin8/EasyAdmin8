@@ -6,7 +6,7 @@
  */
 
 
-define(["jquery", "miniMenu", "miniTheme", "miniTab"], function ($, miniMenu, miniTheme, miniTab) {
+define(["jquery", "miniMenu", "miniTheme", "miniTab", "colorMode"], function ($, miniMenu, miniTheme, miniTab, colorMode) {
 
     var $ = layui.$,
         layer = layui.layer,
@@ -104,7 +104,7 @@ define(["jquery", "miniMenu", "miniTheme", "miniTab"], function ($, miniMenu, mi
          * @param clearUrl
          */
         renderClear: function (clearUrl) {
-            $('.layuimini-clear').attr('data-href',clearUrl);
+            $('.layuimini-clear').attr('data-href', clearUrl);
         },
 
         /**
@@ -171,7 +171,7 @@ define(["jquery", "miniMenu", "miniTheme", "miniTab"], function ($, miniMenu, mi
                 el.msExitFullscreen();
             } else if (el.oRequestFullscreen) {
                 el.oCancelFullScreen();
-            }else if (el.mozCancelFullScreen) {
+            } else if (el.mozCancelFullScreen) {
                 el.mozCancelFullScreen();
             } else if (el.webkitCancelFullScreen) {
                 el.webkitCancelFullScreen();
@@ -243,6 +243,92 @@ define(["jquery", "miniMenu", "miniTheme", "miniTab"], function ($, miniMenu, mi
          */
         listen: function () {
 
+            layui.form.on('switch(header-theme-mode)', function (data) {
+                let checked = data.elem.checked;
+                let mode = checked ? 'dark' : 'light';
+                changeTheme(mode);
+            });
+
+            /**
+             * 浅色和暗色主题切换
+             */
+            const theme = colorMode.init({
+                onChanged(mode, defaultHandler) {
+                    const isAppearanceTransition =
+                        document.startViewTransition && !window.matchMedia(`(prefers-reduced-motion: reduce)`).matches;
+                    const isDark = mode === 'dark';
+                    //跟随windows系统主题色的变化而变化，但没法保存选择的元素风格
+                    // var darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                    // var preferredDark = darkThemeMediaQuery.matches;
+                    // var currMode = preferredDark ? 'dark' : 'light';
+                    // changeTheme(currMode);
+                    $('#change-theme').attr('class', `layui-icon layui-icon-${isDark ? 'moon' : 'light'}`);
+
+                    if (!isAppearanceTransition) {
+                        defaultHandler();
+                    } else {
+                        rippleViewTransition(isDark, function () {
+                            // 动画需要
+                            document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+                            defaultHandler();
+                        });
+                    }
+                },
+            });
+
+            //切换特效
+            function rippleViewTransition(isDark, callback) {
+                // 移植自 https://github.com/vuejs/vitepress/pull/2347
+                // 支持 Chrome 111+
+                const x = event.clientX;
+                const y = event.clientY;
+                const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+                const transition = document.startViewTransition(function () {
+                    callback && callback();
+                });
+                transition.ready.then(function () {
+                    var clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`];
+                    document.documentElement.animate(
+                        {
+                            clipPath: isDark ? clipPath : [...clipPath].reverse(),
+                        },
+                        {
+                            duration: 300,
+                            easing: 'ease-in',
+                            pseudoElement: isDark ? '::view-transition-new(root)' : '::view-transition-old(root)',
+                        }
+                    );
+                });
+            }
+
+            //改变主题
+            function changeTheme(mode) {
+                switch (mode) {
+                    case 'dark':
+                        localStorage.setItem('layuiminiBgColorId', '1');
+                        localStorage.setItem('layuiminiElemStyleName', 'dark');
+                        changeBgColor(1);
+                        break;
+                    case 'light':
+                        localStorage.setItem('layuiminiBgColorId', '0');
+                        localStorage.setItem('layuiminiElemStyleName', 'normal');
+                        changeBgColor(0);
+                        break
+                }
+                window.onInitElemStyle()
+            }
+
+            //改变配色
+            function changeBgColor(id) {
+                $('.layuimini-color .color-content ul .layui-this').attr('class', '');
+                $(this).attr('class', 'layui-this');
+                localStorage.setItem('layuiminiBgColorId', id);
+                miniTheme.render({
+                    bgColorDefault: id,
+                    listen: false,
+                });
+            }
+
             /**
              * 清理
              */
@@ -289,14 +375,14 @@ define(["jquery", "miniMenu", "miniTheme", "miniTab"], function ($, miniMenu, mi
                     tips = $(this).prop("innerHTML"),
                     isShow = $('.layuimini-tool i').attr('data-side-fold');
                 if (isShow == 0 && tips) {
-                    tips = "<ul class='layuimini-menu-left-zoom layui-nav layui-nav-tree layui-this'><li class='layui-nav-item layui-nav-itemed'>"+tips+"</li></ul>" ;
+                    tips = "<ul class='layuimini-menu-left-zoom layui-nav layui-nav-tree layui-this'><li class='layui-nav-item layui-nav-itemed'>" + tips + "</li></ul>";
                     window.openTips = layer.tips(tips, $(this), {
                         tips: [2, '#2f4056'],
                         time: 300000,
-                        skin:"popup-tips",
-                        success:function (el) {
-                            var left = $(el).position().left - 10 ;
-                            $(el).css({ left:left });
+                        skin: "popup-tips",
+                        success: function (el) {
+                            var left = $(el).position().left - 10;
+                            $(el).css({left: left});
                             element.render();
                         }
                     });
@@ -343,7 +429,6 @@ define(["jquery", "miniMenu", "miniTheme", "miniTab"], function ($, miniMenu, mi
 
         }
     };
-
 
 
     return miniAdmin;

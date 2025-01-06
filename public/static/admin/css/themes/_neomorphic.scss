@@ -1,0 +1,284 @@
+$main-color:#61677C;
+
+& {
+    background-color: #EBECF0;
+}
+
+.layui-layout-admin .layui-header {
+    background-color: #EBECF0 !important;
+
+}
+
+.layuimini-container .layui-btn-success {
+
+    color: #4bb368;
+}
+
+.layuimini-container .layui-btn-danger {
+    color: #f56c6c;
+}
+
+.layuimini-container .layuimini-btn-primary {
+    color: #2c3e50;
+}
+
+.layuimini-container .layui-btn-primary {
+    color: #5f5f5f;
+}
+
+.layuimini-container .layui-btn-normal {
+    color: #1e9fff;
+}
+
+.layui-btn {
+    border: 0;
+    outline: 0;
+    border-radius: 10px;
+    background-color: #EBECF0;
+    text-shadow: 1px 1px 0 #FFF;
+    color: $main-color;
+    box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    font-weight: 600;
+
+    &:hover {
+        box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+    }
+}
+
+
+.layui-table-tool .layui-inline[lay-event] {
+    @extend .layui-btn;
+}
+
+.layuimini-main {
+    @extend .layui-btn;
+    text-shadow: 0.5px 0.5px 0 #fff;
+}
+
+.layui-layer {
+    @extend .layui-btn;
+}
+
+.layui-layer-easy .layui-layer-title {
+    background-color: transparent !important;
+    color: $main-color !important;
+}
+
+.layui-layer-easy .layui-layer-setwin>span {
+    color: $main-color !important;
+
+    &::before {
+        border-color: $main-color !important;
+    }
+
+    &::after {
+        border-color: $main-color !important;
+    }
+
+}
+
+.layui-layer-easy .layui-layer-setwin .layui-layer-min::before {
+    background-color: $main-color !important;
+}
+
+.layui-card {
+    @extend .layui-btn;
+    text-shadow: 0.5px 0.5px 0 #fff;
+}
+
+.layuimini-container .layui-table-tool {
+    background-color: transparent;
+}
+
+.layui-table {
+    background-color: #EBECF0;
+}
+
+.panel {
+    @extend .layui-btn;
+    text-shadow: 0.5px 0.5px 0 #fff;
+}
+
+.layuimini-qiuck-module {
+    @extend .layui-btn;
+
+    i {
+        background-color: transparent
+    }
+}
+
+.layui-side.layui-bg-black,
+.layui-side.layui-bg-black>.layuimini-menu-left>ul,
+.layuimini-menu-left-zoom>ul {
+    @extend .layui-btn;
+    background-color: #EBECF0 !important;
+    border-radius: 0;
+}
+
+
+.layuimini-menu-left .layui-nav .layui-nav-item a,
+.layuimini-menu-left-zoom.layui-nav .layui-nav-item a {
+    @extend .layui-btn;
+
+    &:hover {
+        box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+    }
+}
+
+.layui-nav-tree .layui-nav-item {
+    margin: 10px;
+    width: calc(100% - 20px);
+}
+
+.layuimini-menu-left .layui-nav-itemed>.layui-nav-child {
+    background-color: transparent !important;
+}
+
+.layui-nav-tree .layui-nav-child dd {
+    margin: 10px;
+    width: calc(100% - 20px);
+}
+
+.layuimini-menu-left .layui-nav-tree .layui-this,
+.layuimini-menu-left .layui-nav-tree .layui-this>a,
+.layuimini-menu-left .layui-nav-tree .layui-nav-child dd.layui-this,
+.layuimini-menu-left .layui-nav-tree .layui-nav-child dd.layui-this a,
+.layuimini-menu-left-zoom.layui-nav-tree .layui-this,
+.layuimini-menu-left-zoom.layui-nav-tree .layui-this>a,
+.layuimini-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this,
+.layuimini-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this a {
+    background-color: inherit !important;
+}
+
+.layuimini-menu-left .layui-nav .layui-nav-item a:hover,
+.layuimini-menu-left .layui-nav .layui-this a,
+.layuimini-menu-left-zoom.layui-nav .layui-nav-item a:hover,
+.layuimini-menu-left-zoom.layui-nav .layui-this a {
+    color: $main-color !important;
+}
+
+.layui-layout-admin .layuimini-logo {
+    background-color: transparent !important;
+}
+
+.layui-header {
+    .layuimini-header-menu>.layui-nav-item {
+        @extend .layui-btn;
+        margin: 10px;
+        line-height: 40px !important;
+        height: 40px !important;
+    }
+
+    .layui-nav .layui-nav-item {
+        @extend .layui-btn;
+        margin: 10px;
+        line-height: 40px !important;
+        height: 40px !important;
+    }
+}
+
+
+.layui-btn-xs {
+    padding: 0 9px;
+}
+
+.layui-input,
+.layui-textarea {
+    border: 0;
+    outline: 0;
+    font-size: 16px;
+    border-radius: 320px;
+    padding: 16px;
+    background-color: #EBECF0;
+    text-shadow: 1px 1px 0 #FFF;
+    margin-right: 8px;
+    box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.layuimini-upload .layuimini-upload-btn {
+    background-color: transparent !important;
+}
+
+.layui-form-pane .layui-form-label {
+    background-color: transparent;
+    text-align: right;
+}
+
+.layuimini-container .layui-form-select dl dd.layui-this {
+    background-color: transparent !important;
+    color: #2c3e50
+}
+
+.layuimini-color .elem-content li.layui-this {
+    text-shadow: 0.5px 0.5px 0 #FFF;
+}
+
+.layui-form-select dl {
+    @extend .layui-btn;
+}
+
+.layui-form-checkbox {
+
+    @extend .layui-btn;
+    padding: 10px 10px 10px 24px;
+}
+
+.layui-form-checkbox>i {
+    left: 6px;
+    top: 10px;
+    text-shadow: 0.5px 0.5px 0 #fff;
+}
+
+.layui-form-checked:hover>div,
+.layui-form-checked>div {
+
+    color: #16b777;
+}
+
+.layui-tree,
+.laytable-cell-checkbox {
+
+    .layui-form-checkbox[lay-skin="primary"] {
+        padding: 13px;
+    }
+
+    .layui-form-checkbox[lay-skin="primary"]>i {
+        left: 5px;
+        top: 5px
+    }
+}
+
+.layui-tree-txt {
+    margin-left: 10px
+}
+
+.layui-form-radio {
+    @extend .layui-btn;
+
+}
+
+.layui-form-radio:hover>*,
+.layui-form-radioed,
+.layui-form-radioed>i {
+    color: #16b777;
+}
+
+.layui-table-tips-c {
+    text-shadow: 0.5px 0.5px 0 #fff;
+
+}
+
+.layuimini-tab .layui-tab-title {
+    background-color: #EBECF0;
+}
+
+.layuimini-tab .layui-tab-control>li {
+    background-color: #EBECF0;
+}

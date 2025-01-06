@@ -1,0 +1,81 @@
+.layui-btn {
+    color           : #808185 !important;
+    background-color: #cde7ff !important;
+    border          : 1px solid #d3dde6 !important;
+}
+
+.layui-layer-easy .layui-layer-title {
+    background-color: rgb(215, 215, 215) !important;
+    color           : #6C6E71 !important;
+}
+
+.layui-layer-easy .layui-layer-setwin>a::after {
+    color: #6C6E71 !important;
+}
+
+.layui-layer-easy .layui-layer-btn .layui-layer-btn0 {
+    color           : #808185 !important;
+    background-color: #cde7ff !important;
+    border          : 1px solid #d3dde6 !important;
+}
+
+.layuimini-tab .layui-tab-title .layuimini-tab-active {
+    display: none !important;
+}
+
+.layuimini-tab .layui-tab-title li {
+    padding     : 0 5px !important;
+    font-size   : 12px;
+    border-width: 1px 1px 1px 0 !important;
+    border-style: solid !important;
+
+}
+
+.layuimini-tab .layui-tab-title li.layui-this {
+    color       : #fff !important;
+    border-color: rgba(0, 0, 255, 1) !important;
+    background  : rgba(90, 173, 255, 1) !important;
+}
+
+.layuimini-tab .layui-tab-title .layui-this span {
+    color: #fff !important;
+}
+
+.layuimini-tab>.layui-tab-title li,
+.layuimini-tab>.close-box li {
+    line-height: 27px !important;
+}
+
+.layuimini-tab>.layui-tab-title,
+.layuimini-tab>.close-box {
+    height: 28px !important;
+}
+
+.layuimini-tab .layui-tab-control>li {
+    height     : 28px !important;
+    line-height: 28px !important;
+}
+
+.layuimini-container .layui-laypage .layui-laypage-curr .layui-laypage-em {
+    background-color: #6C6E71 !important;
+}
+
+.layuimini-container .layui-form-onswitch {
+    background-color: #cde7ff !important;
+    border-color    : #cde7ff !important;
+}
+
+.layuimini-container .layui-form-switch {
+
+    background-color: #6C6E71;
+    border-color    : #6C6E71;
+}
+
+.layui-table-tool .layui-inline[lay-event] {
+    border-color: transparent;
+}
+
+.layui-form-checked[lay-skin="primary"] i {
+    border-color    : #cde7ff !important;
+    background-color: #cde7ff !important;
+}

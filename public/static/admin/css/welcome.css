@@ -48,7 +48,6 @@
     position: relative;
     top: 2px;
     display: block;
-    color: #666;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;

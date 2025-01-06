@@ -41,7 +41,7 @@ define(["jquery"], function ($) {
                     headerRightBg: '#23262e', //头部右侧背景色
                     headerRightBgThis: '#0c0c0c', //头部右侧选中背景色,
                     headerRightColor: 'rgba(255,255,255,.7)', //头部右侧字体颜色,
-                    headerRightChildColor: '#676767', //头部右侧下拉字体颜色,
+                    headerRightChildColor: '#ffffff', //头部右侧下拉字体颜色,
                     headerRightColorThis: '#ffffff', //头部右侧鼠标选中,
                     headerRightNavMore: 'rgba(255,255,255,.7)', //头部右侧更多下拉颜色,
                     headerRightNavMoreBg: '#1aa094', //头部右侧更多下拉列表选中背景色,
@@ -51,9 +51,9 @@ define(["jquery"], function ($) {
                     headerLogoColor: '#ffffff', //logo字体颜色,
                     leftMenuNavMore: 'rgb(191, 187, 187)', //左侧菜单更多下拉样式,
                     leftMenuBg: '#23262e', //左侧菜单背景,
-                    leftMenuBgThis: '#737373', //左侧菜单选中背景,
-                    leftMenuChildBg: 'rgba(0,0,0,.3)', //左侧菜单子菜单背景,
-                    leftMenuColor: 'rgb(191, 187, 187)', //左侧菜单字体颜色,
+                    leftMenuBgThis: '#484849', //左侧菜单选中背景,
+                    leftMenuChildBg: '#23262e', //左侧菜单子菜单背景,
+                    leftMenuColor: 'rgba(255,255,255,.9)', //左侧菜单字体颜色,
                     leftMenuColorThis: '#ffffff', //左侧菜单选中字体颜色,
                     tabActiveColor: '#23262e', //tab选项卡选中颜色,
                 },
@@ -272,7 +272,7 @@ define(["jquery"], function ($) {
         render: function (options) {
             options.bgColorDefault = options.bgColorDefault || false;
             options.listen = options.listen || false;
-            var bgcolorId = sessionStorage.getItem('layuiminiBgcolorId');
+            var bgcolorId = localStorage.getItem('layuiminiBgColorId');
             if (bgcolorId === null || bgcolorId === undefined || bgcolorId === '') {
                 bgcolorId = options.bgColorDefault;
             }
@@ -280,6 +280,21 @@ define(["jquery"], function ($) {
             if (options.listen) miniTheme.listen(options);
         },
 
+        renderElemStyle(elemStyleDefault) {
+            elemStyleDefault = elemStyleDefault || 'light';
+            let elemStyleName = localStorage.getItem('layuiminiElemStyleName');
+            if (!elemStyleName) elemStyleName = elemStyleDefault;
+            let themeModeEle = $('input[name=theme-mode]')
+            if (themeModeEle.length > 0) {
+                if (elemStyleName == 'dark') {
+                    themeModeEle.prop('checked', true);
+                } else {
+                    themeModeEle.prop('checked', false);
+                }
+                layui.form.render('checkbox', 'header-theme-mode');
+            }
+            miniTheme.buildBodyElemStyle(elemStyleName);
+        },
         /**
          * 构建主题样式
          * @param bgcolorId
@@ -386,7 +401,85 @@ define(["jquery"], function ($) {
                 '}\n';
             $('#layuimini-bg-color').html(styleHtml);
         },
+        configElemStyle() {
+            var listElemStyle = [
+                {
+                    title: '标准',
+                    className: 'normal'
+                },
+                {
+                    title: '原型',
+                    className: 'demo',
+                    defaultColorConfig: '12'
+                },
+                {
+                    title: '科幻',
+                    className: 'sicfi'
+                },
+                {
+                    title: 'GTK',
+                    className: 'gtk'
+                },
+                {
+                    title: '像素',
+                    className: 'nes',
+                    defaultColorConfig: '12'
+                },
+                {
+                    title: 'WIN7',
+                    className: 'win7',
+                    defaultColorConfig: '12'
+                },
+                {
+                    title: '拟物',
+                    className: 'neomorphic',
 
+                },
+                {
+                    title: '暗黑',
+                    className: 'dark',
+                    defaultColorConfig: '1'
+
+                },
+            ]
+            return listElemStyle;
+        },
+        buildBodyElemStyle(className) {
+
+            var listElemStyle = miniTheme.configElemStyle()
+
+            $.each(listElemStyle, function (index, item) {
+                var classNameReal = 'elem-style-' + item.className;
+                if ($('body').hasClass(classNameReal)) {
+                    $('body').removeClass(classNameReal);
+                }
+            })
+
+            $('body').addClass('elem-style-' + className)
+        },
+        buildElemStyleHtml(options) {
+            var elemStyleName = localStorage.getItem('layuiminiElemStyleName');
+            if (!elemStyleName) elemStyleName = options.elemStyleDefault;
+            var listElemStyle = miniTheme.configElemStyle()
+            var html = '';
+            $.each(listElemStyle, function (key, val) {
+
+                if (typeof val.defaultColorConfig == 'undefined') {
+                    val.defaultColorConfig = '0'
+                }
+
+                if (val.className === elemStyleName) {
+                    html += '<li class="layui-this style-item" data-select-style="' + val.className + '" data-default-color-config="' + val.defaultColorConfig + '">\n';
+                } else {
+                    html += '<li id="' + val.className + '" class="style-item"  data-select-style="' + val.className + '" data-default-color-config="' + val.defaultColorConfig + '">\n';
+                }
+                html +=
+                    val.title +
+
+                    '</li>';
+            });
+            return html;
+        },
         /**
          * 构建主题选择html
          * @param options
@@ -394,7 +487,7 @@ define(["jquery"], function ($) {
          */
         buildBgColorHtml: function (options) {
             options.bgColorDefault = options.bgColorDefault || 0;
-            var bgcolorId = parseInt(sessionStorage.getItem('layuiminiBgcolorId'));
+            var bgcolorId = parseInt(sessionStorage.getItem('layuiminiBgColorId'));
             if (isNaN(bgcolorId)) bgcolorId = options.bgColorDefault;
             var bgColorConfig = miniTheme.config();
             var html = '';
@@ -457,9 +550,26 @@ define(["jquery"], function ($) {
                 var bgcolorId = $(this).attr('data-select-bgcolor');
                 $('.layuimini-color .color-content ul .layui-this').attr('class', '');
                 $(this).attr('class', 'layui-this');
-                sessionStorage.setItem('layuiminiBgcolorId', bgcolorId);
+                sessionStorage.setItem('layuiminiBgColorId', bgcolorId);
                 miniTheme.render({
                     bgColorDefault: bgcolorId,
+                    listen: false,
+                });
+            });
+            $('body').on('click', '[data-select-style]', function () {
+                var elemStyleName = $(this).attr('data-select-style');
+
+                $(this).attr('class', 'layui-this').siblings().removeClass('layui-this');
+
+                var defaultColorConfig = $(this).attr('data-default-color-config');
+
+                if (defaultColorConfig && defaultColorConfig.length > 0) {
+                    localStorage.setItem('layuiminiBgColorId', defaultColorConfig);
+
+                }
+
+                localStorage.setItem('layuiminiElemStyleName', elemStyleName);
+                miniTheme.render({
                     listen: false,
                 });
             });
