@@ -133,7 +133,7 @@ body {
     color: #a29c9c;
 }
 
-.layui-form-item xm-select {
+.tableSearch-xmSelect xm-select {
     min-height: 30px !important;
     line-height: 30px !important;
     margin: 0 !important;
