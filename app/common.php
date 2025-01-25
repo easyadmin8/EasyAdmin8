@@ -66,6 +66,30 @@ if (!function_exists('sysConfig')) {
     }
 }
 
+
+if (!function_exists('sysConfigValue')) {
+
+    /**
+     * 获取系统配置参数值，只建议在后台使用
+     * @param string $group
+     * @param string $name
+     * @return mixed
+     */
+    function sysConfigValue(string $group='',string $name=''): string
+    {
+        $data = \app\admin\model\SystemConfig::select();
+        foreach ($data as $row) {
+            if ($row['name'] == $name) {
+                if (!$group) return $row['value'];
+                else{
+                    if ($row['group'] == $group) return $row['value'];
+                }
+            }
+        }
+        return '';
+    }
+}
+
 if (!function_exists('array_format_key')) {
 
     /**
