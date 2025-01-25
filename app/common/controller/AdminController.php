@@ -24,6 +24,11 @@ class AdminController extends BaseController
     protected object $model;
 
     /**
+     * 统一使用 notes 选项参数
+     */
+    protected array $notes;
+
+    /**
      * 字段排序
      * @var array
      */
