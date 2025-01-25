@@ -37,6 +37,11 @@ abstract class BaseController
     protected $middleware = [];
 
     /**
+     * 统一使用 notes 选项参数
+     */
+    protected array $notes;
+
+    /**
      * 构造方法
      * @access public
      * @param  App  $app  应用对象

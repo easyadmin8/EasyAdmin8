@@ -11,8 +11,6 @@ use think\App;
 class {{controllerName}} extends AdminController
 {
 
-    private array $notes;
-
     public function __construct(App $app)
     {
         parent::__construct($app);
