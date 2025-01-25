@@ -73,7 +73,7 @@ if (!function_exists('sysConfigValue')) {
      * 获取系统配置参数值，只建议在后台使用
      * @param string $group
      * @param string $name
-     * @return mixed
+     * @return string
      */
     function sysConfigValue(string $group='',string $name=''): string
     {
