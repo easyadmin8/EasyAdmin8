@@ -10,6 +10,9 @@ use app\admin\service\annotation\NodeAnnotation;
 use app\admin\service\NodeService;
 use app\Request;
 use think\App;
+use think\db\exception\DataNotFoundException;
+use think\db\exception\DbException;
+use think\db\exception\ModelNotFoundException;
 use think\response\Json;
 
 #[ControllerAnnotation(title: '系统节点管理')]
@@ -19,7 +22,7 @@ class Node extends AdminController
     public function __construct(App $app)
     {
         parent::__construct($app);
-        $this->model = new SystemNode();
+        self::$model = SystemNode::class;
     }
 
     #[NodeAnnotation(title: '列表', auth: true)]
@@ -29,10 +32,8 @@ class Node extends AdminController
             if (input('selectFields')) {
                 return $this->selectList();
             }
-            $count = $this->model
-                ->count();
-            $list  = $this->model
-                ->getNodeTreeList();
+            $count = self::$model::count();
+            $list  = self::$model::getNodeTreeList();
             $data  = [
                 'code'  => 0,
                 'msg'   => '',
@@ -51,15 +52,14 @@ class Node extends AdminController
         $this->checkPostRequest();
         $nodeList = (new NodeService())->getNodeList();
         empty($nodeList) && $this->error('暂无需要更新的系统节点');
-        $model = new SystemNode();
 
         try {
             if ($force == 1) {
-                $updateNodeList = $model->whereIn('node', array_column($nodeList, 'node'))->select();
+                $updateNodeList = self::$model::whereIn('node', array_column($nodeList, 'node'))->select();
                 $formatNodeList = array_format_key($nodeList, 'node');
                 foreach ($updateNodeList as $vo) {
                     isset($formatNodeList[$vo['node']])
-                    && $model->where('id', $vo['id'])->update(
+                    && self::$model::where('id', $vo['id'])->update(
                         [
                             'title'   => $formatNodeList[$vo['node']]['title'],
                             'is_auth' => $formatNodeList[$vo['node']]['is_auth'],
@@ -67,7 +67,7 @@ class Node extends AdminController
                     );
                 }
             }
-            $existNodeList = $model->field('node,title,type,is_auth')->select();
+            $existNodeList = self::$model::field('node,title,type,is_auth')->select();
             foreach ($nodeList as $key => $vo) {
                 foreach ($existNodeList as $v) {
                     if ($vo['node'] == $v->node) {
@@ -76,8 +76,10 @@ class Node extends AdminController
                     }
                 }
             }
-            $model->saveAll($nodeList);
-            TriggerService::updateNode();
+            if (!empty($nodeList)) {
+                (new self::$model)->saveAll($nodeList);
+                TriggerService::updateNode();
+            }
         }catch (\Exception $e) {
             $this->error('节点更新失败');
         }
@@ -89,12 +91,11 @@ class Node extends AdminController
     {
         $this->checkPostRequest();
         $nodeList = (new NodeService())->getNodeList();
-        $model    = new SystemNode();
         try {
-            $existNodeList  = $model->field('id,node,title,type,is_auth')->select()->toArray();
+            $existNodeList  = self::$model::field('id,node,title,type,is_auth')->select()->toArray();
             $formatNodeList = array_format_key($nodeList, 'node');
             foreach ($existNodeList as $vo) {
-                !isset($formatNodeList[$vo['node']]) && $model->where('id', $vo['id'])->delete();
+                !isset($formatNodeList[$vo['node']]) && self::$model::where('id', $vo['id'])->delete();
             }
             TriggerService::updateNode();
         }catch (\Exception $e) {

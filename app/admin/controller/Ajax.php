@@ -109,24 +109,21 @@ class Ajax extends AdminController
      */
     public function getUploadFiles(Request $request): Json
     {
-        $get         = $request->get();
-        $page        = !empty($get['page']) ? $get['page'] : 1;
-        $limit       = !empty($get['limit']) ? $get['limit'] : 10;
-        $title       = !empty($get['title']) ? $get['title'] : null;
-        $this->model = new SystemUploadfile();
-        $count       = $this->model
-            ->where(function (Query $query) use ($title) {
-                !empty($title) && $query->where('original_name', 'like', "%{$title}%");
-            })
+        $get   = $request->get();
+        $page  = !empty($get['page']) ? $get['page'] : 1;
+        $limit = !empty($get['limit']) ? $get['limit'] : 10;
+        $title = !empty($get['title']) ? $get['title'] : null;
+        $count = SystemUploadfile::where(function(Query $query) use ($title) {
+            !empty($title) && $query->where('original_name', 'like', "%{$title}%");
+        })
             ->count();
-        $list        = $this->model
-            ->where(function (Query $query) use ($title) {
-                !empty($title) && $query->where('original_name', 'like', "%{$title}%");
-            })
+        $list  = SystemUploadfile::where(function(Query $query) use ($title) {
+            !empty($title) && $query->where('original_name', 'like', "%{$title}%");
+        })
             ->page($page, $limit)
             ->order($this->sort)
             ->select()->toArray();
-        $data        = [
+        $data  = [
             'code'  => 0,
             'msg'   => '',
             'count' => $count,
@@ -149,7 +146,7 @@ class Ajax extends AdminController
         $upload_allow_size = $uploadConfig['upload_allow_size'];
         $_upload_allow_ext = explode(',', $uploadConfig['upload_allow_ext']);
         $upload_allow_ext  = [];
-        array_map(function ($value) use (&$upload_allow_ext) {
+        array_map(function($value) use (&$upload_allow_ext) {
             $upload_allow_ext[] = '.' . $value;
         }, $_upload_allow_ext);
         $config      = [
@@ -213,4 +210,23 @@ class Ajax extends AdminController
                 return json($config);
         }
     }
+
+    public function composerInfo(): Json
+    {
+        $lockFilePath = root_path() . '/composer.lock';
+        $list         = [];
+        if (file_exists($lockFilePath)) {
+            $lockFileContent = file_get_contents($lockFilePath);
+            if ($lockFileContent !== false) {
+                $lockData = json_decode($lockFileContent, true);
+                if (!empty($lockData['packages'])) {
+                    foreach ($lockData['packages'] as $package) {
+                        $list[] = ['name' => $package['name'], 'version' => $package['version']];
+                    }
+                }
+            }
+        }
+        $this->success('success', $list);
+    }
+
 }

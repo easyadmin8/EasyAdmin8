@@ -7,6 +7,11 @@ use app\common\model\TimeModel;
 class SystemQuick extends TimeModel
 {
 
-    protected $deleteTime = 'delete_time';
+    protected function getOptions(): array
+    {
+        return [
+            'deleteTime' => 'delete_time',
+        ];
+    }
 
 }

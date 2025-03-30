@@ -8,6 +8,11 @@ use app\common\model\TimeModel;
 class MallCate extends TimeModel
 {
 
-    protected $deleteTime = 'delete_time';
+    protected function getOptions(): array
+    {
+        return [
+            'deleteTime' => 'delete_time',
+        ];
+    }
 
 }

@@ -21,7 +21,7 @@ class Quick extends AdminController
     public function __construct(App $app)
     {
         parent::__construct($app);
-        $this->model = new SystemQuick();
+        self::$model = SystemQuick::class;
     }
 
 }

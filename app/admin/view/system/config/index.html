@@ -1,22 +1,16 @@
 <div class="layuimini-container">
     <div class="layuimini-main" id="app">
 
-        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-            <ul class="layui-tab-title">
+        <div class="layui-tabs layui-tabs-card layui-panel " id="docDemoTabBrief">
+            <ul class="layui-tabs-header layui-bg-tint">
                 <li class="layui-this" data-group="site">网站设置</li>
                 <li data-group="logo">LOGO配置</li>
                 <li data-group="upload">上传配置</li>
             </ul>
-            <div class="layui-tab-content">
-                <div class="layui-tab-item layui-show">
-                    {include file="system/config/site" /}
-                </div>
-                <div class="layui-tab-item">
-                    {include file="system/config/logo" /}
-                </div>
-                <div class="layui-tab-item">
-                    {include file="system/config/upload" /}
-                </div>
+            <div class="layui-tabs-body">
+                <div class="layui-tabs-item layui-show"> {include file="system/config/site" /}</div>
+                <div class="layui-tabs-item"> {include file="system/config/logo" /}</div>
+                <div class="layui-tabs-item">{include file="system/config/upload" /}</div>
             </div>
         </div>
 

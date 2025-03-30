@@ -22,7 +22,7 @@ class Log extends AdminController
     public function __construct(App $app)
     {
         parent::__construct($app);
-        $this->model = new SystemLog();
+        self::$model = SystemLog::class;
     }
 
     #[NodeAnnotation(title: '列表', auth: true)]
@@ -34,7 +34,7 @@ class Log extends AdminController
             }
             [$page, $limit, $where, $excludeFields] = $this->buildTableParams(['month']);
             $month = !empty($excludeFields['month']) ? date('Ym', strtotime($excludeFields['month'])) : date('Ym');
-            $model = $this->model->setMonth($month)->with('admin')->where($where);
+            $model = (new self::$model)->setSuffix("_$month")->with('admin')->where($where);
             try {
                 $count = $model->count();
                 $list  = $model->page($page, $limit)->order($this->sort)->select();
@@ -54,13 +54,14 @@ class Log extends AdminController
     }
 
     #[NodeAnnotation(title: '导出', auth: true)]
-    public function export(): bool
+    public function export()
     {
         if (env('EASYADMIN.IS_DEMO', false)) {
             $this->error('演示环境下不允许操作');
         }
         [$page, $limit, $where, $excludeFields] = $this->buildTableParams(['month']);
-        $tableName = $this->model->getName();
+        $month     = !empty($excludeFields['month']) ? date('Ym', strtotime($excludeFields['month'])) : date('Ym');
+        $tableName = (new self::$model)->setSuffix("_$month")->getName();
         $tableName = CommonTool::humpToLine(lcfirst($tableName));
         $prefix    = config('database.connections.mysql.prefix');
         $dbList    = Db::query("show full columns from {$prefix}{$tableName}");
@@ -71,20 +72,60 @@ class Log extends AdminController
                 $header[] = [$comment, $vo['Field']];
             }
         }
-        $month = !empty($excludeFields['month']) ? date('Ym', strtotime($excludeFields['month'])) : date('Ym');
-        $model = $this->model->setMonth($month)->with('admin')->where($where);
+        $model = (new self::$model)->setSuffix("_$month")->with('admin')->where($where);
         try {
             $list = $model
-                ->where($where)
-                ->limit(100000)
+                ->limit(10000)
                 ->order('id', 'desc')
                 ->select()
                 ->toArray();
-        }catch (PDOException|DbException $exception) {
+            foreach ($list as &$vo) {
+                $vo['content']  = json_encode($vo['content'], JSON_UNESCAPED_UNICODE);
+                $vo['response'] = json_encode($vo['response'], JSON_UNESCAPED_UNICODE);
+            }
+            exportExcel($header, $list, '操作日志');
+        }catch (\Throwable $exception) {
             $this->error($exception->getMessage());
         }
-        $fileName = time();
-        return Excel::exportData($list, $header, $fileName, 'xlsx');
+    }
+
+
+    #[NodeAnnotation(title: '删除指定日志', auth: true)]
+    public function deleteMonthLog(Request $request)
+    {
+        if (!$request->isAjax()) {
+            return $this->fetch();
+        }
+
+        if ($this->isDemo) $this->error('演示环境下不允许操作');
+
+        $monthsAgo = $request->param('month/d', 0);
+        if ($monthsAgo < 1) $this->error('月份错误');
+
+        $currentDate = new \DateTime();
+        $currentDate->modify("-$monthsAgo months");
+
+        $dbPrefix   = env('DB_PREFIX');
+        $dbLike     = "{$dbPrefix}system_log_";
+        $tables     = Db::query("SHOW TABLES LIKE '$dbLike%'");
+        $threshold  = date('Ym', strtotime("-$monthsAgo month"));
+        $tableNames = [];
+        try {
+            foreach ($tables as $table) {
+                $tableName = current($table);
+                if (!preg_match("/^$dbLike\d{6}$/", $tableName)) continue;
+                $datePart   = substr($tableName, -6);
+                $issetTable = Db::query("SHOW TABLES LIKE '$tableName'");
+                if (!$issetTable) continue;
+                if ($datePart - $threshold <= 0) {
+                    Db::execute("DROP TABLE `$tableName`");
+                    $tableNames[] = $tableName;
+                }
+            }
+        }catch (PDOException) {
+        }
+        if (empty($tableNames)) $this->error('没有需要删除的表');
+        $this->success('操作成功 - 共删除 ' . count($tableNames) . ' 张表<br/>' . implode('<br>', $tableNames));
     }
 
     #[MiddlewareAnnotation(ignore: MiddlewareAnnotation::IGNORE_LOG)]

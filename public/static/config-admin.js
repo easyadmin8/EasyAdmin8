@@ -5,11 +5,9 @@ require.config({
     baseUrl: BASE_URL,
     paths: {
         "jquery": ["plugs/jquery-3.4.1/jquery-3.4.1.min"],
-        "jquery-particleground": ["plugs/jq-module/jquery.particleground.min"],
         "echarts": ["plugs/echarts/echarts.min"],
         "echarts-theme": ["plugs/echarts/echarts-theme"],
         "easy-admin": ["plugs/easy-admin/easy-admin"],
-        "layuiall": ["plugs/layui-v2.x/layui.all"],
         "layui": ["plugs/layui-v2.x/layui"],
         "miniAdmin": ["plugs/lay-module/layuimini/miniAdmin"],
         "miniMenu": ["plugs/lay-module/layuimini/miniMenu"],
@@ -24,6 +22,7 @@ require.config({
         "vue": ["plugs/vue-2.6.10/vue.min"],
         "swiper": ["plugs/swiper/swiper-bundle.min"],
         "colorMode": ["plugs/colorMode/colorMode"],
+        "lazyload": ["plugs/lazyload/lazyload.min"],
     }
 });
 

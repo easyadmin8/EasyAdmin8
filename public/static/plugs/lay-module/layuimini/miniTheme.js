@@ -41,20 +41,20 @@ define(["jquery"], function ($) {
                     headerRightBg: '#23262e', //头部右侧背景色
                     headerRightBgThis: '#0c0c0c', //头部右侧选中背景色,
                     headerRightColor: 'rgba(255,255,255,.7)', //头部右侧字体颜色,
-                    headerRightChildColor: '#ffffff', //头部右侧下拉字体颜色,
-                    headerRightColorThis: '#ffffff', //头部右侧鼠标选中,
+                    headerRightChildColor: 'rgba(255,255,255,.7)', //头部右侧下拉字体颜色,
+                    headerRightColorThis: 'rgba(255,255,255,.7)', //头部右侧鼠标选中,
                     headerRightNavMore: 'rgba(255,255,255,.7)', //头部右侧更多下拉颜色,
                     headerRightNavMoreBg: '#1aa094', //头部右侧更多下拉列表选中背景色,
-                    headerRightNavMoreColor: '#ffffff', //头部右侧更多下拉列表字体色,
+                    headerRightNavMoreColor: 'rgba(255,255,255,.7)', //头部右侧更多下拉列表字体色,
                     headerRightToolColor: '#bbe3df', //头部缩放按钮样式,
                     headerLogoBg: '#0c0c0c', //logo背景颜色,
-                    headerLogoColor: '#ffffff', //logo字体颜色,
+                    headerLogoColor: 'rgba(255,255,255,.7)', //logo字体颜色,
                     leftMenuNavMore: 'rgb(191, 187, 187)', //左侧菜单更多下拉样式,
                     leftMenuBg: '#23262e', //左侧菜单背景,
                     leftMenuBgThis: '#484849', //左侧菜单选中背景,
                     leftMenuChildBg: '#23262e', //左侧菜单子菜单背景,
                     leftMenuColor: 'rgba(255,255,255,.9)', //左侧菜单字体颜色,
-                    leftMenuColorThis: '#ffffff', //左侧菜单选中字体颜色,
+                    leftMenuColorThis: 'rgba(255,255,255,.7)', //左侧菜单选中字体颜色,
                     tabActiveColor: '#23262e', //tab选项卡选中颜色,
                 },
                 {
@@ -487,7 +487,7 @@ define(["jquery"], function ($) {
          */
         buildBgColorHtml: function (options) {
             options.bgColorDefault = options.bgColorDefault || 0;
-            var bgcolorId = parseInt(sessionStorage.getItem('layuiminiBgColorId'));
+            var bgcolorId = parseInt(localStorage.getItem('layuiminiBgColorId'));
             if (isNaN(bgcolorId)) bgcolorId = options.bgColorDefault;
             var bgColorConfig = miniTheme.config();
             var html = '';
@@ -550,7 +550,7 @@ define(["jquery"], function ($) {
                 var bgcolorId = $(this).attr('data-select-bgcolor');
                 $('.layuimini-color .color-content ul .layui-this').attr('class', '');
                 $(this).attr('class', 'layui-this');
-                sessionStorage.setItem('layuiminiBgColorId', bgcolorId);
+                localStorage.setItem('layuiminiBgColorId', bgcolorId);
                 miniTheme.render({
                     bgColorDefault: bgcolorId,
                     listen: false,

@@ -23,16 +23,16 @@ class Auth extends AdminController
     public function __construct(App $app)
     {
         parent::__construct($app);
-        $this->model = new SystemAuth();
+        self::$model = SystemAuth::class;
     }
 
     #[NodeAnnotation(title: '授权', auth: true)]
     public function authorize(Request $request, $id): string
     {
-        $row = $this->model->find($id);
+        $row = self::$model::find($id);
         empty($row) && $this->error('数据不存在');
         if ($request->isAjax()) {
-            $list = $this->model->getAuthorizeNodeListByAdminId($id);
+            $list = self::$model::getAuthorizeNodeListByAdminId($id);
             $this->success('获取成功', $list);
         }
         $this->assign('row', $row);
@@ -46,7 +46,7 @@ class Auth extends AdminController
         $id   = $request->post('id');
         $node = $request->post('node', "[]");
         $node = json_decode($node, true);
-        $row  = $this->model->find($id);
+        $row  = self::$model::find($id);
         empty($row) && $this->error('数据不存在');
         try {
             $authNode = new SystemAuthNode();

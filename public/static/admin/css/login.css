@@ -1,3 +1,6 @@
+body {
+    background: #333333;
+}
 
 .demo {
     padding-top: 20px;
@@ -170,7 +173,6 @@
 }
 
 .container {
-    background: #333333;
     position: static;
     font-size: 12px;
     height: 100%;

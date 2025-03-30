@@ -1040,7 +1040,7 @@ class BuildCurd
                 $relation     = CommonTool::lineToHump($key);
                 $relationCode = "->withJoin('{$relation}', 'LEFT')\r";
                 if (!empty($val['bindSelectField']) && !empty($val['primaryKey'])) {
-                    $constructRelation = '$notes["' . lcfirst($val['modelFilename']) . ucfirst($val['bindSelectField']) . '"] = \app\admin\model\\' . $val['modelFilename'] . '::column("' . $val['bindSelectField'] . '", "' . $val['primaryKey'] . '");';
+                    $constructRelation = '$notes["' . lcfirst($val['foreignKey']) . '"] = \app\admin\model\\' . $val['modelFilename'] . '::column("' . $val['bindSelectField'] . '", "' . $val['primaryKey'] . '");';
                 }
             }
             $controllerIndexMethod = CommonTool::replaceTemplate(
@@ -1240,7 +1240,7 @@ class BuildCurd
             } elseif ($val['formType'] == 'select') {
                 $templateFile = "view{$this->DS}module{$this->DS}select";
                 if (isset($val['bindRelation'])) {
-                    $define = $this->buildOptionView($val['bindRelation']);
+                    $define = $this->buildOptionView($field);
                 } elseif (!empty($val['define'])) {
                     $define = $this->buildOptionView($field);
                 }
@@ -1314,7 +1314,7 @@ class BuildCurd
             } elseif ($val['formType'] == 'select') {
                 $templateFile = "view{$this->DS}module{$this->DS}select";
                 if (isset($val['bindRelation'])) {
-                    $define = $this->buildOptionView($val['bindRelation'], '{in name="k" value="$row.' . $field . '"}selected=""{/in}');
+                    $define = $this->buildOptionView($field, '{in name="k" value="$row.' . $field . '"}selected=""{/in}');
                 } elseif (!empty($val['define'])) {
                     $define = $this->buildOptionView($field, '{in name="k" value="$row.' . $field . '"}selected=""{/in}');
                 }
@@ -1361,7 +1361,9 @@ class BuildCurd
 
             if ($val['formType'] == 'image') {
                 $templateValue = "{field: '{$field}', title: '{$val['comment']}', templet: ea.table.image}";
-            } elseif ($val['formType'] == 'images') {
+            } elseif ($val['formType'] == 'datetime') {
+                $templateValue = "{field: '{$field}', search: 'range', title: '{$val['comment']}'}";
+            }  elseif ($val['formType'] == 'images') {
                 continue;
             } elseif ($val['formType'] == 'file') {
                 $templateValue = "{field: '{$field}', title: '{$val['comment']}', templet: ea.table.url}";
@@ -1415,10 +1417,10 @@ class BuildCurd
                 } elseif (in_array($field, $this->sortFields)) {
                     $templateValue = "{field: '{$table}.{$field}', title: '{$val['comment']}', edit: 'text'}";
                 } else {
-                    $templateValue = "{field: '{$table}.{$field}', title: '{$val['comment']}'}";
+                    $templateValue = "";
                 }
 
-                $indexCols .= $this->formatColsRow("{$templateValue},\r");
+                if ($templateValue) $indexCols .= $this->formatColsRow("{$templateValue},\r");
             }
         }
 

@@ -19,9 +19,9 @@ class AdminController extends BaseController
     /**
      * 当前模型
      * @Model
-     * @var object
+     * @var mixed
      */
-    protected object $model;
+    protected static mixed $model;
 
     /**
      * 字段排序
@@ -43,6 +43,12 @@ class AdminController extends BaseController
         'is_auth',
         'title',
     ];
+
+    /**
+     * 过滤节点更新
+     * @var array
+     */
+    protected array $ignoreNode = [];
 
     /**
      * 不导出的字段信息
@@ -166,7 +172,7 @@ class AdminController extends BaseController
         $where    = [];
         $excludes = [];
         // 判断是否关联查询
-        $tableName = Str::snake(lcfirst($this->model->getName()));
+        $tableName = Str::snake(lcfirst((new self::$model)->getName()));
         foreach ($filters as $key => $val) {
             if (in_array($key, $excludeFields)) {
                 $excludes[$key] = $val;
@@ -212,7 +218,7 @@ class AdminController extends BaseController
     public function selectList(): Json
     {
         $fields = input('selectFields');
-        $data   = $this->model->where($this->selectWhere)->field($fields)->select()->toArray();
+        $data   = self::$model::where($this->selectWhere)->field($fields)->select()->toArray();
         $this->success(null, $data);
     }
 
@@ -243,7 +249,7 @@ class AdminController extends BaseController
             'version'              => env('APP_DEBUG') ? time() : ConfigService::getVersion(),
             'adminUploadUrl'       => url('ajax/upload', [], false),
             'adminEditor'          => sysConfig('site', 'editor_type') ?: 'wangEditor',
-            'iframeOpenTop'           => sysConfig('site', 'iframe_open_top') ?: 0,
+            'iframeOpenTop'        => sysConfig('site', 'iframe_open_top') ?: 0,
         ];
         View::assign($data);
     }

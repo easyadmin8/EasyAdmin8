@@ -68,6 +68,14 @@ class Node
                 // 遍历读取所有方法的注释的参数信息
                 foreach ($methods as $method) {
 
+                    // 忽略掉不需要的节点
+                    $property           = $reflectionClass->getProperty('ignoreNode');
+                    $propertyAttributes = $property->getAttributes(NodeAnnotation::class);
+                    if (!empty($propertyAttributes[0])) {
+                        $propertyAttribute = $propertyAttributes[0]->newInstance();
+                        if (in_array($method->name, $propertyAttribute->ignore)) continue;
+                    }
+
                     $attributes = $reflectionClass->getMethod($method->name)->getAttributes(NodeAnnotation::class);
                     foreach ($attributes as $attribute) {
                         $annotation = $attribute->newInstance();
@@ -93,7 +101,7 @@ class Node
                             'type'    => 1,
                         ];
                     }
-                    $nodeList             = array_merge($nodeList, $actionList);
+                    $nodeList = array_merge($nodeList, $actionList);
                 }
 
             }

@@ -571,3 +571,22 @@ INSERT INTO `ea_system_uploadfile`
 VALUES ('290', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/2c412adf1b30c8be3a913e603c7b6e4a.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
 INSERT INTO `ea_system_uploadfile`
 VALUES ('296', 'cos', 'image/jpeg', 'https://easyadmin-1251997243.cos.ap-guangzhou.myqcloud.com/upload/20191114/2381eaf81208ac188fa994b6f2579953.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
+
+-- ----------------------------
+-- Table structure for ea_system_log
+-- ----------------------------
+DROP TABLE IF EXISTS `ea_system_log`;
+CREATE TABLE `ea_system_log`
+(
+    `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `admin_id` int unsigned DEFAULT '0' COMMENT '管理员ID',
+    `url` varchar(1500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '操作页面',
+    `method` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '请求方法',
+    `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '日志标题',
+    `content` json NOT NULL COMMENT '请求数据',
+    `response` json DEFAULT NULL COMMENT '回调数据',
+    `ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT 'IP',
+    `useragent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT 'User-Agent',
+    `create_time` int DEFAULT NULL COMMENT '操作时间',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='后台操作日志表 - 202412';

@@ -14,27 +14,19 @@ class TimeModel extends Model
 {
 
     /**
-     * 自动时间戳类型
-     * @var string
-     */
-    protected $autoWriteTimestamp = true;
-
-    /**
-     * 添加时间
-     * @var string
-     */
-    protected $createTime = 'create_time';
-
-    /**
-     * 更新时间
-     * @var string
-     */
-    protected $updateTime = 'update_time';
-
-    /**
      * 软删除
      */
     use SoftDelete;
-    protected $deleteTime = false;
+
+    protected function getOptions(): array
+    {
+        return [
+            'autoWriteTimestamp' => true,
+            'createTime'         => 'create_time',
+            'updateTime'         => 'update_time',
+            'deleteTime'         => false,
+        ];
+    }
+
 
 }

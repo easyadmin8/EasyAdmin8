@@ -8,10 +8,12 @@ use think\model\relation\HasOne;
 
 class MallGoods extends TimeModel
 {
-
-    protected $table = "";
-
-    protected $deleteTime = 'delete_time';
+    protected function getOptions(): array
+    {
+        return [
+            'deleteTime' => 'delete_time',
+        ];
+    }
 
     // * +++++++++++++++++++++++++++
     // | 以下两种写法适用于 with 关联

@@ -4,6 +4,7 @@ use app\admin\middleware\CheckInstall;
 use app\admin\middleware\CheckLogin;
 use app\admin\middleware\CheckAuth;
 use app\admin\middleware\SystemLog;
+use app\admin\middleware\RateLimiting;
 
 // 你可以在这里继续写你需要的路由
 
@@ -16,6 +17,8 @@ use app\admin\middleware\SystemLog;
 
 return [
     'middleware' => [
+        // 限流中间件
+        RateLimiting::class,
         // 判断是否已经安装后台系统
         CheckInstall::class,
         // 检测是否登录

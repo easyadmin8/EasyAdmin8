@@ -6,8 +6,8 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static/plugs/layui-v2.x/css/layui.css?v={:time()}" media="all">
-    <link rel="stylesheet" href="/static/common/css/insatll.css?v={:time()}" media="all">
+    <link rel="stylesheet" href="/static/plugs/layui-v2.x/css/layui.css" media="all">
+    <link rel="stylesheet" href="/static/common/css/install.css?v={:time()}" media="all">
 </head>
 <body>
 <h1><img src="/static/common/images/logo-1.png" alt="" style="width: 100px;height: 100px;"></h1>
@@ -32,45 +32,50 @@
         </div>
         {/if}
         <div class="bg">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    自动读取 .env 配置，不需要手动创建数据库
+                </div>
+            </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">数据库地址</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" name="hostname" autocomplete="off" lay-verify="required" lay-reqtext="请输入数据库地址" placeholder="请输入数据库地址" value="127.0.0.1">
+                    <input class="layui-input" name="hostname" autocomplete="off" lay-verify="required" lay-reqtext="请输入数据库地址" placeholder="请输入数据库地址" value="{$envInfo.DB_HOST}">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">数据库端口</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" name="hostport" autocomplete="off" lay-verify="required" lay-reqtext="请输入数据库端口" placeholder="请输入数据库端口" value="3306">
+                    <input class="layui-input" name="hostport" autocomplete="off" lay-verify="required" lay-reqtext="请输入数据库端口" placeholder="请输入数据库端口" value="{$envInfo.DB_PORT}">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">数据库名称</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" name="database" autocomplete="off" lay-verify="required" lay-reqtext="请输入数据库名称" placeholder="请输入数据库名称" value="easyadmin8">
+                    <input class="layui-input" name="database" autocomplete="off" lay-verify="required" lay-reqtext="请输入数据库名称" placeholder="请输入数据库名称" value="{$envInfo.DB_NAME}">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">数据表前缀</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" name="prefix" autocomplete="off" lay-verify="required" lay-reqtext="请输入数据表前缀" placeholder="请输入数据表前缀" value="ea8_">
+                    <input class="layui-input" name="prefix" autocomplete="off" lay-verify="required" lay-reqtext="请输入数据表前缀" placeholder="请输入数据表前缀" value="{$envInfo.DB_PREFIX}">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">数据库账号</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" name="db_username" autocomplete="off" lay-verify="required" lay-reqtext="请输入数据库账号" placeholder="请输入数据库账号" value="root">
+                    <input class="layui-input" name="db_username" autocomplete="off" lay-verify="required" lay-reqtext="请输入数据库账号" placeholder="请输入数据库账号" value="{$envInfo.DB_USER}">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">数据库密码</label>
                 <div class="layui-input-block">
-                    <input type="password" class="layui-input" name="db_password" autocomplete="off" lay-verify="required" lay-reqtext="请输入数据库密码" placeholder="请输入数据库密码">
+                    <input type="password" class="layui-input" name="db_password" autocomplete="off" lay-verify="required" lay-reqtext="请输入数据库密码" placeholder="请输入数据库密码" value="{$envInfo.DB_PASS}">
                 </div>
             </div>
 
@@ -111,11 +116,11 @@
         </div>
     </form>
 </div>
-<script src="static/plugs/layui-v2.x/layui.js?v={:time()}" charset="utf-8"></script>
+<script src="static/plugs/layui-v2.x/layui.js" charset="utf-8"></script>
 <script>
     let isInstall = '{$isInstall? 1 : 0}'
     layui.use(['form', 'layer'], function () {
-        var $ = layui.jquery,
+        let $ = layui.jquery,
             form = layui.form,
             layer = layui.layer;
         if (isInstall > 0) {
@@ -129,7 +134,7 @@
             })
         }
         $("#admin_url").bind("input propertychange", function () {
-            var val = $(this).val();
+            let val = $(this).val();
             $("#admin_name").text(val);
         });
 
@@ -137,8 +142,8 @@
             if ($(this).hasClass('layui-btn-disabled')) {
                 return false;
             }
-            var _data = data.field;
-            var loading = layer.msg('正在安装...', {
+            let _data = data.field;
+            let loading = layer.msg('正在安装...', {
                 icon: 16,
                 shade: 0.2,
                 time: false
@@ -157,7 +162,7 @@
                             window.location.href = '/admin';
                         });
                     } else {
-                        layer.msg(data.msg, {icon: 2});
+                        layer.msg(data.msg, {icon: 2, shade: 0.2, time: 3000, shadeClose: true});
                     }
                 },
                 error: function (xhr, textstatus, thrown) {

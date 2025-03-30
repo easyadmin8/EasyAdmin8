@@ -4,24 +4,23 @@ namespace app\admin\model;
 
 use app\admin\service\SystemLogService;
 use app\common\model\TimeModel;
+use think\model\relation\BelongsTo;
 
 class SystemLog extends TimeModel
 {
 
-    public function __construct(array $data = [])
-    {
-        parent::__construct($data);
-        $this->name = 'system_log_' . date('Ym');
-    }
+    protected array $type = [
+        'content'  => 'json',
+        'response' => 'json',
+    ];
 
-    public function setMonth($month)
+    protected function init(): void
     {
         SystemLogService::instance()->detectTable();
-        $this->name = 'system_log_' . $month;
-        return $this;
     }
 
-    public function admin()
+
+    public function admin(): BelongsTo
     {
         return $this->belongsTo('app\admin\model\SystemAdmin', 'admin_id', 'id');
     }

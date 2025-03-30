@@ -16,8 +16,8 @@ class {{controllerName}} extends AdminController
     public function __construct(App $app)
     {
         parent::__construct($app);
-        $this->model = new {{modelFilename}}();
-        $this->notes = $notes = $this->model->notes;
+        self::$model = {{modelFilename}}::class;
+        $this->notes = $notes = self::$model::$notes;
         {{constructRelation}}
         $this->assign(compact('notes'));
     }

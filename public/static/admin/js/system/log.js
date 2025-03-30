@@ -6,6 +6,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
         table_render_id: 'currentTableRenderId',
         index_url: 'system.log/index',
         export_url: 'system.log/export',
+        deleteMonthLog_url: 'system.log/deleteMonthLog',
     };
 
     return {
@@ -23,8 +24,15 @@ define(["jquery", "easy-admin"], function ($, ea) {
                         class: 'layui-btn layui-btn-sm',
                         icon: 'fa fa-book',
                         extend: 'data-width="95%" data-height="95%"'
-                    },
-                    ]
+                    }, {
+                        text: '删除部分日志',
+                        url: 'system.log/deleteMonthLog',
+                        method: 'open',
+                        auth: 'deleteMonthLog',
+                        class: 'layui-btn layui-btn-sm layui-btn-danger',
+                        icon: 'fa fa-remove',
+                        extend: 'data-width="35%" data-height="42%"'
+                    },]
                 ],
                 cols: [[
                     {field: 'id', width: 80, title: 'ID', search: false},
@@ -43,7 +51,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
                         field: 'content', minWidth: 200, title: '请求数据', align: "left", templet: function (res) {
                             let html = '<div class="layui-colla-item">' +
                                 '<div class="layui-colla-title">点击预览</div>' +
-                                '<div class="layui-colla-content">' + prettyFormat(res.content) + '</div>' +
+                                '<div class="layui-colla-content">' + prettyFormat(JSON.stringify(res.content)) + '</div>' +
                                 '</div>'
                             return '<div class="layui-collapse" lay-accordion>' + html + '</div>'
                         }
@@ -52,7 +60,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
                         field: 'response', minWidth: 200, title: '回调数据', align: "left", templet: function (res) {
                             let html = '<div class="layui-colla-item">' +
                                 '<div class="layui-colla-title">点击预览</div>' +
-                                '<div class="layui-colla-content">' + prettyFormat(res.response) + '</div>' +
+                                '<div class="layui-colla-content">' + prettyFormat(JSON.stringify(res.response)) + '</div>' +
                                 '</div>'
                             return '<div class="layui-collapse" lay-accordion>' + html + '</div>'
                         }
@@ -65,5 +73,20 @@ define(["jquery", "easy-admin"], function ($, ea) {
             });
             ea.listen();
         },
+        deleteMonthLog: function () {
+            layui.form.on('submit(submit)', function (data) {
+                let field = data.field
+                let options = {
+                    url: ea.url(init.deleteMonthLog_url),
+                    data: field,
+                }
+                ea.msg.confirm('确认执行该操作？重要数据请先做好相关备份！', function () {
+                    ea.request.post(options, function (rs) {
+                        let msg = rs.msg || '未知~'
+                        layer.msg(msg.replace(/\n/g, '<br>'), {shade: 0.3, shadeClose: true, time: 2000})
+                    })
+                })
+            })
+        }
     };
 });

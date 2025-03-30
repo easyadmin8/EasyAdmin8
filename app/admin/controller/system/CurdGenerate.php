@@ -137,6 +137,7 @@ class CurdGenerate extends AdminController
                 $command = $request->post('command', '');
                 if (empty($command)) $this->error('请输入命令');
                 $commandExp = explode(' ', $command);
+                $commandExp = array_values(array_filter($commandExp));
                 try {
 
                     $output = Console::call('curd', [...$commandExp]);

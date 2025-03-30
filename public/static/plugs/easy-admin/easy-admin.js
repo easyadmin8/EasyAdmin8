@@ -1,4 +1,4 @@
-define(["jquery", "tableSelect", "miniTheme", "xmSelect"], function ($, tableSelect, miniTheme, xmSelect) {
+define(["jquery", "tableSelect", "miniTheme", "xmSelect", "lazyload"], function ($, tableSelect, miniTheme, xmSelect, lazyload) {
 
     //切换日夜模式
     window.onInitElemStyle = function () {
@@ -748,8 +748,11 @@ define(["jquery", "tableSelect", "miniTheme", "xmSelect"], function ($, tableSel
                     var values = value.split(option.imageSplit),
                         valuesHtml = [];
                     values.forEach((value, index) => {
-                        valuesHtml.push('<img style="max-width: ' + option.imageWidth + 'px; max-height: ' + option.imageHeight + 'px;" src="' + value + '" data-image="' + title + '">');
+                        valuesHtml.push('<img style="max-width: ' + option.imageWidth + 'px; max-height: ' + option.imageHeight + 'px;" class="lazyload" src="/static/common/images/loading.gif" data-src="' + value + '" data-image="' + title + '">');
                     });
+                    $(function () {
+                        $("img.lazyload").lazyload({threshold: 1});
+                    })
                     return valuesHtml.join(option.imageJoin);
                 }
             },
@@ -1020,8 +1023,9 @@ define(["jquery", "tableSelect", "miniTheme", "xmSelect"], function ($, tableSel
                 maxmin: true,
                 anim: 0,
                 moveOut: true,
-                move: false,
+                shade: 0.3,
                 shadeClose: shadeClose,
+                scrollbar: false,
                 before: function () {
                 },
                 success: function (layero, index) {
@@ -1593,7 +1597,7 @@ define(["jquery", "tableSelect", "miniTheme", "xmSelect"], function ($, tableSel
                                 cols: [[
                                     {type: selectCheck},
                                     {field: 'id', title: 'ID'},
-                                    {field: 'url', minWidth: 80, search: false, title: '图片信息', imageHeight: 40, align: "center", templet: admin.table.image},
+                                    {field: 'url', minWidth: 80, search: false, title: '图片信息', imageHeight: 30, align: "center", templet: admin.table.image},
                                     {field: 'original_name', width: 150, title: '文件原名', align: "center"},
                                     {field: 'mime_type', width: 120, title: 'mime类型', align: "center"},
                                     {field: 'create_time', width: 200, title: '创建时间', align: "center", search: 'range'},
@@ -1761,6 +1765,61 @@ define(["jquery", "tableSelect", "miniTheme", "xmSelect"], function ($, tableSel
                 }
             },
         },
+        ai: {
+            chat: function (content, options, cancel) {
+                let id = 'chat_' + (new Date()).getTime()
+                layer.open({
+                    'title': options?.title || 'AI建议',
+                    type: 1,
+                    area: options?.area || ['42%', '60%'],
+                    shade: options?.shade || 0,
+                    shadeClose: options?.shadeClose || false,
+                    scrollbar: options?.scrollbar || false,
+                    maxmin: options?.maxmin || true,
+                    anim: options?.anim || 0,
+                    content: `<div style="padding: 20px;white-space: pre-wrap;" id="${id}"></div>`,
+                    success: function (layero, index) {
+                        let elem = document.getElementById(id)
+                        if (options?.stream) {
+                            clearTimeout(aiStreamTimeout)
+                            aiStreamCurrentIndex = 0
+                            setTimeout(() => {
+                                admin.ai.streamOutput(elem, content)
+                            }, 300)
+                        } else {
+                            content = content.replace(/\r\n/g, '<br>').replace(/\n/g, '<br>')
+                            setTimeout(() => {
+                                elem.innerHTML = content
+                            }, 100)
+                        }
+                    },
+                    cancel: function (index, layero) {
+                        cancel()
+                    }
+                })
+            },
+            streamOutput: function (dom, htmlContent) {
+                const chunkSize = 1;
+                let length = htmlContent.length;
+                if (aiStreamCurrentIndex < length) {
+                    const endIndex = Math.min(aiStreamCurrentIndex + chunkSize, length);
+                    const chunk = htmlContent.slice(aiStreamCurrentIndex, endIndex);
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = chunk;
+                    while (tempDiv.firstChild) {
+                        dom.appendChild(tempDiv.firstChild);
+                    }
+                    aiStreamCurrentIndex = endIndex;
+                    aiStreamTimeout = setTimeout(() => {
+                        admin.ai.streamOutput(dom, htmlContent);
+                        dom.scrollIntoView({behavior: "smooth", block: "end"});
+                    }, 60);
+                }
+            }
+        },
     };
+    var aiStreamCurrentIndex = 0;
+    var aiStreamTimeout = null;
+
     return admin;
 });

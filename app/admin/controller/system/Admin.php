@@ -24,8 +24,8 @@ class Admin extends AdminController
     public function __construct(App $app)
     {
         parent::__construct($app);
-        $this->model = new SystemAdmin();
-        $this->assign('auth_list', $this->model->getAuthList());
+        self::$model = SystemAdmin::class;
+        $this->assign('auth_list', self::$model::getAuthList());
     }
 
     #[NodeAnnotation(title: '列表', auth: true)]
@@ -36,11 +36,8 @@ class Admin extends AdminController
                 return $this->selectList();
             }
             list($page, $limit, $where) = $this->buildTableParams();
-            $count = $this->model
-                ->where($where)
-                ->count();
-            $list  = $this->model
-                ->withoutField('password')
+            $count = self::$model::where($where)->count();
+            $list  = self::$model::withoutField('password')
                 ->where($where)
                 ->page($page, $limit)
                 ->order($this->sort)
@@ -68,9 +65,9 @@ class Admin extends AdminController
             if (empty($post['password'])) $post['password'] = '123456';
             $post['password'] = password($post['password']);
             try {
-                $save = $this->model->save($post);
+                $save = self::$model::create($post);
             }catch (\Exception $e) {
-                $this->error('保存失败');
+                $this->error('保存失败' . $e->getMessage());
             }
             $save ? $this->success('保存成功') : $this->error('保存失败');
         }
@@ -80,7 +77,7 @@ class Admin extends AdminController
     #[NodeAnnotation(title: '编辑', auth: true)]
     public function edit(Request $request, $id = 0): string
     {
-        $row = $this->model->find($id);
+        $row = self::$model::find($id);
         empty($row) && $this->error('数据不存在');
         if ($request->isPost()) {
             $post             = $request->post();
@@ -88,18 +85,14 @@ class Admin extends AdminController
             $post['auth_ids'] = implode(',', array_keys($authIds));
             $rule             = [];
             $this->validate($post, $rule);
-            if (isset($row['password'])) {
-                unset($row['password']);
-            }
             try {
                 $save = $row->save($post);
                 TriggerService::updateMenu($id);
             }catch (\Exception $e) {
-                $this->error('保存失败');
+                $this->error('保存失败' . $e->getMessage());
             }
             $save ? $this->success('保存成功') : $this->error('保存失败');
         }
-        $row->auth_ids = explode(',', $row->auth_ids ?: '');
         $this->assign('row', $row);
         return $this->fetch();
     }
@@ -107,7 +100,7 @@ class Admin extends AdminController
     #[NodeAnnotation(title: '设置密码', auth: true)]
     public function password(Request $request, $id): string
     {
-        $row = $this->model->find($id);
+        $row = self::$model::find($id);
         empty($row) && $this->error('数据不存在');
         if ($request->isAjax()) {
             $post = $request->post();
@@ -128,7 +121,6 @@ class Admin extends AdminController
             }
             $save ? $this->success('保存成功') : $this->error('保存失败');
         }
-        $row->auth_ids = explode(',', $row->auth_ids ?: '');
         $this->assign('row', $row);
         return $this->fetch();
     }
@@ -138,7 +130,7 @@ class Admin extends AdminController
     {
         $this->checkPostRequest();
         $id  = $request->param('id');
-        $row = $this->model->whereIn('id', $id)->select();
+        $row = self::$model::whereIn('id', $id)->select();
         $row->isEmpty() && $this->error('数据不存在');
         $id == AdminConstant::SUPER_ADMIN_ID && $this->error('超级管理员不允许修改');
         if (is_array($id)) {
@@ -171,7 +163,7 @@ class Admin extends AdminController
         if ($post['id'] == AdminConstant::SUPER_ADMIN_ID && $post['field'] == 'status') {
             $this->error('超级管理员状态不允许修改');
         }
-        $row = $this->model->find($post['id']);
+        $row = self::$model::find($post['id']);
         empty($row) && $this->error('数据不存在');
         try {
             $row->save([

@@ -22,8 +22,8 @@ class Install extends BaseController
             // $this->redirect('/');
             $isInstall = true;
             $errorInfo = '已安装系统，如需重新安装请删除文件：/config/install/lock/install.lock，或者删除 /install 路由';
-        }elseif (version_compare(phpversion(), '8.0.0', '<')) {
-            $errorInfo = 'PHP版本不能小于8.0.0';
+        }elseif (version_compare(phpversion(), '8.1.0', '<')) {
+            $errorInfo = 'PHP版本不能小于8.1.0';
         }elseif (!extension_loaded("PDO")) {
             $errorInfo = '当前未开启PDO，无法进行安装';
         }
@@ -31,9 +31,17 @@ class Install extends BaseController
             $errorInfo = '.env 文件不存在，请先配置 .env 文件';
         }
         if (!$request->isAjax()) {
+            $envInfo     = [
+                'DB_HOST'   => $isInstall ? '' : env('DB_HOST', '127.0.0.1'),
+                'DB_NAME'   => $isInstall ? '' : env('DB_NAME', 'easyadmin8'),
+                'DB_USER'   => $isInstall ? '' : env('DB_USER', 'root'),
+                'DB_PASS'   => $isInstall ? '' : env('DB_PASS', 'root'),
+                'DB_PORT'   => $isInstall ? '' : env('DB_PORT', 3306),
+                'DB_PREFIX' => $isInstall ? '' : env('DB_PREFIX', 'ea8_'),
+            ];
             $currentHost = '://';
-            $result      = compact('errorInfo', 'currentHost', 'isInstall');
-            return view('index/install/index', $result);
+            $result      = compact('errorInfo', 'currentHost', 'isInstall', 'envInfo');
+            return view('index@install/index', $result);
         }
         if ($errorInfo) $this->error($errorInfo);
         $charset    = 'utf8mb4';

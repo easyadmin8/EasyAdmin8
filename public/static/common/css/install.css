@@ -1,31 +1,37 @@
-body{
+body {
     text-align: center;
 }
-h1{
+
+h1 {
     margin-top: 20px;
 }
-h1 img{
+
+h1 img {
     width: 120px;
     height: 120px;
 }
+
 h2 {
     font-size: 28px;
     font-weight: normal;
     color: #3C5675;
     margin-bottom: 0
 }
-.content{
+
+.content {
     margin-top: 20px;
 }
-.content p{
+
+.content p {
     margin: 20px;
 }
-.content form{
-    margin:0 auto;
+
+.content form {
     width: 500px;
-    margin-bottom: 20px;
+    margin: 0 auto 20px;
 }
-.content form .bg{
+
+.content form .bg {
     margin-top: 20px;
     background-color: #fff;
     border: 1px solid #fff;
@@ -33,51 +39,68 @@ h2 {
     padding: 14px 14px;
     box-shadow: 0 0 8px #cccccc;
 }
-.content form .layui-form-item:last-child{
-    margin-bottom:0!important;
+
+.content form .bg .layui-card {
+    background-color: #fafafa;
+    color: #ff8080;
+    font-size: 15px;
+    font-weight: bold;
 }
-.content form .layui-btn{
+
+.content form .layui-form-item:last-child {
+    margin-bottom: 0 !important;
+}
+
+.content form .layui-btn {
     margin-top: 20px;
 }
-.content .layui-elem-field legend{
+
+.content .layui-elem-field legend {
     font-size: 16px;
     color: #8a8a8a;
 }
-.content .tips{
+
+.content .tips {
     float: left;
     margin-top: 5px;
     margin-bottom: 5px;
     font-size: 12px;
     color: #eca6a6
 }
-.content .admin-tips{
+
+.content .admin-tips {
     float: left;
     margin-top: 5px;
     margin-bottom: 5px;
     font-size: 12px;
     color: #eca6a6
 }
-.content .desc{
+
+.content .desc {
     font-size: 16px;
     color: #4E5465;
     margin-bottom: 30px;
 }
-.content .desc a{
+
+.content .desc a {
     color: #07adeb;
     margin-right: 10px;
 }
-.content .desc a:first-child{
+
+.content .desc a:first-child {
     margin-left: 10px;
 }
-.error{
+
+.error {
     background: #D83E3E;
     color: #fff;
     padding: 15px 20px;
     border-radius: 5px;
     margin-bottom: 20px;
 }
-@media screen and (max-width:768px) {
-    .content form{
+
+@media screen and (max-width: 768px) {
+    .content form {
         width: 95%;
     }
 }

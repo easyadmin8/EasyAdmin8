@@ -2,6 +2,7 @@
 
 namespace app\common\service;
 
+use app\admin\service\annotation\NodeAnnotation;
 use app\common\constants\AdminConstant;
 use think\facade\Db;
 
@@ -52,7 +53,7 @@ class AuthService
     /***
      * 构造方法
      * AuthService constructor.
-     * @param  null  $adminId
+     * @param null $adminId
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
@@ -68,7 +69,7 @@ class AuthService
 
     /**
      * 检测检测权限
-     * @param  null  $node
+     * @param null $node
      * @return bool
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
@@ -87,7 +88,7 @@ class AuthService
         // 判断是否需要获取当前节点
         if (empty($node)) {
             $node = $this->getCurrentNode();
-        } else {
+        }else {
             $node = $this->parseNodeStr($node);
         }
         // 判断是否加入节点控制，优先获取缓存信息
@@ -106,7 +107,28 @@ class AuthService
         if (in_array($node, $this->adminNode)) {
             return true;
         }
+        if ($this->checkNodeAnnotationAttrAuth($node)) return true;
         return false;
+    }
+
+    protected function checkNodeAnnotationAttrAuth(string $node): bool
+    {
+        $bool       = false;
+        $controller = request()->controller();
+        try {
+            $controllerExplode = explode('.', $controller);
+            [$_name, $_controller] = $controllerExplode;
+            $nodeExplode     = explode('/', $node);
+            $action          = end($nodeExplode);
+            $reflectionClass = new \ReflectionClass("app\admin\controller\\{$_name}\\{$_controller}");
+            $attributes      = $reflectionClass->getMethod($action)->getAttributes(NodeAnnotation::class);
+            foreach ($attributes as $attribute) {
+                $annotation = $attribute->newInstance();
+                $bool       = $annotation->auth === false;
+            }
+        }catch (\Throwable) {
+        }
+        return $bool;
     }
 
     /**
@@ -130,25 +152,25 @@ class AuthService
     {
         $nodeList  = [];
         $adminInfo = Db::name($this->config['system_admin'])
-                       ->where([
-                                   'id'     => $this->adminId,
-                                   'status' => 1,
-                               ])->find();
+            ->where([
+                'id'     => $this->adminId,
+                'status' => 1,
+            ])->find();
         if (!empty($adminInfo) && !empty($adminInfo['auth_ids'])) {
             $buildAuthSql     = Db::name($this->config['system_auth'])
-                                  ->distinct(true)
-                                  ->whereIn('id', $adminInfo['auth_ids'])
-                                  ->field('id')
-                                  ->buildSql(true);
+                ->distinct(true)
+                ->whereIn('id', $adminInfo['auth_ids'])
+                ->field('id')
+                ->buildSql(true);
             $buildAuthNodeSql = Db::name($this->config['system_auth_node'])
-                                  ->distinct(true)
-                                  ->where("auth_id IN {$buildAuthSql}")
-                                  ->field('node_id')
-                                  ->buildSql(true);
+                ->distinct(true)
+                ->where("auth_id IN {$buildAuthSql}")
+                ->field('node_id')
+                ->buildSql(true);
             $nodeList         = Db::name($this->config['system_node'])
-                                  ->distinct(true)
-                                  ->where("id IN {$buildAuthNodeSql}")
-                                  ->column('node');
+                ->distinct(true)
+                ->where("id IN {$buildAuthNodeSql}")
+                ->column('node');
         }
         return $nodeList;
     }
@@ -162,7 +184,7 @@ class AuthService
     public function getNodeList()
     {
         return Db::name($this->config['system_node'])
-                 ->column('id,node,title,type,is_auth', 'node');
+            ->column('id,node,title,type,is_auth', 'node');
     }
 
     /**
@@ -177,13 +199,13 @@ class AuthService
     public function getAdminInfo()
     {
         return Db::name($this->config['system_admin'])
-                 ->where('id', $this->adminId)
-                 ->find();
+            ->where('id', $this->adminId)
+            ->find();
     }
 
     /**
      * 驼峰转下划线规则
-     * @param  string  $node
+     * @param string $node
      * @return string
      */
     public function parseNodeStr($node)

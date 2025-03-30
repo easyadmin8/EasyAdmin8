@@ -140,6 +140,39 @@ define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTh
                     echartsRecords.resize();
                 });
             })
+
+            let util = layui.util;
+            util.on({
+                showComposerInfo: function () {
+                    // <div style="padding: 25px;">12313</div>
+                    let html = ``
+                    ea.request.post({
+                        url: ea.url('ajax/composerInfo'),
+                    }, function (success) {
+                        let data = success.data
+                        data.forEach(function (item) {
+                            html += `${item.name}  ${item.version}\r\n`
+                        })
+                        html = `<pre class="layui-code code-demo">${html}</pre>`
+                        layer.open({
+                            type: 1,
+                            title: 'composer 信息',
+                            area: ['50%', '90%'],
+                            shade: 0.8,
+                            shadeClose: true,
+                            scrollbar: false,
+                            content: html,
+                            success: function () {
+                                layui.code({elem: '.code-demo', theme: 'dark', lang: 'php'});
+                            }
+                        })
+                    }, function (error) {
+                        console.error(error)
+                        return false;
+                    })
+
+                }
+            })
         },
         editAdmin: function () {
             let form = layui.form

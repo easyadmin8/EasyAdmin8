@@ -100,6 +100,9 @@ class CommonTool
     {
         $arrayString = str_replace('array (', '[', $arrayString);
         $arrayString = str_replace(')', ']', $arrayString);
+        $arrayString = str_replace('=> 
+  [', '=> [', $arrayString);
         return $arrayString;
     }
+    
 }

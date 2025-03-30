@@ -85,13 +85,55 @@ define(["jquery", "easy-admin"], function ($, ea) {
             ea.listen();
         },
         add: function () {
+            layui.util.on({
+                AiOptimization: function (data) {
+                    let layOn = $(data).attr('lay-on')
+                    $(data).attr('lay-on', layOn + 'Loading')
+                    aiOptimization(data)
+                },
+            })
             ea.listen();
         },
         edit: function () {
+            layui.util.on({
+                AiOptimization: function (data) {
+                    let layOn = $(data).attr('lay-on')
+                    $(data).attr('lay-on', layOn + 'Loading')
+                    aiOptimization(data)
+                },
+            })
             ea.listen();
         },
         stock: function () {
             ea.listen();
         },
     };
+
+    function aiOptimization(data) {
+        let layOn = $(data).attr('lay-on')
+        let title = $('input[name="title"]').val()
+
+        // 告诉AI 你需要做什么
+        let message = `优化这个标题 ${title}`
+
+        if ($.trim(title) === '') {
+            ea.msg.error('标题不能为空', function () {
+                $(data).attr('lay-on', layOn.split('Loading')[0])
+            })
+            return false
+        }
+        let url = ea.url('mall.goods/aiOptimization')
+        ea.request.post({url: url, data: {message: message}}, function (res) {
+            let content = res.data?.choices[0]?.message?.content
+            // stream 为true 时，AI 内容会逐字输出
+            let stream = true
+            ea.ai.chat(content, {stream: stream}, function () {
+                $(data).attr('lay-on', layOn.split('Loading')[0])
+            })
+        }, function (error) {
+            ea.msg.error(error.msg, function () {
+                $(data).attr('lay-on', layOn.split('Loading')[0])
+            })
+        })
+    }
 });

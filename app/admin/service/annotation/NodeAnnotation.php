@@ -2,13 +2,12 @@
 
 namespace app\admin\service\annotation;
 
-use Doctrine\Common\Annotations\Annotation\Attributes;
 use Attribute;
 
 /**
  * action 节点注解类
  */
-#[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_METHOD)]
+#[Attribute(Attribute::IS_REPEATABLE | Attribute::TARGET_METHOD| Attribute::TARGET_PROPERTY)]
 final class NodeAnnotation
 {
     /** 过滤节点 */

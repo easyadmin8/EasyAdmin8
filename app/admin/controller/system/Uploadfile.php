@@ -15,7 +15,7 @@ class Uploadfile extends AdminController
     public function __construct(App $app)
     {
         parent::__construct($app);
-        $this->model = new SystemUploadfile();
+        self::$model = SystemUploadfile::class;
         $this->assign('upload_types', config('admin.upload_types'));
     }
 

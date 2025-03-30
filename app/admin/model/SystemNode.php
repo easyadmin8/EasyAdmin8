@@ -7,22 +7,21 @@ use app\common\model\TimeModel;
 class SystemNode extends TimeModel
 {
 
-    public function getNodeTreeList()
+    public static function getNodeTreeList(): array
     {
-        $list = $this->select()->toArray();
-        $list = $this->buildNodeTree($list);
-        return $list;
+        $list = self::select()->toArray();
+        return self::buildNodeTree($list);
     }
 
-    protected function buildNodeTree($list)
+    protected static function buildNodeTree($list): array
     {
-        $newList = [];
+        $newList      = [];
         $repeatString = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
         foreach ($list as $vo) {
             if ($vo['type'] == 1) {
                 $newList[] = $vo;
                 foreach ($list as $v) {
-                    if ($v['type'] == 2 && strpos($v['node'], $vo['node'] . '/') !== false) {
+                    if ($v['type'] == 2 && str_contains($v['node'], $vo['node'] . '/')) {
                         $v['node'] = "{$repeatString}├{$repeatString}" . $v['node'];
                         $newList[] = $v;
                     }

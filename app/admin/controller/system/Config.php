@@ -19,7 +19,7 @@ class Config extends AdminController
     public function __construct(App $app)
     {
         parent::__construct($app);
-        $this->model = new SystemConfig();
+        self::$model = SystemConfig::class;
         $this->assign('upload_types', config('admin.upload_types'));
         $this->assign('editor_types', config('admin.editor_types'));
     }
@@ -42,7 +42,7 @@ class Config extends AdminController
             if ($group == 'upload') {
                 $upload_types = config('admin.upload_types');
                 // 兼容旧版本
-                $this->model->where('name', 'upload_allow_type')->update(['value' => implode(',', array_keys($upload_types))]);
+                self::$model::where('name', 'upload_allow_type')->update(['value' => implode(',', array_keys($upload_types))]);
             }
 
             // 已经缓存的版本号
@@ -60,7 +60,7 @@ class Config extends AdminController
                 if ($this->model->where('name', $key)->count()) {
                     $this->model->where('name', $key)->update(['value' => $val,]);
                 }else {
-                    $this->model->create(
+                    self::$model::create(
                         [
                             'name'  => $key,
                             'value' => $val,
@@ -71,7 +71,7 @@ class Config extends AdminController
             TriggerService::updateMenu();
             TriggerService::updateSysConfig();
         }catch (\Exception $e) {
-            $this->error('保存失败');
+            $this->error('保存失败' . $e->getMessage());
         }
         $this->success('保存成功');
     }
