@@ -9,8 +9,8 @@ use app\admin\service\annotation\ControllerAnnotation;
 use app\admin\service\annotation\NodeAnnotation;
 use app\Request;
 use think\App;
-use think\response\Json;
 use think\facade\Cache;
+use think\response\Json;
 
 #[ControllerAnnotation(title: '系统配置管理')]
 class Config extends AdminController
