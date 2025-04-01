@@ -246,7 +246,7 @@ class AdminController extends BaseController
             'thisControllerJsPath' => "{$thisControllerJsPath}",
             'autoloadJs'           => $autoloadJs,
             'isSuperAdmin'         => $isSuperAdmin,
-            'version'              => env('APP_DEBUG') ? time() : ConfigService::getVersion(),
+            'version'              => env('APP_DEBUG') ? time() : sysConfig('site', 'site_version'),
             'adminUploadUrl'       => url('ajax/upload', [], false),
             'adminEditor'          => sysConfig('site', 'editor_type') ?: 'wangEditor',
             'iframeOpenTop'        => sysConfig('site', 'iframe_open_top') ?: 0,

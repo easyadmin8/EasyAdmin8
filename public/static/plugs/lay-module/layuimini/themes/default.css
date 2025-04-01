@@ -96,3 +96,24 @@
 .layuimini-tab .layui-tab-title .layui-this .layuimini-tab-active {
     background-color: #1e9fff;
 }
+
+#navbar-tabs {
+    height: 100%;
+}
+
+#navbar-tabs .layui-tabs-body {
+    height: calc(100% - 37px) !important;
+    padding: 0;
+}
+
+#navbar-tabs .layui-tabs-body .layui-tabs-item {
+    height: 100%;
+}
+
+#navbar-tabs .layui-tabs-header .layui-this, .layui-tabs-header li:hover {
+    color: #1e9fff;
+}
+
+#navbar-tabs .layui-tabs-header .layui-this:after {
+    border-color: #1e9fff;
+}

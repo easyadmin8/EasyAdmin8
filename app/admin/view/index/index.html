@@ -91,7 +91,17 @@
         <div class="layuimini-site-mobile"><i class="layui-icon"></i></div>
 
         <div class="layui-body">
-            <div class="layuimini-tab layui-tab-rollTool layui-tab" lay-filter="layuiminiTab" lay-allowclose="true">
+            
+            <div class="layui-tabs layui-hide-v" id="navbar-tabs" lay-options="{closable: true, headerMode: 'scroll'}">
+                <ul class="layui-tabs-header">
+                    <li id="layuiminiHomeTabId" lay-id="" lay-closable="false">Tab1</li>
+                </ul>
+                <div class="layui-tabs-body">
+                    <div class="layui-tabs-item" id="layuiminiHomeTabIframe"></div>
+                </div>
+            </div>
+
+            <div class="layuimini-tab layui-tab-rollTool layui-tab" lay-filter="layuiminiTab" lay-allowclose="true" style="display: none;">
                 <ul class="layui-tab-title">
                     <li class="layui-this" id="layuiminiHomeTabId" lay-id=""></li>
                 </ul>

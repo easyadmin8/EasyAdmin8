@@ -9,7 +9,6 @@ use app\admin\service\annotation\ControllerAnnotation;
 use app\admin\service\annotation\NodeAnnotation;
 use app\Request;
 use think\App;
-use think\facade\Cache;
 use think\response\Json;
 
 #[ControllerAnnotation(title: '系统配置管理')]
@@ -44,36 +43,25 @@ class Config extends AdminController
                 // 兼容旧版本
                 self::$model::where('name', 'upload_allow_type')->update(['value' => implode(',', array_keys($upload_types))]);
             }
-
-            // 已经缓存的版本号
-            $version = cache('version');
-
             foreach ($post as $key => $val) {
                 if (in_array($key, $notAddFields)) continue;
-
-                if ($key === 'site_version' && $version !== $val) {
-                    // 更新缓存
-                    cache('site_version', $val);
-                    Cache::set('version', $val, 3600);
-                }
-
-                if ($this->model->where('name', $key)->count()) {
-                    $this->model->where('name', $key)->update(['value' => $val,]);
-                }else {
+                if (self::$model::where('name', $key)->count()) {
+                    self::$model::where('name', $key)->update(['value' => $val,]);
+                } else {
                     self::$model::create(
                         [
                             'name'  => $key,
                             'value' => $val,
                             'group' => $group,
-                        ]);
+                        ]
+                    );
                 }
             }
             TriggerService::updateMenu();
             TriggerService::updateSysConfig();
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $this->error('保存失败' . $e->getMessage());
         }
         $this->success('保存成功');
     }
-
 }

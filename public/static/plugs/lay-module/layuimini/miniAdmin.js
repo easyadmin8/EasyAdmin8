@@ -57,7 +57,7 @@ define(["jquery", "miniMenu", "miniTheme", "miniTab", "colorMode"], function ($,
                         menuChildOpen: options.menuChildOpen
                     });
                     miniTab.render({
-                        filter: 'layuiminiTab',
+                        filter: 'navbar-tabs',
                         urlHashLocation: options.urlHashLocation,
                         multiModule: options.multiModule,
                         menuChildOpen: options.menuChildOpen,
@@ -94,7 +94,8 @@ define(["jquery", "miniMenu", "miniTheme", "miniTab", "colorMode"], function ($,
          */
         renderHome: function (data) {
             sessionStorage.setItem('layuiminiHomeHref', data.href);
-            $('#layuiminiHomeTabId').html('<span class="layuimini-tab-active"></span><span class="disable-close">' + data.title + '</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i>');
+            // $('#layuiminiHomeTabId').html('<span class="layuimini-tab-active"></span><span class="disable-close">' + data.title + '</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i>');
+            $('#layuiminiHomeTabId').html(data.title);
             $('#layuiminiHomeTabId').attr('lay-id', data.href);
             $('#layuiminiHomeTabIframe').html('<iframe width="100%" height="100%" frameborder="no" border="0" marginwidth="0" marginheight="0"  src="' + data.href + '"></iframe>');
         },
