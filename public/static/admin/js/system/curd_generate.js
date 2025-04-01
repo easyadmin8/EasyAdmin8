@@ -18,7 +18,7 @@ define(["jquery", "easy-admin", "miniTab"], function ($, ea, miniTab) {
 <fieldset class="layui-elem-field">
   <legend>提示</legend>
   <div class="layui-field-box">
-  <p><a class="layui-font-blue" target="_blank" rel="nofollow" href="https://edocs.easyadmin8.top/curd/command.html">命令可查询文档</a></p>
+  <p><a class="layui-font-blue" target="_blank" rel="nofollow" href="https://edocs.easyadmin8.top/#/md/curd/command">命令可查询文档</a></p>
   </div>
 </fieldset>
 <form class="layui-form layui-form-pane" action="">
