@@ -432,6 +432,16 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                                                 </div>
                                             </div>`
                                 break;
+                            case 'datetime':
+                                // 适用于日期格式：yyyy-MM-dd HH:mm:ss
+                                d.searchOp = 'datetime';
+                                formHtml += '<div class="layui-form-item layui-inline">\n' +
+                                    '<label class="layui-form-label">' + d.title + '</label>\n' +
+                                    '<div class="layui-input-inline">\n' +
+                                    '<input style="width: 275px;font-size: 0.82rem" id="c-' + d.fieldAlias + '" name="' + d.fieldAlias + '"  data-search-op="' + d.searchOp + '"  value="' + d.searchValue + '" placeholder="' + d.searchTip + '" class="layui-input">\n' +
+                                    '</div>\n' +
+                                    '</div>';
+                                break;
                         }
                         newCols.push(d);
                     }
@@ -464,7 +474,7 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                     })
                     form.render();
                     $.each(newCols, function (ncI, ncV) {
-                        if (ncV.search === 'range') {
+                        if (ncV.search === 'range' || ncV.search === 'datetime') {
                             laydate.render({
                                 range: true, type: ncV.timeType, elem: '[name="' + ncV.fieldAlias + '"]', rangeLinked: true,
                                 shortcuts: getRangeShortcuts()

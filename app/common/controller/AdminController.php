@@ -208,6 +208,11 @@ class AdminController extends BaseController
                     $where[] = [$key, '>=', strtotime($beginTime)];
                     $where[] = [$key, '<=', strtotime($endTime)];
                     break;
+                case 'datetime':
+                    [$beginTime, $endTime] = explode(' - ', $val);
+                    $where[] = [$key, '>=', $beginTime];
+                    $where[] = [$key, '<=', $endTime];
+                    break;
                 default:
                     $where[] = [$key, $op, "%{$val}"];
             }
