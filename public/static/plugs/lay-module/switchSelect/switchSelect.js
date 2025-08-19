@@ -52,7 +52,7 @@ layui.define(['form'], function (exports) {
                     <div class="layui-input-block">
                         <div class="radio-container ${toggleHidden === 'radio' ? 'toggle-hidden' : ''}">${this.generateRadioHtml()}</div>
                         <div class="select-container ${toggleHidden === 'select' ? 'toggle-hidden' : ''}">
-                            <select name="${this.config.name}" lay-filter="switchSelectFilter" class="layui-select">
+                            <select name="${this.config.name}" lay-filter="switchSelectFilter_${this.config.name}" class="layui-select">
                                 ${this.generateSelectHtml()}
                             </select>
                         </div>
@@ -69,7 +69,7 @@ layui.define(['form'], function (exports) {
             let html = '';
             $.map(this.config.data, (item, index) => {
                 let checked = index == this.config.default ? 'checked' : '';
-                html += `\n<input type="radio" name="${this.config.name}" lay-filter="switchSelectFilter" value="${index}" title="${item}" ${checked}>\n`;
+                html += `\n<input type="radio" name="${this.config.name}" lay-filter="switchSelectFilter_${this.config.name}" value="${index}" title="${item}" ${checked}>\n`;
             });
             return html;
         },
@@ -117,16 +117,21 @@ layui.define(['form'], function (exports) {
             });
 
             // 监听单选按钮变化
-            form.on('radio(switchSelectFilter)', function (data) {
-                let value = data.value;
-                elem.find(`select[name="${that.config.name}"]`).val(value);
+            form.on('radio', function (data) {
+                let that = $(this);
+                let name = $(data.elem).attr('name')
+                if (that.attr('lay-filter') !== `switchSelectFilter_${name}`) return;
+                let value = $(data.elem).val()
+                elem.find(`select[name="${name}"]`).val(value);
                 form.render('select');
             });
 
             // 监听下拉框变化
-            form.on('select(selectFilter)', function (data) {
-                let value = data.value;
-                elem.find(`input[name="${that.config.name}"][value="${value}"]`).prop('checked', true);
+            form.on('select', function (data) {
+                let name = $(data.elem).attr('name')
+                if ($(data.elem).attr('lay-filter') !== `switchSelectFilter_${name}`) return;
+                let value = $(data.elem).val()
+                elem.find(`input[name="${name}"][value="${value}"]`).prop('checked', true);
                 form.render('radio');
             });
         },

@@ -4,6 +4,7 @@
 
 .layui-switch-select .radio-container {
     border: 1px solid #eee;
+    padding: 0 5px;
 }
 
 .layui-switch-select .toggle-dots {
@@ -36,4 +37,8 @@
 
 .layui-switch-select .toggle-hidden {
     display: none !important;
+}
+
+.layui-form-pane .layui-switch-select .radio-container {
+    padding: 0;
 }
