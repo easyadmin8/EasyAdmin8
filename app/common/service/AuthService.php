@@ -85,6 +85,10 @@ class AuthService
         if ($this->config['auth_on'] == false) {
             return true;
         }
+        // 验证是否为URL
+        if (filter_var($node, FILTER_VALIDATE_URL)) {
+            return true;
+        }
         // 判断是否需要获取当前节点
         if (empty($node)) {
             $node = $this->getCurrentNode();
