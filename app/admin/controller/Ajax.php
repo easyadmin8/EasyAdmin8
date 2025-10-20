@@ -74,7 +74,7 @@ class Ajax extends AdminController
             'file|文件'                    => "require|file|fileExt:{$uploadConfig['upload_allow_ext']}|fileSize:{$uploadConfig['upload_allow_size']}",
         ];
         $this->validate($data, $rule);
-        $upload_type = $uploadConfig['upload_type'];
+        $upload_type = $data['upload_type'];
         try {
             $upload = UploadService::instance()->setConfig($uploadConfig)->$upload_type($data['file'], $type);
         }catch (\Exception $e) {
