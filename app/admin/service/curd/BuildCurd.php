@@ -1309,12 +1309,12 @@ class BuildCurd
             } elseif ($val['formType'] == 'radio') {
                 $templateFile = "view{$this->DS}module{$this->DS}radio";
                 if (!empty($val['define'])) {
-                    $define = $this->buildRadioView($field, '{if in_array($k, $row.' . $field . ')}checked{/if}');
+                    $define = $this->buildRadioView($field, '{if $row.' . $field . '==$k}checked{/if}');
                 }
             } elseif ($val['formType'] == 'checkbox') {
                 $templateFile = "view{$this->DS}module{$this->DS}checkbox";
                 if (!empty($val['define'])) {
-                    $define = $this->buildCheckboxView($field, '{if in_array($k, $row.' . $field . ')}checked{/if}');
+                    $define = $this->buildCheckboxView($field, '{if $row.' . $field . '==$k}checked{/if}');
                 }
             } elseif ($val['formType'] == 'select') {
                 $templateFile = "view{$this->DS}module{$this->DS}select";
