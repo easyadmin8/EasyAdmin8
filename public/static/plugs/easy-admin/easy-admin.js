@@ -1251,23 +1251,33 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
 
             // 监听搜索表格重置
             $('body').on('click', '[data-table-reset]', function () {
-                var tableId = $(this).attr('data-table-reset');
+                let tableId = $(this).attr('data-table-reset');
                 if (tableId === undefined || tableId === '' || tableId == null) {
                     tableId = init.table_render_id;
                 }
+                let cols = table.getOptions(tableId)?.cols || {}
+                let defaultWhere = {}
+                $.each(cols, function (_, colsV) {
+                    let formatFilter = {}
+                    let formatOp = {}
+                    $.each(colsV, function (i, v) {
+                        if (v.field) {
+                            if (v.searchValue) {
+                                formatFilter[v.field] = v.searchValue
+                                formatOp[v.field] = v.searchOp || '='
+                                defaultWhere['filter'] = JSON.stringify(formatFilter);
+                                defaultWhere['op'] = JSON.stringify(formatOp);
+                            }
+                        }
+                    })
+                })
                 if (Object.keys(init.xmSelectModel).length > 0) {
                     $.each(init.xmSelectModel, function (index, value) {
                         init.xmSelectModel[index].setValue([])
                     })
                 }
                 table.reload(tableId, {
-                    page: {
-                        curr: 1
-                    }
-                    , where: {
-                        filter: '{}',
-                        op: '{}'
-                    }
+                    page: {curr: 1}, where: {...defaultWhere}
                 }, 'data');
             });
 
