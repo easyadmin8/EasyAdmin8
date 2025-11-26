@@ -1815,7 +1815,7 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                         let _name = $(this).attr('data-name') || ''
                         try {
                             new switchSelect({
-                                elem: $(this), data: JSON.parse(_data), default: _value, target: _target, name: _name
+                                elem: $(this), data: JSON.parse(_data), default: _value, target: _target, name: _name, disabled: $(this).attr('disabled') === 'disabled'
                             });
                         } catch (e) {
                             console.error(e)

@@ -15,7 +15,8 @@ layui.define(['form'], function (exports) {
             default: '',    // 默认值
             target: '',     // 默认显示形式
             name: '',       // 表单 name
-            onSwitch: null  // 切换回调
+            onSwitch: null,  // 切换回调
+            disabled: false, // 是否禁用
         }, options);
         this.render();
     };
@@ -69,7 +70,8 @@ layui.define(['form'], function (exports) {
             let html = '';
             $.map(this.config.data, (item, index) => {
                 let checked = index == this.config.default ? 'checked' : '';
-                html += `\n<input type="radio" name="${this.config.name}" lay-filter="switchSelectFilter_${this.config.name}" value="${index}" title="${item}" ${checked}>\n`;
+                let disabled = this.config.disabled ? 'disabled' : '';
+                html += `\n<input type="radio" name="${this.config.name}" lay-filter="switchSelectFilter_${this.config.name}" value="${index}" title="${item}" ${checked} ${disabled}>\n`;
             });
             return html;
         },
@@ -79,7 +81,8 @@ layui.define(['form'], function (exports) {
             let html = '';
             $.map(this.config.data, (item, index) => {
                 let selected = index == this.config.default ? 'selected' : '';
-                html += `\n<option value="${index}" ${selected}>${item}</option>\n`;
+                let disabled = this.config.disabled ? 'disabled' : '';
+                html += `\n<option value="${index}" ${selected} ${disabled}>${item}</option>\n`;
             });
             return html;
         },
