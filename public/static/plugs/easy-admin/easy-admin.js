@@ -1693,6 +1693,7 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                                             uploadImage: {
                                                 server: window.CONFIG.ADMIN_UPLOAD_URL,
                                                 fieldName: 'file',
+                                                maxFileSize: window.CONFIG.MAX_FILE_SIZE,
                                                 meta: {
                                                     editor: 'editor',
                                                 },

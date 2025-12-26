@@ -258,6 +258,7 @@ class AdminController extends BaseController
             'version'              => env('APP_DEBUG') ? time() : ConfigService::getVersion(),
             'adminUploadUrl'       => url('ajax/upload', [], false),
             'adminEditor'          => sysConfig('site', 'editor_type') ?: 'wangEditor',
+            'maxFileSize'          => sysConfig('upload', 'upload_allow_size'),
             'iframeOpenTop'        => sysConfig('site', 'iframe_open_top') ?: 0,
         ];
         View::assign($data);
