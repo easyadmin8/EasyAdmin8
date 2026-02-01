@@ -2,10 +2,10 @@
 <img alt="log" src="public/static/common/images/logo-8.png" />
 
 <p>
-<img src="https://img.shields.io/badge/php-%3E=8.1.0-brightgreen.svg?style=for-the-badge&logo=php&colorB=ff69b4" alt="php">
+<img src="https://img.shields.io/badge/php-%3E=8.2.0-brightgreen.svg?style=for-the-badge&logo=php&colorB=ff69b4" alt="php">
 <img src="https://img.shields.io/badge/mysql-%3E=5.7-brightgreen.svg?style=for-the-badge&logo=mysql&colorB=blue" alt="MySQL">
-<img src="https://img.shields.io/badge/thinkphp-%3E=8.0.0-brightgreen.svg?style=for-the-badge&logo=thinkphp" alt="ThinkPHP">
-<img src="https://img.shields.io/badge/layui-%3E=2.9.0-brightgreen.svg?style=for-the-badge&logo=layui&colorB=orange" alt="layui">
+<img src="https://img.shields.io/badge/thinkphp-%3E=8.1.0-brightgreen.svg?style=for-the-badge&logo=thinkphp" alt="ThinkPHP">
+<img src="https://img.shields.io/badge/layui-%3E=2.0-brightgreen.svg?style=for-the-badge&logo=layui&colorB=orange" alt="layui">
 <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge&logo=license&colorB=purple" alt="License">
 </p>
 
@@ -22,10 +22,10 @@
 ## 项目介绍
 
 > `EasyAdmin8` 在 [`EasyAdmin`](https://gitee.com/zhongshaofa/easyadmin) 的基础上更新 ThinkPHP 框架到 8.1+ ，PHP 最低版本要求不低于 8.1
-> 
-> 2025年起 `PHP` 版本要求提升到 `8.1+`, 如果需要 `8.0` 到分支 `v8.0` 中下载
 >
-> ThinkPHP v8.1+ 和 Layui v2.9.x 的快速开发的后台管理系统。
+> 2026年起 `PHP` 版本要求提升到 `8.2+`, 如果需要其他分支，请自行选择在分支中选择
+>
+> ThinkPHP v8.1+ 和 Layui v2.x 的快速开发的后台管理系统。
 >
 > 项目地址：[http://easyadmin8.top](http://easyadmin8.top)
 >
@@ -105,7 +105,7 @@ if [ -f /usr/bin/curl ];then curl -sSO https://easyadmin8.top/auto-install-EasyA
 
 * [EasyAdmin](http://easyadmin.99php.cn/docs)
 
-* [Layui 2.9.x](https://layui.dev/docs)
+* [Layui 2.x](https://layui.dev/docs)
 
 * [Layuimini](https://github.com/zhongshaofa/layuimini)
 
