@@ -7,8 +7,8 @@
                 return $this->selectList();
             }
             list($page, $limit, $where) = $this->buildTableParams();
-            $count = self::$model::where($where)->{{relationIndexMethod}}->count();
-            $list  = self::$model::where($where)->{{relationIndexMethod}}->page($page, $limit)->order($this->sort)->select()->toArray();
+            $count = $this->model->where($where)->{{relationIndexMethod}}->count();
+            $list  = $this->model->where($where)->{{relationIndexMethod}}->page($page, $limit)->order($this->sort)->select()->toArray();
             $data  = [
                 'code'  => 0,
                 'msg'   => '',

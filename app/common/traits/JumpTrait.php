@@ -54,10 +54,9 @@ trait JumpTrait
      * @param mixed $data 返回的数据
      * @param string|null $url 跳转的 URL 地址
      * @param int $wait 跳转等待时间
-     * @param array $header 发送的 Header 信息
      * @return void
      */
-    protected function error(?string $msg = null, mixed $data = '', ?string $url = null, int $wait = 3, array $header = []): void
+    protected function error(?string $msg = null, mixed $data = '', ?string $url = null, int $wait = 3): void
     {
         if (is_null($url)) {
             $url = request()->isAjax() ? '' : 'javascript:history.back(-1);';

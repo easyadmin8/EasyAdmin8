@@ -24,8 +24,8 @@ class Admin extends AdminController
     public function __construct(App $app)
     {
         parent::__construct($app);
-        self::$model = SystemAdmin::class;
-        $this->assign('auth_list', self::$model::getAuthList());
+        $this->model = new SystemAdmin();
+        $this->assign('auth_list', $this->model->getAuthList());
     }
 
     #[NodeAnnotation(title: '列表', auth: true)]
@@ -36,8 +36,8 @@ class Admin extends AdminController
                 return $this->selectList();
             }
             list($page, $limit, $where) = $this->buildTableParams();
-            $count = self::$model::where($where)->count();
-            $list  = self::$model::withoutField('password')
+            $count = $this->model->where($where)->count();
+            $list  = $this->model->withoutField('password')
                 ->where($where)
                 ->page($page, $limit)
                 ->order($this->sort)
@@ -63,9 +63,9 @@ class Admin extends AdminController
             $rule             = [];
             $this->validate($post, $rule);
             if (empty($post['password'])) $post['password'] = '123456';
-            $post['password'] = password_hash($post['password'],PASSWORD_DEFAULT);
+            $post['password'] = password($post['password']);
             try {
-                $save = self::$model::create($post);
+                $save = $this->model->insert($post);
             }catch (\Exception $e) {
                 $this->error('保存失败' . $e->getMessage());
             }
@@ -77,7 +77,7 @@ class Admin extends AdminController
     #[NodeAnnotation(title: '编辑', auth: true)]
     public function edit(Request $request, $id = 0): string
     {
-        $row = self::$model::find($id);
+        $row = $this->model->find($id);
         empty($row) && $this->error('数据不存在');
         if ($request->isPost()) {
             $post             = $request->post();
@@ -100,7 +100,7 @@ class Admin extends AdminController
     #[NodeAnnotation(title: '设置密码', auth: true)]
     public function password(Request $request, $id): string
     {
-        $row = self::$model::find($id);
+        $row = $this->model->find($id);
         empty($row) && $this->error('数据不存在');
         if ($request->isAjax()) {
             $post = $request->post();
@@ -114,8 +114,8 @@ class Admin extends AdminController
             }
             try {
                 $save = $row->save([
-                    'password' => password_hash($post['password'], PASSWORD_DEFAULT),
-                ]);
+                                       'password' => password_hash($post['password'], PASSWORD_DEFAULT),
+                                   ]);
             }catch (\Exception $e) {
                 $this->error('保存失败');
             }
@@ -130,7 +130,7 @@ class Admin extends AdminController
     {
         $this->checkPostRequest();
         $id  = $request->param('id');
-        $row = self::$model::whereIn('id', $id)->select();
+        $row = $this->model->whereIn('id', $id)->select();
         $row->isEmpty() && $this->error('数据不存在');
         $id == AdminConstant::SUPER_ADMIN_ID && $this->error('超级管理员不允许修改');
         if (is_array($id)) {
@@ -163,12 +163,12 @@ class Admin extends AdminController
         if ($post['id'] == AdminConstant::SUPER_ADMIN_ID && $post['field'] == 'status') {
             $this->error('超级管理员状态不允许修改');
         }
-        $row = self::$model::find($post['id']);
+        $row = $this->model->find($post['id']);
         empty($row) && $this->error('数据不存在');
         try {
             $row->save([
-                $post['field'] => $post['value'],
-            ]);
+                           $post['field'] => $post['value'],
+                       ]);
         }catch (\Exception $e) {
             $this->error($e->getMessage());
         }

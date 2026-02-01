@@ -10,6 +10,7 @@ use app\common\traits\JumpTrait;
 use think\facade\Db;
 use think\facade\View;
 use think\helper\Str;
+use think\Model;
 use think\response\Json;
 
 class AdminController extends BaseController
@@ -19,10 +20,9 @@ class AdminController extends BaseController
 
     /**
      * 当前模型
-     * @Model
-     * @var mixed
+     * @var Model
      */
-    protected static mixed $model;
+    protected Model $model;
 
     /**
      * 字段排序
@@ -145,7 +145,7 @@ class AdminController extends BaseController
      * @param bool $batch
      * @return bool
      */
-    public function validate(array $data, $validate, array $message = [], bool $batch = false): bool
+    public function validate(array $data, array|string $validate, array $message = [], bool $batch = false): bool
     {
         try {
             parent::validate($data, $validate, $message, $batch);
@@ -173,7 +173,7 @@ class AdminController extends BaseController
         $where    = [];
         $excludes = [];
         // 判断是否关联查询
-        $tableName = Str::snake(lcfirst((new self::$model)->getName()));
+        $tableName = Str::snake(lcfirst($this->model->getName()));
         foreach ($filters as $key => $val) {
             if (in_array($key, $excludeFields)) {
                 $excludes[$key] = $val;
@@ -227,7 +227,7 @@ class AdminController extends BaseController
     public function selectList(): Json
     {
         $fields = input('selectFields');
-        $data   = self::$model::where($this->selectWhere)->field($fields)->select()->toArray();
+        $data   = $this->model->where($this->selectWhere)->field($fields)->select()->toArray();
         $this->success(null, $data);
     }
 

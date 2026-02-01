@@ -25,8 +25,8 @@ trait Curd
                 return $this->selectList();
             }
             list($page, $limit, $where) = $this->buildTableParams();
-            $count = self::$model::where($where)->count();
-            $list  = self::$model::where($where)->page($page, $limit)->order($this->sort)->select()->toArray();
+            $count = $this->model->where($where)->count();
+            $list  = $this->model->where($where)->page($page, $limit)->order($this->sort)->select()->toArray();
             $data  = [
                 'code'  => 0,
                 'msg'   => '',
@@ -47,7 +47,7 @@ trait Curd
             $this->validate($post, $rule);
             try {
                 Db::transaction(function() use ($post, &$save) {
-                    $save = self::$model::create($post);
+                    $save = $this->model->insert($post);
                 });
             }catch (\Exception $e) {
                 $this->error('新增失败:' . $e->getMessage());
@@ -60,7 +60,7 @@ trait Curd
     #[NodeAnnotation(title: '编辑', auth: true)]
     public function edit(Request $request, $id = 0): string
     {
-        $row = self::$model::find($id);
+        $row = $this->model->find($id);
         empty($row) && $this->error('数据不存在');
         if ($request->isPost()) {
             $post = $request->post();
@@ -85,7 +85,7 @@ trait Curd
         // 如果不是id作为主键 请在对应的控制器中覆盖重写
         $id = $request->param('id', []);
         $this->checkPostRequest();
-        $row = self::$model::whereIn('id', $id)->select();
+        $row = $this->model->whereIn('id', $id)->select();
         $row->isEmpty() && $this->error('数据不存在');
         try {
             $save = $row->delete();
@@ -102,7 +102,7 @@ trait Curd
             $this->error('演示环境下不允许操作');
         }
         list($page, $limit, $where) = $this->buildTableParams();
-        $tableName = (new self::$model)->getName();
+        $tableName = $this->model->getName();
         $tableName = CommonTool::humpToLine(lcfirst($tableName));
         $prefix    = config('database.connections.mysql.prefix');
         $dbList    = Db::query("show full columns from {$prefix}{$tableName}");
@@ -113,7 +113,7 @@ trait Curd
                 $header[] = [$comment, $vo['Field']];
             }
         }
-        $list = self::$model::where($where)
+        $list = $this->model->where($where)
             ->limit(100000)
             ->order($this->sort)
             ->select()
@@ -136,7 +136,7 @@ trait Curd
             'value|值'   => 'require',
         ];
         $this->validate($post, $rule);
-        $row = self::$model::find($post['id']);
+        $row = $this->model->find($post['id']);
         if (!$row) {
             $this->error('数据不存在');
         }
@@ -146,8 +146,8 @@ trait Curd
         try {
             Db::transaction(function() use ($post, $row) {
                 $row->save([
-                    $post['field'] => $post['value'],
-                ]);
+                               $post['field'] => $post['value'],
+                           ]);
             });
         }catch (\Exception $e) {
             $this->error($e->getMessage());
@@ -163,23 +163,23 @@ trait Curd
         }
         $id              = $request->param('id', []);
         $type            = $request->param('type', '');
-        $deleteTimeField = (new self::$model)->getOption('deleteTime'); // 获取软删除字段
+        $deleteTimeField = $this->model->getOption('deleteTime'); // 获取软删除字段
         $defaultErrorMsg = 'Model 中未设置软删除 deleteTime 对应字段 或 数据表中不存在该字段';
         if (!$deleteTimeField) $this->success($defaultErrorMsg);
         switch ($type) {
             case 'restore':
-                self::$model::withTrashed()->whereIn('id', $id)->strict(false)->update([$deleteTimeField => null, 'update_time' => time()]);
+                $this->model->withTrashed()->whereIn('id', $id)->strict(false)->update([$deleteTimeField => null, 'update_time' => time()]);
                 $this->success('success');
                 break;
             case 'delete':
-                self::$model::destroy($id, true);
+                $this->model->destroy($id, true);
                 $this->success('success');
                 break;
             default:
                 list($page, $limit, $where) = $this->buildTableParams();
                 try {
-                    $count = self::$model::withTrashed()->where($where)->whereNotNull($deleteTimeField)->count();
-                    $list  = self::$model::withTrashed()->where($where)->page($page, $limit)->order($this->sort)->whereNotNull($deleteTimeField)->select()->toArray();
+                    $count = $this->model->withTrashed()->where($where)->whereNotNull($deleteTimeField)->count();
+                    $list  = $this->model->withTrashed()->where($where)->page($page, $limit)->order($this->sort)->whereNotNull($deleteTimeField)->select()->toArray();
                     $data  = [
                         'code'  => 0,
                         'msg'   => '',

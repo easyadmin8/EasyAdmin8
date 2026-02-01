@@ -71,7 +71,7 @@ class SystemLogService
             $this->detectTable();
             Db::table($this->tableName)->strict(false)->insert($data);
             Db::commit();
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             Db::rollback();
             return $e->getMessage();
         }
@@ -100,6 +100,13 @@ class SystemLogService
     public function getAllTableList()
     {
 
+    }
+
+    public function clearLogCache(): true
+    {
+        $_key = "system_log_{$this->tableName}_table";
+        Cache::delete($_key);
+        return true;
     }
 
     /**

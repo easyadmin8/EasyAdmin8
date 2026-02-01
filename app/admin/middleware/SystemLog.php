@@ -47,7 +47,7 @@ class SystemLog
         if ($request->isAjax()) {
             if (in_array($method, ['post', 'put', 'delete'])) {
 
-                $title = '';
+                $title = '-';
                 try {
                     $pathInfo    = $request->pathinfo();
                     $pathInfoExp = explode('/', $pathInfo);
@@ -59,23 +59,24 @@ class SystemLog
                     if ($_name && $_action) {
                         $reflectionMethod = new \ReflectionMethod($className, $_action);
                         $attributes       = $reflectionMethod->getAttributes(MiddlewareAnnotation::class);
-                        foreach ($attributes as $attribute) {
-                            $annotation = $attribute->newInstance();
+                        if (!empty($attributes[0])) {
+                            $annotation = $attributes[0]->newInstance();
                             $_ignore    = (array)$annotation->ignore;
                             if (in_array('log', array_map('strtolower', $_ignore))) return $response;
                         }
-                        $controllerTitle      = $nodeTitle = '';
                         $controllerAttributes = (new \ReflectionClass($className))->getAttributes(ControllerAnnotation::class);
                         $actionAttributes     = $reflectionMethod->getAttributes(NodeAnnotation::class);
-                        foreach ($controllerAttributes as $controllerAttribute) {
-                            $controllerAnnotation = $controllerAttribute->newInstance();
+                        if (!empty($controllerAttributes[0])) {
+                            $controllerAnnotation = $controllerAttributes[0]->newInstance() ?? '';
                             $controllerTitle      = $controllerAnnotation->title ?? '';
                         }
-                        foreach ($actionAttributes as $actionAttribute) {
-                            $actionAnnotation = $actionAttribute->newInstance();
+                        if (!empty($actionAttributes[0])) {
+                            $actionAnnotation = $actionAttributes[0]->newInstance();
                             $nodeTitle        = $actionAnnotation->title ?? '';
                         }
-                        $title = $controllerTitle . ' - ' . $nodeTitle;
+                        if (!empty($controllerTitle) && !empty($nodeTitle)) {
+                            $title = $controllerTitle . ' - ' . $nodeTitle;
+                        }
                     }
                 }catch (\Throwable $exception) {
                 }
@@ -86,7 +87,7 @@ class SystemLog
                 $_response = mb_substr($_response, 0, 3000, 'utf-8');
 
                 $data = [
-                    'admin_id'    => session('admin.id'),
+                    'admin_id'    => $request->session('admin.id', 0),
                     'title'       => $title,
                     'url'         => $url,
                     'method'      => $method,

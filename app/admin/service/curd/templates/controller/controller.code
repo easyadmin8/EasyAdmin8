@@ -11,13 +11,13 @@ use think\App;
 class {{controllerName}} extends AdminController
 {
 
-    private array $notes;
+    private ?array $notes;
 
     public function __construct(App $app)
     {
         parent::__construct($app);
-        self::$model = new {{modelFilename}}();
-        $notes = self::$model::$notes;
+        $this->model = new {{modelFilename}}();
+        $notes = $this->model->notes;
         {{constructRelation}}
         $this->notes =$notes;
         $this->assign(compact('notes'));

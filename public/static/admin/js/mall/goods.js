@@ -53,7 +53,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
                     },
                     {field: 'create_time', minWidth: 80, title: '创建时间', search: 'range'},
                     {
-                        width: 250,
+                        minWidth: 250,
                         title: '操作',
                         templet: ea.table.tool,
                         operat: [

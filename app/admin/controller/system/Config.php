@@ -19,7 +19,7 @@ class Config extends AdminController
     public function __construct(App $app)
     {
         parent::__construct($app);
-        self::$model = SystemConfig::class;
+        $this->model = new SystemConfig();
         $this->assign('upload_types', config('admin.upload_types'));
         $this->assign('editor_types', config('admin.editor_types'));
     }
@@ -42,14 +42,14 @@ class Config extends AdminController
             if ($group == 'upload') {
                 $upload_types = config('admin.upload_types');
                 // 兼容旧版本
-                self::$model::where('name', 'upload_allow_type')->update(['value' => implode(',', array_keys($upload_types))]);
+                $this->model->where('name', 'upload_allow_type')->update(['value' => implode(',', array_keys($upload_types))]);
             }
             foreach ($post as $key => $val) {
                 if (in_array($key, $notAddFields)) continue;
-                if (self::$model::where('name', $key)->count()) {
-                    self::$model::where('name', $key)->update(['value' => $val,]);
+                if ($this->model->where('name', $key)->count()) {
+                    $this->model->where('name', $key)->update(['value' => $val,]);
                 }else {
-                    self::$model::create(
+                    $this->model->insert(
                         [
                             'name'  => $key,
                             'value' => $val,

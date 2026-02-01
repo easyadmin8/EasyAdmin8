@@ -25,7 +25,7 @@ class Menu extends AdminController
     public function __construct(App $app)
     {
         parent::__construct($app);
-        self::$model = SystemMenu::class;
+        $this->model = new SystemMenu();
     }
 
     #[NodeAnnotation(title: '列表', auth: true)]
@@ -35,8 +35,8 @@ class Menu extends AdminController
             if (input('selectFields')) {
                 return $this->selectList();
             }
-            $count = self::$model::count();
-            $list  = self::$model::order($this->sort)->select()->toArray();
+            $count = $this->model->count();
+            $list  = $this->model->order($this->sort)->select()->toArray();
             $data  = [
                 'code'  => 0,
                 'msg'   => '',
@@ -52,7 +52,7 @@ class Menu extends AdminController
     public function add(Request $request): string
     {
         $id     = $request->param('id');
-        $homeId = self::$model::where(['pid' => MenuConstant::HOME_PID,])->value('id');
+        $homeId = $this->model->where(['pid' => MenuConstant::HOME_PID,])->value('id');
         if ($id == $homeId) {
             $this->error('首页不能添加子菜单');
         }
@@ -65,7 +65,7 @@ class Menu extends AdminController
             ];
             $this->validate($post, $rule);
             try {
-                $save = self::$model::create($post);
+                $save = $this->model->insert($post);
             }catch (\Exception $e) {
                 $this->error('保存失败');
             }
@@ -76,7 +76,7 @@ class Menu extends AdminController
                 $this->error('保存失败');
             }
         }
-        $pidMenuList = self::$model::getPidMenuList();
+        $pidMenuList = $this->model->getPidMenuList();
         $this->assign('id', $id);
         $this->assign('pidMenuList', $pidMenuList);
         return $this->fetch();
@@ -85,7 +85,7 @@ class Menu extends AdminController
     #[NodeAnnotation(title: '编辑', auth: true)]
     public function edit(Request $request, $id = 0): string
     {
-        $row = self::$model::find($id);
+        $row = $this->model->find($id);
         empty($row) && $this->error('数据不存在');
         if ($request->isPost()) {
             $post = $request->post();
@@ -108,12 +108,12 @@ class Menu extends AdminController
                 $this->error('保存失败');
             }
         }
-        $pidMenuList = self::$model::getPidMenuList();
+        $pidMenuList = $this->model->getPidMenuList();
         $this->assign([
-            'id'          => $id,
-            'pidMenuList' => $pidMenuList,
-            'row'         => $row,
-        ]);
+                          'id'          => $id,
+                          'pidMenuList' => $pidMenuList,
+                          'row'         => $row,
+                      ]);
         return $this->fetch();
     }
 
@@ -122,7 +122,7 @@ class Menu extends AdminController
     {
         $this->checkPostRequest();
         $id  = $request->param('id');
-        $row = self::$model::whereIn('id', $id)->select();
+        $row = $this->model->whereIn('id', $id)->select();
         empty($row) && $this->error('数据不存在');
         try {
             $save = $row->delete();
@@ -148,24 +148,24 @@ class Menu extends AdminController
             'value|值'   => 'require',
         ];
         $this->validate($post, $rule);
-        $row = self::$model::find($post['id']);
+        $row = $this->model->find($post['id']);
         if (!$row) {
             $this->error('数据不存在');
         }
         if (!in_array($post['field'], $this->allowModifyFields)) {
             $this->error('该字段不允许修改：' . $post['field']);
         }
-        $homeId = self::$model::where([
-            'pid' => MenuConstant::HOME_PID,
-        ])
+        $homeId = $this->model->where([
+                                          'pid' => MenuConstant::HOME_PID,
+                                      ])
             ->value('id');
         if ($post['id'] == $homeId && $post['field'] == 'status') {
             $this->error('首页状态不允许关闭');
         }
         try {
             $row->save([
-                $post['field'] => $post['value'],
-            ]);
+                           $post['field'] => $post['value'],
+                       ]);
         }catch (\Exception $e) {
             $this->error($e->getMessage());
         }
@@ -182,10 +182,10 @@ class Menu extends AdminController
             ->limit(10)
             ->select()->toArray();
         return json([
-            'code'    => 0,
-            'content' => $list,
-            'type'    => 'success',
-        ]);
+                        'code'    => 0,
+                        'content' => $list,
+                        'type'    => 'success',
+                    ]);
     }
 
 }

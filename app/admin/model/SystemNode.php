@@ -7,13 +7,13 @@ use app\common\model\TimeModel;
 class SystemNode extends TimeModel
 {
 
-    public static function getNodeTreeList(): array
+    public function getNodeTreeList(): array
     {
-        $list = self::select()->toArray();
-        return self::buildNodeTree($list);
+        $list = $this->select()->toArray();
+        return $this->buildNodeTree($list);
     }
 
-    protected static function buildNodeTree($list): array
+    protected function buildNodeTree($list): array
     {
         $newList      = [];
         $repeatString = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";

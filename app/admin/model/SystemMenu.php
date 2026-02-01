@@ -23,19 +23,19 @@ class SystemMenu extends TimeModel
      * @throws DbException
      * @throws DataNotFoundException
      */
-    public static function getPidMenuList(): array
+    public function getPidMenuList(): array
     {
         $list = self::field('id,pid,title')->where([
-            ['pid', '<>', MenuConstant::HOME_PID],
-            ['status', '=', 1],
-        ])->select()->toArray();
+                                                       ['pid', '<>', MenuConstant::HOME_PID],
+                                                       ['status', '=', 1],
+                                                   ])->select()->toArray();
 
         $pidMenuList = self::buildPidMenu(0, $list);
         return array_merge([[
-            'id'    => 0,
-            'pid'   => 0,
-            'title' => '顶级菜单',
-        ]], $pidMenuList);
+                                'id'    => 0,
+                                'pid'   => 0,
+                                'title' => '顶级菜单',
+                            ]], $pidMenuList);
     }
 
     protected static function buildPidMenu($pid, $list, $level = 0): array

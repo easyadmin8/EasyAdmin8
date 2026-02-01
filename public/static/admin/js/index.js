@@ -135,10 +135,12 @@ define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTh
                         }
                     ]
                 };
-                echartsRecords.setOption(optionRecords);
-                window.addEventListener("resize", function () {
-                    echartsRecords.resize();
-                });
+                setTimeout(function () {
+                    echartsRecords.setOption(optionRecords);
+                    window.addEventListener("resize", function () {
+                        echartsRecords.resize();
+                    });
+                }, 100)
             })
 
             let util = layui.util;

@@ -24,7 +24,7 @@ class Goods extends AdminController
     public function __construct(App $app)
     {
         parent::__construct($app);
-        self::$model = new MallGoods();
+        $this->model = new MallGoods();
         $this->assign('cate', MallCate::column('title', 'id'));
     }
 
@@ -34,8 +34,8 @@ class Goods extends AdminController
         if ($request->isAjax()) {
             if (input('selectFields')) return $this->selectList();
             list($page, $limit, $where) = $this->buildTableParams();
-            $count = self::$model::where($where)->count();
-            $list  = self::$model::with(['cate'])->where($where)->page($page, $limit)->order($this->sort)->select()->toArray();
+            $count = $this->model->where($where)->count();
+            $list  = $this->model->with(['cate'])->where($where)->page($page, $limit)->order($this->sort)->select()->toArray();
             $data  = [
                 'code'  => 0,
                 'msg'   => '',
@@ -50,7 +50,7 @@ class Goods extends AdminController
     #[NodeAnnotation(title: '入库', auth: true)]
     public function stock(Request $request, $id): string
     {
-        $row = self::$model::find($id);
+        $row = $this->model->find($id);
         empty($row) && $this->error('数据不存在');
         if ($request->isPost()) {
             $post = $request->post();

@@ -9,7 +9,6 @@ use app\common\controller\AdminController;
 use app\admin\service\annotation\ControllerAnnotation;
 use app\admin\service\annotation\NodeAnnotation;
 use app\Request;
-use jianyan\excel\Excel;
 use think\App;
 use think\db\exception\DbException;
 use think\db\exception\PDOException;
@@ -22,7 +21,7 @@ class Log extends AdminController
     public function __construct(App $app)
     {
         parent::__construct($app);
-        self::$model = SystemLog::class;
+        $this->model = new SystemLog();
     }
 
     #[NodeAnnotation(title: '列表', auth: true)]
@@ -34,11 +33,17 @@ class Log extends AdminController
             }
             [$page, $limit, $where, $excludeFields] = $this->buildTableParams(['month']);
             $month = !empty($excludeFields['month']) ? date('Ym', strtotime($excludeFields['month'])) : date('Ym');
-            $model = (new self::$model)->setSuffix("_$month")->with('admin')->where($where);
+            $model = $this->model->setSuffix("_$month")->with('admin')->where($where);
             try {
                 $count = $model->count();
                 $list  = $model->page($page, $limit)->order($this->sort)->select();
-            }catch (PDOException|DbException $exception) {
+            } catch (PDOException|DbException $exception) {
+                \think\facade\Log::error(__METHOD__
+                                         . PHP_EOL . $exception->getMessage()
+                                         . PHP_EOL . $exception->getFile()
+                                         . PHP_EOL . $exception->getLine()
+                                         . PHP_EOL . $exception->getCode()
+                );
                 $count = 0;
                 $list  = [];
             }
@@ -61,7 +66,7 @@ class Log extends AdminController
         }
         [$page, $limit, $where, $excludeFields] = $this->buildTableParams(['month']);
         $month     = !empty($excludeFields['month']) ? date('Ym', strtotime($excludeFields['month'])) : date('Ym');
-        $tableName = (new self::$model)->setSuffix("_$month")->getName();
+        $tableName = $this->model->setSuffix("_$month")->getName();
         $tableName = CommonTool::humpToLine(lcfirst($tableName));
         $prefix    = config('database.connections.mysql.prefix');
         $dbList    = Db::query("show full columns from {$prefix}{$tableName}");
@@ -72,7 +77,7 @@ class Log extends AdminController
                 $header[] = [$comment, $vo['Field']];
             }
         }
-        $model = (new self::$model)->setSuffix("_$month")->with('admin')->where($where);
+        $model = $this->model->setSuffix("_$month")->with('admin')->where($where);
         try {
             $list = $model
                 ->limit(10000)
@@ -84,7 +89,7 @@ class Log extends AdminController
                 $vo['response'] = json_encode($vo['response'], JSON_UNESCAPED_UNICODE);
             }
             exportExcel($header, $list, '操作日志');
-        }catch (\Throwable $exception) {
+        } catch (\Throwable $exception) {
             $this->error($exception->getMessage());
         }
     }
@@ -122,14 +127,16 @@ class Log extends AdminController
                     $tableNames[] = $tableName;
                 }
             }
-        }catch (PDOException) {
+        } catch (PDOException) {
         }
         if (empty($tableNames)) $this->error('没有需要删除的表');
         $this->success('操作成功 - 共删除 ' . count($tableNames) . ' 张表<br/>' . implode('<br>', $tableNames));
     }
 
-    #[MiddlewareAnnotation(ignore: MiddlewareAnnotation::IGNORE_LOG)]
-    #[NodeAnnotation(title: '框架日志', auth: true, ignore: NodeAnnotation::IGNORE_NODE)]
+    #[
+        MiddlewareAnnotation(ignore: MiddlewareAnnotation::IGNORE_LOG),
+        NodeAnnotation(title: '框架日志', auth: true, ignore: NodeAnnotation::IGNORE_NODE),
+    ]
     public function record(): Json|string
     {
         return (new \Wolfcode\PhpLogviewer\thinkphp\LogViewer())->fetch();

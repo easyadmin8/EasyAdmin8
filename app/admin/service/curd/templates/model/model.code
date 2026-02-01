@@ -16,7 +16,7 @@ class {{modelName}} extends TimeModel
         ];
     }
 
-    public static array $notes = {{selectArrays}};
+    public array $notes = {{selectArrays}};
 
     {{relationList}}
 

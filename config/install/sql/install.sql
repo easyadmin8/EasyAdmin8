@@ -39,7 +39,9 @@ CREATE TABLE `ea_mall_cate`
 -- Records of ea_mall_cate
 -- ----------------------------
 INSERT INTO `ea_mall_cate`
-VALUES ('9', '手机', '/static/common/images/logo-1.png', '0', '1', '', '1589440437', '1589440437', null);
+VALUES ('1', '电器', '/static/common/images/logo-1.png', '0', '1', '', '1589440437', '1589440437', null);
+INSERT INTO `ea_mall_cate`
+VALUES ('2', '3C', '/static/common/images/logo-1.png', '0', '1', '', '1589440437', '1589440437', null);
 
 -- ----------------------------
 -- Table structure for ea_mall_goods
@@ -73,10 +75,10 @@ CREATE TABLE `ea_mall_goods`
 -- Records of ea_mall_goods
 -- ----------------------------
 INSERT INTO `ea_mall_goods`
-VALUES ('8', '10', '落地-风扇', '/static/common/images/logo-1.png', '/static/common/images/logo-1.png|/static/common/images/logo-1.png|/static/common/images/logo-1.png|/static/common/images/logo-1.png',
+VALUES ('1', '1', '落地-风扇', '/static/common/images/logo-1.png', '/static/common/images/logo-1.png|/static/common/images/logo-1.png|/static/common/images/logo-1.png|/static/common/images/logo-1.png',
         '<p>76654757</p>\n\n<p><img alt=\"\" src=\"/static/common/images/logo-1.png\" style=\"height:689px; width:790px\" /></p>\n\n<p><img alt=\"\" src=\"/static/common/images/logo-1.png\" style=\"height:877px; width:790px\" /></p>\n', '599.00', '368.00', '0', '594', '0', '0', '675', '1', '', '1589454309', '1589567016', null);
 INSERT INTO `ea_mall_goods`
-VALUES ('9', '9', '电脑', '/static/common/images/logo-1.png', '/static/common/images/logo-1.png', '<p>477</p>\n', '0.00', '0.00', '0', '0', '115', '320', '0', '1', '', '1589465215', '1589476345', null);
+VALUES ('2', '2', '电脑', '/static/common/images/logo-1.png', '/static/common/images/logo-1.png', '<p>477</p>\n', '0.00', '0.00', '0', '0', '115', '320', '0', '1', '', '1589465215', '1589476345', null);
 
 -- ----------------------------
 -- Table structure for ea_system_admin
@@ -134,7 +136,7 @@ CREATE TABLE `ea_system_auth`
 INSERT INTO `ea_system_auth`
 VALUES ('1', '管理员', '1', '1', '测试管理员', '1588921753', '1589614331', null);
 INSERT INTO `ea_system_auth`
-VALUES ('6', '游客权限', '0', '1', '', '1588227513', '1589591751', '1589591751');
+VALUES ('2', '游客权限', '0', '1', '', '1588227513', '1589591751', '1589591751');
 
 -- ----------------------------
 -- Table structure for ea_system_auth_node
@@ -209,69 +211,69 @@ CREATE TABLE `ea_system_config`
 -- Records of ea_system_config
 -- ----------------------------
 INSERT INTO `ea_system_config`
-VALUES ('41', 'alisms_access_key_id', 'sms', '填你的', '阿里大于公钥', '0', null, null);
+VALUES ('1', 'alisms_access_key_id', 'sms', '填你的', '阿里大于公钥', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('42', 'alisms_access_key_secret', 'sms', '填你的', '阿里大鱼私钥', '0', null, null);
+VALUES ('2', 'alisms_access_key_secret', 'sms', '填你的', '阿里大鱼私钥', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('55', 'upload_type', 'upload', 'local', '当前上传方式 （local,oss,cos）', '0', null, null);
+VALUES ('3', 'upload_type', 'upload', 'local', '当前上传方式 （local,oss,cos）', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('56', 'upload_allow_ext', 'upload', 'doc,gif,ico,icon,jpg,mp3,mp4,p12,pem,png,rar,jpeg', '允许上传的文件类型', '0', null, null);
+VALUES ('4', 'upload_allow_ext', 'upload', 'doc,gif,ico,icon,jpg,mp3,mp4,p12,pem,png,rar,jpeg', '允许上传的文件类型', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('57', 'upload_allow_size', 'upload', '1024000', '允许上传的大小', '0', null, null);
+VALUES ('5', 'upload_allow_size', 'upload', '1024000', '允许上传的大小', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('58', 'upload_allow_mime', 'upload', 'image/gif,image/jpeg,video/x-msvideo,text/plain,image/png', '允许上传的文件mime', '0', null, null);
+VALUES ('6', 'upload_allow_mime', 'upload', 'image/gif,image/jpeg,video/x-msvideo,text/plain,image/png', '允许上传的文件mime', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('59', 'upload_allow_type', 'upload', 'local,oss,qnoss,cos', '可用的上传文件方式', '0', null, null);
+VALUES ('7', 'upload_allow_type', 'upload', 'local,oss,qnoss,cos', '可用的上传文件方式', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('60', 'oss_access_key_id', 'upload', '填你的', '阿里云oss公钥', '0', null, null);
+VALUES ('8', 'oss_access_key_id', 'upload', '填你的', '阿里云oss公钥', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('61', 'oss_access_key_secret', 'upload', '填你的', '阿里云oss私钥', '0', null, null);
+VALUES ('9', 'oss_access_key_secret', 'upload', '填你的', '阿里云oss私钥', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('62', 'oss_endpoint', 'upload', '填你的', '阿里云oss数据中心', '0', null, null);
+VALUES ('10', 'oss_endpoint', 'upload', '填你的', '阿里云oss数据中心', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('63', 'oss_bucket', 'upload', '填你的', '阿里云oss空间名称', '0', null, null);
+VALUES ('11', 'oss_bucket', 'upload', '填你的', '阿里云oss空间名称', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('64', 'oss_domain', 'upload', '填你的', '阿里云oss访问域名', '0', null, null);
+VALUES ('12', 'oss_domain', 'upload', '填你的', '阿里云oss访问域名', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('65', 'logo_title', 'site', 'EasyAdmin', 'LOGO标题', '0', null, null);
+VALUES ('13', 'logo_title', 'site', 'EasyAdmin', 'LOGO标题', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('66', 'logo_image', 'site', '/static/common/images/logo-1.png', 'logo图片', '0', null, null);
+VALUES ('14', 'logo_image', 'site', '/static/common/images/logo-1.png', 'logo图片', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('68', 'site_name', 'site', 'EasyAdmin后台系统', '站点名称', '0', null, null);
+VALUES ('15', 'site_name', 'site', 'EasyAdmin后台系统', '站点名称', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('69', 'site_ico', 'site', '/favicon.ico', '浏览器图标', '0', null, null);
+VALUES ('16', 'site_ico', 'site', '/favicon.ico', '浏览器图标', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('70', 'site_copyright', 'site', '填你的', '版权信息', '0', null, null);
+VALUES ('17', 'site_copyright', 'site', '填你的', '版权信息', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('71', 'site_beian', 'site', '填你的', '备案信息', '0', null, null);
+VALUES ('18', 'site_beian', 'site', '填你的', '备案信息', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('72', 'site_version', 'site', '2.0.0', '版本信息', '0', null, null);
+VALUES ('19', 'site_version', 'site', '2.0.0', '版本信息', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('75', 'sms_type', 'sms', 'alisms', '短信类型', '0', null, null);
+VALUES ('20', 'sms_type', 'sms', 'alisms', '短信类型', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('76', 'miniapp_appid', 'wechat', '填你的', '小程序公钥', '0', null, null);
+VALUES ('21', 'miniapp_appid', 'wechat', '填你的', '小程序公钥', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('77', 'miniapp_appsecret', 'wechat', '填你的', '小程序私钥', '0', null, null);
+VALUES ('22', 'miniapp_appsecret', 'wechat', '填你的', '小程序私钥', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('78', 'web_appid', 'wechat', '填你的', '公众号公钥', '0', null, null);
+VALUES ('23', 'web_appid', 'wechat', '填你的', '公众号公钥', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('79', 'web_appsecret', 'wechat', '填你的', '公众号私钥', '0', null, null);
+VALUES ('24', 'web_appsecret', 'wechat', '填你的', '公众号私钥', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('80', 'cos_secret_id', 'upload', '填你的', '腾讯云cos密钥', '0', null, null);
+VALUES ('25', 'cos_secret_id', 'upload', '填你的', '腾讯云cos密钥', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('81', 'cos_secret_key', 'upload', '填你的', '腾讯云cos私钥', '0', null, null);
+VALUES ('26', 'cos_secret_key', 'upload', '填你的', '腾讯云cos私钥', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('82', 'cos_region', 'upload', '填你的', '存储桶地域', '0', null, null);
+VALUES ('27', 'cos_region', 'upload', '填你的', '存储桶地域', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('83', 'cos_bucket', 'upload', '填你的', '存储桶名称', '0', null, null);
+VALUES ('28', 'cos_bucket', 'upload', '填你的', '存储桶名称', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('84', 'qnoss_access_key', 'upload', '填你的', '访问密钥', '0', null, null);
+VALUES ('29', 'qnoss_access_key', 'upload', '填你的', '访问密钥', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('85', 'qnoss_secret_key', 'upload', '填你的', '安全密钥', '0', null, null);
+VALUES ('30', 'qnoss_secret_key', 'upload', '填你的', '安全密钥', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('86', 'qnoss_bucket', 'upload', '填你的', '存储空间', '0', null, null);
+VALUES ('31', 'qnoss_bucket', 'upload', '填你的', '存储空间', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('87', 'qnoss_domain', 'upload', '填你的', '访问域名', '0', null, null);
+VALUES ('32', 'qnoss_domain', 'upload', '填你的', '访问域名', '0', null, null);
 
 -- ----------------------------
 -- Table structure for ea_system_menu
@@ -301,33 +303,41 @@ CREATE TABLE `ea_system_menu`
 -- Records of ea_system_menu
 -- ----------------------------
 INSERT INTO `ea_system_menu`
-VALUES ('227', '99999999', '后台首页', 'fa fa-home', 'index/welcome', '', '_self', '0', '1', null, null, '1573120497', null);
+VALUES ('1', '99999999', '后台首页', 'fa fa-home', 'index/welcome', '', '_self', '0', '1', null, null, '1573120497', null);
 INSERT INTO `ea_system_menu`
-VALUES ('228', '0', '系统管理', 'fa fa-cog', '', '', '_self', '0', '1', '', null, '1588999529', null);
+VALUES ('2', '0', '系统管理', 'fa fa-cog', '', '', '_self', '0', '1', '', null, '1588999529', null);
 INSERT INTO `ea_system_menu`
-VALUES ('234', '228', '菜单管理', 'fa fa-tree', 'system.menu/index', '', '_self', '10', '1', '', null, '1588228555', null);
+VALUES ('3', '2', '菜单管理', 'fa fa-tree', 'system.menu/index', '', '_self', '10', '1', '', null, '1588228555', null);
 INSERT INTO `ea_system_menu`
-VALUES ('244', '228', '管理员管理', 'fa fa-user', 'system.admin/index', '', '_self', '12', '1', '', '1573185011', '1588228573', null);
+VALUES ('4', '2', '管理员管理', 'fa fa-user', 'system.admin/index', '', '_self', '12', '1', '', '1573185011', '1588228573', null);
 INSERT INTO `ea_system_menu`
-VALUES ('245', '228', '角色管理', 'fa fa-square-person-confined', 'system.auth/index', '', '_self', '11', '1', '', '1573435877', '1588228634', null);
+VALUES ('5', '2', '角色管理', 'fa fa-square-person-confined', 'system.auth/index', '', '_self', '11', '1', '', '1573435877', '1588228634', null);
 INSERT INTO `ea_system_menu`
-VALUES ('246', '228', '节点管理', 'fa fa-list', 'system.node/index', '', '_self', '9', '1', '', '1573435919', '1588228648', null);
+VALUES ('6', '2', '节点管理', 'fa fa-list', 'system.node/index', '', '_self', '9', '1', '', '1573435919', '1588228648', null);
 INSERT INTO `ea_system_menu`
-VALUES ('247', '228', '配置管理', 'fa fa-asterisk', 'system.config/index', '', '_self', '8', '1', '', '1573457448', '1588228566', null);
+VALUES ('7', '2', '配置管理', 'fa fa-asterisk', 'system.config/index', '', '_self', '8', '1', '', '1573457448', '1588228566', null);
 INSERT INTO `ea_system_menu`
-VALUES ('248', '228', '上传管理', 'fa fa-arrow-up', 'system.uploadfile/index', '', '_self', '0', '1', '', '1573542953', '1588228043', null);
+VALUES ('8', '2', '上传管理', 'fa fa-arrow-up', 'system.uploadfile/index', '', '_self', '0', '1', '', '1573542953', '1588228043', null);
 INSERT INTO `ea_system_menu`
-VALUES ('249', '0', '商城管理', 'fa fa-list', '', '', '_self', '0', '1', '', '1589439884', '1589439884', null);
+VALUES ('9', '0', '商城管理', 'fa fa-list', '', '', '_self', '0', '1', '', '1589439884', '1589439884', null);
 INSERT INTO `ea_system_menu`
-VALUES ('250', '249', '商品分类', 'fa fa-calendar-check', 'mall.cate/index', '', '_self', '0', '1', '', '1589439910', '1589439966', null);
+VALUES ('10', '9', '商品分类', 'fa fa-calendar-check', 'mall.cate/index', '', '_self', '0', '1', '', '1589439910', '1589439966', null);
 INSERT INTO `ea_system_menu`
-VALUES ('251', '249', '商品管理', 'fa fa-list', 'mall.goods/index', '', '_self', '0', '1', '', '1589439931', '1589439942', null);
+VALUES ('11', '9', '商品管理', 'fa fa-store-alt', 'mall.goods/index', '', '_self', '0', '1', '', '1589439931', '1589439942', null);
 INSERT INTO `ea_system_menu`
-VALUES ('252', '228', '快捷入口', 'fa fa-list', 'system.quick/index', '', '_self', '0', '1', '', '1589623683', '1589623683', null);
+VALUES ('12', '2', '快捷入口', 'fa fa-tachometer-alt-fast', 'system.quick/index', '', '_self', '0', '1', '', '1589623683', '1589623683', null);
 INSERT INTO `ea_system_menu`
-VALUES ('253', '228', '日志管理', 'fa fa-connectdevelop', 'system.log/index', '', '_self', '0', '1', '', '1589623684', '1589623684', null);
+VALUES ('13', '2', '日志管理', 'fa fa-sticky-note', 'system.log/index', '', '_self', '0', '1', '', '1589623684', '1589623684', null);
 INSERT INTO `ea_system_menu`
-VALUES ('254', '228', 'CURD可视化', 'fa fa fa-shower', 'system.curd_generate/index', '', '_self', '0', '1', '', '1589623684', '1589623684', null);
+VALUES ('14', '2', 'CURD可视化', 'fa fa fa-shower', 'system.curd_generate/index', '', '_self', '0', '1', '', '1589623684', '1589623684', null);
+INSERT INTO `ea_system_menu`
+VALUES ('15', '2', '其他页面', 'fa fa-square-share-nodes', '', '', '_self', '0', '1', '', '1589623684', '1589623684', null);
+INSERT INTO `ea_system_menu`
+VALUES ('16', '15', '官网', 'fa fa-home', 'https://easyadmin8.top', '', '_self', '3', '1', '', '1589623684', '1589623684', null);
+INSERT INTO `ea_system_menu`
+VALUES ('17', '15', '问答社区', 'fa fa-comments', 'https://meta.easyadmin8.top', '', '_blank', '0', '1', '', '1589623684', '1589623684', null);
+INSERT INTO `ea_system_menu`
+VALUES ('18', '15', '常见问题', 'fa fa-circle-question', 'https://easyadmin8.top/guide/question.html', '', '_self', '2', '1', '', '1589623684', '1589623684', null);
 
 -- ----------------------------
 -- Table structure for ea_system_node
@@ -529,7 +539,7 @@ VALUES ('8', '上传管理', 'fa fa-arrow-up', 'system.uploadfile/index', '0', '
 INSERT INTO `ea_system_quick`
 VALUES ('10', '商品分类', 'fa fa-calendar-check', 'mall.cate/index', '0', '1', null, '1589624097', '1589624792', null);
 INSERT INTO `ea_system_quick`
-VALUES ('11', '商品管理', 'fa fa-list', 'mall.goods/index', '0', '1', null, '1589624772', '1589624781', null);
+VALUES ('11', '商品管理', 'fa fa-store-alt', 'mall.goods/index', '0', '1', null, '1589624772', '1589624781', null);
 
 -- ----------------------------
 -- Table structure for ea_system_uploadfile
@@ -560,17 +570,17 @@ CREATE TABLE `ea_system_uploadfile`
 -- Records of ea_system_uploadfile
 -- ----------------------------
 INSERT INTO `ea_system_uploadfile`
-VALUES ('286', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/0a6de1ac058ee134301501899b84ecb1.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
+VALUES ('1', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/0a6de1ac058ee134301501899b84ecb1.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
 INSERT INTO `ea_system_uploadfile`
-VALUES ('287', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/46d7384f04a3bed331715e86a4095d15.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
+VALUES ('2', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/46d7384f04a3bed331715e86a4095d15.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
 INSERT INTO `ea_system_uploadfile`
-VALUES ('288', 'oss', 'image/x-icon', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/7d32671f4c1d1b01b0b28f45205763f9.ico', '', '', '', '0', 'image/x-icon', '0', 'ico', '', 1573612437, null, null);
+VALUES ('3', 'oss', 'image/x-icon', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/7d32671f4c1d1b01b0b28f45205763f9.ico', '', '', '', '0', 'image/x-icon', '0', 'ico', '', 1573612437, null, null);
 INSERT INTO `ea_system_uploadfile`
-VALUES ('289', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/28cefa547f573a951bcdbbeb1396b06f.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
+VALUES ('4', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/28cefa547f573a951bcdbbeb1396b06f.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
 INSERT INTO `ea_system_uploadfile`
-VALUES ('290', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/2c412adf1b30c8be3a913e603c7b6e4a.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
+VALUES ('5', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/2c412adf1b30c8be3a913e603c7b6e4a.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
 INSERT INTO `ea_system_uploadfile`
-VALUES ('296', 'cos', 'image/jpeg', 'https://easyadmin-1251997243.cos.ap-guangzhou.myqcloud.com/upload/20191114/2381eaf81208ac188fa994b6f2579953.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
+VALUES ('6', 'cos', 'image/jpeg', 'https://easyadmin-1251997243.cos.ap-guangzhou.myqcloud.com/upload/20191114/2381eaf81208ac188fa994b6f2579953.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
 
 -- ----------------------------
 -- Table structure for ea_system_log

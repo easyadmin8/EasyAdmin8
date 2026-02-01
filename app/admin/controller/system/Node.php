@@ -22,7 +22,7 @@ class Node extends AdminController
     public function __construct(App $app)
     {
         parent::__construct($app);
-        self::$model = SystemNode::class;
+        $this->model = new SystemNode();
     }
 
     #[NodeAnnotation(title: '列表', auth: true)]
@@ -32,8 +32,8 @@ class Node extends AdminController
             if (input('selectFields')) {
                 return $this->selectList();
             }
-            $count = self::$model::count();
-            $list  = self::$model::getNodeTreeList();
+            $count = $this->model->count();
+            $list  = $this->model->getNodeTreeList();
             $data  = [
                 'code'  => 0,
                 'msg'   => '',
@@ -55,11 +55,11 @@ class Node extends AdminController
 
         try {
             if ($force == 1) {
-                $updateNodeList = self::$model::whereIn('node', array_column($nodeList, 'node'))->select();
+                $updateNodeList = $this->model->whereIn('node', array_column($nodeList, 'node'))->select();
                 $formatNodeList = array_format_key($nodeList, 'node');
                 foreach ($updateNodeList as $vo) {
                     isset($formatNodeList[$vo['node']])
-                    && self::$model::where('id', $vo['id'])->update(
+                    && $this->model->where('id', $vo['id'])->update(
                         [
                             'title'   => $formatNodeList[$vo['node']]['title'],
                             'is_auth' => $formatNodeList[$vo['node']]['is_auth'],
@@ -67,7 +67,7 @@ class Node extends AdminController
                     );
                 }
             }
-            $existNodeList = self::$model::field('node,title,type,is_auth')->select();
+            $existNodeList = $this->model->field('node,title,type,is_auth')->select();
             foreach ($nodeList as $key => $vo) {
                 foreach ($existNodeList as $v) {
                     if ($vo['node'] == $v->node) {
@@ -77,7 +77,7 @@ class Node extends AdminController
                 }
             }
             if (!empty($nodeList)) {
-                (new self::$model)->saveAll($nodeList);
+                $this->model->insertAll($nodeList);
                 TriggerService::updateNode();
             }
         }catch (\Exception $e) {
@@ -92,10 +92,10 @@ class Node extends AdminController
         $this->checkPostRequest();
         $nodeList = (new NodeService())->getNodeList();
         try {
-            $existNodeList  = self::$model::field('id,node,title,type,is_auth')->select()->toArray();
+            $existNodeList  = $this->model->field('id,node,title,type,is_auth')->select()->toArray();
             $formatNodeList = array_format_key($nodeList, 'node');
             foreach ($existNodeList as $vo) {
-                !isset($formatNodeList[$vo['node']]) && self::$model::where('id', $vo['id'])->delete();
+                !isset($formatNodeList[$vo['node']]) && $this->model->where('id', $vo['id'])->delete();
             }
             TriggerService::updateNode();
         }catch (\Exception $e) {

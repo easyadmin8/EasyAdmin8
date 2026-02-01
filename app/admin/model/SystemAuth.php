@@ -25,7 +25,7 @@ class SystemAuth extends TimeModel
      * @throws DbException
      * @throws ModelNotFoundException
      */
-    public static function getAuthorizeNodeListByAdminId($authId): array
+    public function getAuthorizeNodeListByAdminId($authId): array
     {
         $checkNodeList = (new SystemAuthNode())
             ->where('auth_id', $authId)
@@ -44,9 +44,9 @@ class SystemAuth extends TimeModel
                 $vo['title']   = "{$vo['title']}【{$vo['node']}】";
                 $children      = [];
                 foreach ($nodeList as $v) {
-                    if ($v['type'] == 2 && strpos($v['node'], $vo['node'] . '/') !== false) {
+                    if ($v['type'] == 2 && str_contains($v['node'], $vo['node'] . '/')) {
                         $v            = array_merge($v, ['field' => 'node', 'spread' => true]);
-                        $v['checked'] = in_array($v['id'], $checkNodeList) ? true : false;
+                        $v['checked'] = in_array($v['id'], $checkNodeList);
                         $v['title']   = "{$v['title']}【{$v['node']}】";
                         $children[]   = $v;
                     }
