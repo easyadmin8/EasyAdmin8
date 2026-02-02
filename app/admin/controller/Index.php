@@ -35,7 +35,8 @@ class Index extends AdminController
         $tpVersion    = \think\facade\App::version();
         $mysqlVersion = Db::query("select version() as version")[0]['version'] ?? '未知';
         $phpVersion   = phpversion();
-        $versions     = compact('tpVersion', 'mysqlVersion', 'phpVersion');
+        $jitStatus    = function_exists('opcache_get_status') ? (opcache_get_status()['jit']['on'] ?? false) : false;
+        $versions     = compact('tpVersion', 'mysqlVersion', 'phpVersion', 'jitStatus');
         $quick_list   = SystemQuick::field('id,title,icon,href')
             ->where(['status' => 1])->order('sort', 'desc')->limit(50)->select()->toArray();
         $quicks       = array_chunk($quick_list, 8);
