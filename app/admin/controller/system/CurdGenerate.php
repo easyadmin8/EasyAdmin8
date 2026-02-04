@@ -27,6 +27,8 @@ class CurdGenerate extends AdminController
     public function save(Request $request, string $type = ''): ?Json
     {
         if (!$request->isAjax()) $this->error();
+        $dbType = config('database.default');
+        if ($dbType != 'mysql') $this->error('该功能暂不支持 ' . $dbType . ' 数据库');
         switch ($type) {
             case "search":
                 $tb_prefix = $request->param('tb_prefix/s', '');
@@ -47,7 +49,7 @@ class CurdGenerate extends AdminController
                         ];
                     }
                     $this->success('查询成功', compact('data', 'list'));
-                }catch (PDOException $exception) {
+                } catch (PDOException $exception) {
                     $this->error($exception->getMessage());
                 }
                 break;
@@ -113,7 +115,7 @@ class CurdGenerate extends AdminController
                         $link = '/' . config('admin.alias_name') . '/' . $_fileExp_last_0 . Str::snake(explode('.php', end($_fileExp_last))[0] ?? '') . '/index';
                     }
                     $this->success('生成成功', compact('result', 'link'));
-                }catch (FileException $exception) {
+                } catch (FileException $exception) {
                     return json(['code' => -1, 'msg' => $exception->getMessage()]);
                 }
                 break;
@@ -129,7 +131,7 @@ class CurdGenerate extends AdminController
                     if (empty($fileList)) $this->error('这里什么都没有');
                     $result = $build->delete();
                     $this->success('删除自动生成CURD文件成功', compact('result'));
-                }catch (FileException $exception) {
+                } catch (FileException $exception) {
                     return json(['code' => -1, 'msg' => $exception->getMessage()]);
                 }
                 break;
@@ -141,7 +143,7 @@ class CurdGenerate extends AdminController
                 try {
 
                     $output = Console::call('curd', [...$commandExp]);
-                }catch (\Throwable $exception) {
+                } catch (\Throwable $exception) {
                     $this->error($exception->getMessage() . $exception->getLine());
                 }
                 if (empty($output)) $this->error('设置错误');

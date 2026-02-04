@@ -52,7 +52,7 @@ if (!function_exists('sysConfig')) {
      */
     function sysConfig($group, $name = null): mixed
     {
-        $where = ['group' => $group];
+        $where = config('database.default') == 'pgsql' ? ['"group"' => $group] : ['group' => $group];
         $value = empty($name) ? Cache::get("sysConfig_{$group}") : Cache::get("sysConfig_{$group}_{$name}");
         if (empty($value)) {
             if (!empty($name)) {

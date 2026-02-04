@@ -38,6 +38,12 @@
                 </div>
             </div>
             <div class="layui-form-item">
+                <label class="layui-form-label">数据库类型</label>
+                <div class="layui-input-block">
+                    <input class="layui-input" name="db_type" autocomplete="off" placeholder="请输入数据库地址" value="{$envInfo.DB_TYPE}" disabled readonly>
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label class="layui-form-label">数据库地址</label>
                 <div class="layui-input-block">
                     <input class="layui-input" name="hostname" autocomplete="off" lay-verify="required" lay-reqtext="请输入数据库地址" placeholder="请输入数据库地址" value="{$envInfo.DB_HOST}">
@@ -79,6 +85,13 @@
                 </div>
             </div>
 
+            <div class="layui-form-item layui-hide">
+                <label class="layui-form-label">数据库字符集</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input" name="db_charset" autocomplete="off" value="{$envInfo.DB_CHARSET}" disabled readonly>
+                </div>
+            </div>
+
             <div class="layui-form-item">
                 <label class="layui-form-label">覆盖数据库</label>
                 <div class="layui-input-block" style="text-align: left">
@@ -106,7 +119,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">管理员密码</label>
                 <div class="layui-input-block">
-                    <input type="password" class="layui-input" name="password" maxlength="20" autocomplete="off" lay-verify="required" lay-reqtext="请输入管理员密码" placeholder="请输入管理员密码">
+                    <input type="password" class="layui-input" name="password" maxlength="20" autocomplete="off" placeholder="选填，默认 123456">
                 </div>
             </div>
         </div>

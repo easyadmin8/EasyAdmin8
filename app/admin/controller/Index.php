@@ -32,14 +32,18 @@ class Index extends AdminController
      */
     public function welcome(): string
     {
-        $tpVersion    = \think\facade\App::version();
-        $mysqlVersion = Db::query("select version() as version")[0]['version'] ?? '未知';
-        $phpVersion   = phpversion();
-        $jitStatus    = function_exists('opcache_get_status') ? (opcache_get_status()['jit']['on'] ?? false) : false;
-        $versions     = compact('tpVersion', 'mysqlVersion', 'phpVersion', 'jitStatus');
-        $quick_list   = SystemQuick::field('id,title,icon,href')
+        $tpVersion = \think\facade\App::version();
+        $dbType    = config('database.default');
+        Db::query('SELECT 1');
+        $pdo        = Db::getPdo();
+        $sqlVersion = $pdo->getAttribute(\PDO::ATTR_SERVER_VERSION);
+        $sqlVersion = $dbType . "（{$sqlVersion}）";
+        $phpVersion = phpversion();
+        $jitStatus  = function_exists('opcache_get_status') ? (opcache_get_status()['jit']['on'] ?? false) : false;
+        $versions   = compact('tpVersion', 'sqlVersion', 'phpVersion', 'jitStatus');
+        $quick_list = SystemQuick::field('id,title,icon,href')
             ->where(['status' => 1])->order('sort', 'desc')->limit(50)->select()->toArray();
-        $quicks       = array_chunk($quick_list, 8);
+        $quicks     = array_chunk($quick_list, 8);
         $this->assign(compact('quicks', 'versions'));
         return $this->fetch();
     }
@@ -71,7 +75,7 @@ class Index extends AdminController
                     if (empty($ga_secret)) $this->error('请先绑定谷歌验证器');
                 }
                 $save = $row->allowField(['head_img', 'phone', 'remark', 'update_time', 'login_type'])->save($post);
-            }catch (\PDOException $e) {
+            } catch (\PDOException $e) {
                 $this->error('保存失败');
             }
             $save ? $this->success('保存成功') : $this->error('保存失败');
@@ -112,12 +116,12 @@ class Index extends AdminController
                 $save = $row->save([
                     'password' => password_hash($post['password'], PASSWORD_DEFAULT),
                 ]);
-            }catch (Exception $e) {
+            } catch (Exception $e) {
                 $this->error('保存失败');
             }
             if ($save) {
                 $this->success('保存成功');
-            }else {
+            } else {
                 $this->error('保存失败');
             }
         }

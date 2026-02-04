@@ -88,7 +88,11 @@ class SystemLogService
         // 手动删除日志表时候 记得清除缓存
         $isset = Cache::get($_key);
         if ($isset) return true;
-        $check = Db::query("show tables like '{$this->tableName}'");
+        $dbType = config('database.default');
+        $check  = match ($dbType) {
+            'pgsql' => Db::query("SELECT tablename FROM pg_tables WHERE tablename LIKE '{$this->tableName}'"),
+            default => Db::query("show tables like '{$this->tableName}'"),
+        };
         if (empty($check)) {
             $sql = $this->getCreateSql();
             Db::execute($sql);
@@ -97,10 +101,7 @@ class SystemLogService
         return true;
     }
 
-    public function getAllTableList()
-    {
-
-    }
+    public function getAllTableList() {}
 
     public function clearLogCache(): true
     {
@@ -115,7 +116,23 @@ class SystemLogService
      */
     protected function getCreateSql(): string
     {
-        return <<<EOT
+        $dbType = config('database.default');
+        return match ($dbType) {
+            'pgsql' => <<<EOT
+CREATE TABLE IF NOT EXISTS {$this->tableName} (
+    id SERIAL PRIMARY KEY,
+    admin_id INTEGER DEFAULT 0,
+    url VARCHAR(1500) NOT NULL DEFAULT '',
+    method VARCHAR(50) NOT NULL,
+    title VARCHAR(100) DEFAULT '',
+    content JSON NOT NULL,
+    response JSON,
+    ip VARCHAR(50) NOT NULL DEFAULT '',
+    useragent VARCHAR(255) DEFAULT '',
+    create_time INTEGER
+);
+EOT,
+            default => <<<EOT
 CREATE TABLE `{$this->tableName}` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `admin_id` int(10) unsigned DEFAULT '0' COMMENT '管理员ID',
@@ -129,7 +146,8 @@ CREATE TABLE `{$this->tableName}` (
   `create_time` int(10) DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='后台操作日志表 - {$this->tableSuffix}';
-EOT;
+EOT,
+        };
     }
 
 }
