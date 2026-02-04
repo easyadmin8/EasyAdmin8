@@ -4,6 +4,7 @@
 <p>
 <img src="https://img.shields.io/badge/php-%3E=8.2.0-brightgreen.svg?style=for-the-badge&logo=php&colorB=ff69b4" alt="php">
 <img src="https://img.shields.io/badge/mysql-%3E=5.7-brightgreen.svg?style=for-the-badge&logo=mysql&colorB=blue" alt="MySQL">
+<img src="https://img.shields.io/badge/PostgreSQL-%3E=12.0-brightgreen.svg?style=for-the-badge&logo=PostgreSQL&colorB=yellow" alt="PostgreSQL">
 <img src="https://img.shields.io/badge/thinkphp-%3E=8.1.0-brightgreen.svg?style=for-the-badge&logo=thinkphp" alt="ThinkPHP">
 <img src="https://img.shields.io/badge/layui-%3E=2.0-brightgreen.svg?style=for-the-badge&logo=layui&colorB=orange" alt="layui">
 <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge&logo=license&colorB=purple" alt="License">
@@ -21,7 +22,7 @@
 
 ## 项目介绍
 
-> `EasyAdmin8` 在 [`EasyAdmin`](https://gitee.com/zhongshaofa/easyadmin) 的基础上更新 ThinkPHP 框架到 8.1+ ，PHP 最低版本要求不低于 8.1
+> `EasyAdmin8` 在 [`EasyAdmin`](https://gitee.com/zhongshaofa/easyadmin) 的基础上更新 ThinkPHP 框架到 8.1+ ，PHP 最低版本要求不低于 8.2
 >
 > 2026年起 `PHP` 版本要求提升到 `8.2+`, 如果需要其他分支，请自行选择在分支中选择
 >
