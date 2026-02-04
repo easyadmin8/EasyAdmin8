@@ -1,0 +1,445 @@
+/* Modern Dashboard Style */
+.modern-dashboard {
+    background: #f8fafc;
+    min-height: 100vh;
+    font-family: 'Microsoft YaHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.modern-header {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 20px 0;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+}
+
+.modern-greeting {
+    flex: 1;
+}
+
+.modern-greeting h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+}
+
+.modern-greeting p {
+    font-size: 16px;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.modern-avatar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.modern-avatar-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3b82f6;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.modern-avatar-info {
+    text-align: right;
+}
+
+.modern-avatar-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.modern-avatar-time {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.modern-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.modern-metric-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.modern-metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+}
+
+.modern-metric-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modern-metric-label {
+    font-size: 14px;
+    color: #64748b;
+}
+
+.modern-metric-trend {
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.modern-trend-up {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.modern-trend-down {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.modern-actions {
+    margin: 20px 0;
+}
+
+.modern-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 15px;
+}
+
+.modern-action-item {
+    background: white;
+    border-radius: 12px;
+    padding: 20px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.modern-action-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15);
+    border-color: #3b82f6;
+}
+
+.modern-action-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.modern-action-text {
+    font-size: 13px;
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.modern-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.modern-main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modern-section {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.modern-section-header {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.modern-todo-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modern-todo-item:hover {
+    background: #f8fafc;
+    padding-left: 10px;
+}
+
+.modern-todo-item:last-child {
+    border-bottom: none;
+}
+
+.modern-news-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modern-news-item:hover {
+    background: #f8fafc;
+    padding-left: 10px;
+}
+
+.modern-news-item:last-child {
+    border-bottom: none;
+}
+
+.modern-news-content {
+    flex: 1;
+}
+
+.modern-news-actions {
+    display: flex;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.modern-news-item:hover .modern-news-actions {
+    opacity: 1;
+}
+
+.modern-news-date {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-bottom: 5px;
+}
+
+.modern-news-title {
+    font-size: 14px;
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.modern-news-btn {
+    font-size: 12px;
+    color: #3b82f6;
+    cursor: pointer;
+}
+
+.modern-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modern-attendance {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.modern-attendance-header {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modern-attendance-calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    text-align: center;
+}
+
+.modern-calendar-header {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 8px;
+}
+
+.modern-calendar-day {
+    font-size: 12px;
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modern-calendar-day:hover {
+    background: #eff6ff;
+}
+
+.modern-calendar-day.today {
+    background: #3b82f6;
+    color: white;
+    font-weight: 600;
+}
+
+.modern-calendar-day.weekend {
+    color: #ef4444;
+}
+
+.modern-calendar-day.checked {
+    background: #10b981;
+    color: white;
+}
+
+.modern-ranking {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.modern-ranking-header {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.modern-ranking-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.modern-ranking-tab {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 12px;
+    background: #f1f5f9;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modern-ranking-tab.active {
+    background: #3b82f6;
+    color: white;
+}
+
+.modern-ranking-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.modern-ranking-item:last-child {
+    border-bottom: none;
+}
+
+.modern-ranking-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.modern-ranking-info {
+    flex: 1;
+}
+
+.modern-ranking-name {
+    font-size: 14px;
+    color: #1e293b;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.modern-ranking-department {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+.modern-ranking-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f59e0b;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+    .modern-metrics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .modern-actions-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .modern-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .modern-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .modern-metrics {
+        grid-template-columns: 1fr;
+    }
+    
+    .modern-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

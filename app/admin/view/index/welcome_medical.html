@@ -1,0 +1,297 @@
+<!--芝加哥省妇幼保健院急诊临床信息系统-->
+<link rel="stylesheet" href="/static/admin/css/welcome-medical.css?v={$version}" media="all">
+
+<div class="medical-dashboard">
+    <!-- 顶部导航栏 -->
+    <div class="medical-header">
+        <div class="medical-header-left">
+            <div class="medical-logo">
+                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=hospital%20logo%20with%20red%20cross%20and%20green%20leaves%20Chinese%20style%20simple%20clean%20design&image_size=square" alt="芝加哥省妇幼保健院">
+                <span class="medical-hospital-name">芝加哥省妇幼保健院</span>
+                <span class="medical-system-name">急诊临床信息系统</span>
+            </div>
+            <div class="medical-nav">
+                <div class="medical-nav-item active">患者管理</div>
+                <div class="medical-nav-item">交接班管理</div>
+                <div class="medical-nav-item">质量控制</div>
+                <div class="medical-nav-item">统计与报价</div>
+            </div>
+        </div>
+        <div class="medical-header-right">
+            <div class="medical-user-info">
+                <span class="medical-user-role">管理员</span>
+                <span class="medical-user-name">(administrators)</span>
+            </div>
+            <div class="medical-actions">
+                <button class="medical-action-btn">总院区</button>
+                <button class="medical-action-btn minimize"><i class="fa fa-window-minimize"></i></button>
+                <button class="medical-action-btn maximize"><i class="fa fa-window-maximize"></i></button>
+                <button class="medical-action-btn close"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 搜索和筛选区域 -->
+    <div class="medical-search-area">
+        <div class="medical-search-filters">
+            <input type="text" placeholder="搜索 ID/姓名/诊断" class="medical-search-input">
+            <select class="medical-search-select">
+                <option>转归状态</option>
+            </select>
+            <select class="medical-search-select">
+                <option>区域</option>
+            </select>
+            <select class="medical-search-select">
+                <option>分诊级别</option>
+            </select>
+            <button class="medical-search-btn">查询</button>
+            <button class="medical-search-btn advanced">高级查询</button>
+            <button class="medical-search-btn reset">重置</button>
+            <button class="medical-search-btn export">赋码/统计</button>
+        </div>
+        <div class="medical-search-actions">
+            <button class="medical-action-btn primary">+ 患者入科</button>
+        </div>
+    </div>
+
+    <!-- 统计指标区域 -->
+    <div class="medical-stats-area">
+        <div class="medical-stat-item">
+            <div class="medical-stat-icon">
+                <i class="fa fa-user-plus"></i>
+            </div>
+            <div class="medical-stat-label">新人科</div>
+            <div class="medical-stat-value">13人</div>
+        </div>
+        <div class="medical-stat-item">
+            <div class="medical-stat-icon">
+                <i class="fa fa-heartbeat"></i>
+            </div>
+            <div class="medical-stat-label">病重</div>
+            <div class="medical-stat-value">13人</div>
+        </div>
+        <div class="medical-stat-item">
+            <div class="medical-stat-icon">
+                <i class="fa fa-bed"></i>
+            </div>
+            <div class="medical-stat-label">压疮</div>
+            <div class="medical-stat-value">13人</div>
+        </div>
+        <div class="medical-stat-item">
+            <div class="medical-stat-icon">
+                <i class="fa fa-medkit"></i>
+            </div>
+            <div class="medical-stat-label">留置导尿</div>
+            <div class="medical-stat-value">13人</div>
+        </div>
+        <div class="medical-stat-item">
+            <div class="medical-stat-icon">
+                <i class="fa fa-ecg"></i>
+            </div>
+            <div class="medical-stat-label">心电监测</div>
+            <div class="medical-stat-value">13人</div>
+        </div>
+        <div class="medical-stat-item">
+            <div class="medical-stat-icon">
+                <i class="fa fa-stethoscope"></i>
+            </div>
+            <div class="medical-stat-label">满留时间中位</div>
+            <div class="medical-stat-value">1:30 min</div>
+        </div>
+    </div>
+
+    <!-- 患者列表区域 -->
+    <div class="medical-patient-area">
+        <div class="medical-patient-header">
+            <div class="medical-patient-column">分级</div>
+            <div class="medical-patient-column">ID</div>
+            <div class="medical-patient-column">姓名</div>
+            <div class="medical-patient-column">性别</div>
+            <div class="medical-patient-column">年龄</div>
+            <div class="medical-patient-column">绿通</div>
+            <div class="medical-patient-column">分诊时间</div>
+            <div class="medical-patient-column">入科时间</div>
+            <div class="medical-patient-column">滞留时间</div>
+            <div class="medical-patient-column">诊断</div>
+            <div class="medical-patient-column">区域</div>
+            <div class="medical-patient-column">科室</div>
+            <div class="medical-patient-column">挂号</div>
+            <div class="medical-patient-column">消息</div>
+            <div class="medical-patient-column">标识</div>
+        </div>
+        <div class="medical-patient-list">
+            <div class="medical-patient-item">
+                <div class="medical-patient-cell level level-1">一级</div>
+                <div class="medical-patient-cell">M210197</div>
+                <div class="medical-patient-cell">
+                    <span class="patient-name">王爱民</span>
+                    <span class="patient-icon"><i class="fa fa-question-circle"></i></span>
+                </div>
+                <div class="medical-patient-cell">男</div>
+                <div class="medical-patient-cell">42岁</div>
+                <div class="medical-patient-cell">
+                    <span class="green-pass"><i class="fa fa-ambulance"></i></span>
+                </div>
+                <div class="medical-patient-cell">2020-02-23 12:30</div>
+                <div class="medical-patient-cell">2020-02-23 12:30</div>
+                <div class="medical-patient-cell">125min</div>
+                <div class="medical-patient-cell">呼吸困难、水肿、咯血、紫绀</div>
+                <div class="medical-patient-cell">红区</div>
+                <div class="medical-patient-cell">急诊科</div>
+                <div class="medical-patient-cell">
+                    <span class="patient-action"><i class="fa fa-calendar"></i></span>
+                </div>
+                <div class="medical-patient-cell">
+                    <span class="patient-action"><i class="fa fa-envelope"></i></span>
+                </div>
+                <div class="medical-patient-cell">
+                    <span class="patient-action"><i class="fa fa-exclamation-triangle"></i></span>
+                    <span class="patient-action"><i class="fa fa-bell"></i></span>
+                    <span class="patient-action"><i class="fa fa-file-text"></i></span>
+                </div>
+            </div>
+            <div class="medical-patient-item">
+                <div class="medical-patient-cell level level-2">二级</div>
+                <div class="medical-patient-cell">M210197</div>
+                <div class="medical-patient-cell">
+                    <span class="patient-name">朱彤</span>
+                    <span class="patient-icon"><i class="fa fa-question-circle"></i></span>
+                </div>
+                <div class="medical-patient-cell">男</div>
+                <div class="medical-patient-cell">42岁</div>
+                <div class="medical-patient-cell">
+                    <span class="green-pass"><i class="fa fa-ambulance"></i></span>
+                </div>
+                <div class="medical-patient-cell">2020-02-23 12:30</div>
+                <div class="medical-patient-cell">2020-02-23 12:30</div>
+                <div class="medical-patient-cell">125min</div>
+                <div class="medical-patient-cell">呼吸困难</div>
+                <div class="medical-patient-cell">红区</div>
+                <div class="medical-patient-cell">急诊科</div>
+                <div class="medical-patient-cell">
+                    <span class="patient-action"><i class="fa fa-calendar"></i></span>
+                </div>
+                <div class="medical-patient-cell">
+                    <span class="patient-action"><i class="fa fa-envelope"></i></span>
+                </div>
+                <div class="medical-patient-cell">
+                    <span class="patient-action"><i class="fa fa-exclamation-triangle"></i></span>
+                    <span class="patient-action"><i class="fa fa-bell"></i></span>
+                    <span class="patient-action"><i class="fa fa-file-text"></i></span>
+                </div>
+            </div>
+            <div class="medical-patient-item">
+                <div class="medical-patient-cell level level-3">三级</div>
+                <div class="medical-patient-cell">M210197</div>
+                <div class="medical-patient-cell">
+                    <span class="patient-name">孙友</span>
+                    <span class="patient-icon"><i class="fa fa-question-circle"></i></span>
+                </div>
+                <div class="medical-patient-cell">男</div>
+                <div class="medical-patient-cell">42岁</div>
+                <div class="medical-patient-cell">
+                    <span class="green-pass"><i class="fa fa-ambulance"></i></span>
+                </div>
+                <div class="medical-patient-cell">2020-02-23 12:30</div>
+                <div class="medical-patient-cell">2020-02-23 12:30</div>
+                <div class="medical-patient-cell">125min</div>
+                <div class="medical-patient-cell">呼吸困难、水肿</div>
+                <div class="medical-patient-cell">红区</div>
+                <div class="medical-patient-cell">急诊科</div>
+                <div class="medical-patient-cell">
+                    <span class="patient-action"><i class="fa fa-calendar"></i></span>
+                </div>
+                <div class="medical-patient-cell">
+                    <span class="patient-action"><i class="fa fa-envelope"></i></span>
+                </div>
+                <div class="medical-patient-cell">
+                    <span class="patient-action"><i class="fa fa-exclamation-triangle"></i></span>
+                    <span class="patient-action"><i class="fa fa-bell"></i></span>
+                    <span class="patient-action"><i class="fa fa-file-text"></i></span>
+                </div>
+            </div>
+            <div class="medical-patient-item">
+                <div class="medical-patient-cell level level-4">四级</div>
+                <div class="medical-patient-cell">M210197</div>
+                <div class="medical-patient-cell">
+                    <span class="patient-name">王小妮</span>
+                    <span class="patient-icon"><i class="fa fa-question-circle"></i></span>
+                </div>
+                <div class="medical-patient-cell">男</div>
+                <div class="medical-patient-cell">42岁</div>
+                <div class="medical-patient-cell">
+                    <span class="green-pass"><i class="fa fa-ambulance"></i></span>
+                </div>
+                <div class="medical-patient-cell">2020-02-23 12:30</div>
+                <div class="medical-patient-cell">2020-02-23 12:30</div>
+                <div class="medical-patient-cell">125min</div>
+                <div class="medical-patient-cell">呼吸困难、水肿、咯血</div>
+                <div class="medical-patient-cell">红区</div>
+                <div class="medical-patient-cell">急诊科</div>
+                <div class="medical-patient-cell">
+                    <span class="patient-action"><i class="fa fa-calendar"></i></span>
+                </div>
+                <div class="medical-patient-cell">
+                    <span class="patient-action"><i class="fa fa-envelope"></i></span>
+                </div>
+                <div class="medical-patient-cell">
+                    <span class="patient-action"><i class="fa fa-exclamation-triangle"></i></span>
+                    <span class="patient-action"><i class="fa fa-bell"></i></span>
+                    <span class="patient-action"><i class="fa fa-file-text"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部操作栏 -->
+    <div class="medical-footer">
+        <div class="medical-footer-left">
+            <button class="medical-footer-btn">床位管理</button>
+            <button class="medical-footer-btn">死亡卡</button>
+            <button class="medical-footer-btn">传染病</button>
+            <button class="medical-footer-btn">胸痛</button>
+            <button class="medical-footer-btn">打印</button>
+            <button class="medical-footer-btn">转归</button>
+            <button class="medical-footer-btn">编辑</button>
+        </div>
+        <div class="medical-footer-right">
+            <div class="medical-pagination">
+                <span class="medical-page-info">页码：</span>
+                <button class="medical-page-btn disabled">
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+                <button class="medical-page-btn">1</button>
+                <button class="medical-page-btn active">2</button>
+                <button class="medical-page-btn">3</button>
+                <button class="medical-page-btn">
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 医疗类首页的交互逻辑
+layui.use(['jquery'], function () {
+    var $ = layui.jquery;
+
+    // 导航项点击事件
+    $('.medical-nav-item').on('click', function () {
+        $('.medical-nav-item').removeClass('active');
+        $(this).addClass('active');
+    });
+
+    // 患者项点击事件
+    $('.medical-patient-item').on('click', function () {
+        $('.medical-patient-item').removeClass('active');
+        $(this).addClass('active');
+    });
+
+    // 分页按钮点击事件
+    $('.medical-page-btn:not(.disabled)').on('click', function () {
+        $('.medical-page-btn').removeClass('active');
+        $(this).addClass('active');
+    });
+});
+</script>

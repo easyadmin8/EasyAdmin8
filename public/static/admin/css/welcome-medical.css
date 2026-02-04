@@ -1,0 +1,517 @@
+/* 江西省妇幼保健院急诊临床信息系统 */
+.medical-dashboard {
+    background: #f5f7fa;
+    min-height: 100vh;
+    font-family: 'Microsoft YaHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 顶部导航栏 */
+.medical-header {
+    background: #1890ff;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(24, 144, 255, 0.3);
+}
+
+.medical-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.medical-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.medical-logo img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.medical-hospital-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.medical-system-name {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-left: 10px;
+}
+
+.medical-nav {
+    display: flex;
+    gap: 20px;
+}
+
+.medical-nav-item {
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.medical-nav-item:hover,
+.medical-nav-item.active {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.medical-header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.medical-user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.medical-user-role {
+    font-weight: 500;
+}
+
+.medical-user-name {
+    opacity: 0.9;
+}
+
+.medical-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.medical-action-btn {
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.medical-action-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.medical-action-btn.primary {
+    background: #52c41a;
+}
+
+.medical-action-btn.primary:hover {
+    background: #73d13d;
+}
+
+/* 搜索和筛选区域 */
+.medical-search-area {
+    background: white;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e8e8e8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.medical-search-filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.medical-search-input {
+    padding: 6px 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 200px;
+}
+
+.medical-search-select {
+    padding: 6px 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    font-size: 14px;
+    min-width: 120px;
+}
+
+.medical-search-btn {
+    padding: 6px 16px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.medical-search-btn:hover {
+    border-color: #1890ff;
+    color: #1890ff;
+}
+
+.medical-search-btn.advanced {
+    background: #f0f0f0;
+}
+
+.medical-search-btn.export {
+    background: #52c41a;
+    color: white;
+    border-color: #52c41a;
+}
+
+/* 统计指标区域 */
+.medical-stats-area {
+    display: flex;
+    gap: 15px;
+    padding: 15px 20px;
+    background: white;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.medical-stat-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 6px;
+    background: #f9f9f9;
+    border: 1px solid #e8e8e8;
+}
+
+.medical-stat-icon {
+    font-size: 20px;
+    color: #1890ff;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e6f7ff;
+    border-radius: 50%;
+}
+
+.medical-stat-label {
+    font-size: 12px;
+    color: #666;
+    flex: 1;
+}
+
+.medical-stat-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+}
+
+/* 患者列表区域 */
+.medical-patient-area {
+    flex: 1;
+    background: white;
+    margin: 15px 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.medical-patient-header {
+    display: grid;
+    grid-template-columns: 60px 80px 80px 50px 60px 50px 120px 120px 100px 150px 60px 80px 60px 60px 120px;
+    background: #f5f5f5;
+    padding: 10px;
+    border-bottom: 1px solid #e8e8e8;
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+}
+
+.medical-patient-column {
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.medical-patient-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.medical-patient-item {
+    display: grid;
+    grid-template-columns: 60px 80px 80px 50px 60px 50px 120px 120px 100px 150px 60px 80px 60px 60px 120px;
+    padding: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.medical-patient-item:hover {
+    background: #f9f9f9;
+}
+
+.medical-patient-item.active {
+    background: #e6f7ff;
+}
+
+.medical-patient-cell {
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.level {
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.level-1 {
+    background: #ff4d4f;
+}
+
+.level-2 {
+    background: #fa8c16;
+}
+
+.level-3 {
+    background: #faad14;
+}
+
+.level-4 {
+    background: #52c41a;
+}
+
+.patient-name {
+    font-weight: 500;
+}
+
+.patient-icon {
+    color: #1890ff;
+    font-size: 14px;
+}
+
+.green-pass {
+    color: #52c41a;
+    font-size: 14px;
+}
+
+.patient-action {
+    color: #1890ff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* 底部操作栏 */
+.medical-footer {
+    background: white;
+    border-top: 1px solid #e8e8e8;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.medical-footer-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.medical-footer-btn {
+    padding: 6px 12px;
+    background: #f0f0f0;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.medical-footer-btn:hover {
+    background: #e6f7ff;
+    border-color: #1890ff;
+    color: #1890ff;
+}
+
+.medical-footer-right {
+    display: flex;
+    align-items: center;
+}
+
+.medical-pagination {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.medical-page-info {
+    color: #666;
+    margin-right: 5px;
+}
+
+.medical-page-btn {
+    padding: 4px 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.medical-page-btn:hover:not(.disabled) {
+    border-color: #1890ff;
+    color: #1890ff;
+}
+
+.medical-page-btn.active {
+    background: #1890ff;
+    color: white;
+    border-color: #1890ff;
+}
+
+.medical-page-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .medical-search-area {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    
+    .medical-search-filters {
+        flex-wrap: wrap;
+    }
+    
+    .medical-stats-area {
+        flex-wrap: wrap;
+    }
+    
+    .medical-stat-item {
+        flex: 1 1 calc(50% - 7.5px);
+        min-width: 200px;
+    }
+    
+    .medical-patient-header,
+    .medical-patient-item {
+        font-size: 11px;
+    }
+    
+    .medical-patient-header {
+        grid-template-columns: 50px 70px 70px 40px 50px 40px 100px 100px 90px 130px 50px 70px 50px 50px 100px;
+    }
+    
+    .medical-patient-item {
+        grid-template-columns: 50px 70px 70px 40px 50px 40px 100px 100px 90px 130px 50px 70px 50px 50px 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .medical-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px;
+    }
+    
+    .medical-header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .medical-nav {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .medical-search-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .medical-search-input,
+    .medical-search-select {
+        width: 100%;
+    }
+    
+    .medical-stats-area {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .medical-stat-item {
+        flex: 1 1 100%;
+    }
+    
+    .medical-patient-area {
+        margin: 10px;
+    }
+    
+    .medical-patient-header {
+        display: none;
+    }
+    
+    .medical-patient-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        padding: 15px;
+        border: 1px solid #e8e8e8;
+        margin-bottom: 10px;
+        border-radius: 6px;
+    }
+    
+    .medical-patient-cell {
+        width: 100%;
+        justify-content: space-between;
+        padding: 2px 0;
+    }
+    
+    .medical-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    
+    .medical-footer-left {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .medical-footer-right {
+        justify-content: center;
+    }
+}

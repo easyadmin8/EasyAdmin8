@@ -1,0 +1,704 @@
+/* 企业管理系统首页 */
+.business-dashboard {
+    background: #f5f7fa;
+    min-height: 100vh;
+    font-family: 'Microsoft YaHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 顶部导航栏 */
+.business-nav {
+    background: white;
+    border-bottom: 1px solid #e4e7ed;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.business-nav-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.business-nav-item {
+    font-size: 14px;
+    color: #606266;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.business-nav-item:hover,
+.business-nav-item.active {
+    color: #409eff;
+    background: #ecf5ff;
+}
+
+.business-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.business-nav-icon {
+    font-size: 16px;
+    color: #606266;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.business-nav-icon:hover {
+    color: #409eff;
+    background: #ecf5ff;
+}
+
+.business-nav-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.business-user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.business-user-name {
+    font-size: 14px;
+    color: #303133;
+}
+
+/* 主要内容区域 */
+.business-main {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 20px;
+    min-height: calc(100vh - 80px);
+}
+
+/* 左侧区域 */
+.business-left-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 搜索栏 */
+.business-search {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.business-search-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.business-search-input:focus {
+    border-color: #409eff;
+    box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
+}
+
+.business-search-btn {
+    padding: 8px 16px;
+    background: #409eff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.business-search-btn:hover {
+    background: #66b1ff;
+}
+
+/* 标签页 */
+.business-tabs {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.business-tab-header {
+    display: flex;
+    border-bottom: 1px solid #e4e7ed;
+}
+
+.business-tab-item {
+    padding: 15px 20px;
+    font-size: 14px;
+    color: #606266;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.business-tab-item.active {
+    color: #409eff;
+    border-bottom-color: #409eff;
+}
+
+.business-tab-content {
+    padding: 20px;
+}
+
+/* 我的关注 */
+.business-favorites {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+}
+
+.business-favorite-item {
+    background: #f5f7fa;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #e4e7ed;
+}
+
+.business-favorite-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #c6e2ff;
+}
+
+.business-favorite-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin: 0 auto 8px;
+}
+
+.business-favorite-text {
+    font-size: 12px;
+    color: #606266;
+}
+
+/* 快捷功能区 */
+.business-quick-functions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.business-quick-item {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #e4e7ed;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.business-quick-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #c6e2ff;
+}
+
+.business-quick-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin: 0 auto 10px;
+}
+
+.business-quick-text {
+    font-size: 14px;
+    color: #303133;
+    margin-bottom: 8px;
+}
+
+.business-quick-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #409eff;
+}
+
+/* 区域标题 */
+.business-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e4e7ed;
+}
+
+.business-section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #303133;
+}
+
+.business-section-more {
+    font-size: 12px;
+    color: #409eff;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* 工作任务 */
+.business-task-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+}
+
+.business-task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.business-task-item {
+    background: #f5f7fa;
+    border-radius: 6px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #e4e7ed;
+}
+
+.business-task-item:hover {
+    background: #ecf5ff;
+    border-color: #c6e2ff;
+}
+
+.business-task-title {
+    font-size: 14px;
+    color: #303133;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.business-task-meta {
+    font-size: 12px;
+    color: #909399;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.business-task-status {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.business-task-tag {
+    font-size: 12px;
+    color: #409eff;
+    background: #ecf5ff;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+/* 登录量排行 */
+.business-ranking-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+}
+
+.business-ranking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.business-ranking-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.business-ranking-name {
+    width: 80px;
+    font-size: 14px;
+    color: #303133;
+}
+
+.business-ranking-bar {
+    flex: 1;
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.business-ranking-progress {
+    height: 100%;
+    background: #409eff;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.business-ranking-value {
+    width: 60px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #303133;
+    text-align: right;
+}
+
+/* 右侧区域 */
+.business-right-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 待办/已办 */
+.business-todo-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+}
+
+.business-todo-tabs {
+    display: flex;
+    gap: 20px;
+}
+
+.business-todo-tab {
+    font-size: 14px;
+    color: #606266;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.business-todo-tab.active {
+    color: white;
+    background: #409eff;
+}
+
+/* 欢迎卡片 */
+.business-welcome-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.business-welcome-content {
+    flex: 1;
+}
+
+.business-welcome-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #303133;
+    margin-bottom: 5px;
+}
+
+.business-welcome-desc {
+    font-size: 14px;
+    color: #606266;
+    margin-bottom: 15px;
+}
+
+.business-welcome-features {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.business-welcome-feature {
+    font-size: 12px;
+    color: #409eff;
+    cursor: pointer;
+}
+
+.business-welcome-image img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* 数据中心 */
+.business-data-center {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.business-data-circle {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.business-data-number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    font-weight: 700;
+    color: #409eff;
+}
+
+/* 通知公告 */
+.business-notification-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+}
+
+.business-notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.business-notification-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    background: #f5f7fa;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.business-notification-item:hover {
+    background: #ecf5ff;
+}
+
+.business-notification-time {
+    width: 60px;
+    font-size: 12px;
+    color: #909399;
+    text-align: center;
+}
+
+.business-notification-content {
+    flex: 1;
+}
+
+.business-notification-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #303133;
+    margin-bottom: 4px;
+}
+
+.business-notification-desc {
+    font-size: 12px;
+    color: #606266;
+    margin-bottom: 4px;
+}
+
+.business-notification-date {
+    font-size: 11px;
+    color: #909399;
+}
+
+.business-notification-status {
+    font-size: 11px;
+    color: #67c23a;
+    background: #f0f9eb;
+    padding: 2px 6px;
+    border-radius: 10px;
+    align-self: flex-start;
+}
+
+/* 用户活跃度 */
+.business-activity-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+}
+
+.business-section-date {
+    font-size: 12px;
+    color: #909399;
+}
+
+.business-activity-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.business-activity-stat {
+    text-align: center;
+    padding: 15px;
+    background: #f5f7fa;
+    border-radius: 6px;
+}
+
+.business-activity-number {
+    font-size: 20px;
+    font-weight: 600;
+    color: #409eff;
+    margin-bottom: 5px;
+}
+
+.business-activity-label {
+    font-size: 12px;
+    color: #606266;
+}
+
+.business-activity-details {
+    display: flex;
+    gap: 20px;
+}
+
+.business-activity-detail {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #606266;
+}
+
+/* 工单情况 */
+.business-ticket-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+}
+
+.business-ticket-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.business-ticket-stat {
+    text-align: center;
+    padding: 15px;
+    background: #f5f7fa;
+    border-radius: 6px;
+}
+
+.business-ticket-number {
+    font-size: 20px;
+    font-weight: 600;
+    color: #409eff;
+    margin-bottom: 5px;
+}
+
+.business-ticket-label {
+    font-size: 12px;
+    color: #606266;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .business-main {
+        grid-template-columns: 1fr;
+    }
+    
+    .business-right-section {
+        order: -1;
+        grid-template-columns: repeat(2, 1fr);
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .business-welcome-card,
+    .business-data-center {
+        flex: 1 1 45%;
+    }
+    
+    .business-notification-section,
+    .business-activity-section {
+        flex: 1 1 45%;
+    }
+    
+    .business-ticket-section {
+        flex: 1 1 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .business-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px;
+    }
+    
+    .business-nav-left {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .business-main {
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .business-right-section {
+        flex-direction: column;
+    }
+    
+    .business-favorites {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .business-quick-functions {
+        grid-template-columns: 1fr;
+    }
+    
+    .business-activity-stats,
+    .business-ticket-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .business-welcome-card {
+        flex-direction: column;
+        text-align: center;
+    }
+}

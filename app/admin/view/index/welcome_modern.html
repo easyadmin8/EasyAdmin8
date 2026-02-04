@@ -1,0 +1,345 @@
+<!--现代风格首页-->
+<link rel="stylesheet" href="/static/admin/css/welcome-modern.css?v={$version}" media="all">
+
+<div class="modern-dashboard">
+    <!-- 顶部欢迎区域 -->
+    <div class="modern-header">
+        <div class="modern-greeting">
+            <h2>上午好，管理员</h2>
+            <p>今天也是元气满满的一天，加油，打工人！</p>
+        </div>
+        <div class="modern-avatar">
+            <div class="modern-avatar-img">管</div>
+            <div class="modern-avatar-info">
+                <div class="modern-avatar-name">管理员</div>
+                <div class="modern-avatar-time">{$Think.config.eadate|default='2026-02-04'}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 关键指标卡片 -->
+    <div class="modern-metrics">
+        <div class="modern-metric-card">
+            <div class="modern-metric-value">
+                <span>620</span>
+                <span class="modern-metric-trend modern-trend-up">↗</span>
+            </div>
+            <div class="modern-metric-label">今日订单金额</div>
+        </div>
+        <div class="modern-metric-card">
+            <div class="modern-metric-value">
+                <span>123</span>
+                <span class="modern-metric-trend modern-trend-up">↗</span>
+            </div>
+            <div class="modern-metric-label">今日订单数量</div>
+        </div>
+        <div class="modern-metric-card">
+            <div class="modern-metric-value">
+                <span>188</span>
+                <span class="modern-metric-trend modern-trend-up">↗</span>
+            </div>
+            <div class="modern-metric-label">半月订单总金额</div>
+        </div>
+        <div class="modern-metric-card">
+            <div class="modern-metric-value">
+                <span>46</span>
+                <span class="modern-metric-trend modern-trend-up">↗</span>
+            </div>
+            <div class="modern-metric-label">半月订单数量</div>
+        </div>
+    </div>
+
+    <!-- 常用功能 -->
+    <div class="modern-actions">
+        <div class="modern-actions-grid">
+            <div class="modern-action-item">
+                <div class="modern-action-icon" style="background: #fef3c7; color: #f59e0b;">
+                    <i class="fa fa-users"></i>
+                </div>
+                <div class="modern-action-text">客户管理</div>
+            </div>
+            <div class="modern-action-item">
+                <div class="modern-action-icon" style="background: #dbeafe; color: #3b82f6;">
+                    <i class="fa fa-file-alt"></i>
+                </div>
+                <div class="modern-action-text">订单管理</div>
+            </div>
+            <div class="modern-action-item">
+                <div class="modern-action-icon" style="background: #dcfce7; color: #10b981;">
+                    <i class="fa fa-shopping-cart"></i>
+                </div>
+                <div class="modern-action-text">我的订单</div>
+            </div>
+            <div class="modern-action-item">
+                <div class="modern-action-icon" style="background: #fce7f3; color: #ec4899;">
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="modern-action-text">用户管理</div>
+            </div>
+            <div class="modern-action-item">
+                <div class="modern-action-icon" style="background: #ede9fe; color: #8b5cf6;">
+                    <i class="fa fa-box"></i>
+                </div>
+                <div class="modern-action-text">库存管理</div>
+            </div>
+            <div class="modern-action-item">
+                <div class="modern-action-icon" style="background: #fef2f2; color: #ef4444;">
+                    <i class="fa fa-chart-line"></i>
+                </div>
+                <div class="modern-action-text">运营管理</div>
+            </div>
+            <div class="modern-action-item">
+                <div class="modern-action-icon" style="background: #e0f2fe; color: #0ea5e9;">
+                    <i class="fa fa-clipboard-check"></i>
+                </div>
+                <div class="modern-action-text">财务审批</div>
+            </div>
+            <div class="modern-action-item">
+                <div class="modern-action-icon" style="background: #f0fdf4; color: #22c55e;">
+                    <i class="fa fa-tools"></i>
+                </div>
+                <div class="modern-action-text">商机维护</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="modern-content">
+        <!-- 左侧内容 -->
+        <div class="modern-main">
+            <!-- 待办事项 -->
+            <div class="modern-section">
+                <div class="modern-section-header">待办</div>
+                <div class="modern-todo-item">2022-10月OKR待提交</div>
+                <div class="modern-todo-item">2022-10工资待确认</div>
+                <div class="modern-todo-item">2022-11绩效考核确认</div>
+            </div>
+
+            <!-- 通知公告 -->
+            <div class="modern-section">
+                <div class="modern-section-header">通知</div>
+                <div class="modern-news-item">
+                    <div class="modern-news-content">
+                        <div class="modern-news-date">2022-09-07</div>
+                        <div class="modern-news-title">2022年中秋放假通知</div>
+                    </div>
+                    <div class="modern-news-actions">
+                        <span class="modern-news-btn">人事</span>
+                    </div>
+                </div>
+                <div class="modern-news-item">
+                    <div class="modern-news-content">
+                        <div class="modern-news-date">2022-09-05</div>
+                        <div class="modern-news-title">公司培训体系公示</div>
+                    </div>
+                    <div class="modern-news-actions">
+                        <span class="modern-news-btn">培训</span>
+                    </div>
+                </div>
+                <div class="modern-news-item">
+                    <div class="modern-news-content">
+                        <div class="modern-news-date">2022-09-05</div>
+                        <div class="modern-news-title">公司员工福利制度</div>
+                    </div>
+                    <div class="modern-news-actions">
+                        <span class="modern-news-btn">人事</span>
+                    </div>
+                </div>
+                <div class="modern-news-item">
+                    <div class="modern-news-content">
+                        <div class="modern-news-date">2022-09-05</div>
+                        <div class="modern-news-title">关于开展公司周会互联网例会的通知</div>
+                    </div>
+                    <div class="modern-news-actions">
+                        <span class="modern-news-btn">培训</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 动态 -->
+            <div class="modern-section">
+                <div class="modern-section-header">动态</div>
+                <div class="modern-news-item">
+                    <div class="modern-news-content">
+                        <div class="modern-news-date">2022-09-08</div>
+                        <div class="modern-news-title">欢迎马强加入农业商务部，快到碗里来~</div>
+                    </div>
+                    <div class="modern-news-actions">
+                        <span class="modern-news-btn">4点赞</span>
+                        <span class="modern-news-btn">0评论</span>
+                    </div>
+                </div>
+                <div class="modern-news-item">
+                    <div class="modern-news-content">
+                        <div class="modern-news-date">2022-09-07</div>
+                        <div class="modern-news-title">欢迎王夏加入拓展二部，快到碗里来~</div>
+                    </div>
+                    <div class="modern-news-actions">
+                        <span class="modern-news-btn">5点赞</span>
+                        <span class="modern-news-btn">0评论</span>
+                    </div>
+                </div>
+                <div class="modern-news-item">
+                    <div class="modern-news-content">
+                        <div class="modern-news-date">2022-09-07</div>
+                        <div class="modern-news-title">恭喜刘聪入职满2周年，你的日子贼好！</div>
+                    </div>
+                    <div class="modern-news-actions">
+                        <span class="modern-news-btn">5点赞</span>
+                        <span class="modern-news-btn">2评论</span>
+                    </div>
+                </div>
+                <div class="modern-news-item">
+                    <div class="modern-news-content">
+                        <div class="modern-news-date">2022-09-05</div>
+                        <div class="modern-news-title">祝技术研发部王友生日快乐！</div>
+                    </div>
+                    <div class="modern-news-actions">
+                        <span class="modern-news-btn">5点赞</span>
+                        <span class="modern-news-btn">0评论</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧内容 -->
+        <div class="modern-sidebar">
+            <!-- 考勤记录 -->
+            <div class="modern-attendance">
+                <div class="modern-attendance-header">
+                    <span>考勤记录</span>
+                    <div>
+                        <button class="modern-news-btn" style="background: #3b82f6; color: white; padding: 4px 12px; border-radius: 6px; margin-right: 10px;">上班打卡</button>
+                        <button class="modern-news-btn" style="background: #94a3b8; color: white; padding: 4px 12px; border-radius: 6px;">下班打卡</button>
+                    </div>
+                </div>
+                <div class="modern-calendar-header">
+                    <span>一</span>
+                    <span>二</span>
+                    <span>三</span>
+                    <span>四</span>
+                    <span>五</span>
+                    <span class="modern-calendar-day weekend">六</span>
+                    <span class="modern-calendar-day weekend">日</span>
+                </div>
+                <div class="modern-attendance-calendar">
+                    <span class="modern-calendar-day">29</span>
+                    <span class="modern-calendar-day">30</span>
+                    <span class="modern-calendar-day">31</span>
+                    <span class="modern-calendar-day">01</span>
+                    <span class="modern-calendar-day">02</span>
+                    <span class="modern-calendar-day weekend">03</span>
+                    <span class="modern-calendar-day weekend">04</span>
+                    <span class="modern-calendar-day">05</span>
+                    <span class="modern-calendar-day">06</span>
+                    <span class="modern-calendar-day">07</span>
+                    <span class="modern-calendar-day">08</span>
+                    <span class="modern-calendar-day">09</span>
+                    <span class="modern-calendar-day weekend">10</span>
+                    <span class="modern-calendar-day weekend">11</span>
+                    <span class="modern-calendar-day">12</span>
+                    <span class="modern-calendar-day">13</span>
+                    <span class="modern-calendar-day">14</span>
+                    <span class="modern-calendar-day">15</span>
+                    <span class="modern-calendar-day">16</span>
+                    <span class="modern-calendar-day weekend">17</span>
+                    <span class="modern-calendar-day weekend">18</span>
+                    <span class="modern-calendar-day">19</span>
+                    <span class="modern-calendar-day">20</span>
+                    <span class="modern-calendar-day">21</span>
+                    <span class="modern-calendar-day">22</span>
+                    <span class="modern-calendar-day">23</span>
+                    <span class="modern-calendar-day weekend">24</span>
+                    <span class="modern-calendar-day weekend">25</span>
+                    <span class="modern-calendar-day">26</span>
+                    <span class="modern-calendar-day">27</span>
+                    <span class="modern-calendar-day">28</span>
+                    <span class="modern-calendar-day">29</span>
+                    <span class="modern-calendar-day">30</span>
+                </div>
+            </div>
+
+            <!-- 荣誉榜 -->
+            <div class="modern-ranking">
+                <div class="modern-ranking-header">荣誉榜</div>
+                <div class="modern-ranking-tabs">
+                    <span class="modern-ranking-tab active">周榜</span>
+                    <span class="modern-ranking-tab">月榜</span>
+                    <span class="modern-ranking-tab">本周新王</span>
+                    <span class="modern-ranking-tab">本月新王</span>
+                </div>
+                <div class="modern-ranking-item">
+                    <div class="modern-ranking-avatar">王</div>
+                    <div class="modern-ranking-info">
+                        <div class="modern-ranking-name">王晗哈</div>
+                        <div class="modern-ranking-department">ERP研发项目组</div>
+                    </div>
+                    <div class="modern-ranking-value">29,000.00</div>
+                </div>
+                <div class="modern-ranking-item">
+                    <div class="modern-ranking-avatar">杨</div>
+                    <div class="modern-ranking-info">
+                        <div class="modern-ranking-name">杨烊</div>
+                        <div class="modern-ranking-department">业务拓展部</div>
+                    </div>
+                    <div class="modern-ranking-value">19,800.00</div>
+                </div>
+                <div class="modern-ranking-item">
+                    <div class="modern-ranking-avatar">侯</div>
+                    <div class="modern-ranking-info">
+                        <div class="modern-ranking-name">侯艺家</div>
+                        <div class="modern-ranking-department">超越战队</div>
+                    </div>
+                    <div class="modern-ranking-value">19,800.00</div>
+                </div>
+                <div class="modern-ranking-item">
+                    <div class="modern-ranking-avatar">宋</div>
+                    <div class="modern-ranking-info">
+                        <div class="modern-ranking-name">宋元琦</div>
+                        <div class="modern-ranking-department">烈火-售卖三部</div>
+                    </div>
+                    <div class="modern-ranking-value">6,980.00</div>
+                </div>
+                <div class="modern-ranking-item">
+                    <div class="modern-ranking-avatar">于</div>
+                    <div class="modern-ranking-info">
+                        <div class="modern-ranking-name">于福梅</div>
+                        <div class="modern-ranking-department">烈火-售卖三部</div>
+                    </div>
+                    <div class="modern-ranking-value">5,000.00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 现代风格首页的交互逻辑
+layui.use(['jquery'], function () {
+    var $ = layui.jquery;
+
+    // 切换排行榜标签
+    $('.modern-ranking-tab').on('click', function () {
+        $('.modern-ranking-tab').removeClass('active');
+        $(this).addClass('active');
+    });
+
+    // 打卡功能
+    $('.modern-news-btn').on('click', function () {
+        if ($(this).text().includes('上班打卡')) {
+            layer.msg('打卡成功！打卡时间：' + new Date().toLocaleTimeString());
+        }
+    });
+
+    // 模拟日历打卡状态
+    $('.modern-calendar-day').each(function () {
+        var day = parseInt($(this).text());
+        if (day >= 1 && day <= 8) {
+            $(this).addClass('modern-calendar-day checked');
+        }
+        if (day === 8) {
+            $(this).addClass('modern-calendar-day today');
+        }
+    });
+});
+</script>

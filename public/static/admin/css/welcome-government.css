@@ -1,0 +1,617 @@
+/* 湖南省自然资源政务平台 */
+.gov-dashboard {
+    background: #f0f2f5;
+    min-height: 100vh;
+    font-family: 'Microsoft YaHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 顶部导航栏 */
+.gov-header {
+    background: #1a237e;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gov-header-left {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.gov-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.gov-logo img {
+    width: 40px;
+    height: 40px;
+}
+
+.gov-platform-name {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.gov-nav {
+    display: flex;
+    gap: 20px;
+}
+
+.gov-nav-item {
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.gov-nav-item:hover,
+.gov-nav-item.active {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.gov-header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.gov-user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.gov-user-name {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.gov-user-role {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.gov-theme-toggle {
+    font-size: 14px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+/* 搜索栏 */
+.gov-search-bar {
+    background: white;
+    padding: 15px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.gov-search-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.gov-search-select {
+    padding: 6px 10px;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.gov-search-input {
+    flex: 1;
+    max-width: 400px;
+    padding: 8px 12px;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.gov-search-btn {
+    padding: 8px 16px;
+    background: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* 功能图标区 */
+.gov-function-icons {
+    background: white;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    gap: 30px;
+}
+
+.gov-function-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.gov-function-item:hover {
+    background: #f5f7fa;
+}
+
+.gov-function-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #e3f2fd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #1976d2;
+}
+
+.gov-function-text {
+    font-size: 12px;
+    color: #303133;
+}
+
+/* 主要内容区域 */
+.gov-main-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    padding: 0 20px 20px;
+}
+
+/* 左侧预警区域 */
+.gov-left-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* 预警标签 */
+.gov-warning-tabs {
+    display: flex;
+    border-bottom: 1px solid #e4e7ed;
+    background: #f5f7fa;
+}
+
+.gov-warning-tab {
+    padding: 12px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.gov-warning-tab:hover,
+.gov-warning-tab.active {
+    color: #1976d2;
+    border-bottom-color: #1976d2;
+    background: white;
+}
+
+.gov-warning-tab.more {
+    margin-left: auto;
+    color: #1976d2;
+}
+
+/* 预警任务列表 */
+.gov-warning-list {
+    padding: 20px;
+}
+
+.gov-warning-item {
+    border: 1px solid #e4e7ed;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.gov-warning-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.gov-warning-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.gov-warning-tag {
+    font-size: 12px;
+    color: #1976d2;
+    background: #e3f2fd;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.gov-warning-status {
+    font-size: 12px;
+    color: #67c23a;
+}
+
+.gov-warning-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #303133;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.gov-warning-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #909399;
+    margin-bottom: 10px;
+}
+
+.gov-warning-progress {
+    margin-bottom: 10px;
+}
+
+.gov-warning-progress-text {
+    font-size: 12px;
+    color: #606266;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.gov-warning-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #f0f0f0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.gov-warning-progress-fill {
+    height: 100%;
+    background: #4caf50;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.gov-warning-actions {
+    text-align: right;
+}
+
+.gov-warning-btn {
+    padding: 6px 16px;
+    background: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* 右侧区域 */
+.gov-right-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 区域标题 */
+.gov-section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #303133;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e4e7ed;
+}
+
+/* 快速发起 */
+.gov-quick-actions {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.gov-quick-action-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.gov-quick-action-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.gov-quick-action-item:hover {
+    background: #f5f7fa;
+}
+
+.gov-quick-action-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e3f2fd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #1976d2;
+}
+
+.gov-quick-action-text {
+    font-size: 12px;
+    color: #303133;
+}
+
+/* 建设用地实时图 */
+.gov-chart-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.gov-chart-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.gov-chart-tab {
+    padding: 6px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 16px;
+    background: #f5f7fa;
+    color: #606266;
+    transition: all 0.3s ease;
+}
+
+.gov-chart-tab.active {
+    background: #1976d2;
+    color: white;
+}
+
+.gov-chart-container {
+    height: 300px;
+}
+
+/* 项目进度 */
+.gov-project-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.gov-project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.gov-project-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.gov-project-name {
+    font-size: 14px;
+    color: #303133;
+    flex: 1;
+}
+
+.gov-project-progress {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.gov-project-progress-bar {
+    flex: 1;
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.gov-project-progress-fill {
+    height: 100%;
+    background: #1976d2;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.gov-project-progress-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: #303133;
+    min-width: 40px;
+    text-align: right;
+}
+
+/* 日历 */
+.gov-calendar-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.gov-calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.gov-calendar-date {
+    font-size: 14px;
+    font-weight: 500;
+    color: #303133;
+}
+
+.gov-calendar-nav {
+    display: flex;
+    gap: 5px;
+}
+
+.gov-calendar-nav-btn {
+    padding: 4px 8px;
+    background: #f5f7fa;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.gov-calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.gov-calendar-weekdays span {
+    text-align: center;
+    font-size: 12px;
+    color: #606266;
+    padding: 8px 0;
+}
+
+.gov-calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.gov-calendar-day {
+    text-align: center;
+    font-size: 12px;
+    color: #303133;
+    padding: 10px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.gov-calendar-day:hover {
+    background: #e3f2fd;
+}
+
+.gov-calendar-day.other-month {
+    color: #909399;
+}
+
+.gov-calendar-day.today {
+    background: #1976d2;
+    color: white;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .gov-main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .gov-function-icons {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .gov-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px;
+    }
+    
+    .gov-header-left {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        width: 100%;
+    }
+    
+    .gov-nav {
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+    }
+    
+    .gov-search-bar {
+        padding: 10px;
+    }
+    
+    .gov-search-left {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    
+    .gov-search-input {
+        max-width: none;
+    }
+    
+    .gov-function-icons {
+        padding: 10px;
+        gap: 15px;
+    }
+    
+    .gov-function-item {
+        flex: 1;
+        min-width: 80px;
+    }
+    
+    .gov-main-content {
+        padding: 0 10px 10px;
+        gap: 10px;
+    }
+    
+    .gov-quick-action-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .gov-chart-container {
+        height: 250px;
+    }
+    
+    .gov-warning-list {
+        padding: 10px;
+    }
+    
+    .gov-warning-item {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+}
