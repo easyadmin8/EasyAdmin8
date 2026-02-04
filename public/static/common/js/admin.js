@@ -159,7 +159,6 @@ function prettyFormat(str) {
 if (self === top) {
     console.group('温馨提示');
     console.log(`%c
-
                                                         ▄▄                    ▄▄
 ▀███▀▀▀███                               ██           ▀███                    ██             ▄█▄▀▄██▄
   ██    ▀█                              ▄██▄            ██                                  ██     ██
@@ -171,7 +170,6 @@ if (self === top) {
                            ▄█
                          ██▀
 %c
-
 官方网站：https://easyadmin8.top
 
 官方文档：https://edocs.easyadmin8.top
@@ -186,13 +184,13 @@ if (self === top) {
 
 常见问题：https://easyadmin8.top/guide/question.html
 
-%c遇到问题先把 DEBUG 模式打开，然后把错误信息找出来，当不能解决的时候再去社区提问或者QQ群交流
-`,
-        "color:#4290f7;font-weight:bold;font-size:10px;",
-        "color:#5672cd;",
-        "color:#ff5722;font-weight:bold;font-size:1rem;",
-        "color:#5672cd;",
-        "color:#ff5722;font-weight:bold;font-size:1rem;background:#f9de97;",
+%c遇到问题先把 DEBUG 模式打开，然后把错误信息找出来，当不能解决的时候再去社区提问或者QQ群交流`,
+
+        "color:#4290f7;font-weight:bold;font-size:10px; font-family: Consolas, Monaco, monospace; line-height: 1; letter-spacing: 0; transform: scale(1);",
+        "color:#5672cd; font-family: Consolas, Monaco, monospace;",
+        "color:#ff5722;font-weight:bold;font-size:1rem; font-family: Consolas, Monaco, monospace;",
+        "color:#5672cd; font-family: Consolas, Monaco, monospace;",
+        "color:#ffffff;font-weight:bold;font-size:1rem;background:#1e9fff; font-family: Consolas, Monaco, monospace;padding:5px;"
     );
     console.groupEnd();
 }

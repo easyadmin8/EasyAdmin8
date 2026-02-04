@@ -36,6 +36,70 @@ define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTh
                 },
             })
 
+            let tabs = layui.tabs
+            tabs.on('afterChange(home-page-demo)', function (data) {
+                let index = data.index;
+                if (index === 2) {
+                    let landChart = echarts.init(document.getElementById('gov-land-chart'), 'walden');
+                    let landOption = {
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        },
+                        legend: {
+                            data: ['征地', '供应', '规划净地'],
+                            bottom: '0%'
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '15%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: ['2月', '3月', '4月', '5月', '6月']
+                        },
+                        yAxis: {
+                            type: 'value',
+                            name: '面积（公顷）'
+                        },
+                        series: [
+                            {
+                                name: '征地',
+                                type: 'bar',
+                                data: [200, 300, 250, 280, 320],
+                                itemStyle: {
+                                    color: '#ff9800'
+                                }
+                            },
+                            {
+                                name: '供应',
+                                type: 'bar',
+                                data: [150, 250, 200, 230, 270],
+                                itemStyle: {
+                                    color: '#2196f3'
+                                }
+                            },
+                            {
+                                name: '规划净地',
+                                type: 'bar',
+                                data: [250, 350, 300, 330, 370],
+                                itemStyle: {
+                                    color: '#4caf50'
+                                }
+                            }
+                        ]
+                    };
+                    landChart.setOption(landOption);
+                    window.onresize = function () {
+                        landChart.resize();
+                    };
+                }
+            });
+
             /**
              * 查看公告信息
              **/

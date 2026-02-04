@@ -29,7 +29,7 @@ require.config({
 
 // 路径配置信息
 var PATH_CONFIG = {
-    iconLess: BASE_URL + "plugs/font-awesome-6.x/less/_variables.less",
+    iconLess: BASE_URL + "plugs/font-awesome-7.x/scss/_variables.scss",
 };
 window.PATH_CONFIG = PATH_CONFIG;
 

@@ -358,7 +358,7 @@ layui.define(['laypage', 'form'], function (exports) {
                     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                     async: false,
                     success: function (ret) {
-                        var exp = /fa-var-(.*):/ig;
+                        var exp = /var-(.*):/ig;
                         var result;
                         while ((result = exp.exec(ret)) != null) {
                             iconlist.push('fa-' + result[1]);
