@@ -105,7 +105,10 @@ trait Curd
         $tableName = $this->model->getName();
         $tableName = CommonTool::humpToLine(lcfirst($tableName));
         $prefix    = $this->model->getConfig('prefix');
-        $dbList    = Db::connect($this->model->getOption('connection'))->query("show full columns from {$prefix}{$tableName}");
+        $dbList    = match (config('database.default')) {
+            'pgsql' => Db::connect($this->model->getOption('connection'))->query("SELECT column_name AS \"Field\" FROM information_schema.columns WHERE table_name = '{$prefix}{$tableName}'"),
+            default => Db::connect($this->model->getOption('connection'))->query("show full columns from {$prefix}{$tableName}"),
+        };
         $header    = [];
         foreach ($dbList as $vo) {
             $comment = !empty($vo['Comment']) ? $vo['Comment'] : $vo['Field'];
