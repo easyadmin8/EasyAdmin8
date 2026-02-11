@@ -104,8 +104,8 @@ trait Curd
         list($page, $limit, $where) = $this->buildTableParams();
         $tableName = $this->model->getName();
         $tableName = CommonTool::humpToLine(lcfirst($tableName));
-        $prefix    = config('database.connections.mysql.prefix');
-        $dbList    = Db::query("show full columns from {$prefix}{$tableName}");
+        $prefix    = $this->model->getConfig('prefix');
+        $dbList    = Db::connect($this->model->getOption('connection'))->query("show full columns from {$prefix}{$tableName}");
         $header    = [];
         foreach ($dbList as $vo) {
             $comment = !empty($vo['Comment']) ? $vo['Comment'] : $vo['Field'];
