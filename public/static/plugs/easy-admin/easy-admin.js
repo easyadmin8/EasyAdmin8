@@ -907,7 +907,8 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                     $.each(dataField, function (key, val) {
                         if (val !== '') {
                             formatFilter[key] = val;
-                            var op = $('#c-' + key).attr('data-search-op');
+                            const domEl = document.getElementById('c-' +key);
+                            let op = $(domEl).attr('data-search-op');
                             op = op || '%*%';
                             formatOp[key] = op;
                         }
