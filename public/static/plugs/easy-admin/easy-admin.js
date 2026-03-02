@@ -1363,25 +1363,38 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
 
             // 数据表格多删除
             $('body').on('click', '[data-table-delete]', function () {
-                var tableId = $(this).attr('data-table-delete'),
+                let tableId = $(this).attr('data-table-delete'),
                     url = $(this).attr('data-url');
                 tableId = tableId || init.table_render_id;
                 url = url !== undefined ? admin.url(url) : window.location.href;
-                var checkStatus = table.checkStatus(tableId),
-                    data = checkStatus.data;
+                let checkStatus = table.checkStatus(tableId), data = checkStatus.data;
                 if (data.length <= 0) {
                     admin.msg.error('请勾选需要删除的数据');
                     return false;
                 }
-                var ids = [];
-                $.each(data, function (i, v) {
-                    ids.push(v.id);
-                });
+                let ids = [], _filed = 'id'
+                if (data[0][_filed] || '') {
+                    $.each(data, function (i, v) {
+                        ids.push(v.id);
+                    });
+                } else {
+                    let tableCols = table.getOptions(tableId).cols[0]
+                    $.each(tableCols, function (i, v) {
+                        let _i = i
+                        if (v.type === 'checkbox') {
+                            _i = i + 1
+                            _filed = tableCols[_i]['field']
+                        }
+                    });
+                    $.each(data, function (i, v) {
+                        ids.push(v[_filed]);
+                    });
+                }
                 admin.msg.confirm('确定删除？', function () {
                     admin.request.post({
                         url: url,
                         data: {
-                            id: ids
+                            [_filed]: ids
                         },
                     }, function (res) {
                         admin.msg.success(res.msg, function () {
