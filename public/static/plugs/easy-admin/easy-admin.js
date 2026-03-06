@@ -1257,9 +1257,9 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                 }
                 let cols = table.getOptions(tableId)?.cols || {}
                 let defaultWhere = {}
+                let formatFilter = {}
+                let formatOp = {}
                 $.each(cols, function (_, colsV) {
-                    let formatFilter = {}
-                    let formatOp = {}
                     $.each(colsV, function (i, v) {
                         if (v.field) {
                             if (v.searchValue) {
@@ -1273,7 +1273,7 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                 })
                 if (Object.keys(init.xmSelectModel).length > 0) {
                     $.each(init.xmSelectModel, function (index, value) {
-                        init.xmSelectModel[index].setValue([])
+                        init.xmSelectModel[index].setValue([formatFilter[index] || ''])
                     })
                 }
                 table.reload(tableId, {
