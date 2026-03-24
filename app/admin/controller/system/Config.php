@@ -49,7 +49,7 @@ class Config extends AdminController
                 if ($this->model->where('name', $key)->count()) {
                     $this->model->where('name', $key)->update(['value' => $val,]);
                 }else {
-                    $this->model->insert(
+                    $this->model->strict(false)->insert(
                         [
                             'name'  => $key,
                             'value' => $val,

@@ -65,7 +65,7 @@ class Admin extends AdminController
             if (empty($post['password'])) $post['password'] = '123456';
             $post['password'] = password($post['password']);
             try {
-                $save = $this->model->insert($post);
+                $save = $this->model->strict(false)->insert($post);
             }catch (\Exception $e) {
                 $this->error('保存失败' . $e->getMessage());
             }
