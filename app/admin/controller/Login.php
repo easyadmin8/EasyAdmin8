@@ -5,12 +5,13 @@ namespace app\admin\controller;
 use app\admin\model\SystemAdmin;
 use app\common\controller\AdminController;
 use app\common\utils\Helper;
-use think\captcha\facade\Captcha;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\DbException;
 use think\db\exception\ModelNotFoundException;
 use app\Request;
 use think\Response;
+use Webman\Captcha\CaptchaBuilder;
+use Webman\Captcha\PhraseBuilder;
 use Wolfcode\RateLimiting\Attributes\RateLimitingMiddleware;
 
 class Login extends AdminController
@@ -47,14 +48,19 @@ class Login extends AdminController
             'password|密码'           => 'require',
             'keep_login|是否保持登录' => 'require',
         ];
-        $captcha == 1 && $rule['captcha|验证码'] = 'require|captcha';
+        if ($captcha) {
+            $_captcha = $request->post('captcha');
+            if (strtolower($_captcha) !== session('captcha')) {
+                $this->error('输入的验证码不正确');
+            }
+        }
         $this->validate($post, $rule);
         $admin = SystemAdmin::where(['username' => $post['username']])->find();
         if (empty($admin)) {
-            $this->error('用户不存在');
+            $this->error('用户 | 密码错误');
         }
         if (!password_verify($post['password'], $admin->password)) {
-            $this->error('密码输入有误');
+            $this->error('用户 | 密码错误');
         }
         if ($admin->status == 0) {
             $this->error('账号已被禁用');
@@ -88,6 +94,12 @@ class Login extends AdminController
      */
     public function captcha(): Response
     {
-        return Captcha::instance()->create();
+        // 验证码规则 4位纯数字（可以自己添加英文字母）
+        $builder = new PhraseBuilder(4, '0123456789');
+        $captcha = new CaptchaBuilder(null, $builder);
+        $captcha->build();
+        session('captcha', strtolower($captcha->getPhrase()));
+        $img_content = $captcha->get();
+        return response($img_content, 200, ['Content-Type' => 'image/jpeg']);
     }
 }

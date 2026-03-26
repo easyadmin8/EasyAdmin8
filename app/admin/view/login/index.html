@@ -1,48 +1,106 @@
 <link rel="stylesheet" href="/static/admin/css/login.css?v={$version}" media="all">
-<div class="container">
-    <div class="main-body">
-        <div class="login-main">
-            <div class="login-top">
-                <span>{:sysConfig('site','site_name')}</span>
-                <span class="bg1"></span>
-                <span class="bg2"></span>
+
+<div class="page">
+    <div class="left">
+        <div class="characters-wrap">
+            <div class="characters" id="characters">
+                <div class="char char-purple" id="purple">
+                    <div class="eyes-wrap" id="purple-eyes">
+                        <div class="eyeball" id="purple-eye-l" style="width: 18px; height: 18px">
+                            <div class="pupil" style="width: 7px; height: 7px"></div>
+                        </div>
+                        <div class="eyeball" id="purple-eye-r" style="width: 18px; height: 18px">
+                            <div class="pupil" style="width: 7px; height: 7px"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="char char-black" id="black">
+                    <div class="eyes-wrap" id="black-eyes">
+                        <div class="eyeball" id="black-eye-l" style="width: 16px; height: 16px">
+                            <div class="pupil" style="width: 6px; height: 6px"></div>
+                        </div>
+                        <div class="eyeball" id="black-eye-r" style="width: 16px; height: 16px">
+                            <div class="pupil" style="width: 6px; height: 6px"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="char char-orange" id="orange">
+                    <div class="eyes-wrap" id="orange-eyes">
+                        <div class="pupil-only" style="width: 12px; height: 12px"></div>
+                        <div class="pupil-only" style="width: 12px; height: 12px"></div>
+                    </div>
+                </div>
+                <div class="char char-yellow" id="yellow">
+                    <div class="eyes-wrap" id="yellow-eyes">
+                        <div class="pupil-only" style="width: 12px; height: 12px"></div>
+                        <div class="pupil-only" style="width: 12px; height: 12px"></div>
+                    </div>
+                    <div class="mouth" id="yellow-mouth"></div>
+                </div>
             </div>
-            <form class="layui-form login-bottom">
-                <div class="demo {if !$isDemo}layui-hide{/if}">用户名:admin 密码:123456</div>
-                <div class="center">
-
-                    <div class="item">
-                        <span class="icon icon-2"></span>
-                        <input type="text" name="username" lay-verify="required" placeholder="请输入登录账号" maxlength="24"/>
-                    </div>
-
-                    <div class="item">
-                        <span class="icon icon-3"></span>
-                        <input type="password" name="password" lay-verify="required" placeholder="请输入密码" maxlength="20">
-                        <span class="bind-password icon icon-4"></span>
-                    </div>
-
-                    <div class="item layui-hide" id="gaCode">
-                        <span class="icon icon-3"></span>
-                        <input type="text" name="ga_code" placeholder="谷歌验证码" maxlength="6">
-                    </div>
-
-                    {if $captcha == 1}
-                    <div id="validatePanel" class="item" style="width: 137px;">
-                        <input type="text" name="captcha" placeholder="请输入验证码" maxlength="4">
-                        <img id="refreshCaptcha" class="validateImg" src="{:url('login/captcha')}" onclick="this.src='{:url(\'login/captcha\')}?seed='+Math.random()">
-                    </div>
-                    {/if}
-
+        </div>
+        <div class="grid-overlay"></div>
+        <div class="blob1"></div>
+        <div class="blob2"></div>
+    </div>
+    <div class="right">
+        <div class="form-box">
+            <div class="header">
+                <h1>EasyAdmin</h1>
+                <p class="demo {if !$isDemo}layui-hide{/if}">用户名:admin 密码:123456</p>
+            </div>
+            <form id="loginForm" class="layui-form">
+                <div class="field item">
+                    <label for="username">账号</label>
+                    <input lay-verify="required" class="layui-input" id="username" name="username" type="text" placeholder="请输入账号" autocomplete="off" maxlength="24"/>
                 </div>
-                <div class="tip">
-                    <span class="icon-nocheck"></span>
-                    <span class="login-tip">保持登录</span>
-                    <a href="javascript:" class="forget-password">忘记密码？</a>
+                <div class="field item">
+                    <label for="password">密码</label>
+                    <div class="input-wrap">
+                        <input lay-verify="required" class="layui-input" id="password" type="password" name="password" autocomplete="off" maxlength="20" placeholder="请输入密码"/>
+                        <button type="button" class="toggle-pw" id="togglePw" aria-label="Toggle password visibility">
+                            <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                            </svg>
+                            <svg id="eyeOffIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="display: none">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.292 4.338 5.31 7.5 10.066 7.5.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-                <div class="layui-form-item" style="text-align:center; width:100%;height:100%;margin:0px;">
-                    <button type="button" class="login-btn" lay-submit>立即登录</button>
+
+                <div class="field item layui-hide" id="gaCode">
+                    <label for="gaCode">谷歌验证码</label>
+                    <input type="text" class="layui-input" name="ga_code" placeholder="谷歌验证码" maxlength="6">
                 </div>
+
+                {if $captcha == 1}
+                <div id="validatePanel" class="field item">
+                    <label for="validatePanel">验证码</label>
+                    <div class="row">
+                        <div class="layui-col-xs6">
+                            <input type="text" class="layui-input" name="captcha" placeholder="请输入验证码" maxlength="4">
+                        </div>
+                        <div class="layui-col-xs6">
+                            <img alt="captcha" id="refreshCaptcha" class="validateImg" src="{:url('login/captcha')}" onclick="this.src='{:url(\'login/captcha\')}?seed='+Math.random()">
+                        </div>
+                    </div>
+                </div>
+                {/if}
+                <div class="row">
+                    <label class="remember"><input type="checkbox" class="icon-nocheck"/>保持登录</label><a href="#">忘记密码？</a>
+                </div>
+                <button type="button" class="hover-btn login-btn" lay-submit>
+                    <span class="label">登 录</span>
+                    <div class="overlay">
+                        <span>登 录</span>
+                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/>
+                        </svg>
+                    </div>
+                </button>
             </form>
         </div>
     </div>
@@ -50,6 +108,258 @@
         {:sysConfig('site','site_copyright')}<span class="padding-5">|</span><a target="_blank" href="http://www.miitbeian.gov.cn">{:sysConfig('site','site_beian')}</a>
     </div>
 </div>
+
+<script>
+    let mouseX = 0,
+        mouseY = 0;
+    let isTyping = false;
+    let showPassword = false;
+    let passwordLen = 0;
+    let purpleBlink = false,
+        blackBlink = false;
+    let lookingAtEachOther = false;
+    let purplePeeking = false;
+    const $purple = document.getElementById("purple");
+    const $black = document.getElementById("black");
+    const $orange = document.getElementById("orange");
+    const $yellow = document.getElementById("yellow");
+    const $purpleEyes = document.getElementById("purple-eyes");
+    const $blackEyes = document.getElementById("black-eyes");
+    const $orangeEyes = document.getElementById("orange-eyes");
+    const $yellowEyes = document.getElementById("yellow-eyes");
+    const $yellowMouth = document.getElementById("yellow-mouth");
+    const $emailInput = document.getElementById("username");
+    const $passwordInput = document.getElementById("password");
+    const $togglePw = document.getElementById("togglePw");
+    const $eyeIcon = document.getElementById("eyeIcon");
+    const $eyeOffIcon = document.getElementById("eyeOffIcon");
+    document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+    $emailInput.addEventListener("focus", () => {
+        isTyping = true;
+        triggerLookAtEachOther();
+    });
+    $emailInput.addEventListener("blur", () => {
+        isTyping = false;
+        lookingAtEachOther = false;
+    });
+    $passwordInput.addEventListener("input", () => {
+        passwordLen = $passwordInput.value.length;
+    });
+    $passwordInput.addEventListener("focus", () => {
+        isTyping = true;
+        triggerLookAtEachOther();
+    });
+    $passwordInput.addEventListener("blur", () => {
+        isTyping = false;
+        lookingAtEachOther = false;
+    });
+    $togglePw.addEventListener("click", () => {
+        showPassword = !showPassword;
+        $passwordInput.type = showPassword ? "text" : "password";
+        $eyeIcon.style.display = showPassword ? "none" : "";
+        $eyeOffIcon.style.display = showPassword ? "" : "none";
+    });
+
+    function triggerLookAtEachOther() {
+        lookingAtEachOther = true;
+        setTimeout(() => {
+            lookingAtEachOther = false;
+        }, 800);
+    }
+
+    function scheduleBlink(setter) {
+        const delay = Math.random() * 4000 + 3000;
+        setTimeout(() => {
+            setter(true);
+            setTimeout(() => {
+                setter(false);
+                scheduleBlink(setter);
+            }, 150);
+        }, delay);
+    }
+
+    scheduleBlink((v) => {
+        purpleBlink = v;
+    });
+    scheduleBlink((v) => {
+        blackBlink = v;
+    });
+
+    function schedulePeek() {
+        if (passwordLen > 0 && showPassword) {
+            const delay = Math.random() * 3000 + 2000;
+            setTimeout(() => {
+                if (passwordLen > 0 && showPassword) {
+                    purplePeeking = true;
+                    setTimeout(() => {
+                        purplePeeking = false;
+                        schedulePeek();
+                    }, 800);
+                }
+            }, delay);
+        }
+    }
+
+    const peekInterval = setInterval(() => {
+        if (passwordLen > 0 && showPassword && !purplePeeking) schedulePeek();
+    }, 1000);
+
+    function calcPos(el) {
+        const rect = el.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 3;
+        const dx = mouseX - cx;
+        const dy = mouseY - cy;
+        return {
+            faceX: Math.max(-15, Math.min(15, dx / 20)),
+            faceY: Math.max(-10, Math.min(10, dy / 30)),
+            bodySkew: Math.max(-6, Math.min(6, -dx / 120)),
+        };
+    }
+
+    function eyePupilOffset(el, maxDist, forceX, forceY) {
+        if (forceX !== undefined && forceY !== undefined)
+            return {x: forceX, y: forceY};
+        const rect = el.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = mouseX - cx;
+        const dy = mouseY - cy;
+        const dist = Math.min(Math.sqrt(dx * dx + dy * dy), maxDist);
+        const angle = Math.atan2(dy, dx);
+        return {x: Math.cos(angle) * dist, y: Math.sin(angle) * dist};
+    }
+
+    function render() {
+        const pp = calcPos($purple);
+        const bp = calcPos($black);
+        const op = calcPos($orange);
+        const yp = calcPos($yellow);
+        const isHiding = passwordLen > 0 && !showPassword;
+        const isShowingPw = passwordLen > 0 && showPassword;
+        if (isShowingPw) {
+            $purple.style.transform = "skewX(0deg)";
+            $purple.style.height = "400px";
+        } else if (isTyping || isHiding) {
+            $purple.style.transform = `skewX(${(pp.bodySkew || 0) - 12}deg) translateX(40px)`;
+            $purple.style.height = "440px";
+        } else {
+            $purple.style.transform = `skewX(${pp.bodySkew || 0}deg)`;
+            $purple.style.height = "400px";
+        }
+        const purpleEyeL = $purpleEyes.children[0];
+        const purpleEyeR = $purpleEyes.children[1];
+        purpleEyeL.style.height = purpleBlink ? "2px" : "18px";
+        purpleEyeR.style.height = purpleBlink ? "2px" : "18px";
+        let pfx, pfy;
+        if (isShowingPw) {
+            $purpleEyes.style.left = "20px";
+            $purpleEyes.style.top = "35px";
+            pfx = purplePeeking ? 4 : -4;
+            pfy = purplePeeking ? 5 : -4;
+        } else if (lookingAtEachOther) {
+            $purpleEyes.style.left = "55px";
+            $purpleEyes.style.top = "65px";
+            pfx = 3;
+            pfy = 4;
+        } else {
+            $purpleEyes.style.left = 45 + pp.faceX + "px";
+            $purpleEyes.style.top = 40 + pp.faceY + "px";
+            pfx = undefined;
+            pfy = undefined;
+        }
+        setPupil(purpleEyeL, 5, pfx, pfy);
+        setPupil(purpleEyeR, 5, pfx, pfy);
+        if (isShowingPw) {
+            $black.style.transform = "skewX(0deg)";
+        } else if (lookingAtEachOther) {
+            $black.style.transform = `skewX(${(bp.bodySkew || 0) * 1.5 + 10}deg) translateX(20px)`;
+        } else if (isTyping || isHiding) {
+            $black.style.transform = `skewX(${(bp.bodySkew || 0) * 1.5}deg)`;
+        } else {
+            $black.style.transform = `skewX(${bp.bodySkew || 0}deg)`;
+        }
+        const blackEyeL = $blackEyes.children[0];
+        const blackEyeR = $blackEyes.children[1];
+        blackEyeL.style.height = blackBlink ? "2px" : "16px";
+        blackEyeR.style.height = blackBlink ? "2px" : "16px";
+        let bfx, bfy;
+        if (isShowingPw) {
+            $blackEyes.style.left = "10px";
+            $blackEyes.style.top = "28px";
+            bfx = -4;
+            bfy = -4;
+        } else if (lookingAtEachOther) {
+            $blackEyes.style.left = "32px";
+            $blackEyes.style.top = "12px";
+            bfx = 0;
+            bfy = -4;
+        } else {
+            $blackEyes.style.left = 26 + bp.faceX + "px";
+            $blackEyes.style.top = 32 + bp.faceY + "px";
+            bfx = undefined;
+            bfy = undefined;
+        }
+        setPupil(blackEyeL, 4, bfx, bfy);
+        setPupil(blackEyeR, 4, bfx, bfy);
+        $orange.style.transform = isShowingPw
+            ? "skewX(0deg)"
+            : `skewX(${op.bodySkew || 0}deg)`;
+        let ofx, ofy;
+        if (isShowingPw) {
+            $orangeEyes.style.left = "50px";
+            $orangeEyes.style.top = "85px";
+            ofx = -5;
+            ofy = -4;
+        } else {
+            $orangeEyes.style.left = 82 + (op.faceX || 0) + "px";
+            $orangeEyes.style.top = 90 + (op.faceY || 0) + "px";
+            ofx = undefined;
+            ofy = undefined;
+        }
+        setPupilOnly($orangeEyes.children[0], 5, ofx, ofy);
+        setPupilOnly($orangeEyes.children[1], 5, ofx, ofy);
+        $yellow.style.transform = isShowingPw
+            ? "skewX(0deg)"
+            : `skewX(${yp.bodySkew || 0}deg)`;
+        let yfx, yfy;
+        if (isShowingPw) {
+            $yellowEyes.style.left = "20px";
+            $yellowEyes.style.top = "35px";
+            $yellowMouth.style.left = "10px";
+            $yellowMouth.style.top = "88px";
+            yfx = -5;
+            yfy = -4;
+        } else {
+            $yellowEyes.style.left = 52 + (yp.faceX || 0) + "px";
+            $yellowEyes.style.top = 40 + (yp.faceY || 0) + "px";
+            $yellowMouth.style.left = 40 + (yp.faceX || 0) + "px";
+            $yellowMouth.style.top = 88 + (yp.faceY || 0) + "px";
+            yfx = undefined;
+            yfy = undefined;
+        }
+        setPupilOnly($yellowEyes.children[0], 5, yfx, yfy);
+        setPupilOnly($yellowEyes.children[1], 5, yfx, yfy);
+        requestAnimationFrame(render);
+    }
+
+    function setPupil(eyeEl, maxDist, forceX, forceY) {
+        const pupil = eyeEl.querySelector(".pupil");
+        if (!pupil) return;
+        const o = eyePupilOffset(eyeEl, maxDist, forceX, forceY);
+        pupil.style.transform = `translate(${o.x}px, ${o.y}px)`;
+    }
+
+    function setPupilOnly(el, maxDist, forceX, forceY) {
+        const o = eyePupilOffset(el, maxDist, forceX, forceY);
+        el.style.transform = `translate(${o.x}px, ${o.y}px)`;
+    }
+
+    requestAnimationFrame(render);
+</script>
 <script>
     let backgroundUrl = "{:sysConfig('site','admin_background')}"
 </script>
