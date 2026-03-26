@@ -65,7 +65,7 @@ class Menu extends AdminController
             ];
             $this->validate($post, $rule);
             try {
-                $save = $this->model->strict(false)->insert($post);
+                $save = $this->model::create($post);
             }catch (\Exception $e) {
                 $this->error('保存失败');
             }

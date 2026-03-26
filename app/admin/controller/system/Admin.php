@@ -26,6 +26,7 @@ class Admin extends AdminController
         parent::__construct($app);
         $this->model = new SystemAdmin();
         $this->assign('auth_list', $this->model->getAuthList());
+        $this->assign('notes',  $this->model->notes);
     }
 
     #[NodeAnnotation(title: '列表', auth: true)]
@@ -65,7 +66,7 @@ class Admin extends AdminController
             if (empty($post['password'])) $post['password'] = '123456';
             $post['password'] = password($post['password']);
             try {
-                $save = $this->model->strict(false)->insert($post);
+                $save = $this->model::create($post);
             }catch (\Exception $e) {
                 $this->error('保存失败' . $e->getMessage());
             }

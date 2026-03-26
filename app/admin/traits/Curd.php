@@ -47,7 +47,7 @@ trait Curd
             $this->validate($post, $rule);
             try {
                 Db::transaction(function() use ($post, &$save) {
-                    $save = $this->model->strict(false)->insert($post);
+                    $save = $this->model::create($post);
                 });
             }catch (\Exception $e) {
                 $this->error('新增失败:' . $e->getMessage());
