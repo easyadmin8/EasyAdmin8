@@ -415,7 +415,7 @@ body {
     bottom: 0;
     color: #fff;
     width: 100%;
-    position: absolute;
+    position: fixed;
     text-align: center;
     line-height: 30px;
     padding-bottom: 10px;
