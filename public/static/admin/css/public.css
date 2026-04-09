@@ -339,7 +339,6 @@ table样式
  */
 .layui-layer-easy .layui-layer-title {
     background: var(--lay-color-bg-5);
-    color: #fff !important;
     border-bottom: none;
 }
 
@@ -416,18 +415,18 @@ table样式
 
 .layui-layer-easy .layui-layer-setwin .layui-layer-min:before,
 .layui-layer-easy .layui-layer-setwin .layui-layer-min:after {
-    border-color: #FFFFFF;
+    border-color: var(--lay-color-text-1);
 }
 
 .layui-layer-easy .layui-layer-setwin .layui-layer-max:before,
 .layui-layer-easy .layui-layer-setwin .layui-layer-max:after {
-    border-color: #FFFFFF;
+    border-color: var(--lay-color-text-1);
 }
 
 
 .layui-layer-easy .layui-layer-setwin .layui-layer-close1,
 .layui-layer-easy .layui-layer-setwin .layui-layer-close1:hover {
-    color: #FFFFFF;
+    color: var(--lay-color-text-1);
 }
 
 .layui-layer-easy .layui-layer-setwin .layui-layer-close1:after,
