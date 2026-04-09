@@ -41,7 +41,7 @@ define(["jquery"], function ($) {
                     headerRightBg: '#23262e', //头部右侧背景色
                     headerRightBgThis: '#0c0c0c', //头部右侧选中背景色,
                     headerRightColor: 'rgba(255,255,255,.7)', //头部右侧字体颜色,
-                    headerRightChildColor: '#676767', //头部右侧下拉字体颜色,
+                    headerRightChildColor: 'var(--lay-color-text-1)', //头部右侧下拉字体颜色,
                     headerRightColorThis: 'rgba(255,255,255,.7)', //头部右侧鼠标选中,
                     headerRightNavMore: 'rgba(255,255,255,.7)', //头部右侧更多下拉颜色,
                     headerRightNavMoreBg: '#1aa094', //头部右侧更多下拉列表选中背景色,
@@ -61,7 +61,7 @@ define(["jquery"], function ($) {
                     headerRightBg: '#ffa4d1', //头部右侧背景色
                     headerRightBgThis: '#bf7b9d', //头部右侧选中背景色,
                     headerRightColor: 'rgba(255,255,255,.7)', //头部右侧字体颜色,
-                    headerRightChildColor: '#676767', //头部右侧下拉字体颜色,
+                    headerRightChildColor: 'var(--lay-color-text-1)', //头部右侧下拉字体颜色,
                     headerRightColorThis: '#ffffff', //头部右侧鼠标选中,
                     headerRightNavMore: 'rgba(255,255,255,.7)', //头部右侧更多下拉颜色,
                     headerRightNavMoreBg: '#ffa4d1', //头部右侧更多下拉列表选中背景色,
@@ -81,7 +81,7 @@ define(["jquery"], function ($) {
                     headerRightBg: '#1aa094', //头部右侧背景色
                     headerRightBgThis: '#197971', //头部右侧选中背景色,
                     headerRightColor: 'rgba(255,255,255,.7)', //头部右侧字体颜色,
-                    headerRightChildColor: '#676767', //头部右侧下拉字体颜色,
+                    headerRightChildColor: 'var(--lay-color-text-1)', //头部右侧下拉字体颜色,
                     headerRightColorThis: '#ffffff', //头部右侧鼠标选中,
                     headerRightNavMore: 'rgba(255,255,255,.7)', //头部右侧更多下拉颜色,
                     headerRightNavMoreBg: '#1aa094', //头部右侧更多下拉列表选中背景色,
@@ -101,7 +101,7 @@ define(["jquery"], function ($) {
                     headerRightBg: '#1e9fff', //头部右侧背景色
                     headerRightBgThis: '#0069b7', //头部右侧选中背景色,
                     headerRightColor: 'rgba(255,255,255,.7)', //头部右侧字体颜色,
-                    headerRightChildColor: '#676767', //头部右侧下拉字体颜色,
+                    headerRightChildColor: 'var(--lay-color-text-1)', //头部右侧下拉字体颜色,
                     headerRightColorThis: '#ffffff', //头部右侧鼠标选中,
                     headerRightNavMore: 'rgba(255,255,255,.7)', //头部右侧更多下拉颜色,
                     headerRightNavMoreBg: '#1e9fff', //头部右侧更多下拉列表选中背景色,
@@ -121,7 +121,7 @@ define(["jquery"], function ($) {
                     headerRightBg: '#ffb800', //头部右侧背景色
                     headerRightBgThis: '#d09600', //头部右侧选中背景色,
                     headerRightColor: 'rgba(255,255,255,.7)', //头部右侧字体颜色,
-                    headerRightChildColor: '#676767', //头部右侧下拉字体颜色,
+                    headerRightChildColor: 'var(--lay-color-text-1)', //头部右侧下拉字体颜色,
                     headerRightColorThis: '#ffffff', //头部右侧鼠标选中,
                     headerRightNavMore: 'rgba(255,255,255,.7)', //头部右侧更多下拉颜色,
                     headerRightNavMoreBg: '#d09600', //头部右侧更多下拉列表选中背景色,
@@ -141,7 +141,7 @@ define(["jquery"], function ($) {
                     headerRightBg: '#e82121', //头部右侧背景色
                     headerRightBgThis: '#ae1919', //头部右侧选中背景色,
                     headerRightColor: 'rgba(255,255,255,.7)', //头部右侧字体颜色,
-                    headerRightChildColor: '#676767', //头部右侧下拉字体颜色,
+                    headerRightChildColor: 'var(--lay-color-text-1)', //头部右侧下拉字体颜色,
                     headerRightColorThis: '#ffffff', //头部右侧鼠标选中,
                     headerRightNavMore: 'rgba(255,255,255,.7)', //头部右侧更多下拉颜色,
                     headerRightNavMoreBg: '#ae1919', //头部右侧更多下拉列表选中背景色,
@@ -161,7 +161,7 @@ define(["jquery"], function ($) {
                     headerRightBg: '#963885', //头部右侧背景色
                     headerRightBgThis: '#772c6a', //头部右侧选中背景色,
                     headerRightColor: 'rgba(255,255,255,.7)', //头部右侧字体颜色,
-                    headerRightChildColor: '#676767', //头部右侧下拉字体颜色,
+                    headerRightChildColor: 'var(--lay-color-text-1)', //头部右侧下拉字体颜色,
                     headerRightColorThis: '#ffffff', //头部右侧鼠标选中,
                     headerRightNavMore: 'rgba(255,255,255,.7)', //头部右侧更多下拉颜色,
                     headerRightNavMoreBg: '#772c6a', //头部右侧更多下拉列表选中背景色,
@@ -181,7 +181,7 @@ define(["jquery"], function ($) {
                     headerRightBg: '#2D8CF0', //头部右侧背景色
                     headerRightBgThis: '#0069b7', //头部右侧选中背景色,
                     headerRightColor: 'rgba(255,255,255,.7)', //头部右侧字体颜色,
-                    headerRightChildColor: '#676767', //头部右侧下拉字体颜色,
+                    headerRightChildColor: 'var(--lay-color-text-1)', //头部右侧下拉字体颜色,
                     headerRightColorThis: '#ffffff', //头部右侧鼠标选中,
                     headerRightNavMore: 'rgba(255,255,255,.7)', //头部右侧更多下拉颜色,
                     headerRightNavMoreBg: '#0069b7', //头部右侧更多下拉列表选中背景色,
@@ -201,7 +201,7 @@ define(["jquery"], function ($) {
                     headerRightBg: '#ffb800', //头部右侧背景色
                     headerRightBgThis: '#d09600', //头部右侧选中背景色,
                     headerRightColor: 'rgba(255,255,255,.7)', //头部右侧字体颜色,
-                    headerRightChildColor: '#676767', //头部右侧下拉字体颜色,
+                    headerRightChildColor: 'var(--lay-color-text-1)', //头部右侧下拉字体颜色,
                     headerRightColorThis: '#ffffff', //头部右侧鼠标选中,
                     headerRightNavMore: 'rgba(255,255,255,.7)', //头部右侧更多下拉颜色,
                     headerRightNavMoreBg: '#d09600', //头部右侧更多下拉列表选中背景色,
@@ -221,7 +221,7 @@ define(["jquery"], function ($) {
                     headerRightBg: '#e82121', //头部右侧背景色
                     headerRightBgThis: '#ae1919', //头部右侧选中背景色,
                     headerRightColor: 'rgba(255,255,255,.7)', //头部右侧字体颜色,
-                    headerRightChildColor: '#676767', //头部右侧下拉字体颜色,
+                    headerRightChildColor: 'var(--lay-color-text-1)', //头部右侧下拉字体颜色,
                     headerRightColorThis: '#ffffff', //头部右侧鼠标选中,
                     headerRightNavMore: 'rgba(255,255,255,.7)', //头部右侧更多下拉颜色,
                     headerRightNavMoreBg: '#ae1919', //头部右侧更多下拉列表选中背景色,
@@ -241,7 +241,7 @@ define(["jquery"], function ($) {
                     headerRightBg: '#963885', //头部右侧背景色
                     headerRightBgThis: '#772c6a', //头部右侧选中背景色,
                     headerRightColor: 'rgba(255,255,255,.7)', //头部右侧字体颜色,
-                    headerRightChildColor: '#676767', //头部右侧下拉字体颜色,
+                    headerRightChildColor: 'var(--lay-color-text-1)', //头部右侧下拉字体颜色,
                     headerRightColorThis: '#ffffff', //头部右侧鼠标选中,
                     headerRightNavMore: 'rgba(255,255,255,.7)', //头部右侧更多下拉颜色,
                     headerRightNavMoreBg: '#772c6a', //头部右侧更多下拉列表选中背景色,
@@ -281,12 +281,12 @@ define(["jquery"], function ($) {
         },
 
         renderElemStyle(elemStyleDefault) {
-            elemStyleDefault = elemStyleDefault || 'light';
+            elemStyleDefault = elemStyleDefault || 'normal';
             let elemStyleName = localStorage.getItem('layuiminiElemStyleName');
             if (!elemStyleName) elemStyleName = elemStyleDefault;
             let themeModeEle = $('input[name=theme-mode]')
             if (themeModeEle.length > 0) {
-                if (elemStyleName == 'dark') {
+                if (elemStyleName === 'dark') {
                     themeModeEle.prop('checked', true);
                 } else {
                     themeModeEle.prop('checked', false);
@@ -463,17 +463,15 @@ define(["jquery"], function ($) {
             return listElemStyle;
         },
         buildBodyElemStyle(className) {
-
-            var listElemStyle = miniTheme.configElemStyle()
-
+            let listElemStyle = miniTheme.configElemStyle()
+            let htmlEle = $('html')
             $.each(listElemStyle, function (index, item) {
-                var classNameReal = 'elem-style-' + item.className;
-                if ($('body').hasClass(classNameReal)) {
-                    $('body').removeClass(classNameReal);
+                let classNameReal = item.className;
+                if (htmlEle.hasClass(classNameReal)) {
+                    htmlEle.removeClass(classNameReal);
                 }
             })
-
-            $('body').addClass('elem-style-' + className)
+            htmlEle.addClass(className)
         },
         buildElemStyleHtml(options) {
             var elemStyleName = localStorage.getItem('layuiminiElemStyleName');

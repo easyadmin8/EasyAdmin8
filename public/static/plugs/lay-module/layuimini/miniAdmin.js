@@ -253,6 +253,13 @@ define(["jquery", "miniMenu", "miniTheme", "miniTab", "colorMode"], function ($,
              * 浅色和暗色主题切换
              */
             const theme = colorMode.init({
+                initialValue: 'light',
+                storageKey: 'layuiminiElemStyleName',
+                modes: {
+                    auto: '',
+                    light: 'normal',
+                    dark: 'dark',
+                },
                 onChanged(mode, defaultHandler) {
                     const isAppearanceTransition =
                         document.startViewTransition && !window.matchMedia(`(prefers-reduced-motion: reduce)`).matches;

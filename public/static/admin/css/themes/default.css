@@ -10,12 +10,12 @@
 
 /*头部右侧字体颜色 headerRightColor */
 .layui-layout-admin .layui-header .layui-nav .layui-nav-item a {
-    color: rgba(107, 107, 107, 0.7);
+    color: var(--lay-color-text-1);
 }
 
 /**头部右侧下拉字体颜色 headerRightChildColor */
 .layui-layout-admin .layui-header .layui-nav .layui-nav-item .layui-nav-child a {
-    color: rgba(107, 107, 107, 0.7) !important;
+    color: var(--lay-color-text-1) !important;
 }
 
 /*头部右侧鼠标选中 headerRightColorThis */
@@ -57,6 +57,9 @@
 /*左侧菜单更多下拉样式 leftMenuNavMore */
 .layuimini-menu-left .layui-nav .layui-nav-more, .layuimini-menu-left-zoom.layui-nav .layui-nav-more {
     border-top-color: rgb(191, 187, 187);
+    display: inline-block;
+    margin: 0 auto !important;
+    line-height: inherit;
 }
 
 /*左侧菜单更多下拉样式 leftMenuNavMore */

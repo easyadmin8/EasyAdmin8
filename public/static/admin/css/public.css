@@ -1,7 +1,6 @@
 @import url("../../plugs/layui-v2.x/css/layui.css");
 @import url("../../plugs/font-awesome-6.x/css/all.min.css");
 @import url("../css/color.css");
-@import url("../css/themes/index.css");
 @import url("../css/iconfont.css");
 
 :root {
@@ -24,23 +23,14 @@ body {
 
 .layuimini-container {
     min-height: 250px;
-    padding: 15px;
     margin: 0 auto;
 }
 
 .layuimini-main {
     position: relative;
-    padding: 15px 15px;
-    background-color: #ffffff;
-    border: 1px solid #f2f2f2;
-    border-radius: 5px;
-}
-
-.dark .layuimini-main {
-    position: relative;
-    padding: 15px 15px;
+    margin: 15px;
     background-color: var(--lay-color-bg-1);
-    border: 1px solid #363636;
+    color: var(--lay-color-text-2);
     border-radius: 5px;
 }
 
@@ -69,12 +59,16 @@ body {
     border-top: 1px dashed #e7eaec;
 }
 
-.dark .hr-line {
-    color: #363636;
-    height: 1px;
-    margin: 30px 0;
-    background-color: #363636;
-    border-top: 1px dashed #363636;
+.dark .layui-text {
+    color: var(--lay-color-text-2);
+}
+
+.dark .layui-nav .layui-nav-item a:hover, .dark .layui-tabs-header .layui-this {
+    background-color: var(--lay-color-fill-2);
+}
+
+.dark .layui-iconpicker.layui-form-select {
+    color: var(--lay-color-bg-1);
 }
 
 /**重写layui表格自适应*/
@@ -86,17 +80,10 @@ body {
 /**数据表格-搜索表单样式*/
 .layuimini-container .table-search-fieldset {
     margin: 0;
-    border: 1px solid #e6e6e6;
+    border: 1px solid var(--lay-color-border-1);
     padding: 10px 20px 5px 20px;
 }
 
-/**数据表格-搜索表单样式*/
-.dark .layuimini-container .table-search-fieldset {
-    margin: 0;
-    border: 1px solid #363636;
-    padding: 10px 20px 5px 20px;
-    color: #bdbdbd;
-}
 
 .layuimini-container .table-search-fieldset input::-webkit-input-placeholder {
     color: #a9a9a9;
@@ -172,12 +159,6 @@ body {
     background-color: #fff;
 }
 
-.dark .layuimini-upload .layuimini-upload-btn {
-    display: inline-block;
-    position: absolute;
-    right: 0px;
-    background-color: #363636;
-}
 
 .layuimini-upload-show {
     margin-top: 10px;
