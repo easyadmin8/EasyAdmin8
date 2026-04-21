@@ -171,7 +171,9 @@ trait Curd
         if (!$deleteTimeField) $this->success($defaultErrorMsg);
         switch ($type) {
             case 'restore':
-                $this->model->withTrashed()->whereIn('id', $id)->strict(false)->update([$deleteTimeField => null, 'update_time' => time()]);
+                $update_time = time();
+                if ($this->model->getFieldType('update_time') !== 'int') $update_time = date('Y-m-d H:i:s');
+                $this->model->withTrashed()->whereIn('id', $id)->strict(false)->update([$deleteTimeField => null, 'update_time' => $update_time]);
                 $this->success('success');
                 break;
             case 'delete':
