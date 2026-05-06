@@ -389,7 +389,7 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                                 formHtml += '\t<div class="layui-form-item layui-inline">\n' +
                                     '<label class="layui-form-label">' + d.title + '</label>\n' +
                                     '<div class="layui-input-inline">\n' +
-                                    '<select class="layui-select" id="c-' + d.fieldAlias + '" name="' + d.fieldAlias + '"  data-search-op="' + d.searchOp + '" ' + laySearch + ' lay-filter="' + d.fieldAlias + '">\n' +                                    '<option value="">- 全部 -</option> \n' +
+                                    '<select class="layui-select" id="c-' + d.fieldAlias + '" name="' + d.fieldAlias + '"  data-search-op="' + d.searchOp + '" ' + laySearch + ' lay-filter="' + d.fieldAlias + '">\n' + '<option value="">- 全部 -</option> \n' +
                                     selectHtml +
                                     '</select>\n' +
                                     '</div>\n' +
@@ -906,7 +906,7 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                     $.each(dataField, function (key, val) {
                         if (val !== '') {
                             formatFilter[key] = val;
-                            const domEl = document.getElementById('c-' +key);
+                            const domEl = document.getElementById('c-' + key);
                             let op = $(domEl).attr('data-search-op');
                             op = op || '%*%';
                             formatOp[key] = op;
@@ -1130,7 +1130,7 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
             // 监听弹出层的打开
             $('body').on('click', '[data-open]', function () {
 
-                var clienWidth = $(this).attr('data-width'),
+                var clientWidth = $(this).attr('data-width'),
                     clientHeight = $(this).attr('data-height'),
                     dataFull = $(this).attr('data-full'),
                     checkbox = $(this).attr('data-checkbox'),
@@ -1157,19 +1157,18 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                     }
                 }
 
-                if (clienWidth === undefined || clientHeight === undefined) {
-                    clienWidth = '65%';
-                    clientHeight = '85%';
-                }
+                clientWidth = clientWidth ?? '65%';
+                clientHeight = clientHeight ?? '85%';
+
                 if (dataFull === 'true') {
-                    clienWidth = '100%';
+                    clientWidth = '100%';
                     clientHeight = '100%';
                 }
 
                 admin.open(
                     $(this).attr('data-title'),
                     external ? url : admin.url(url),
-                    clienWidth,
+                    clientWidth,
                     clientHeight,
                 );
             });

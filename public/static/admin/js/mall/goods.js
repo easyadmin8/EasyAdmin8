@@ -224,7 +224,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
         // 告诉AI 你需要做什么
         let message = `优化这个标题 ${title}`
 
-        if ($.trim(title) === '') {
+        if (title.trim() === '') {
             ea.msg.error('标题不能为空', function () {
                 $(data).attr('lay-on', layOn.split('Loading')[0])
             })
