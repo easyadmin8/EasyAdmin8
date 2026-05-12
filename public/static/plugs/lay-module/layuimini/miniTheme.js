@@ -276,6 +276,7 @@ define(["jquery"], function ($) {
             if (bgcolorId === null || bgcolorId === undefined || bgcolorId === '') {
                 bgcolorId = options.bgColorDefault;
             }
+            bgcolorId = bgcolorId || '0';
             miniTheme.buildThemeCss(bgcolorId);
             if (options.listen) miniTheme.listen(options);
         },
