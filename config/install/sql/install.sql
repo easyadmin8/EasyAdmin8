@@ -317,7 +317,7 @@ VALUES ('6', '2', '节点管理', 'fa fa-list', 'system.node/index', '', '_self'
 INSERT INTO `ea_system_menu`
 VALUES ('7', '2', '配置管理', 'fa fa-asterisk', 'system.config/index', '', '_self', '8', '1', '', '1573457448', '1588228566', null);
 INSERT INTO `ea_system_menu`
-VALUES ('8', '2', '上传管理', 'fa fa-arrow-up', 'system.uploadfile/index', '', '_self', '0', '1', '', '1573542953', '1588228043', null);
+VALUES ('8', '2', '上传管理', 'fa fa-arrow-up', 'system.uploadfile/index', '', '_self', '7', '1', '', '1573542953', '1588228043', null);
 INSERT INTO `ea_system_menu`
 VALUES ('9', '0', '商城管理', 'fa fa-list', '', '', '_self', '0', '1', '', '1589439884', '1589439884', null);
 INSERT INTO `ea_system_menu`
@@ -325,11 +325,11 @@ VALUES ('10', '9', '商品分类', 'fa fa-calendar-check', 'mall.cate/index', ''
 INSERT INTO `ea_system_menu`
 VALUES ('11', '9', '商品管理', 'fa fa-store-alt', 'mall.goods/index', '', '_self', '0', '1', '', '1589439931', '1589439942', null);
 INSERT INTO `ea_system_menu`
-VALUES ('12', '2', '快捷入口', 'fa fa-tachometer-alt-fast', 'system.quick/index', '', '_self', '0', '1', '', '1589623683', '1589623683', null);
+VALUES ('12', '2', '快捷入口', 'fa fa-tachometer-alt-fast', 'system.quick/index', '', '_self', '6', '1', '', '1589623683', '1589623683', null);
 INSERT INTO `ea_system_menu`
-VALUES ('13', '2', '日志管理', 'fa fa-sticky-note', 'system.log/index', '', '_self', '0', '1', '', '1589623684', '1589623684', null);
+VALUES ('13', '2', '日志管理', 'fa fa-sticky-note', 'system.log/index', '', '_self', '0', '1', '5', '1589623684', '1589623684', null);
 INSERT INTO `ea_system_menu`
-VALUES ('14', '2', 'CURD可视化', 'fa fa fa-shower', 'system.curd_generate/index', '', '_self', '0', '1', '', '1589623684', '1589623684', null);
+VALUES ('14', '2', 'CURD可视化', 'fa fa fa-shower', 'system.curd_generate/index', '', '_self', '4', '1', '', '1589623684', '1589623684', null);
 INSERT INTO `ea_system_menu`
 VALUES ('15', '2', '其他页面', 'fa fa-square-share-nodes', '', '', '_self', '0', '1', '', '1589623684', '1589623684', null);
 INSERT INTO `ea_system_menu`
@@ -338,6 +338,8 @@ INSERT INTO `ea_system_menu`
 VALUES ('17', '15', '问答社区', 'fa fa-comments', 'https://meta.easyadmin8.top', '', '_blank', '0', '1', '', '1589623684', '1589623684', null);
 INSERT INTO `ea_system_menu`
 VALUES ('18', '15', '常见问题', 'fa fa-circle-question', 'https://easyadmin8.top/guide/question.html', '', '_self', '2', '1', '', '1589623684', '1589623684', null);
+INSERT INTO `ea_system_menu`
+VALUES ('19', '2', '日志分析', 'fa fa-robot', 'system.log_analyzer/index', '', '_self', '1', '1', '', '1589623684', '1589623684', null);
 
 -- ----------------------------
 -- Table structure for ea_system_node

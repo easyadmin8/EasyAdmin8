@@ -37,6 +37,7 @@
     "wolfcode/rate-limiting": "^0.1.0",
     "webman/captcha": "^1.0",
     "wolfcode/php-ai": "^0.1.2",
+    "neuron-core/neuron-ai": "^3.4",
     "ext-json": "*",
     "ext-mysqli": "*",
     "ext-pdo": "*"

@@ -35,7 +35,11 @@ class CheckAuth
             !$check && $this->error('无权限访问');
             // 判断是否为演示环境
             if (env('EASYADMIN.IS_DEMO', false) && $request->isPost()) {
-                if (!in_array($currentNode, ['system.log/record', 'mall.goods/aiOptimization'])) $this->error('演示环境下不允许修改');
+                if (!in_array($currentNode, [
+                    'system.log/record',
+                    'system.log_analyzer/analyze',
+                    'mall.goods/aiOptimization',
+                ])) $this->error('演示环境下不允许修改');
             }
         }
         return $next($request);
