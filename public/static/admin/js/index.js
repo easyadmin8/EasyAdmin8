@@ -139,7 +139,7 @@ define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTh
                 let echartsRecords = echarts.init(document.getElementById('echarts-records'), 'walden');
                 let optionRecords = {
                     title: {
-                        text: '访问统计'
+                        text: ''
                     },
                     tooltip: {
                         trigger: 'axis'

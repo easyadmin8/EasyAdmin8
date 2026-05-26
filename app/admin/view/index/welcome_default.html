@@ -1,77 +1,70 @@
 <link rel="stylesheet" href="/static/admin/css/welcome.css?v={$version}" media="all">
-<div class="theme-announcement-bar announcementBar_mb4j" style="
-background-color:#FFFFFF;
-color:#333333;
-text-align: center;
-padding: 5px 0;
-font-size: 85%;
-margin-bottom: 10px;
-">
-    <div class="announcementBarPlaceholder_vyr4"></div>
-    <div class="content_knG7 announcementBarContent_xLdY">
-        🌟 If you like <span style="font-weight: bolder;">EasyAdmin8</span>, don't forget to give me a <span style="font-weight: bolder;color: #eb8d01;">Star</span> on
-        <a target="_blank" href="https://github.com/EasyAdmin8/EasyAdmin8" style="text-decoration: underline;color: inherit;margin:0 10px;font-weight: bolder;">Github</a>
-        or
-        <a target="_blank" href="https://gitee.com/EasyAdmin8/EasyAdmin8" style="text-decoration: underline;color: inherit;margin:0 10px;font-weight: bolder;">Gitee</a>
-        🌟
-    </div>
+<div class="announcement-bar">
+    <span class="star-icon">🌟</span>
+    If you like <strong>EasyAdmin8</strong>, give it a
+    <span style="color:#eb8d01;font-weight:700;">Star</span>
+    on
+    <a target="_blank" href="https://github.com/EasyAdmin8/EasyAdmin8">GitHub</a>
+    or
+    <a target="_blank" href="https://gitee.com/EasyAdmin8/EasyAdmin8">Gitee</a>
+    <span class="star-icon">🌟</span>
 </div>
 
-<div class="layui-row layui-col-space10">
-    <div class="layui-col-md8 ">
-        <div class="layui-row layui-col-space10">
-            <div class="layui-col-md6 ">
+<div class="layui-row layui-col-space16">
+    <div class="layui-col-md8">
+        <div class="layui-row layui-col-space16 ">
+
+            <div class="layui-col-md6">
                 <div class="layui-card">
-                    <div class="layui-card-header"><i class="fa fa-warning icon"></i>数据统计</div>
-                    <div class="layui-card-body">
+                    <div class="layui-card-header">
+                        <span class="card-header-icon header-icon-green"><i class="fa fa-bar-chart"></i></span>
+                        数据统计
+                    </div>
+                    <div class="layui-card-body" style="padding:12px 16px 16px;">
                         <div class="welcome-module">
                             <div class="layui-row layui-col-space10">
                                 <div class="layui-col-xs6">
-                                    <div class="layui-panel">
-                                        <div class="layui-card-body">
-                                            <span class="layui-badge layui-bg-cyan fa-pull-right ">实时</span>
-                                            <div class="panel-content">
-                                                <h5>用户统计</h5>
-                                                <h2>1234</h2>
-                                                <h6>记录数</h6>
-                                            </div>
+                                    <div class="stat-card bg-flat-cyan" style="box-shadow:0 4px 16px rgba(46,196,182,.3);">
+                                        <div class="stat-label">用户统计</div>
+                                        <div class="stat-value">1,234</div>
+                                        <div class="stat-footer">
+                                            <span class="stat-badge">实时</span>
+                                            <span class="stat-trend up"><i class="fa fa-arrow-up"></i> 12%</span>
                                         </div>
+                                        <i class="fa fa-users stat-icon"></i>
                                     </div>
                                 </div>
                                 <div class="layui-col-xs6">
-                                    <div class="layui-panel">
-                                        <div class="layui-card-body">
-                                            <span class="layui-badge layui-bg-purple fa-pull-right ">实时</span>
-                                            <div class="panel-content">
-                                                <h5>商品统计</h5>
-                                                <h2>1234</h2>
-                                                <h6>记录数</h6>
-                                            </div>
+                                    <div class="stat-card bg-flat-purple" style="box-shadow:0 4px 16px rgba(160,118,204,.3);">
+                                        <div class="stat-label">商品统计</div>
+                                        <div class="stat-value">1,234</div>
+                                        <div class="stat-footer">
+                                            <span class="stat-badge">实时</span>
+                                            <span class="stat-trend up"><i class="fa fa-arrow-up"></i> 8%</span>
                                         </div>
+                                        <i class="fa fa-shopping-cart stat-icon"></i>
                                     </div>
                                 </div>
                                 <div class="layui-col-xs6">
-                                    <div class="layui-panel">
-                                        <div class="layui-card-body ">
-                                            <span class="layui-badge layui-bg-orange fa-pull-right ">实时</span>
-                                            <div class="panel-content">
-                                                <h5>浏览统计</h5>
-                                                <h2>1234</h2>
-                                                <h6>记录数</h6>
-                                            </div>
+                                    <div class="stat-card bg-flat-orange" style="box-shadow:0 4px 16px rgba(255,107,107,.3);">
+                                        <div class="stat-label">浏览统计</div>
+                                        <div class="stat-value">1,234</div>
+                                        <div class="stat-footer">
+                                            <span class="stat-badge">实时</span>
+                                            <span class="stat-trend down"><i class="fa fa-arrow-down"></i> 3%</span>
                                         </div>
+                                        <i class="fa fa-eye stat-icon"></i>
                                     </div>
                                 </div>
                                 <div class="layui-col-xs6">
-                                    <div class="layui-panel">
-                                        <div class="layui-card-body ">
-                                            <span class="layui-badge layui-bg-red fa-pull-right ">实时</span>
-                                            <div class="panel-content">
-                                                <h5>订单统计</h5>
-                                                <h2>1234</h2>
-                                                <h6>记录数</h6>
-                                            </div>
+                                    <div class="stat-card bg-flat-yellow" style="box-shadow:0 4px 16px rgba(246,185,59,.3);">
+                                        <div class="stat-label">订单统计</div>
+                                        <div class="stat-value">1,234</div>
+                                        <div class="stat-footer">
+                                            <span class="stat-badge">实时</span>
+                                            <span class="stat-trend up"><i class="fa fa-arrow-up"></i> 5%</span>
                                         </div>
+                                        <i class="fa fa-file-text-o stat-icon"></i>
                                     </div>
                                 </div>
                             </div>
@@ -79,137 +72,132 @@ margin-bottom: 10px;
                     </div>
                 </div>
             </div>
-            <div class="layui-col-md6 ">
+
+            <div class="layui-col-md6">
                 <div class="layui-card">
-                    <div class="layui-card-header"><i class="fa fa-credit-card icon icon-blue"></i>快捷入口</div>
+                    <div class="layui-card-header">
+                        <span class="card-header-icon header-icon-blue"><i class="fa fa-rocket"></i></span>
+                        快捷入口
+                    </div>
                     <div class="layui-card-body">
                         <div class="welcome-module">
-                            <div class="layui-row layui-col-space10">
+                            <div class="quick-panel">
                                 <div class="swiper mySwiper">
                                     <div class="swiper-wrapper">
                                         {foreach $quicks as $value}
-
                                         <div class="swiper-slide">
-                                            {foreach $value as $vo}
-
-                                            <div class="layui-col-xs3 layuimini-qiuck-module">
-                                                <a layuimini-content-href="{:url($vo['href'])}" data-title="{$vo['title']}">
-                                                    <i class="{$vo['icon']|raw}"></i>
-                                                    <cite>{$vo['title']}</cite>
-                                                </a>
+                                            <div class="layui-row layui-col-space8">
+                                                {foreach $value as $vo}
+                                                <div class="layui-col-xs3 layuimini-qiuck-module">
+                                                    <a layuimini-content-href="{:url($vo['href'])}" data-title="{$vo['title']}">
+                                                        <i class="{$vo['icon']|raw}"></i>
+                                                        <cite>{$vo['title']}</cite>
+                                                    </a>
+                                                </div>
+                                                {/foreach}
                                             </div>
-                                            {/foreach}
-
                                         </div>
                                         {/foreach}
-
                                     </div>
                                 </div>
-                                <div class="swiper-pagination"></div>
+                                <div class="swiper-pagination" style="position:relative;margin-top:4px;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="layui-col-md12 ">
+            <div class="layui-col-md12">
                 <div class="layui-card">
-                    <div class="layui-card-header"><i class="fa fa-line-chart icon"></i>报表统计</div>
+                    <div class="layui-card-header">
+                        <span class="card-header-icon header-icon-orange"><i class="fa fa-line-chart"></i></span>
+                        报表统计
+                    </div>
                     <div class="layui-card-body">
-                        <div id="echarts-records" style="width: 100%;min-height:500px"></div>
+                        <div id="echarts-records" style="width:100%;min-height:602px;"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="layui-col-md4 ">
+    <div class="layui-col-md4">
+
         <div class="layui-card">
-            <div class="layui-card-header"><i class="fa fa-fire icon"></i>版本信息</div>
-            <div class="layui-card-body layui-text">
-                <table class="layui-table">
+            <div class="layui-card-header">
+                <span class="card-header-icon header-icon-purple"><i class="fa fa-fire"></i></span>
+                版本信息
+            </div>
+            <div class="layui-card-body layui-text" style="padding:8px 12px;">
+                <table class="layui-table version-table" style="margin:0;">
                     <colgroup>
-                        <col width="150">
+                        <col width="130">
                         <col>
                     </colgroup>
                     <tbody>
                     <tr>
                         <td>框架名称</td>
-                        <td>
-                            <button type="button" class="layui-btn layui-btn-xs layui-btn-primary">EasyAdmin8</button>
-                        </td>
+                        <td><span class="layui-badge layui-bg-blue layui-border-radius" style="padding:3px 10px;">EasyAdmin8</span></td>
                     </tr>
                     <tr>
-                        <td>ThinkPHP版本</td>
-                        <td>
-                            <button type="button" class="layui-btn layui-btn-xs layui-btn-primary">{$versions.tpVersion|default='-'}</button>
-                        </td>
+                        <td>ThinkPHP</td>
+                        <td><span class="layui-badge layui-bg-cyan layui-border-radius">{$versions.tpVersion|default='-'}</span></td>
                     </tr>
                     <tr>
                         <td>PHP版本</td>
-                        <td>
-                            <button type="button" class="layui-btn layui-btn-xs layui-btn-primary">{$versions.phpVersion|default='-'}</button>
-                        </td>
+                        <td><span class="layui-badge layui-bg-green layui-border-radius">{$versions.phpVersion|default='-'}</span></td>
                     </tr>
                     <tr>
                         <td>SQL版本</td>
-                        <td style="overflow: hidden;">
-                            <span class="layui-text">{$versions.sqlVersion|default='-'}</span>
-                        </td>
+                        <td><span class="layui-text">{$versions.sqlVersion|default='-'}</span></td>
                     </tr>
                     <tr>
                         <td>Layui版本</td>
                         <td>
-                            <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" id="layui-version">-</button>
+                            <span class="layui-badge layui-bg-orange layui-border-radius" id="layui-version">-</span>
+                            <span class="layui-badge layui-bg-gray" style="cursor:pointer;">开发版本</span>
                         </td>
                     </tr>
                     <tr>
                         <td>DEBUG模式</td>
                         <td>
-                                    <span class="layui-badge {:env('APP_DEBUG')?'layui-bg-cyan':'layui-bg-gray'}">
-                                        {:env('APP_DEBUG')?'开启中':'已关闭'}
-                                    </span>
-                            <span class="layui-badge layui-bg-gray">建议线上环境关闭 APP_DEBUG</span>
+                            <span class="layui-badge {:env('APP_DEBUG')?'layui-bg-cyan':'layui-bg-gray'} layui-border-radius">{:env('APP_DEBUG')?'开启中':'已关闭'}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>jit 状态</td>
                         <td>
-                                    <span class="layui-badge {$versions.jitStatus?'layui-bg-cyan':'layui-bg-gray'}">
-                                        {$versions.jitStatus?'已开启':'未开启'}
-                                    </span>
-                            <a href="https://easyadmin8.top/guide/question.html#%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF-jit" target="_blank">
-                                <span class="layui-badge layui-bg-gray">建议线上开启 jit 以提高性能</span>
+                            <span class="layui-badge {$versions.jitStatus?'layui-bg-cyan':'layui-bg-gray'} layui-border-radius">{$versions.jitStatus?'已开启':'未开启'}</span>
+                            <a href="https://easyadmin8.top/guide/question.html#%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF-jit" target="_blank" style="margin-left:4px;">
+                                <span class="layui-badge layui-bg-gray" style="font-size:11px;">说明</span>
                             </a>
                         </td>
                     </tr>
                     <tr>
-                        <td>composer信息</td>
-                        <td>
-                            <button type="button" class="layui-btn layui-btn-xs layui-bg-cyan" lay-on="showComposerInfo">点击查看</button>
-                        </td>
+                        <td>composer</td>
+                        <td><span class="layui-badge layui-bg-cyan layui-border-radius" style="cursor:pointer;" lay-on="showComposerInfo">点击查看</span></td>
                     </tr>
                     <tr>
-                        <td>主要特色</td>
+                        <td>特色</td>
                         <td>
-                            <span class="layui-btn layui-btn-xs layui-btn-primary layui-border">零门槛</span>
-                            <span class="layui-btn layui-btn-xs layui-btn-primary layui-border">响应式</span>
-                            <span class="layui-btn layui-btn-xs layui-btn-primary layui-border">清爽</span>
-                            <span class="layui-btn layui-btn-xs layui-btn-primary layui-border">极简</span>
+                            <span class="layui-badge layui-bg-gray layui-border-radius">零门槛</span>
+                            <span class="layui-badge layui-bg-gray layui-border-radius">响应式</span>
+                            <span class="layui-badge layui-bg-gray layui-border-radius">清爽</span>
+                            <span class="layui-badge layui-bg-gray layui-border-radius">极简</span>
                         </td>
                     </tr>
                     <tr>
                         <td>Git</td>
                         <td>
-                            <div class="layui-row">
-                                <div class="layui-col-xs4">
+                            <div class="layui-row layui-col-space8">
+                                <div class="layui-col-xs6">
                                     <a href='https://github.com/EasyAdmin8/EasyAdmin8' target="_blank">
-                                        <img src='https://img.shields.io/github/stars/easyadmin8/easyadmin8' alt='star'/>
+                                        <img src='https://img.shields.io/github/stars/easyadmin8/easyadmin8' alt='star' style="max-width:100%;">
                                     </a>
                                 </div>
-                                <div class="layui-col-xs4">
+                                <div class="layui-col-xs6">
                                     <a href='https://gitee.com/EasyAdmin8/EasyAdmin8' target="_blank">
-                                        <img src='https://gitee.com/easyadmin8/EasyAdmin8/badge/star.svg?theme=white' alt='star'/>
+                                        <img src='https://gitee.com/easyadmin8/EasyAdmin8/badge/star.svg?theme=white' alt='star' style="max-width:100%;">
                                     </a>
                                 </div>
                             </div>
@@ -218,19 +206,15 @@ margin-bottom: 10px;
                     <tr>
                         <td>官方</td>
                         <td>
-                            <div class="">
-                                <a class="layui-btn layui-btn-xs layui-bg-blue " href="https://easyadmin8.top" target="_blank">官方网站</a>
-                                <a class="layui-btn layui-btn-xs layui-bg-purple " href="https://meta.easyadmin8.top" target="_blank">问答社区</a>
-                            </div>
+                            <a class="layui-btn layui-btn-xs layui-bg-blue layui-border-radius" href="https://easyadmin8.top" target="_blank">官方网站</a>
+                            <a class="layui-btn layui-btn-xs layui-bg-purple layui-border-radius" href="https://meta.easyadmin8.top" target="_blank">问答社区</a>
                         </td>
                     </tr>
                     <tr>
                         <td>其他框架</td>
                         <td>
-                            <div class="">
-                                <a class="layui-btn layui-btn-xs layui-btn-primary layui-border-red " href="http://laravel.easyadmin8.top" target="_blank">Laravel</a>
-                                <a class="layui-btn layui-btn-xs layui-btn-primary layui-border-green " href="http://webman.easyadmin8.top" target="_blank">webman</a>
-                            </div>
+                            <a class="layui-btn layui-btn-xs layui-btn-primary layui-border-red layui-border-radius" href="http://laravel.easyadmin8.top" target="_blank">Laravel</a>
+                            <a class="layui-btn layui-btn-xs layui-btn-primary layui-border-green layui-border-radius" href="http://webman.easyadmin8.top" target="_blank">webman</a>
                         </td>
                     </tr>
                     </tbody>
@@ -239,20 +223,28 @@ margin-bottom: 10px;
         </div>
 
         <div class="layui-card">
-            <div class="layui-card-header"><i class="fa fa-paper-plane-o icon"></i>作者心语</div>
-            <div class="layui-card-body layui-row">
-                <div class="layui-col-md8">
-                    本模板基于layui2.x以及font-awesome-7.x进行实现。
-                    <a class="layui-btn layui-btn-xs layui-btn-danger" style="vertical-align: baseline;" target="_blank" href="http://layui.dev/docs">layui文档</a>
-                    <br>
-                    <br>
-                    <div class="layui-font-red">备注：此后台框架永久开源，但请勿进行出售或者上传到任何素材网站，否则将追究相应的责任。</div>
-                </div>
-                <div class="layui-col-md4">
-                    <div class="layui-card-header"><i class="fa fa-qq icon"></i>QQ交流群</div>
-                    <div class="layui-card-body ">
-                        <img src="/static/common/images/EasyAdmin8-ThinkPHP.png" width="123">
+            <div class="layui-card-header">
+                <span class="card-header-icon header-icon-green"><i class="fa fa-edit"></i></span>
+                作者心语
+            </div>
+            <div class="layui-card-body">
+                <div class="author-card" style="margin-bottom:12px;">
+                    <div>
+                        基于 Layui 2.x + Font Awesome 7.x 构建。
+                        <a class="layui-btn layui-btn-xs layui-btn-danger layui-border-radius" target="_blank" href="http://layui.dev/docs">Layui文档</a>
                     </div>
+                </div>
+                <div class="layui-font-red" style="font-size:12px;padding:8px 12px;background:#fff5f5;border-radius:8px;margin-bottom:12px;">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    备注：此后台框架永久开源，但请勿进行出售或者上传到任何素材网站。
+                </div>
+                <div>
+                    <p>
+                        <span><i class="fa fa-qq" style="color:#12b7f5;"></i> QQ交流群</span>
+                    </p>
+                    <p>
+                        <img src="/static/common/images/EasyAdmin8-ThinkPHP.png" width="238" style="border-radius:6px;" alt="">
+                    </p>
                 </div>
             </div>
         </div>
