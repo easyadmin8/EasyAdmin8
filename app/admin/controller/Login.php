@@ -13,6 +13,9 @@ use think\Response;
 use Webman\Captcha\CaptchaBuilder;
 use Webman\Captcha\PhraseBuilder;
 use Wolfcode\RateLimiting\Attributes\RateLimitingMiddleware;
+use Wolfcode\CloudflareTurnstile\Exception\ValidationException;
+use Wolfcode\CloudflareTurnstile\Turnstile;
+use Wolfcode\CloudflareTurnstile\Widget;
 
 class Login extends AdminController
 {
@@ -40,8 +43,15 @@ class Login extends AdminController
     #[RateLimitingMiddleware(key: [Helper::class, 'getIp'], seconds: 1, limit: 1, message: '请求过于频繁')]
     public function index(Request $request): string
     {
-        $captcha = env('EASYADMIN.CAPTCHA', 1);
-        if (!$request->isPost()) return $this->fetch('', compact('captcha'));
+        $captcha     = env('EASYADMIN.CAPTCHA', false);
+        $cfTurnstile = env('CF_TURNSTILE_STATUS', false);
+        if (!$request->isPost()) {
+            if ($cfTurnstile) {
+                $widget = (new Widget(siteKey: env('CF_TURNSTILE_SITE_KEY'), theme: 'light', size: 'flexible'));
+                $this->assign(compact('widget'));
+            }
+            return $this->fetch('', compact('captcha', 'cfTurnstile'));
+        }
         $post = $request->post();
         $rule = [
             'username|用户名'         => 'require',
@@ -64,6 +74,14 @@ class Login extends AdminController
         }
         if ($admin->status == 0) {
             $this->error('账号已被禁用');
+        }
+        if ($cfTurnstile) {
+            try {
+                $checkCfTurnstile = (new Turnstile(secretKey: env('CF_TURNSTILE_SECRET_KEY')))->isValid($request->post('cf-turnstile-response'), $request->ip());
+                if (!$checkCfTurnstile) $this->error('验证真人失败');
+            }catch (ValidationException $exception) {
+                $this->error($exception->getMessage());
+            }
         }
         if ($admin->login_type == 2) {
             if (empty($post['ga_code'])) $this->error('请输入谷歌验证码', ['is_ga_code' => true]);
