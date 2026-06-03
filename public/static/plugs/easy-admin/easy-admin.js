@@ -1870,39 +1870,17 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                 layer.open({
                     'title': options?.title || 'AI建议',
                     type: 1,
-                    area: options?.area || (admin.checkMobile() ? ['95%', '60%'] : ['50%', '60%']),
+                    area: options?.area || (admin.checkMobile() ? ['95%', '80%'] : ['70%', '80%']),
                     shade: options?.shade || 0,
                     shadeClose: options?.shadeClose || false,
                     scrollbar: options?.scrollbar || false,
                     maxmin: options?.maxmin || true,
                     anim: options?.anim || 0,
-                    content: `<div style="padding: 20px;white-space: pre-wrap;" id="${id}"></div>`,
+                    content: `<div id="${id}"></div>`,
                     success: function (layero, index) {
                         let elem = document.getElementById(id)
-                        if (options?.stream) {
-                            let index = 0;
-                            let lastTime = performance.now();
-                            const interval = options.interval || 100;
-
-                            function typeCharacter(currentTime) {
-                                if (index < content.length) {
-                                    if (currentTime - lastTime >= interval) {
-                                        elem.innerHTML += content.charAt(index);
-                                        index++;
-                                        lastTime = currentTime;
-                                        elem.scrollIntoView({behavior: "smooth", block: "end"});
-                                    }
-                                    requestAnimationFrame(typeCharacter);
-                                }
-                            }
-
-                            requestAnimationFrame(typeCharacter);
-                        } else {
-                            content = content.replace(/\r\n/g, '<br>').replace(/\n/g, '<br>')
-                            setTimeout(() => {
-                                elem.innerHTML = content
-                            }, 100)
-                        }
+                        content = marked.parse(content)
+                        elem.innerHTML = `<div class="markdown-body">${content}</div>`
                     },
                     cancel: function (index, layero) {
                         cancel()

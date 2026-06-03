@@ -51,6 +51,9 @@ define(["jquery", "easy-admin"], function ($, ea) {
                             return res?.status2 || '模拟数据'
                         }
                     },
+                    {field: 'province', minWidth: 80, title: '省份', toolbar: '#provinceDemo', search: 'select', hide: true},
+                    {field: 'city', minWidth: 80, title: '城市', toolbar: '#cityDemo', search: 'select', hide: true},
+                    {field: 'area', minWidth: 80, title: '地区', toolbar: '#areaDemo', search: 'select', hide: true},
                     {field: 'create_time', minWidth: 80, title: '创建时间', search: 'range'},
                     {
                         minWidth: 250,
@@ -93,6 +96,53 @@ define(["jquery", "easy-admin"], function ($, ea) {
                     })
                 }
             });
+
+            let form = layui.form
+            let provinceHtml = ``, cityHtml = ``, areaHtml = ``
+            let provinceCityData = [], cityAreaData = []
+            // 首次进来默认渲染省市区
+            areaData.forEach(item => {
+                provinceHtml += `<option value="${item.value}">${item.label}</option>`
+                provinceCityData[item.value] = item.children
+            })
+            $('#c-province').html(provinceHtml)
+            $('#c-city').html(cityHtml)
+            $('#c-area').html(areaHtml)
+            form.render('select');
+
+            // 监听省份选择
+            form.on('select(province)', function (data) {
+                let value = data.value
+                let cityHtml = ``
+                let areaHtml = ``
+                if (!value) {
+                    cityHtml = areaHtml = ``
+                } else {
+                    provinceCityData[value].forEach(item => {
+                        cityHtml += `<option value="${item.value}">${item.label}</option>`
+                        cityAreaData[item.value] = item.children
+                        item.children.forEach(item2 => {
+                            areaHtml += `<option value="${item2.value}">${item2.label}</option>`
+                        })
+                    })
+                }
+                $('#c-city').html(cityHtml)
+                $('#c-area').html(areaHtml)
+                form.render('select')
+            })
+
+            // 监听城市选择
+            form.on('select(city)', function (data) {
+                let value = data.value
+                let areaHtml = ``
+                if (value) {
+                    cityAreaData[value].forEach(item => {
+                        areaHtml += `<option value="${item.value}">${item.label}</option>`
+                    })
+                }
+                $('#c-area').html(areaHtml)
+                form.render('select')
+            })
 
             ea.listen();
         },
@@ -223,7 +273,6 @@ define(["jquery", "easy-admin"], function ($, ea) {
 
         // 告诉AI 你需要做什么
         let message = `优化这个标题 ${title}`
-
         if (title.trim() === '') {
             ea.msg.error('标题不能为空', function () {
                 $(data).attr('lay-on', layOn.split('Loading')[0])

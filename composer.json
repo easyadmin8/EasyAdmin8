@@ -36,7 +36,6 @@
     "wolfcode/authenticator": "^0.0.6",
     "wolfcode/rate-limiting": "^0.1.0",
     "webman/captcha": "^1.0",
-    "wolfcode/php-ai": "^0.1.2",
     "wolfcode/cloudflare-turnstile": "^0.0.2",
     "neuron-core/neuron-ai": "^3.4",
     "ext-json": "*",

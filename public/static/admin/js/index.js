@@ -223,7 +223,7 @@ define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTh
                         layer.open({
                             type: 1,
                             title: 'composer 信息',
-                            area: ['50%', '90%'],
+                            area: ea.checkMobile() ? ['95%', '90%'] : ['50%', '90%'],
                             shade: 0.8,
                             shadeClose: true,
                             scrollbar: false,
