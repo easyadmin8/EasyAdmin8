@@ -1,22 +1,18 @@
 {
-  "name": "topthink/think",
+  "name": "easyadmin8/easyadmin8",
   "description": "the new thinkphp framework",
   "type": "project",
   "keywords": [
-    "framework",
     "thinkphp",
-    "ORM"
+    "EasyAdmin",
+    "EasyAdmin8"
   ],
-  "homepage": "https://www.thinkphp.cn/",
-  "license": "Apache-2.0",
+  "homepage": "https://easyadmin8.top/",
+  "license": "MIT",
   "authors": [
     {
-      "name": "liu21st",
-      "email": "liu21st@gmail.com"
-    },
-    {
-      "name": "yunwuxin",
-      "email": "448901948@qq.com"
+      "name": "wolfcode",
+      "email": "wolfcode@88.com"
     }
   ],
   "require": {
