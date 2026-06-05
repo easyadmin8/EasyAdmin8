@@ -353,7 +353,7 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                             });
                         }
                     });
-                    return '<div>' + toolbarHtml + '</div>';
+                    return `<div><div class="layui-btn-group">${toolbarHtml}</div></div>`;
                 }
                 return data
             },
