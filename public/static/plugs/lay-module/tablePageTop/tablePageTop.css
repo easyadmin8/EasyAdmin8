@@ -1,0 +1,4 @@
+.layui-table-page-top {
+    border-top: none !important;
+    border-bottom: 1px solid var(--lay-border-color, #eee) !important;
+}

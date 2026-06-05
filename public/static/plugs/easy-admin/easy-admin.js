@@ -281,6 +281,17 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                     })
                 })
 
+                // 初始化表格顶部分页
+                if (options.pageTop !== false) {
+                    let originDone = options.done;
+                    options.done = function (res, curr, count) {
+                        if (typeof originDone === 'function') {
+                            originDone.call(this, res, curr, count);
+                        }
+                        admin.table.addTopPage(this);
+                    };
+                }
+
                 // 初始化表格
                 var newTable = table.render(options);
 
@@ -1032,6 +1043,63 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                         where: {...defaultWhere, ...sortWhere}
                     });
                 });
+            },
+            addTopPage: function (tableOptions) {
+                try {
+                    let $view = $(tableOptions.elem).next('.layui-table-view');
+                    if (!$view.length) return;
+                    let $bottomPage = $view.children('.layui-table-page').not('.layui-table-page-top');
+                    if (!$bottomPage.length) return;
+                    let $topPage = $view.children('.layui-table-page-top');
+                    let isNew = !$topPage.length;
+                    if (isNew) {
+                        $topPage = $bottomPage.clone(false);
+                        $topPage.addClass('layui-table-page-top');
+                        $view.children('.layui-table-tool').after($topPage);
+                    }
+                    $topPage.html($bottomPage.html());
+                    $topPage.find('[id]').attr('id', function () {
+                        return $(this).attr('id') + '_top';
+                    });
+                    if (isNew) {
+                        let bid = tableOptions.id;
+                        $topPage.on('click', 'a, button', function (e) {
+                            e.preventDefault();
+                            let $t = $(this);
+                            if ($t.hasClass('layui-disabled') || $t.hasClass('layui-btn-disabled')) return;
+                            if ($t.hasClass('layui-laypage-btn')) {
+                                let v = parseInt($topPage.find('input').val());
+                                if (v > 0) layui.table.reload(bid, {page: {curr: v}});
+                                return;
+                            }
+                            let page = $t.data('page');
+                            if (page !== undefined) {
+                                let pn = parseInt(page);
+                                if (!isNaN(pn) && pn > 0) {
+                                    layui.table.reload(bid, {page: {curr: pn}});
+                                    return;
+                                }
+                            }
+                            let $bottom = $view.children('.layui-table-page').not('.layui-table-page-top');
+                            let tag = this.tagName;
+                            let idx = $topPage.find(tag).index(this);
+                            if (idx >= 0) {
+                                let el = $bottom.find(tag).get(idx);
+                                if (el) el.click();
+                            }
+                        });
+                        $topPage.on('change', 'select', function () {
+                            layui.table.reload(bid, {page: {limit: parseInt(this.value)}});
+                        });
+                        $topPage.on('keydown', 'input', function (e) {
+                            if (e.keyCode === 13) {
+                                let v = parseInt(this.value);
+                                if (v > 0) layui.table.reload(bid, {page: {curr: v}});
+                            }
+                        });
+                    }
+                } catch (e) {
+                }
             }
         },
         checkMobile: function () {
