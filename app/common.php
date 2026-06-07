@@ -58,10 +58,10 @@ if (!function_exists('sysConfig')) {
             if (!empty($name)) {
                 $where['name'] = $name;
                 $value         = \app\admin\model\SystemConfig::where($where)->value('value');
-                if (!empty($value) || $value >= 0) Cache::tag('sysConfig')->set("sysConfig_{$group}_{$name}", $value, 3600);
+                if (isset($value)) Cache::tag('sysConfig')->set("sysConfig_{$group}_{$name}", $value, 3600);
             } else {
                 $value = \app\admin\model\SystemConfig::where($where)->column('value', 'name');
-                if (!empty($value) || $value >= 0) Cache::tag('sysConfig')->set("sysConfig_{$group}", $value, 3600);
+                Cache::tag('sysConfig')->set("sysConfig_{$group}", $value, 3600);
             }
         }
         return $value;
