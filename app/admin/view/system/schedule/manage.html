@@ -1,0 +1,108 @@
+<style>
+    .schedule-toolbar {
+        margin-bottom: 12px;
+    }
+    .schedule-output {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        padding: 14px;
+        border-radius: 4px;
+        min-height: 200px;
+        max-height: 320px;
+        overflow: auto;
+        font-family: Consolas, Monaco, "Courier New", monospace;
+        font-size: 13px;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+    .schedule-log {
+        background: #0f1419;
+        color: #c7d0d9;
+        padding: 14px;
+        border-radius: 4px;
+        min-height: 320px;
+        max-height: 520px;
+        overflow: auto;
+        font-family: Consolas, Monaco, "Courier New", monospace;
+        font-size: 12px;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+    .schedule-tip {
+        color: #999;
+        font-size: 12px;
+        margin-top: 8px;
+    }
+    .schedule-section-title {
+        font-size: 14px;
+        margin: 16px 0 8px;
+        padding-left: 8px;
+        border-left: 3px solid #1e9fff;
+        color: #333;
+    }
+    .schedule-log-meta {
+        color: #999;
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+</style>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <blockquote class="layui-elem-quote">
+            当前脚本：<span class="layui-badge layui-bg-blue" id="scheduleFile">{$file}</span>
+            <span class="schedule-tip">路径：{$filePath}</span>
+        </blockquote>
+
+        <div class="schedule-toolbar">
+            <button type="button" class="layui-btn layui-btn-normal layui-btn-sm" id="btnStatus">
+                <i class="fa fa-info-circle"></i> 查看状态
+            </button>
+            <button type="button" class="layui-btn layui-bg-green layui-btn-sm" id="btnStart">
+                <i class="fa fa-play"></i> 启动任务
+            </button>
+            <button type="button" class="layui-btn layui-btn-danger layui-btn-sm" id="btnStop">
+                <i class="fa fa-stop"></i> 停止任务
+            </button>
+        </div>
+
+        <div class="schedule-output" id="scheduleOutput">// 点击上方按钮执行对应命令...</div>
+
+        <div class="schedule-section-title">运行日志</div>
+        <div class="schedule-toolbar">
+            <button type="button" class="layui-btn layui-btn-primary layui-btn-sm" id="btnLog">
+                <i class="fa fa-refresh"></i> 刷新日志
+            </button>
+            <button type="button" class="layui-btn layui-btn-primary layui-btn-sm" id="btnAutoRefresh" data-on="0">
+                <i class="fa fa-play-circle-o"></i> 自动刷新
+            </button>
+            <button type="button" class="layui-btn layui-btn-warm layui-btn-sm" id="btnClearLog"
+                    {if condition="auth('system.schedule/clearLog') neq true"}style="display:none"{/if}>
+                <i class="fa fa-trash"></i> 清空日志
+            </button>
+            <a class="layui-btn layui-btn-normal layui-btn-sm" id="btnDownloadLog" href="javascript:;"
+               {if condition="auth('system.schedule/downloadLog') neq true"}style="display:none"{/if}>
+                <i class="fa fa-download"></i> 下载日志
+            </a>
+            <span class="layui-inline" style="margin-left:8px;">
+                <label class="schedule-tip">显示尾部</label>
+                <select id="logLines" lay-ignore style="height:30px;border:1px solid #e6e6e6;border-radius:2px;">
+                    <option value="100">100 行</option>
+                    <option value="200" selected>200 行</option>
+                    <option value="500">500 行</option>
+                    <option value="1000">1000 行</option>
+                    <option value="5000">5000 行</option>
+                </select>
+            </span>
+        </div>
+        <div class="schedule-log-meta" id="scheduleLogMeta">日志路径：- &nbsp;|&nbsp; 大小：- &nbsp;|&nbsp; 更新时间：-</div>
+        <div class="schedule-log" id="scheduleLog">// 点击「刷新日志」加载日志内容...</div>
+
+        <div class="schedule-tip">
+            说明：对应命令为
+            <code>php ./crontab/{$file} status|start|stop</code>，
+            Windows 环境下 CLI 不支持后台守护，请在 Linux/MacOS 下运行。
+        </div>
+    </div>
+</div>

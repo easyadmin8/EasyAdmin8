@@ -340,6 +340,8 @@ INSERT INTO `ea_system_menu`
 VALUES ('18', '15', '常见问题', 'fa fa-circle-question', 'https://easyadmin8.top/guide/question.html', '', '_self', '2', '1', '', '1589623684', '1589623684', null);
 INSERT INTO `ea_system_menu`
 VALUES ('19', '2', '日志分析', 'fa fa-robot', 'system.log_analyzer/index', '', '_self', '1', '1', '', '1589623684', '1589623684', null);
+INSERT INTO `ea_system_menu`
+VALUES ('20', '2', '任务调度', 'fa fa-list-alt', 'system.Schedule/index', '', '_self', '1', '1', '', '1589623684', '1589623684', null);
 
 -- ----------------------------
 -- Table structure for ea_system_node
