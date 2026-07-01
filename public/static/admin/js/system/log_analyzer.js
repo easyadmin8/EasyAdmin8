@@ -25,7 +25,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
             });
         }
         $('#selectedCount').text(selectedFiles.length);
-        $('#analyzeBtn,#diagnoseBtn').prop('disabled', selectedFiles.length === 0);
+        // $('#analyzeBtn,#diagnoseBtn').prop('disabled', selectedFiles.length === 0);
     }
 
     function convertToZTreeData(directories, parentId) {

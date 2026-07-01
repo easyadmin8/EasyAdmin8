@@ -226,6 +226,7 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                 options.limit = options.limit || 15;
                 options.limits = options.limits || [10, 15, 20, 25, 50, 100];
                 options.cols = options.cols || [];
+                options.even = options.even !== false;
                 let searchBtn = options.search ? {
                     title: '搜索',
                     layEvent: 'TABLE_SEARCH',
