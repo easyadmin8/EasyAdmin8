@@ -2,7 +2,7 @@
 
 return [
     // 后台路径地址 默认 admin
-    'alias_name'         => env('EASYADMIN.ADMIN'),
+    'alias_name'         => env('EASYADMIN.ADMIN','admin'),
 
     // 不需要验证权限的控制器
     'no_auth_controller' => [
