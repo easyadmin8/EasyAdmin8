@@ -1,4 +1,4 @@
-define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTheme", "miniTab", "swiper"], function ($, ea, echarts, undefined, miniAdmin, miniTheme, miniTab) {
+define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTheme", "miniTab", "miniTongji", "swiper"], function ($, ea, echarts, undefined, miniAdmin, miniTheme, miniTab, miniTongji) {
 
     return {
         index: function () {
@@ -14,7 +14,7 @@ define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTh
                 maxTabNum: 20,              // 最大的tab打开数量
             };
             miniAdmin.render(options);
-
+            miniTongji.render({specific: false});
             $('.login-out').on("click", function () {
                 ea.request.get({
                     url: 'login/out',
@@ -35,70 +35,6 @@ define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTh
                     clickable: true,
                 },
             })
-
-            let tabs = layui.tabs
-            tabs.on('afterChange(home-page-demo)', function (data) {
-                let index = data.index;
-                if (index === 2) {
-                    let landChart = echarts.init(document.getElementById('gov-land-chart'), 'walden');
-                    let landOption = {
-                        tooltip: {
-                            trigger: 'axis',
-                            axisPointer: {
-                                type: 'shadow'
-                            }
-                        },
-                        legend: {
-                            data: ['征地', '供应', '规划净地'],
-                            bottom: '0%'
-                        },
-                        grid: {
-                            left: '3%',
-                            right: '4%',
-                            bottom: '15%',
-                            containLabel: true
-                        },
-                        xAxis: {
-                            type: 'category',
-                            data: ['2月', '3月', '4月', '5月', '6月']
-                        },
-                        yAxis: {
-                            type: 'value',
-                            name: '面积（公顷）'
-                        },
-                        series: [
-                            {
-                                name: '征地',
-                                type: 'bar',
-                                data: [200, 300, 250, 280, 320],
-                                itemStyle: {
-                                    color: '#ff9800'
-                                }
-                            },
-                            {
-                                name: '供应',
-                                type: 'bar',
-                                data: [150, 250, 200, 230, 270],
-                                itemStyle: {
-                                    color: '#2196f3'
-                                }
-                            },
-                            {
-                                name: '规划净地',
-                                type: 'bar',
-                                data: [250, 350, 300, 330, 370],
-                                itemStyle: {
-                                    color: '#4caf50'
-                                }
-                            }
-                        ]
-                    };
-                    landChart.setOption(landOption);
-                    window.onresize = function () {
-                        landChart.resize();
-                    };
-                }
-            });
 
             /**
              * 查看公告信息
@@ -136,79 +72,150 @@ define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTh
              */
             $(function () {
                 $('#layui-version').text('v' + layui.v);
-                let echartsRecords = echarts.init(document.getElementById('echarts-records'), 'walden');
-                let optionRecords = {
-                    title: {
-                        text: ''
-                    },
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    toolbox: {
-                        feature: {
-                            saveAsImage: {}
-                        }
-                    },
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: [
-                        {
-                            name: '邮件营销',
-                            type: 'line',
-                            stack: '总量',
-                            data: [120, 132, 101, 134, 90, 230, 210]
+                let echartsRecordsEl = document.getElementById('echarts-records');
+                if (echartsRecordsEl) {
+                    let echartsRecords = echarts.init(echartsRecordsEl, 'walden');
+
+                    let optionRecords = {
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            }
                         },
-                        {
-                            name: '联盟广告',
-                            type: 'line',
-                            stack: '总量',
-                            data: [220, 182, 191, 234, 290, 330, 310]
-                        },
-                        {
-                            name: '视频广告',
-                            type: 'line',
-                            stack: '总量',
-                            data: [150, 232, 201, 154, 190, 330, 410]
-                        },
-                        {
-                            name: '直接访问',
-                            type: 'line',
-                            stack: '总量',
-                            data: [320, 332, 301, 334, 390, 330, 320]
-                        },
-                        {
-                            name: '搜索引擎',
-                            type: 'line',
-                            stack: '总量',
-                            data: [820, 932, 901, 934, 1290, 1330, 1320]
-                        }
-                    ]
-                };
-                setTimeout(function () {
-                    echartsRecords.setOption(optionRecords);
-                    window.addEventListener("resize", function () {
-                        echartsRecords.resize();
-                    });
-                }, 100)
+                        legend: {},
+                        xAxis: [
+                            {
+                                type: 'category',
+                                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value'
+                            }
+                        ],
+                        series: [
+                            {
+                                name: 'Direct',
+                                type: 'bar',
+                                emphasis: {
+                                    focus: 'series'
+                                },
+                                data: [320, 332, 301, 334, 390, 330, 320]
+                            },
+                            {
+                                name: 'Email',
+                                type: 'bar',
+                                stack: 'Ad',
+                                emphasis: {
+                                    focus: 'series'
+                                },
+                                data: [120, 132, 101, 134, 90, 230, 210]
+                            },
+                            {
+                                name: 'Union Ads',
+                                type: 'bar',
+                                stack: 'Ad',
+                                emphasis: {
+                                    focus: 'series'
+                                },
+                                data: [220, 182, 191, 234, 290, 330, 310]
+                            },
+                            {
+                                name: 'Video Ads',
+                                type: 'bar',
+                                stack: 'Ad',
+                                emphasis: {
+                                    focus: 'series'
+                                },
+                                data: [150, 232, 201, 154, 190, 330, 410]
+                            },
+                            {
+                                name: 'Search Engine',
+                                type: 'bar',
+                                data: [862, 1018, 964, 1026, 1679, 1600, 1570],
+                                emphasis: {
+                                    focus: 'series'
+                                },
+                                markLine: {
+                                    lineStyle: {
+                                        type: 'dashed'
+                                    },
+                                    data: [[{ type: 'min' }, { type: 'max' }]]
+                                }
+                            },
+                            {
+                                name: 'Baidu',
+                                type: 'bar',
+                                barWidth: 5,
+                                stack: 'Search Engine',
+                                emphasis: {
+                                    focus: 'series'
+                                },
+                                data: [620, 732, 701, 734, 1090, 1130, 1120]
+                            },
+                            {
+                                name: 'Google',
+                                type: 'bar',
+                                stack: 'Search Engine',
+                                emphasis: {
+                                    focus: 'series'
+                                },
+                                data: [120, 132, 101, 134, 290, 230, 220]
+                            },
+                            {
+                                name: 'Bing',
+                                type: 'bar',
+                                stack: 'Search Engine',
+                                emphasis: {
+                                    focus: 'series'
+                                },
+                                data: [60, 72, 71, 74, 190, 130, 110]
+                            },
+                            {
+                                name: 'Others',
+                                type: 'bar',
+                                stack: 'Search Engine',
+                                emphasis: {
+                                    focus: 'series'
+                                },
+                                data: [62, 82, 91, 84, 109, 110, 120]
+                            }
+                        ]
+                    };
+                    setTimeout(function () {
+                        echartsRecords.setOption(optionRecords);
+                        window.addEventListener("resize", function () {
+                            echartsRecords.resize();
+                        });
+                    }, 100)
+                }
             })
 
             let util = layui.util;
             util.on({
+                'layui-tips': function () {
+                    layer.tips('需要最新版本的，去 LayUI 官网下载替换本地文件即可', this, {
+                        tips: [1, 'var(--ea8-theme-main-color)'],
+                        time: 2000,
+                    });
+                },
+                openClawBtn: function () {
+                    let width = window.innerWidth
+                    let _width = '80%'
+                    if (width <= 768) {
+                        _width = '95%'
+                    }
+                    layer.open({
+                        type: 2,
+                        title: '',
+                        area: [_width, '95%'],
+                        content: 'https://get.gdo.net.cn/',
+                        scrollbar: false,
+                        shadeClose: true,
+                    })
+                },
                 showComposerInfo: function () {
                     // <div style="padding: 25px;">12313</div>
                     let html = ``

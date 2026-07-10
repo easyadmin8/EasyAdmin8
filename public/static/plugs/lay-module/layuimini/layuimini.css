@@ -1,6 +1,7 @@
-/**
-配色方案（如有需要，请自行配置）
- */
+body {
+    background: #efefef;
+}
+
 /**头部-配色*/
 .layui-layout-admin .layui-header {
     background-color: #1aa094 !important;
@@ -17,6 +18,11 @@
 /**logo-配色*/
 .layui-layout-admin .layuimini-logo {
     background-color: #243346 !important;
+}
+
+.layui-layout-admin .layui-nav-child {
+    background-color: var(--lay-color-bg-1) !important;
+    color: var(--lay-color-text-1) !important;
 }
 
 /**左侧-配色*/
@@ -37,7 +43,7 @@
 /**头部样式 */
 .layui-layout-admin .header {
     position: fixed;
-    left: 0;
+    left: 200px;
     right: 0;
     top: 0;
     bottom: 0;
@@ -59,7 +65,7 @@
 }
 
 .layui-layout-left {
-    left: 295px !important;
+    left: 95px !important;
 }
 
 .layui-nav.layui-layout-left.layuimini-header-menu.layuimini-pc-show {
@@ -70,13 +76,17 @@
 
 /**logo演示（通用） */
 .layui-layout-admin .layuimini-logo {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1002;
     font-weight: bold;
     color: #ffffff !important;
     height: 60px !important;
-    line-height: 60px !important;
     overflow: hidden;
     line-height: 64px;
     transition: all .2s !important;
+    box-shadow: none;
 }
 
 .layui-layout-admin .layuimini-logo img {
@@ -100,7 +110,7 @@
 .layuimini-tool {
     position: absolute !important;
     top: 0;
-    left: 235px;
+    left: 35px;
     width: 60px;
     height: 100%;
     line-height: 60px;
@@ -146,11 +156,22 @@
 }
 
 .layuimini-tab .layui-tabs-header {
-    border:none;
+    box-sizing: border-box;
+    background: #efefef;
+    margin-left: 15px;
 }
 
 .layuimini-tab .layui-tabs-header li {
-    color: dimgray;
+    color: #666;
+    padding: 0 26px;
+    margin: 7px 7px 7px 0 !important;
+    position: relative;
+    transition: color .25s;
+    background: #fff;
+}
+
+.layuimini-tab .layui-tabs-header li:hover {
+    color: #1e9fff;
 }
 
 .layuimini-tab .layui-tabs-header .layui-tab-bar {
@@ -162,47 +183,42 @@
 }
 
 .layuimini-tab .layui-tabs-header .layuimini-tab-active {
-    display: inline-block;
-    width: 9px;
-    height: 9px;
-    border-radius: 30px;
-    margin-right: 5px;
+    display: none;
 }
 
-.layuimini-tab .layui-tabs-header .layui-this .layuimini-tab-active {
-    background-color: var(--ea8-theme-main-color);
-    border: 1px solid var(--lay-color-white);
+.layuimini-tab .layui-tabs-header .layui-this {
+    color: #1e9fff;
 }
 
 .layuimini-tab > .layui-tabs-header, .layuimini-tab > .close-box {
-    height: 35px !important;
-}
-
-.layuimini-tab > .layui-tabs-header li, .layuimini-tab > .close-box li {
-    line-height: 35px !important;
+    height: 46px !important;
 }
 
 .layuimini-tab .layui-tabs-header span {
-    color: #acafb1;
+    color: #333;
+}
+
+.layuimini-tab .layui-tabs-header li {
+    line-height: 32px;
 }
 
 .layuimini-tab .layui-tabs-header .layui-this span {
-    color: var(--lay-color-cyan-1);
+    color: #1e9fff;
 }
 
 .layuimini-tab .layui-tabs-header .layui-tab-close {
-    font-size: 12px !important;
-    width: 14px !important;
-    height: 14px !important;
+    font-size: 15px !important;
+    width: 16px !important;
+    height: 16px !important;
     line-height: 16px !important;
-    margin-left: 5px;
-    padding: 2px;
+    margin-left: 6px;
+    border-radius: 50%;
+    transition: all .2s;
 }
 
 .layuimini-tab .layui-tabs-header .layui-tab-close:hover {
-    border-radius: 4em;
-    background: #ff5722;
-    color: #fff;
+    background: rgba(0, 0, 0, .08);
+    color: #1e9fff;
 }
 
 .layuimini-tab .layui-tabs-header .disable-close + .layui-tab-close {
@@ -216,29 +232,34 @@
 .layuimini-tab .layui-tab-control > li {
     position: absolute;
     top: 0;
-    height: 35px;
-    line-height: 35px;
-    width: 35px;
+    height: 52px;
+    line-height: 52px;
+    background-color: #fff;
+    width: 36px;
     text-align: center;
-    background-color: white;
-    border-top: whitesmoke 1px solid;
-    border-bottom: whitesmoke 1px solid;
+    background-color: #fff;
+    color: #333;
+    transition: color .25s;
+    cursor: pointer;
+}
+
+.layuimini-tab .layui-tab-control > li:hover {
+    color: #1e9fff;
 }
 
 .layuimini-tab .layuimini-tab-roll-left {
     left: 0;
-    border-right: whitesmoke 1px solid;
-    border-left: whitesmoke 1px solid;
+    border-right: 1px solid #e8e8e8;
 }
 
 .layuimini-tab .layuimini-tab-roll-right {
-    right: 35px;
-    border-left: 1px solid whitesmoke;
+    right: 36px;
+    border-left: 1px solid #e8e8e8;
 }
 
 .layuimini-tab .layui-tab-tool {
     right: 0;
-    border-left: 1px solid whitesmoke;
+    border-left: 1px solid #e8e8e8;
 }
 
 .layuimini-tab .layui-tab-control .layui-tab-tool,
@@ -254,12 +275,12 @@
 
 .layuimini-tab.layui-tab-roll .layui-tab-control .layuimini-tab-roll-right {
     right: 0;
-    border-right: 1px solid whitesmoke;
+    border-right: 1px solid #e8e8e8;
 }
 
 .layuimini-tab.layui-tab-roll .layui-tabs-header {
-    padding-left: 35px;
-    padding-right: 35px;
+    padding-left: 36px;
+    padding-right: 36px;
 }
 
 
@@ -269,13 +290,13 @@
 
 .layuimini-tab.layui-tab-tool .layui-tabs-header {
     padding-left: 0;
-    padding-right: 35px;
+    padding-right: 36px;
 }
 
 
 .layuimini-tab.layui-tab-rollTool .layui-tabs-header {
-    padding-left: 35px;
-    padding-right: 80px;
+    padding-left: 36px;
+    padding-right: 72px;
 }
 
 .layuimini-tab.layui-tab-rollTool .layui-tab-control .layuimini-tab-roll-left,
@@ -286,7 +307,6 @@
 
 .layuimini-tab .layui-tab-tool .layui-nav {
     position: absolute;
-    height: 43px !important;
     top: 0;
     width: 100%;
     height: 100%;
@@ -295,7 +315,7 @@
 }
 
 .layuimini-tab .layui-tab-tool .layui-nav-item {
-    height: 35px;
+    height: 52px;
 }
 
 .layuimini-tab .layui-tab-tool .layui-nav-bar {
@@ -304,10 +324,10 @@
 
 .layuimini-tab .layui-tab-tool .layui-nav-child {
     left: auto;
-    top: 45px;
+    top: 52px;
     right: 3px;
     width: 120px;
-    border: 1px solid whitesmoke;
+    border: 1px solid #e8e8e8;
 }
 
 .layuimini-tab .layui-tab-tool .layui-this a {
@@ -395,8 +415,9 @@
 /**内容主体（通用） */
 .layui-layout-admin .layui-body {
     overflow: hidden;
-    bottom: 0px !important;
+    bottom: 0 !important;
     top: 60px !important;
+    left: 200px;
     transition: all .2s;
 }
 
@@ -665,6 +686,12 @@
 
 .popup-tips.layui-layer-tips .layui-layer-content {
     padding: 0;
+    background: var(--lay-color-bg-1) !important;
+}
+
+.popup-tips .layui-nav {
+    background-color: var(--lay-color-bg-1);
+    /*border-radiu*/
 }
 
 .popup-tips .layui-nav-tree {
@@ -736,8 +763,12 @@
  */
 @media screen and (min-width: 1025px) {
     /**头部样式（缩放） */
+    .layuimini-mini .layui-layout-admin .header {
+        left: 60px !important;
+    }
+
     .layuimini-mini .layui-layout-left.layuimini-header-menu.layuimini-pc-show {
-        left: 155px !important;
+        left: 95px !important;
     }
 
     /**logo演示（缩放） */
@@ -779,7 +810,7 @@
     }
 
     .layuimini-mini .layuimini-tool {
-        left: 95px !important;
+        left: 35px !important;
     }
 
     .layuimini-pc-show {
@@ -849,13 +880,17 @@
         left: 0px !important;
     }
 
-    .layuimini-mini .layui-layout-admin .layuimini-menu-left, .layuimini-mini .layui-header .layuimini-logo {
+    .layui-layout-admin .header {
+        left: 0 !important;
+    }
+
+    .layuimini-mini .layui-layout-admin .layuimini-menu-left, .layuimini-mini .layuimini-logo {
         left: 0;
         transition: left .2s;
         z-index: 1001 !important;
     }
 
-    .layuimini-all .layui-layout-admin .layuimini-menu-left, .layuimini-all .layui-header .layuimini-logo {
+    .layuimini-all .layui-layout-admin .layuimini-menu-left, .layuimini-all .layuimini-logo {
         left: -200px;
         transition: left .2s;
         top: 0;

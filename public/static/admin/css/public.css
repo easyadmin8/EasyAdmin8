@@ -3,13 +3,38 @@
 @import url("../css/color.css");
 @import url("../css/iconfont.css");
 
-:root {
-    --ea8-theme-main-color: #16b777;
+/* 定义字体 */
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('/static/common/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
 }
 
-html,
-body {
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('/static/common/fonts/JetBrainsMono-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --ea8-theme-main-color: #16b777;
+    --lay-color-white: white;
+    --lay-color-bg-1: #ffffff;
+    --lay-color-bg-5: #ffffff;
+    --lay-color-text-1: #333333;
+}
+
+html, body {
+    padding: 0;
+}
+
+/* 代码块、终端、等宽文本专用 */
+pre, code, .code-box {
+    font-family: 'JetBrains Mono', 'PingFang SC', 'Microsoft YaHei', monospace;
 }
 
 .ws-header-theme .layui-form-switch {
@@ -28,10 +53,15 @@ body {
 
 .layuimini-main {
     position: relative;
-    margin: 15px;
+    margin: 0 15px;
     background-color: var(--lay-color-bg-1);
     color: var(--lay-color-text-2);
     border-radius: 5px;
+}
+
+.layuimini-form {
+    margin-top: 10px;
+    padding-top: 20px;
 }
 
 .layuimini-form .layui-form-item {
@@ -42,10 +72,6 @@ body {
 
 .text-center {
     text-align: center;
-}
-
-.layuimini-form {
-    margin-top: 10px;
 }
 
 .easy-bg-white {
@@ -81,7 +107,11 @@ body {
 .layuimini-container .table-search-fieldset {
     margin: 0;
     border: 1px solid var(--lay-color-border-1);
-    padding: 10px 20px 5px 20px;
+    padding: 10px;
+}
+
+.layuimini-container .table-search-fieldset legend {
+    padding-top: 10px
 }
 
 

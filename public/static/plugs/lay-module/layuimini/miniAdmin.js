@@ -49,7 +49,6 @@ define(["jquery", "miniMenu", "miniTheme", "miniTab", "colorMode"], function ($,
                     miniAdmin.renderLogo(data.logoInfo);
                     miniAdmin.renderClear(options.clearUrl);
                     miniAdmin.renderHome(data.homeInfo);
-                    miniAdmin.renderAnim(options.pageAnim);
                     miniAdmin.listen();
                     miniMenu.render({
                         menuList: data.menuInfo,
@@ -105,30 +104,6 @@ define(["jquery", "miniMenu", "miniTheme", "miniTab", "colorMode"], function ($,
          */
         renderClear: function (clearUrl) {
             $('.layuimini-clear').attr('data-href', clearUrl);
-        },
-
-        /**
-         * 初始化iframe窗口动画
-         * @param anim
-         */
-        renderAnim: function (anim) {
-            if (anim) {
-                $('#layuimini-bg-color').after('<style id="layuimini-page-anim">' +
-                    '.layui-tab-item.layui-show {animation:moveTop 1s;-webkit-animation:moveTop 1s;animation-fill-mode:both;-webkit-animation-fill-mode:both;position:relative;height:100%;-webkit-overflow-scrolling:touch;}\n' +
-                    '@keyframes moveTop {0% {opacity:0;-webkit-transform:translateY(30px);-ms-transform:translateY(30px);transform:translateY(30px);}\n' +
-                    '    100% {opacity:1;-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0);}\n' +
-                    '}\n' +
-                    '@-o-keyframes moveTop {0% {opacity:0;-webkit-transform:translateY(30px);-ms-transform:translateY(30px);transform:translateY(30px);}\n' +
-                    '    100% {opacity:1;-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0);}\n' +
-                    '}\n' +
-                    '@-moz-keyframes moveTop {0% {opacity:0;-webkit-transform:translateY(30px);-ms-transform:translateY(30px);transform:translateY(30px);}\n' +
-                    '    100% {opacity:1;-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0);}\n' +
-                    '}\n' +
-                    '@-webkit-keyframes moveTop {0% {opacity:0;-webkit-transform:translateY(30px);-ms-transform:translateY(30px);transform:translateY(30px);}\n' +
-                    '    100% {opacity:1;-webkit-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0);}\n' +
-                    '}' +
-                    '</style>');
-            }
         },
 
         fullScreen: function () {

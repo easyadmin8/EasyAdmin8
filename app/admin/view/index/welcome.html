@@ -1,31 +1,209 @@
-<div class="layui-layout layui-padding-2">
-    <div class="layui-layout-admin">
+<link rel="stylesheet" href="/static/admin/css/welcome.css?v={$version}" media="all">
 
-        <div class="layui-tabs layui-tabs-card" lay-options="{index: 0}" id="home-page-demo">
-            <ul class="layui-tabs-header">
-                <li>默认首页</li>
-                <li>企业首页</li>
-                <li>政府首页</li>
-                <li>医疗首页</li>
-                <li>极简首页</li>
-            </ul>
-            <div class="layui-tabs-body">
-                <div class="layui-tabs-item">
-                    {include file="index/welcome_default"}
+<div class="welcome">
+
+    <!-- Stats -->
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md3">
+            <div class="s-card">
+                <div class="s-icon s-i1"><i class="fa fa-users"></i></div>
+                <div class="s-body">
+                    <div class="s-label">本月注册人数</div>
+                    <div class="s-value">57,040</div>
+                    <div class="s-foot"><i class="fa fa-arrow-up s-up"></i> 51% 已超过上周</div>
                 </div>
-                <div class="layui-tabs-item">
-                    {include file="index/welcome_business"}
+            </div>
+        </div>
+        <div class="layui-col-md3">
+            <div class="s-card">
+                <div class="s-icon s-i2"><i class="fa fa-shopping-cart"></i></div>
+                <div class="s-body">
+                    <div class="s-label">本月订单总数</div>
+                    <div class="s-value">48,973</div>
+                    <div class="s-foot"><i class="fa fa-arrow-down s-dn"></i> 12% 已少于上周</div>
                 </div>
-                <div class="layui-tabs-item">
-                    {include file="index/welcome_government"}
+            </div>
+        </div>
+        <div class="layui-col-md3">
+            <div class="s-card">
+                <div class="s-icon s-i3"><i class="fa fa-dollar"></i></div>
+                <div class="s-body">
+                    <div class="s-label">本周支付金额</div>
+                    <div class="s-value">¥73,876</div>
+                    <div class="s-foot"><i class="fa fa-arrow-down s-dn"></i> 8% 已少于上周</div>
                 </div>
-                <div class="layui-tabs-item">
-                    {include file="index/welcome_medical"}
-                </div>
-                <div class="layui-tabs-item">
-                    {include file="index/welcome_modern"}
+            </div>
+        </div>
+        <div class="layui-col-md3">
+            <div class="s-card">
+                <div class="s-icon s-i4"><i class="fa fa-line-chart"></i></div>
+                <div class="s-body">
+                    <div class="s-label">本月销售总额</div>
+                    <div class="s-value">¥28,978</div>
+                    <div class="s-foot"><i class="fa fa-arrow-up s-up"></i> 61% 已超过上周</div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Main + Sidebar -->
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md9">
+            <div class="layui-row layui-col-space15 ea-card-row">
+                <div class="layui-col-md6">
+                    <!-- Quick Entry -->
+                    <div class="layui-card">
+                        <div class="layui-card-header"><i class="h-icon h-i1 fa fa-rocket"></i> 快捷入口</div>
+                        <div class="layui-card-body">
+                            <div class="swiper mySwiper">
+                                <div class="swiper-wrapper">
+                                    {foreach $quicks as $value}
+                                    <div class="swiper-slide">
+                                        <div class="layui-row layui-col-space8 q-grid">
+                                            {foreach $value as $vo}
+                                            <div class="layui-col-xs3 q-item">
+                                                <a layuimini-content-href="{:url($vo['href'])}" data-title="{$vo['title']}">
+                                                    <i class="{$vo['icon']|raw}"></i>
+                                                    <span>{$vo['title']}</span>
+                                                </a>
+                                            </div>
+                                            {/foreach}
+                                        </div>
+                                    </div>
+                                    {/foreach}
+                                </div>
+                            </div>
+                            <div class="swiper-pagination pg"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6 ">
+                    <!-- Quick Install -->
+                    <div class="layui-card">
+                        <div class="layui-card-header"><i class="h-icon h-i3 fa fa-code"></i> 快速安装</div>
+                        <div class="layui-card-body">
+                            <div class="layui-tabs layui-tabs-card" id="installTab" lay-options="{index: 0}">
+                                <ul class="layui-tabs-header">
+                                    <li>Git 安装</li>
+                                    <li>一键安装</li>
+                                </ul>
+                                <div class="layui-tabs-body">
+                                    <div class="layui-tabs-item">
+<pre class="layui-code code-install">
+git clone https://gitee.com/EasyAdmin8/EasyAdmin8
+cd EasyAdmin8
+composer install --ignore-platform-reqs
+cp .example.env .env
+</pre>
+                                    </div>
+                                    <div class="layui-tabs-item">
+                                <pre class="layui-code-hide code-install">
+if [ -f /usr/bin/curl ];then curl -sSO https://easyadmin8.top/auto-install-EasyAdmin8.sh;else wget -O auto-install-EasyAdmin8.sh https://easyadmin8.top/auto-install-EasyAdmin8.sh;fi;bash auto-install-EasyAdmin8.sh
+                                </pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header"><i class="h-icon h-i2 fa fa-line-chart"></i> 报表统计</div>
+                        <div class="layui-card-body">
+                            <div id="echarts-records" class="chart-box" style="height: 550px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-md3">
+            <!-- Version -->
+            <div class="layui-card">
+                <div class="layui-card-header"><i class="h-icon h-i4 fa fa-fire"></i> 版本信息</div>
+                <table class="layui-table" lay-skin="line">
+                    <colgroup>
+                        <col width="100">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <td>框架名称</td>
+                        <td><span class="layui-badge layui-bg-blue layui-border-radius">EasyAdmin8</span></td>
+                    </tr>
+                    <tr>
+                        <td>ThinkPHP</td>
+                        <td><span class="layui-badge layui-bg-cyan layui-border-radius">{$versions.tpVersion|default='-'}</span></td>
+                    </tr>
+                    <tr>
+                        <td>PHP版本</td>
+                        <td><span class="layui-badge layui-bg-green layui-border-radius">{$versions.phpVersion|default='-'}</span></td>
+                    </tr>
+                    <tr>
+                        <td>SQL版本</td>
+                        <td class="cell-muted">{$versions.sqlVersion|default='-'}</td>
+                    </tr>
+                    <tr>
+                        <td>Layui版本</td>
+                        <td><span class="layui-badge layui-bg-orange layui-border-radius" id="layui-version">-</span> <span class="layui-badge layui-bg-gray layui-border-radius" style="cursor:pointer;">开发版本</span></td>
+                    </tr>
+                    <tr>
+                        <td>DEBUG模式</td>
+                        <td><span class="layui-badge {:env('APP_DEBUG')?'layui-bg-cyan':'layui-bg-gray'} layui-border-radius">{:env('APP_DEBUG')?'开启中':'已关闭'}</span></td>
+                    </tr>
+                    <tr>
+                        <td>jit 状态</td>
+                        <td><span class="layui-badge {$versions.jitStatus?'layui-bg-cyan':'layui-bg-gray'} layui-border-radius">{$versions.jitStatus?'已开启':'未开启'}</span> <a href="https://easyadmin8.top/guide/question.html#%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF-jit" target="_blank"
+                                                                                                                                                                                  style="margin-left:4px;"><span class="layui-badge layui-bg-gray layui-border-radius">说明</span></a></td>
+                    </tr>
+                    <tr>
+                        <td>composer</td>
+                        <td><span class="layui-badge layui-bg-cyan layui-border-radius" style="cursor:pointer;" lay-on="showComposerInfo">点击查看</span></td>
+                    </tr>
+                    <tr>
+                        <td>特色</td>
+                        <td><span class="layui-badge layui-bg-gray layui-border-radius">零门槛</span> <span class="layui-badge layui-bg-gray layui-border-radius">响应式</span> <span class="layui-badge layui-bg-gray layui-border-radius">清爽</span> <span
+                                class="layui-badge layui-bg-gray layui-border-radius">极简</span></td>
+                    </tr>
+                    <tr>
+                        <td>Git</td>
+                        <td>
+                            <div class="git-row"><a href="https://github.com/EasyAdmin8/EasyAdmin8" target="_blank"><img src="https://img.shields.io/github/stars/easyadmin8/easyadmin8" alt="star"></a><a href="https://gitee.com/EasyAdmin8/EasyAdmin8" target="_blank"><img
+                                    src="https://gitee.com/easyadmin8/EasyAdmin8/badge/star.svg?theme=white" alt="star"></a></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>官方</td>
+                        <td><a class="layui-btn layui-btn-xs layui-bg-blue layui-border-radius" href="https://easyadmin8.top" target="_blank">官方网站</a> <a class="layui-btn layui-btn-xs layui-bg-purple layui-border-radius" href="https://meta.easyadmin8.top" target="_blank">问答社区</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>其他框架</td>
+                        <td><a class="layui-btn layui-btn-xs layui-btn-primary layui-border-green layui-border-radius" href="http://laravel.easyadmin8.top" target="_blank">Laravel</a> <a class="layui-btn layui-btn-xs layui-btn-primary layui-border-green layui-border-radius"
+                                                                                                                                                                                           href="http://webman.easyadmin8.top" target="_blank">webman</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Author -->
+            <div class="layui-card">
+                <div class="layui-card-header"><i class="h-icon h-i3 fa fa-edit"></i> 作者心语</div>
+                <div class="layui-card-body">
+                    <div class="author-text">基于 Layui 2.x + Font Awesome 7.x 构建。 <a class="layui-btn layui-btn-xs layui-btn-danger layui-border-radius" target="_blank" href="http://layui.dev/docs">Layui文档</a></div>
+                    <div class="author-warn"><i class="fa fa-exclamation-triangle"></i> 备注：此后台框架永久开源，但请勿进行出售或者上传到任何素材网站。</div>
+                    <div class="qq-title"><i class="fa fa-qq" style="color:#12b7f5;"></i> QQ交流群</div>
+                    <div><img src="/static/common/images/EasyAdmin8-ThinkPHP.png" width="200" class="qq-img" alt=""></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<script>
+    layui.use(['tabs', 'code'], function () {
+        layui.code({elem: '.code-install'});
+    });
+</script>

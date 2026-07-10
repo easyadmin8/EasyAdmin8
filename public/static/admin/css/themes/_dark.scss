@@ -225,14 +225,42 @@ $box-shape: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%,
   background-color: $cover-color !important;
 }
 
-.layuimini-tab .layui-tab-title {
-  background-color: $cover-color !important;
-  border-color: $less-main-color;
-
+.layui-layout-admin .layui-body {
+  background-color: $black-color !important;
 }
 
-.layuimini-tab .layui-tab-title span {
-  color: $active-color;
+.layuimini-tab .layui-tabs-header {
+  background-color: $cover-color !important;
+}
+
+.layuimini-tab .layui-tabs-header .layui-this {
+  background-color: transparent;
+}
+
+.layuimini-tab .layui-tabs-header li {
+  background-color: $black-color;
+  color: $main-color;
+  border-color: $less-main-color;
+}
+
+.layuimini-tab .layui-tabs-header li:hover {
+  color: $yellow-color;
+}
+
+.layuimini-tab .layui-tabs-header .layui-this {
+  color: $yellow-color;
+}
+
+.layuimini-tab .layui-tabs-header span {
+  color: $main-color;
+}
+
+.layuimini-tab .layui-tabs-header .layui-this span {
+  color: $yellow-color;
+}
+
+.layuimini-tab .layui-tabs-header .layui-tab-close:hover {
+  color: $yellow-color;
 }
 
 .layui-header .layuimini-menu-header-pc.layui-nav .layui-nav-item a:hover,
@@ -257,11 +285,29 @@ $box-shape: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%,
 
 .layuimini-tab .layui-tab-control>li {
   background-color: $black-color;
+  color: $main-color;
   border-color: $less-main-color;
 }
 
-.layuimini-tab .layui-tab-title li {
-  border-color: $less-main-color;
+.layuimini-tab .layui-tab-control>li:hover {
+  color: $yellow-color;
+}
+
+.layuimini-tab .layuimini-tab-roll-left {
+  border-right-color: $less-main-color;
+  border-left-color: $less-main-color;
+}
+
+.layuimini-tab .layuimini-tab-roll-right {
+  border-left-color: $less-main-color;
+}
+
+.layuimini-tab .layui-tab-tool {
+  border-left-color: $less-main-color;
+}
+
+.layuimini-tab .layui-tabs-header .layui-tab-close:hover {
+  background: rgba(255, 255, 255, .12);
 }
 
 .layui-flow-more a *,
@@ -301,9 +347,18 @@ $box-shape: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%,
   color: $black-color !important;
 }
 
-.layuimini-tab .layui-tab-title .layui-this .layuimini-tab-active {
-  background-color: $less-main-color;
+.layuimini-tab .layui-tab-tool .layui-nav-child {
+  background-color: $black-color;
+  border-color: $less-main-color;
+}
 
+.layuimini-tab .layui-tab-tool .layui-nav-child a {
+  color: $main-color;
+}
+
+.layuimini-tab .layui-tab-tool .layui-nav-child a:hover {
+  background-color: $cover-color;
+  color: $yellow-color;
 }
 
 .layui-table-view .layui-form-checkbox.layui-form-checked[lay-skin="primary"] i {

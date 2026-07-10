@@ -44,7 +44,7 @@ layui.define(['table', 'jquery', 'form'], function (exports) {
             let maxWidth = document.body.clientWidth * .5;
             let tableBox = `
                   <div class="tableSelect layui-anim layui-anim-upbit" 
-                       style="left:${l};top:${t};border: 1px solid #d2d2d2;background-color: #fff;box-shadow: 0 2px 4px rgba(0,0,0,.12);padding:10px 10px 0 10px;position: absolute;z-index:66666666;margin: 5px 0;border-radius: 2px;min-width:${opt.width}px;max-width:${maxWidth}px">
+                       style="left:${l};top:${t};border:1px solid var(--lay-color-bg-1);background-color:var(--lay-color-bg-1);box-shadow: 0 2px 4px rgba(0,0,0,.12);padding:10px 10px 0 10px;position: absolute;z-index:66666666;margin: 5px 0;border-radius: 2px;min-width:${opt.width}px;max-width:${maxWidth}px">
                   <div class="tableSelectBar" style="padding: 10px 0;">
                   <form class="layui-form" action="" style="display:inline-block;">
                `;
@@ -52,10 +52,10 @@ layui.define(['table', 'jquery', 'form'], function (exports) {
             //判断是否多搜索条件
             if (opt.searchType == 'more') {
                 $.each(opt.searchList, function (index, item) {
-                    tableBox += '<input style="display:inline-block;width:190px;height:30px;vertical-align:middle;margin-right:-1px;border: 1px solid #C9C9C9;" type="text" name="' + item.searchKey + '" placeholder="' + item.searchPlaceholder + '" autocomplete="off" class="layui-input">';
+                    tableBox += '<input style="display:inline-block;width:190px;height:30px;vertical-align:middle;margin-right:-1px;" type="text" name="' + item.searchKey + '" placeholder="' + item.searchPlaceholder + '" autocomplete="off" class="layui-input">';
                 });
             } else {
-                tableBox += '<input style="display:inline-block;width:190px;height:30px;vertical-align:middle;margin-right:-1px;border: 1px solid #C9C9C9;" type="text" name="' + opt.searchKey + '" placeholder="' + opt.searchPlaceholder + '" autocomplete="off" class="layui-input">';
+                tableBox += '<input style="display:inline-block;width:190px;height:30px;vertical-align:middle;margin-right:-1px;" type="text" name="' + opt.searchKey + '" placeholder="' + opt.searchPlaceholder + '" autocomplete="off" class="layui-input">';
             }
 
             tableBox += '<button class="layui-btn layui-btn-sm layui-btn-primary tableSelect_btn_search" lay-submit lay-filter="tableSelect_btn_search"><i class="layui-icon layui-icon-search"></i></button>';

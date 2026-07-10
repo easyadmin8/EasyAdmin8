@@ -46,17 +46,17 @@
 
 /*logo背景颜色 headerLogoBg */
 .layui-layout-admin .layuimini-logo {
-    background-color: #192027 !important;
+    background-color: #ffffff !important;
 }
 
 /*logo字体颜色 headerLogoColor */
 .layui-layout-admin .layuimini-logo h1 {
-    color: rgb(191, 187, 187);
+    color: #333333;
 }
 
 /*左侧菜单更多下拉样式 leftMenuNavMore */
 .layuimini-menu-left .layui-nav .layui-nav-more, .layuimini-menu-left-zoom.layui-nav .layui-nav-more {
-    border-top-color: rgb(191, 187, 187);
+    border-top-color: #999999;
     display: inline-block;
     margin: 0 auto !important;
     line-height: inherit;
@@ -64,35 +64,55 @@
 
 /*左侧菜单更多下拉样式 leftMenuNavMore */
 .layuimini-menu-left .layui-nav .layui-nav-mored, .layuimini-menu-left .layui-nav-itemed > a .layui-nav-more, .layuimini-menu-left-zoom.layui-nav .layui-nav-mored, .layuimini-menu-left-zoom.layui-nav-itemed > a .layui-nav-more {
-    border-color: transparent transparent rgb(191, 187, 187) !important;
+    border-color: transparent transparent #999999 !important;
 }
 
 /*左侧菜单背景 leftMenuBg */
 .layui-side.layui-bg-black, .layui-side.layui-bg-black > .layuimini-menu-left > ul, .layuimini-menu-left-zoom > ul {
-    background-color: #28333E !important;
+    background-color: #ffffff !important;
 }
 
 /*左侧菜单选中背景 leftMenuBgThis */
 .layuimini-menu-left .layui-nav-tree .layui-this, .layuimini-menu-left .layui-nav-tree .layui-this > a, .layuimini-menu-left .layui-nav-tree .layui-nav-child dd.layui-this, .layuimini-menu-left .layui-nav-tree .layui-nav-child dd.layui-this a, .layuimini-menu-left-zoom.layui-nav-tree .layui-this, .layuimini-menu-left-zoom.layui-nav-tree .layui-this > a, .layuimini-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this, .layuimini-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this a {
-    background-color: #1E9FFF !important
+    background-color: #e4e4e4 !important
 }
 
 /*左侧菜单子菜单背景 leftMenuChildBg */
 .layuimini-menu-left .layui-nav-itemed > .layui-nav-child {
-    background-color: #0c0f13 !important;
+    background-color: #efefef !important;
 }
 
 /*左侧菜单字体颜色 leftMenuColor */
 .layuimini-menu-left .layui-nav .layui-nav-item a, .layuimini-menu-left-zoom.layui-nav .layui-nav-item a {
-    color: rgb(191, 187, 187) !important;
+    color: #333333 !important;
 }
 
 /*左侧菜单选中字体颜色 leftMenuColorThis */
 .layuimini-menu-left .layui-nav .layui-nav-item a:hover, .layuimini-menu-left .layui-nav .layui-this a, .layuimini-menu-left-zoom.layui-nav .layui-nav-item a:hover, .layuimini-menu-left-zoom.layui-nav .layui-this a {
-    color: #ffffff !important;
+    color: #1E9FFF !important;
+}
+
+/**tab选项卡背景色 */
+.layuimini-tab .layui-tabs-header {
+    background-color: #efefef !important;
+}
+.layuimini-tab .layui-tabs-header li {
+    background-color: #ffffff !important;
 }
 
 /**tab选项卡选中颜色 tabActiveColor */
-.layuimini-tab .layui-tab-title .layui-this .layuimini-tab-active {
-    background-color: #1e9fff;
+.layuimini-tab .layui-tabs-header .layui-this {
+    color: #1e9fff !important;
+}
+.layuimini-tab .layui-tabs-header .layui-this span {
+    color: #1e9fff !important;
+}
+.layuimini-tab .layui-tab-control > li:hover {
+    color: #1e9fff !important;
+}
+.layuimini-tab .layui-tabs-header li:hover {
+    color: #1e9fff !important;
+}
+.layuimini-tab .layui-tabs-header .layui-tab-close:hover {
+    color: #1e9fff !important;
 }

@@ -466,7 +466,6 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
 
                     let tableSearchClass = searchTableShow === 'false' ? 'table-search-fieldset layui-hide' : 'table-search-fieldset'
                     $(elem).before('<fieldset id="searchFieldset_' + tableId + '" class="' + tableSearchClass + '">\n' +
-                        '<legend>条件搜索</legend>\n' +
                         '<form class="layui-form layui-form-pane form-search">\n' +
                         formHtml +
                         '<div class="layui-form-item layui-inline" style="margin-left: 115px">\n' +
@@ -1436,11 +1435,11 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
 
             // 数据表格多删除
             $('body').on('click', '[data-table-delete]', function () {
-                let tableId = $(this).attr('data-table-delete'),
-                    url = $(this).attr('data-url');
+                let tableId = $(this).attr('data-table-delete'), url = $(this).attr('data-url');
                 tableId = tableId || init.table_render_id;
                 url = url !== undefined ? admin.url(url) : window.location.href;
-                let checkStatus = table.checkStatus(tableId), data = checkStatus.data;
+                let checkStatus = table.checkStatus(tableId),
+                    data = checkStatus.data;
                 if (data.length <= 0) {
                     admin.msg.error('请勾选需要删除的数据');
                     return false;
@@ -1781,9 +1780,7 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                                                 server: window.CONFIG.ADMIN_UPLOAD_URL,
                                                 fieldName: 'file',
                                                 maxFileSize: window.CONFIG.MAX_FILE_SIZE,
-                                                meta: {
-                                                    editor: 'editor',
-                                                },
+                                                meta: {editor: 'editor',},
                                                 async customInsert(res, insertFn) {
                                                     let code = res.code || 0
                                                     if (code != '1') {
@@ -1903,7 +1900,7 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                         let _name = $(this).attr('data-name') || ''
                         try {
                             new switchSelect({
-                                elem: $(this), data: JSON.parse(_data), default: _value, target: _target, name: _name, disabled: $(this).attr('disabled') === 'disabled'
+                                elem: $(this), data: JSON.parse(_data), default: _value, target: _target, name: _name
                             });
                         } catch (e) {
                             console.error(e)
