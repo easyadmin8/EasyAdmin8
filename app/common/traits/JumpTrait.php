@@ -22,7 +22,7 @@ trait JumpTrait
      * @param array $header 发送的 Header 信息
      * @return void
      */
-    protected function success(?string $msg = null, mixed $data = '', ?string $url = null, int $wait = 3, array $header = []): void
+    protected function success(?string $msg = 'success', mixed $data = '', ?string $url = null, int $wait = 3, array $header = []): void
     {
         if (is_null($url)) {
             $url = app()->request->server('HTTP_REFERER');
@@ -56,7 +56,7 @@ trait JumpTrait
      * @param int $wait 跳转等待时间
      * @return void
      */
-    protected function error(?string $msg = null, mixed $data = '', ?string $url = null, int $wait = 3): void
+    protected function error(?string $msg = 'error', mixed $data = '', ?string $url = null, int $wait = 3): void
     {
         if (is_null($url)) {
             $url = request()->isAjax() ? '' : 'javascript:history.back(-1);';
