@@ -64,7 +64,6 @@ class AuthService
         $this->adminInfo = $this->getAdminInfo();
         $this->nodeList  = $this->getNodeList();
         $this->adminNode = $this->getAdminNode();
-        return $this;
     }
 
     /**
