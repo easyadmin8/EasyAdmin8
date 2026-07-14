@@ -9,13 +9,7 @@
             list($page, $limit, $where) = $this->buildTableParams();
             $count = $this->model->where($where)->{{relationIndexMethod}}->count();
             $list  = $this->model->where($where)->{{relationIndexMethod}}->page($page, $limit)->order($this->sort)->select()->toArray();
-            $data  = [
-                'code'  => 0,
-                'msg'   => '',
-                'count' => $count,
-                'data'  => $list,
-            ];
-            return json($data);
+            return $this->jsonSuccess($list, $count);
         }
         return $this->fetch();
     }

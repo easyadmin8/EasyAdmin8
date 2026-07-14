@@ -4,6 +4,7 @@ namespace app\common\traits;
 
 use think\exception\HttpResponseException;
 use think\Response;
+use think\response\Json;
 
 /**
  * Trait JumpTrait
@@ -127,4 +128,18 @@ trait JumpTrait
     {
         return (request()->isJson() || request()->isAjax() || request()->isPost()) ? 'json' : 'html';
     }
+
+    /**
+     * JSON 格式返回数据 主要是给前端ajax请求返回数据
+     * @param object|array $data
+     * @param int|string $count
+     * @param string $msg
+     * @param int $code
+     * @return Json
+     */
+    protected function jsonSuccess(object|array $data, int|string $count, string $msg = 'success', int $code = 0): Json
+    {
+        return json(compact('code', 'msg', 'data', 'count'));
+    }
+
 }

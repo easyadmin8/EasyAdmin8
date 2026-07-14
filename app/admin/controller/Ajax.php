@@ -123,13 +123,7 @@ class Ajax extends AdminController
             ->page($page, $limit)
             ->order($this->sort)
             ->select()->toArray();
-        $data  = [
-            'code'  => 0,
-            'msg'   => '',
-            'count' => $count,
-            'data'  => $list,
-        ];
-        return json($data);
+        return $this->jsonSuccess($list, $count);
     }
 
     /**

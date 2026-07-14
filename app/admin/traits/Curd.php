@@ -27,13 +27,7 @@ trait Curd
             list($page, $limit, $where) = $this->buildTableParams();
             $count = $this->model->where($where)->count();
             $list  = $this->model->where($where)->page($page, $limit)->order($this->sort)->select()->toArray();
-            $data  = [
-                'code'  => 0,
-                'msg'   => '',
-                'count' => $count,
-                'data'  => $list,
-            ];
-            return json($data);
+            return $this->jsonSuccess($list, $count);
         }
         return $this->fetch();
     }
@@ -185,23 +179,12 @@ trait Curd
                 try {
                     $count = $this->model->withTrashed()->where($where)->whereNotNull($deleteTimeField)->count();
                     $list  = $this->model->withTrashed()->where($where)->page($page, $limit)->order($this->sort)->whereNotNull($deleteTimeField)->select()->toArray();
-                    $data  = [
-                        'code'  => 0,
-                        'msg'   => '',
-                        'count' => $count,
-                        'data'  => $list,
-                    ];
+                    return $this->jsonSuccess($list, $count);
                 } catch (\Throwable $e) {
                     $error = $e->getMessage();
                     if ($e instanceof PDOException) $error .= '<br>' . $defaultErrorMsg;
-                    $data = [
-                        'code'  => -1,
-                        'msg'   => $error,
-                        'count' => 0,
-                        'data'  => [],
-                    ];
+                    return $this->jsonSuccess([], 0, $error, -1);
                 }
-                return json($data);
         }
 
     }

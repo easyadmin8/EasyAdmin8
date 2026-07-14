@@ -47,13 +47,7 @@ class Log extends AdminController
                 $count = 0;
                 $list  = [];
             }
-            $data = [
-                'code'  => 0,
-                'msg'   => '',
-                'count' => $count,
-                'data'  => $list,
-            ];
-            return json($data);
+            return $this->jsonSuccess($list, $count);
         }
         return $this->fetch();
     }

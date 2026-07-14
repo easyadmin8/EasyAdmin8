@@ -37,13 +37,7 @@ class Menu extends AdminController
             }
             $count = $this->model->count();
             $list  = $this->model->order($this->sort)->select()->toArray();
-            $data  = [
-                'code'  => 0,
-                'msg'   => '',
-                'count' => $count,
-                'data'  => $list,
-            ];
-            return json($data);
+            return $this->jsonSuccess($list, $count);
         }
         return $this->fetch();
     }

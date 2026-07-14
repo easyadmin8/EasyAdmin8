@@ -23,7 +23,7 @@ define(["jquery", "easy-admin", "iconPickerFa", "autocomplete"], function ($, ea
                     {type: "checkbox"},
                     {field: 'id', width: 80, title: 'ID', searchOp: '='},
                     {field: 'sort', width: 80, title: '排序', edit: 'text'},
-                    {field: 'title', minWidth: 80, title: '权限名称'},
+                    {field: 'title', minWidth: 80, title: '快捷名称'},
                     {field: 'icon', width: 80, title: '图标', templet: ea.table.icon},
                     {field: 'href', minWidth: 120, title: '快捷链接'},
                     {field: 'remark', minWidth: 80, title: '备注信息'},

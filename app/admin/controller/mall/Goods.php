@@ -36,13 +36,7 @@ class Goods extends AdminController
             list($page, $limit, $where) = $this->buildTableParams();
             $count = $this->model->where($where)->count();
             $list  = $this->model->with(['cate'])->where($where)->page($page, $limit)->order($this->sort)->select()->toArray();
-            $data  = [
-                'code'  => 0,
-                'msg'   => '',
-                'count' => $count,
-                'data'  => $list,
-            ];
-            return json($data);
+            return $this->jsonSuccess($list, $count);
         }
         return $this->fetch();
     }
