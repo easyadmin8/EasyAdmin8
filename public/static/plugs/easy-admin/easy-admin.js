@@ -421,7 +421,7 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                                 formHtml += '\t<div class="layui-form-item layui-inline">\n' +
                                     '<label class="layui-form-label">' + d.title + '</label>\n' +
                                     '<div class="layui-input-inline">\n' +
-                                    '<input style="width: 275px;font-size: 0.82rem" id="c-' + d.fieldAlias + '" name="' + d.fieldAlias + '"  data-search-op="' + d.searchOp + '"  value="' + d.searchValue + '" placeholder="' + d.searchTip + '" class="layui-input">\n' +
+                                    '<input style="width: 275px;font-size: 0.72rem" id="c-' + d.fieldAlias + '" name="' + d.fieldAlias + '"  data-search-op="' + d.searchOp + '"  value="' + d.searchValue + '" placeholder="' + d.searchTip + '" class="layui-input">\n' +
                                     '</div>\n' +
                                     '</div>';
                                 break;
@@ -449,7 +449,7 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                                 formHtml += '<div class="layui-form-item layui-inline">\n' +
                                     '<label class="layui-form-label">' + d.title + '</label>\n' +
                                     '<div class="layui-input-inline">\n' +
-                                    '<input style="width: 275px;font-size: 0.82rem" id="c-' + d.fieldAlias + '" name="' + d.fieldAlias + '"  data-search-op="' + d.searchOp + '"  value="' + d.searchValue + '" placeholder="' + d.searchTip + '" class="layui-input">\n' +
+                                    '<input style="width: 275px;font-size: 0.72rem" id="c-' + d.fieldAlias + '" name="' + d.fieldAlias + '"  data-search-op="' + d.searchOp + '"  value="' + d.searchValue + '" placeholder="' + d.searchTip + '" class="layui-input">\n' +
                                     '</div>\n' +
                                     '</div>';
                                 break;

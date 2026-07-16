@@ -108,14 +108,7 @@ pre, code, .code-box {
 .layuimini-container .table-search-fieldset {
     margin: 0;
     padding: 15px 10px 10px 10px;
-}
-
-@media screen and (max-width: 400px) {
-    .layuimini-container .table-search-fieldset {
-        margin: 0;
-        padding: 15px 10px 10px 10px;
-        border-color: transparent;
-    }
+    border-color: transparent;
 }
 
 .layuimini-container .table-search-fieldset legend {
