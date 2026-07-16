@@ -1,6 +1,6 @@
 /* ---- Base ---- */
 .welcome {
-    padding: 5px 15px;
+    padding: 5px 0;
     min-height: 100%;
     font-family: 'PingFang SC', 'Microsoft YaHei', 'JetBrains Mono', monospace, sans-serif;
 }

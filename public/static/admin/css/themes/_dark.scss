@@ -230,37 +230,53 @@ $box-shape: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%,
 }
 
 .layuimini-tab .layui-tabs-header {
-  background-color: $cover-color !important;
-}
-
-.layuimini-tab .layui-tabs-header .layui-this {
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.03) !important;
 }
 
 .layuimini-tab .layui-tabs-header li {
-  background-color: $black-color;
-  color: $main-color;
-  border-color: $less-main-color;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(255, 255, 255, 0.55) !important;
 }
 
-.layuimini-tab .layui-tabs-header li:hover {
-  color: $yellow-color;
+.layuimini-tab .layui-tabs-header li span {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+.layuimini-tab .layui-tabs-header li:not(.layui-this):hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(255, 255, 255, 0.55) !important;
 }
 
 .layuimini-tab .layui-tabs-header .layui-this {
-  color: $yellow-color;
+  background: $yellow-color !important;
+  color: #fff !important;
+  transition: none !important;
+}
+
+.layuimini-tab .layui-tabs-header .layui-this:after {
+  display: none !important;
+  content: none !important;
 }
 
 .layuimini-tab .layui-tabs-header span {
-  color: $main-color;
+  color: rgba(255, 255, 255, 0.55) !important;
 }
 
 .layuimini-tab .layui-tabs-header .layui-this span {
-  color: $yellow-color;
+  color: #fff !important;
+}
+
+.layuimini-tab .layui-tabs-header .layui-tab-close {
+  color: inherit !important;
+}
+
+.layuimini-tab .layui-tabs-header .layui-this .layui-tab-close {
+  opacity: .7 !important;
 }
 
 .layuimini-tab .layui-tabs-header .layui-tab-close:hover {
-  color: $yellow-color;
+  background: rgba(255, 255, 255, 0.15) !important;
+  opacity: 1 !important;
 }
 
 .layui-header .layuimini-menu-header-pc.layui-nav .layui-nav-item a:hover,
@@ -284,30 +300,25 @@ $box-shape: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%,
 }
 
 .layuimini-tab .layui-tab-control>li {
-  background-color: $black-color;
-  color: $main-color;
-  border-color: $less-main-color;
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .layuimini-tab .layui-tab-control>li:hover {
-  color: $yellow-color;
+  color: rgba(255, 255, 255, 0.8) !important;
 }
 
 .layuimini-tab .layuimini-tab-roll-left {
-  border-right-color: $less-main-color;
-  border-left-color: $less-main-color;
+  border-right-color: rgba(255, 255, 255, 0.06);
+  border-left-color: rgba(255, 255, 255, 0.06);
 }
 
 .layuimini-tab .layuimini-tab-roll-right {
-  border-left-color: $less-main-color;
+  border-left-color: rgba(255, 255, 255, 0.06);
 }
 
 .layuimini-tab .layui-tab-tool {
-  border-left-color: $less-main-color;
-}
-
-.layuimini-tab .layui-tabs-header .layui-tab-close:hover {
-  background: rgba(255, 255, 255, .12);
+  border-left-color: rgba(255, 255, 255, 0.06);
 }
 
 .layui-flow-more a *,

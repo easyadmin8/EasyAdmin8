@@ -390,35 +390,39 @@ define(["jquery"], function ($) {
                 '    color:' + bgcolorData.leftMenuColorThis + ' !important;\n' +
                 '}\n' +
                 '\n' +
-                '/**tab选项卡选中颜色 tabActiveColor */\n' +
-                '.layuimini-tab .layui-tabs-header {\n' +
-                '    background-color: ' + (bgcolorData.tabHeaderBg || bgcolorData.leftMenuChildBg) + ' !important;\n' +
-                '}\n' +
-                '.layuimini-tab .layui-tabs-header li {\n' +
-                '    background-color: ' + (parseInt(bgcolorId) >= 2 ? bgcolorData.headerRightBg : (bgcolorData.tabItemBg || bgcolorData.headerRightBg)) + ' !important;\n' +
-                '}\n' +
-                '.layuimini-tab .layui-tabs-header li, .layuimini-tab .layui-tabs-header li span {\n' +
-                '    color: ' + (parseInt(bgcolorId) >= 2 ? '#ffffff' : (bgcolorData.tabColor || '#333333')) + ' !important;\n' +
-                '}\n' +
-                '.layuimini-tab .layui-tabs-header .layui-this {\n' +
-                '    background-color: #ffffff !important;\n' +
-                '    color: var(--ea8-theme-main-color) !important;\n' +
-                '}\n' +
-                '.layuimini-tab .layui-tabs-header .layui-this span {\n' +
-                '    color: var(--ea8-theme-main-color) !important;\n' +
-                '}\n' +
-                '.layuimini-tab .layui-tab-control > li {\n' +
-                '    background-color: ' + bgcolorData.headerRightBg + ' !important;\n' +
-                '}\n' +
-                '.layuimini-tab .layui-tab-control > li:hover {\n' +
-                '    color: ' + bgcolorData.tabActiveColor + ' !important;\n' +
-                '}\n' +
-                '.layuimini-tab .layui-tabs-header li:hover {\n' +
-                '    color: ' + bgcolorData.tabActiveColor + ' !important;\n' +
-                '}\n' +
-                '.layuimini-tab .layui-tabs-header .layui-tab-close:hover {\n' +
-                '    color: ' + bgcolorData.tabActiveColor + ' !important;\n' +
-                '}\n';
+                '/**tab选项卡样式 */\n' +
+                (function() {
+                    var isDark = localStorage.getItem('layuiminiElemStyleName') === 'dark';
+                    var accentColor = bgcolorData.tabActiveColor || '#1e9fff';
+                    var headerBg = bgcolorData.tabHeaderBg || bgcolorData.leftMenuChildBg || '#efefef';
+                    var tabCss = '';
+
+                    if (isDark) {
+                        tabCss += '.layuimini-tab .layui-tabs-header { background-color: rgba(255,255,255,0.03) !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tabs-header li { color: rgba(255,255,255,0.55) !important; background: rgba(255,255,255,0.06) !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tabs-header li span { color: rgba(255,255,255,0.55) !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tabs-header .layui-this { background: ' + accentColor + ' !important; color: #fff !important; transition: none !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tabs-header .layui-this span { color: #fff !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tab-control > li { color: rgba(255,255,255,0.4) !important; background: transparent !important; }\n';
+                    } else if (parseInt(bgcolorId) >= 2) {
+                        tabCss += '.layuimini-tab .layui-tabs-header { background-color: transparent !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tabs-header li { color: #888 !important; background: rgba(0,0,0,0.04) !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tabs-header li span { color: #888 !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tabs-header .layui-this { background: ' + accentColor + ' !important; color: #fff !important; transition: none !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tabs-header .layui-this span { color: #fff !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tab-control > li { color: #999 !important; background: transparent !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tab-control > li:hover { color: ' + accentColor + ' !important; }\n';
+                    } else {
+                        tabCss += '.layuimini-tab .layui-tabs-header { background-color: transparent !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tabs-header li { color: #888 !important; background: rgba(0,0,0,0.04) !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tabs-header li span { color: #888 !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tabs-header .layui-this { background: ' + accentColor + ' !important; color: #fff !important; transition: none !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tabs-header .layui-this span { color: #fff !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tab-control > li { color: #999 !important; background: transparent !important; }\n';
+                        tabCss += '.layuimini-tab .layui-tab-control > li:hover { color: ' + accentColor + ' !important; }\n';
+                    }
+                    return tabCss;
+                })();
             $('#layuimini-bg-color').html(styleHtml);
         },
         configElemStyle() {

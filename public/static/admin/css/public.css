@@ -53,10 +53,11 @@ pre, code, .code-box {
 
 .layuimini-main {
     position: relative;
-    margin: 0 15px;
     background-color: var(--lay-color-bg-1);
     color: var(--lay-color-text-2);
     border-radius: 5px;
+    min-height: 100vh;
+    padding-bottom: 7px;
 }
 
 .layuimini-form {
@@ -89,7 +90,7 @@ pre, code, .code-box {
     color: var(--lay-color-text-2);
 }
 
-.dark .layui-nav .layui-nav-item a:hover, .dark .layui-tabs-header .layui-this {
+.dark .layui-nav .layui-nav-item a:hover {
     background-color: var(--lay-color-fill-2);
 }
 
@@ -106,8 +107,15 @@ pre, code, .code-box {
 /**数据表格-搜索表单样式*/
 .layuimini-container .table-search-fieldset {
     margin: 0;
-    border: 1px solid var(--lay-color-border-1);
-    padding: 10px;
+    padding: 15px 10px 10px 10px;
+}
+
+@media screen and (max-width: 400px) {
+    .layuimini-container .table-search-fieldset {
+        margin: 0;
+        padding: 15px 10px 10px 10px;
+        border-color: transparent;
+    }
 }
 
 .layuimini-container .table-search-fieldset legend {
@@ -281,7 +289,6 @@ table样式
 .layuimini-container .layui-table-tool {
     background-color: #ffffff;
     padding: 10px;
-    padding-bottom: 15px !important;
 }
 
 .layuimini-container .layui-table-box .layui-table-header th {

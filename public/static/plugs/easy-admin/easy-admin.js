@@ -1051,59 +1051,55 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                     let $bottomPage = $view.children('.layui-table-page').not('.layui-table-page-top');
                     if (!$bottomPage.length) return;
                     let $topPage = $view.children('.layui-table-page-top');
-                    if ($topPage.length) return;
-                    $topPage = $bottomPage.clone(false);
-                    $topPage.addClass('layui-table-page-top');
-                    $view.children('.layui-table-tool').after($topPage);
-                    let bid = tableOptions.id;
-                    $topPage.on('click', 'a, button', function (e) {
-                        e.preventDefault();
-                        let $t = $(this);
-                        if ($t.hasClass('layui-disabled') || $t.hasClass('layui-btn-disabled')) return;
-                        if ($t.hasClass('layui-laypage-btn')) {
-                            let v = parseInt($topPage.find('input').val());
-                            if (v > 0) layui.table.reload(bid, { page: { curr: v } });
-                            return;
+                    if (!$topPage.length) {
+                        $topPage = $bottomPage.clone(false);
+                        $topPage.addClass('layui-table-page-top');
+                        let $tool = $view.children('.layui-table-tool');
+                        if ($tool.length) {
+                            $tool.after($topPage);
+                        } else {
+                            $view.children('.layui-table-box').before($topPage);
                         }
-                        let page = $t.data('page');
-                        if (page !== undefined) {
-                            let pn = parseInt(page);
-                            if (!isNaN(pn) && pn > 0) {
-                                layui.table.reload(bid, { page: { curr: pn } });
+                        let bid = tableOptions.id;
+                        $topPage.on('click', 'a, button', function (e) {
+                            e.preventDefault();
+                            let $t = $(this);
+                            if ($t.hasClass('layui-disabled') || $t.hasClass('layui-btn-disabled')) return;
+                            if ($t.hasClass('layui-laypage-btn')) {
+                                let v = parseInt($topPage.find('input').val());
+                                if (v > 0) layui.table.reload(bid, { page: { curr: v } });
                                 return;
                             }
-                        }
-                        let $bottom = $view.children('.layui-table-page').not('.layui-table-page-top');
-                        let tag = this.tagName;
-                        let idx = $topPage.find(tag).index(this);
-                        if (idx >= 0) {
-                            let el = $bottom.find(tag).get(idx);
-                            if (el) el.click();
-                        }
-                    });
-                    $topPage.on('change', 'select', function () {
-                        layui.table.reload(bid, { page: { limit: parseInt(this.value) } });
-                    });
-                    $topPage.on('keydown', 'input', function (e) {
-                        if (e.keyCode === 13) {
-                            let v = parseInt(this.value);
-                            if (v > 0) layui.table.reload(bid, { page: { curr: v } });
-                        }
-                    });
-                    let bottomEl = $bottomPage[0];
-                    if (bottomEl) {
-                        let obs = new MutationObserver(function () {
-                            let $tp = $view.children('.layui-table-page-top');
-                            let $bp = $view.children('.layui-table-page').not('.layui-table-page-top');
-                            if ($tp.length && $bp.length) {
-                                $tp.html($bp.html());
-                                $tp.find('[id]').attr('id', function () {
-                                    return $(this).attr('id') + '_top';
-                                });
+                            let page = $t.data('page');
+                            if (page !== undefined) {
+                                let pn = parseInt(page);
+                                if (!isNaN(pn) && pn > 0) {
+                                    layui.table.reload(bid, { page: { curr: pn } });
+                                    return;
+                                }
+                            }
+                            let $bottom = $view.children('.layui-table-page').not('.layui-table-page-top');
+                            let tag = this.tagName;
+                            let idx = $topPage.find(tag).index(this);
+                            if (idx >= 0) {
+                                let el = $bottom.find(tag).get(idx);
+                                if (el) el.click();
                             }
                         });
-                        obs.observe(bottomEl, { childList: true, subtree: true, characterData: true, attributes: true });
+                        $topPage.on('change', 'select', function () {
+                            layui.table.reload(bid, { page: { limit: parseInt(this.value) } });
+                        });
+                        $topPage.on('keydown', 'input', function (e) {
+                            if (e.keyCode === 13) {
+                                let v = parseInt(this.value);
+                                if (v > 0) layui.table.reload(bid, { page: { curr: v } });
+                            }
+                        });
                     }
+                    $topPage.html($bottomPage.html());
+                    $topPage.find('[id]').attr('id', function () {
+                        return $(this).attr('id') + '_top';
+                    });
                 } catch (e) {
                 }
             }

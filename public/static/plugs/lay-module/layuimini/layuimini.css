@@ -149,6 +149,8 @@ body {
 
 .layuimini-tab .layui-tabs-body .layui-tabs-item {
     height: 100%;
+    width: auto !important;
+    padding: 0 15px;
 }
 
 .layuimini-tab .layui-tabs-body {
@@ -157,28 +159,38 @@ body {
 
 .layuimini-tab .layui-tabs-header {
     box-sizing: border-box;
-    background: #efefef;
+    background: transparent;
     margin-left: 15px;
+    display: flex;
+    align-items: center;
+    height: 46px;
+    gap: 4px;
+    padding: 0 4px;
 }
 
 .layuimini-tab .layui-tabs-header li {
     color: #666;
-    padding: 0 26px;
-    margin: 7px 7px 7px 0 !important;
+    padding: 0 16px;
+    margin: 0 !important;
     position: relative;
-    transition: color .25s;
-    background: #fff;
+    transition: all .2s ease;
+    background: rgba(0, 0, 0, .04);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 30px;
+    height: 30px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
-.layuimini-tab .layui-tabs-header li:hover {
-    color: #1e9fff;
+.layuimini-tab .layui-tabs-header li:not(.layui-this):hover {
+    background: rgba(0, 0, 0, .04);
+    color: #666;
 }
 
 .layuimini-tab .layui-tabs-header .layui-tab-bar {
-    display: none;
-}
-
-.layuimini-tab .layui-tabs-header .layui-this:after {
     display: none;
 }
 
@@ -187,7 +199,10 @@ body {
 }
 
 .layuimini-tab .layui-tabs-header .layui-this {
-    color: #1e9fff;
+    background: var(--ea8-theme-main-color, #1e9fff) !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    transition: none !important;
 }
 
 .layuimini-tab > .layui-tabs-header, .layuimini-tab > .close-box {
@@ -195,30 +210,32 @@ body {
 }
 
 .layuimini-tab .layui-tabs-header span {
-    color: #333;
-}
-
-.layuimini-tab .layui-tabs-header li {
-    line-height: 32px;
+    color: inherit;
 }
 
 .layuimini-tab .layui-tabs-header .layui-this span {
-    color: #1e9fff;
+    color: #ffffff !important;
 }
 
 .layuimini-tab .layui-tabs-header .layui-tab-close {
-    font-size: 15px !important;
-    width: 16px !important;
-    height: 16px !important;
-    line-height: 16px !important;
-    margin-left: 6px;
+    font-size: 12px !important;
+    width: 14px !important;
+    height: 14px !important;
+    line-height: 14px !important;
+    margin-left: 4px;
     border-radius: 50%;
-    transition: all .2s;
+    transition: all .15s;
+    opacity: 0;
+    color: inherit;
+}
+
+.layuimini-tab .layui-tabs-header .layui-this .layui-tab-close {
+    opacity: .7;
 }
 
 .layuimini-tab .layui-tabs-header .layui-tab-close:hover {
     background: rgba(0, 0, 0, .08);
-    color: #1e9fff;
+    opacity: 1;
 }
 
 .layuimini-tab .layui-tabs-header .disable-close + .layui-tab-close {
@@ -232,34 +249,34 @@ body {
 .layuimini-tab .layui-tab-control > li {
     position: absolute;
     top: 0;
-    height: 52px;
-    line-height: 52px;
-    background-color: #fff;
-    width: 36px;
+    height: 46px;
+    line-height: 46px;
+    background-color: transparent;
+    width: 32px;
     text-align: center;
-    background-color: #fff;
-    color: #333;
-    transition: color .25s;
+    color: #999;
+    transition: all .2s ease;
     cursor: pointer;
+    font-size: 13px;
 }
 
 .layuimini-tab .layui-tab-control > li:hover {
-    color: #1e9fff;
+    color: var(--ea8-theme-main-color, #1e9fff);
 }
 
 .layuimini-tab .layuimini-tab-roll-left {
     left: 0;
-    border-right: 1px solid #e8e8e8;
+    border-right: 1px solid rgba(0, 0, 0, .04);
 }
 
 .layuimini-tab .layuimini-tab-roll-right {
-    right: 36px;
-    border-left: 1px solid #e8e8e8;
+    right: 32px;
+    border-left: 1px solid rgba(0, 0, 0, .04);
 }
 
 .layuimini-tab .layui-tab-tool {
     right: 0;
-    border-left: 1px solid #e8e8e8;
+    border-left: 1px solid rgba(0, 0, 0, .04);
 }
 
 .layuimini-tab .layui-tab-control .layui-tab-tool,

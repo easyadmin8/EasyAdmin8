@@ -282,9 +282,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
         let url = ea.url('mall.goods/aiOptimization')
         ea.request.post({url: url, data: {message: message}}, function (res) {
             let content = res.data?.choices[0]?.message?.content
-            // stream 为true 时，AI 内容会逐字输出
-            let stream = true
-            ea.ai.chat(content, {stream: stream}, function () {
+            ea.ai.chat(content, {}, function () {
                 $(data).attr('lay-on', layOn.split('Loading')[0])
             })
         }, function (error) {
