@@ -30,13 +30,13 @@ if (!function_exists('password')) {
 
     /**
      * 密码加密算法
-     * @param $value
+     * @param string $value
+     * @param string $algo
      * @return string
      */
-    function password($value): string
+    function password(string $value = "", string $algo = PASSWORD_DEFAULT): string
     {
-        $value = sha1('blog_') . md5($value) . md5('_encrypt') . sha1($value);
-        return sha1($value);
+        return password_hash($value, $algo);
     }
 
 }
