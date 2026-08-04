@@ -101,6 +101,7 @@ CREATE TABLE `ea_system_admin`
     `delete_time` int(11) DEFAULT NULL COMMENT '删除时间',
     `login_type` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '登录方式',
     `ga_secret` varchar(32) NOT NULL DEFAULT '' COMMENT '谷歌验证码秘钥',
+    `salt` varchar(6) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
     PRIMARY KEY (`id`),
     UNIQUE KEY `username` (`username`) USING BTREE,
     KEY           `phone` (`phone`)
@@ -110,7 +111,7 @@ CREATE TABLE `ea_system_admin`
 -- Records of ea_system_admin
 -- ----------------------------
 INSERT INTO `ea_system_admin`
-VALUES ('1', null, '/static/admin/images/head.jpg', 'admin', 'a33b679d5581a8692988ec9f92ad2d6a2259eaa7', 'admin', 'admin', '0', '0', '1', '1589454169', '1589476815', null,1,'');
+VALUES ('1', null, '/static/admin/images/head.jpg', 'admin', 'a33b679d5581a8692988ec9f92ad2d6a2259eaa7', 'admin', 'admin', '0', '0', '1', '1589454169', '1589476815', null,1,'','');
 
 -- ----------------------------
 -- Table structure for ea_system_auth

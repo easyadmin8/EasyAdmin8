@@ -68,13 +68,14 @@ CREATE TABLE "ea_system_admin"
     "update_time" int DEFAULT NULL,
     "delete_time" int DEFAULT NULL,
     "login_type" smallint NOT NULL DEFAULT 1,
-    "ga_secret" varchar(32) NOT NULL DEFAULT ''
+    "ga_secret" varchar(32) NOT NULL DEFAULT '',
+    "salt" varchar(6) NOT NULL DEFAULT '',
 );
 CREATE UNIQUE INDEX "ea_idx_system_admin_username" ON "ea_system_admin" ("username");
 CREATE INDEX "ea_idx_system_admin_phone" ON "ea_system_admin" ("phone");
 
-INSERT INTO "ea_system_admin" ("auth_ids", "head_img", "username", "password", "phone", "remark", "login_num", "sort", "status", "create_time", "update_time", "delete_time", "login_type", "ga_secret")
-VALUES (null, '/static/admin/images/head.jpg', 'admin', 'a33b679d5581a8692988ec9f92ad2d6a2259eaa7', 'admin', 'admin', 0, 0, 1, 1589454169, 1589476815, null,1,'');
+INSERT INTO "ea_system_admin" ("auth_ids", "head_img", "username", "password", "phone", "remark", "login_num", "sort", "status", "create_time", "update_time", "delete_time", "login_type", "ga_secret", "salt")
+VALUES (null, '/static/admin/images/head.jpg', 'admin', 'a33b679d5581a8692988ec9f92ad2d6a2259eaa7', 'admin', 'admin', 0, 0, 1, 1589454169, 1589476815, null, 1, '', '');
 
 -- 4. 权限表
 DROP TABLE IF EXISTS "ea_system_auth";

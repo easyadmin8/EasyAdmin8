@@ -47,6 +47,11 @@ class CheckLogin
             if (empty($adminUserInfo)) {
                 return redirect(__url('login/index'));
             }
+            if (!$this->chekSign($request, $adminUserInfo)) {
+                session('admin', null);
+                session('admin_sign', null);
+                return redirect(__url('login/index'));
+            }
             // 判断是否登录过期
             $expireTime = $adminUserInfo['expire_time'];
             if ($expireTime !== 0 && time() > $expireTime) {
@@ -56,5 +61,13 @@ class CheckLogin
         }
         $request->adminUserInfo = $adminUserInfo ?: [];
         return $next($request);
+    }
+
+    protected function chekSign(Request $request, $adminInfo): bool
+    {
+        if (empty($adminInfo)) return true;
+        $sign = md5($request->header('user-agent') . $adminInfo['id'] . $adminInfo['salt']);
+        if (session('admin_sign') != $sign) return false;
+        return true;
     }
 }

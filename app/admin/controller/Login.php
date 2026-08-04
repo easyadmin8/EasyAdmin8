@@ -9,6 +9,7 @@ use think\db\exception\DataNotFoundException;
 use think\db\exception\DbException;
 use think\db\exception\ModelNotFoundException;
 use app\Request;
+use think\helper\Str;
 use think\Response;
 use Webman\Captcha\CaptchaBuilder;
 use Webman\Captcha\PhraseBuilder;
@@ -89,11 +90,15 @@ class Login extends AdminController
             if (!$ga->verifyCode($admin->ga_secret, $post['ga_code'])) $this->error('谷歌验证码错误');;
         }
         $admin->login_num += 1;
+        $salt             = Str::random(6);
+        $admin->salt      = $salt;
         $admin->save();
         $admin = $admin->toArray();
         unset($admin['password']);
         $admin['expire_time'] = $post['keep_login'] == 1 ? 0 : time() + 7200;
         session('admin', $admin);
+        $sign = md5($request->header('user-agent') . $admin['id'] . $salt);
+        session('admin_sign', $sign);
         $this->success('登录成功');
     }
 
