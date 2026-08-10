@@ -1,0 +1,16 @@
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <table id="currentTable" class="layui-table layui-hide"
+               data-auth-add="{:auth('system.ip_white/add')}"
+               data-auth-edit="{:auth('system.ip_white/edit')}"
+               data-auth-delete="{:auth('system.ip_white/delete')}"
+               data-auth-recycle="{:auth('system.ip_white/recycle')}"
+               lay-filter="currentTable">
+               <!-- searchTableShow="false" 隐藏搜索框 -->
+        </table>
+    </div>
+</div>
+
+<script>
+    let notes = JSON.parse('{$notes|json_encode=256|raw}');
+</script>

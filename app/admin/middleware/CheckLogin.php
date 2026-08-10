@@ -2,6 +2,7 @@
 
 namespace app\admin\middleware;
 
+use app\admin\service\IpService;
 use app\common\traits\JumpTrait;
 use app\Request;
 use Closure;
@@ -57,6 +58,9 @@ class CheckLogin
             if ($expireTime !== 0 && time() > $expireTime) {
                 session('admin', null);
                 $this->error('登录已过期，请重新登录', [], __url(env('EASYADMIN.ADMIN') . '/login/index'));
+            }
+            if (($adminUserInfo['ip_check'] ?? 2) === 1) {
+                if (!IpService::whiteCheck()) $this->error('IP环境不在授信范围中，请联系管理员');
             }
         }
         $request->adminUserInfo = $adminUserInfo ?: [];

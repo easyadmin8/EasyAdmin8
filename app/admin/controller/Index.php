@@ -3,6 +3,7 @@
 namespace app\admin\controller;
 
 use app\admin\model\SystemAdmin;
+use app\admin\model\SystemIpWhite;
 use app\admin\model\SystemQuick;
 use app\common\controller\AdminController;
 use app\Request;
@@ -74,8 +75,17 @@ class Index extends AdminController
                     $ga_secret = (new SystemAdmin())->where('id', $id)->value('ga_secret');
                     if (empty($ga_secret)) $this->error('请先绑定谷歌验证器');
                 }
-                $save = $row->allowField(['head_img', 'phone', 'remark', 'update_time', 'login_type'])->save($post);
-            } catch (\PDOException $e) {
+                $ip_check = $post['ip_check'] ?? 2;
+                if ($ip_check == 1) {
+                    if (empty(SystemIpWhite::where('status', 1)->find())) {
+                        $this->error('请至少添加一个可用的 IP 白名单');
+                    }
+                }
+                $save = $row->allowField(['head_img', 'phone', 'remark', 'update_time', 'login_type', 'ip_check'])->save($post);
+                if ($ip_check == 1 && $save) {
+                    $this->success('保存成功，退出后重新登录可使IP规则生效');
+                }
+            }catch (\PDOException $e) {
                 $this->error('保存失败');
             }
             $save ? $this->success('保存成功') : $this->error('保存失败');

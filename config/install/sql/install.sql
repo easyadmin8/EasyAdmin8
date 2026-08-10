@@ -102,6 +102,7 @@ CREATE TABLE `ea_system_admin`
     `login_type` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '登录方式',
     `ga_secret` varchar(32) NOT NULL DEFAULT '' COMMENT '谷歌验证码秘钥',
     `salt` varchar(6) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+    `ip_check` tinyint unsigned NOT NULL DEFAULT '2',
     PRIMARY KEY (`id`),
     UNIQUE KEY `username` (`username`) USING BTREE,
     KEY           `phone` (`phone`)
@@ -111,7 +112,7 @@ CREATE TABLE `ea_system_admin`
 -- Records of ea_system_admin
 -- ----------------------------
 INSERT INTO `ea_system_admin`
-VALUES ('1', null, '/static/admin/images/head.jpg', 'admin', 'a33b679d5581a8692988ec9f92ad2d6a2259eaa7', 'admin', 'admin', '0', '0', '1', '1589454169', '1589476815', null,1,'','');
+VALUES ('1', null, '/static/admin/images/head.jpg', 'admin', 'a33b679d5581a8692988ec9f92ad2d6a2259eaa7', 'admin', 'admin', '0', '0', '1', '1589454169', '1589476815', null, 1, '', '', 2);
 
 -- ----------------------------
 -- Table structure for ea_system_auth
@@ -342,7 +343,7 @@ VALUES ('18', '15', '常见问题', 'fa fa-circle-question', 'https://easyadmin8
 INSERT INTO `ea_system_menu`
 VALUES ('19', '2', '日志分析', 'fa fa-robot', 'system.log_analyzer/index', '', '_self', '1', '1', '', '1589623684', '1589623684', null);
 INSERT INTO `ea_system_menu`
-VALUES ('20', '2', '任务调度', 'fa fa-list-alt', 'system.Schedule/index', '', '_self', '1', '1', '', '1589623684', '1589623684', null);
+VALUES ('20', '2', 'IP白名单', 'fa fa-p', 'system.ip_white/index', '', '_self', '1', '1', '', '1589623684', '1589623684', null);
 
 -- ----------------------------
 -- Table structure for ea_system_node
@@ -506,6 +507,12 @@ INSERT INTO `ea_system_node`
 VALUES ('70', 'system.curd_generate/index', '列表', '2', '1', '1589623188', '1589623188');
 INSERT INTO `ea_system_node`
 VALUES ('71', 'system.curd_generate/save', '操作', '2', '1', '1589623188', '1589623188');
+INSERT INTO `ea_system_node`
+VALUES ('72', 'system.ip_white', 'IP白名单', '1', '1', '1589623188', '1589623188');
+INSERT INTO `ea_system_node`
+VALUES ('73', 'system.ip_white/index', '列表', '2', '1', '1589623188', '1589623188');
+INSERT INTO `ea_system_node`
+VALUES ('75', 'system.ip_white/save', '操作', '2', '1', '1589623188', '1589623188');
 
 -- ----------------------------
 -- Table structure for ea_system_quick
@@ -605,3 +612,20 @@ CREATE TABLE `ea_system_log`
     `create_time` int DEFAULT NULL COMMENT '操作时间',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='后台操作日志表 - 202412';
+
+
+-- ----------------------------
+-- Table structure for ea8_system_ip_white
+-- ----------------------------
+CREATE TABLE `ea8_system_ip_white`
+(
+    `id`          int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `ip`          varchar(45) COLLATE utf8mb4_general_ci                        NOT NULL DEFAULT '' COMMENT 'IP地址',
+    `status`      tinyint unsigned NOT NULL DEFAULT '1' COMMENT '状态(1:禁用,2:启用)',
+    `remark`      varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '备注说明',
+    `create_time` int                                                                    DEFAULT NULL COMMENT '创建时间',
+    `update_time` int                                                                    DEFAULT NULL COMMENT '更新时间',
+    `delete_time` int                                                                    DEFAULT NULL COMMENT '删除时间',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `ip` (`ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

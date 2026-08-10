@@ -39,6 +39,15 @@
                 </div>
             </div>
 
+            <div class="layui-form-item">
+                <label class="layui-form-label">IP 校验</label>
+                <div class="layui-input-block">
+                    {foreach notes.ip_check as $key=>$val}
+                    <input type="radio" name="ip_check" lay-skin="primary" title="{$val}" value="{$key}" {if $key==$row.ip_check}checked=""{/if}>
+                    {/foreach}
+                </div>
+            </div>
+
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">备注信息</label>
                 <div class="layui-input-block">

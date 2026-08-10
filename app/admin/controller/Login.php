@@ -3,6 +3,7 @@
 namespace app\admin\controller;
 
 use app\admin\model\SystemAdmin;
+use app\admin\service\IpService;
 use app\common\controller\AdminController;
 use app\common\utils\Helper;
 use think\db\exception\DataNotFoundException;
@@ -75,6 +76,9 @@ class Login extends AdminController
         }
         if ($admin->status == 0) {
             $this->error('账号已被禁用');
+        }
+        if ($admin->ip_check === 1) {
+            if (!IpService::whiteCheck()) $this->error('IP环境不在授信范围中，请联系管理员');
         }
         if ($cfTurnstile) {
             try {

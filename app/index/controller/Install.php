@@ -236,8 +236,6 @@ SQL,
                     }
                     break;
                 case 'pgsql':
-                    Db::query('SELECT 1');
-                    $pdo      = Db::getPdo();
                     $_version = $pdo->getAttribute(\PDO::ATTR_SERVER_VERSION);
                     if (version_compare($_version, '12.0', '<')) {
                         $this->error('pgsql版本最低要求 12.x');

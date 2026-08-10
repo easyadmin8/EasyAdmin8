@@ -20,6 +20,10 @@ class SystemAdmin extends TimeModel
             1 => '密码登录',
             2 => '密码 + 谷歌验证码登录'
         ],
+        'ip_check'   => [
+            1 => '启用',
+            2 => '不启用'
+        ],
     ];
 
     public static function getAuthIdsAttr($value): array

@@ -51,7 +51,7 @@ return [
             // 是否严格检查字段是否存在
             'fields_strict'   => true,
             // 是否需要断线重连
-            'break_reconnect' => false,
+            'break_reconnect' => true,
             // 监听SQL
             'trigger_sql'     => env('APP_DEBUG', true),
             // 开启字段缓存
@@ -88,7 +88,7 @@ return [
             // 是否严格检查字段是否存在
             'fields_strict'   => true,
             // 是否需要断线重连
-            'break_reconnect' => false,
+            'break_reconnect' => true,
             // 监听SQL
             'trigger_sql'     => env('APP_DEBUG', true),
             // 开启字段缓存
