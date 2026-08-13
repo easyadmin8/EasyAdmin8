@@ -8,7 +8,7 @@ define(["jquery"], function ($) {
     var $ = layui.$,
         layer = layui.layer;
 
-    var miniTheme = {
+    let miniTheme = {
 
         /**
          * 主题配置项
@@ -16,7 +16,7 @@ define(["jquery"], function ($) {
          * @returns {{headerLogo, menuLeftHover, headerRight, menuLeft, headerRightThis, menuLeftThis}|*|*[]}
          */
         config: function (bgcolorId) {
-            var bgColorConfig = [
+            let bgColorConfig = [
                 {
                     headerRightBg: '#ffffff', //头部右侧背景色
                     headerRightBgThis: '#f4f5f5', //头部右侧选中背景色,
@@ -24,18 +24,18 @@ define(["jquery"], function ($) {
                     headerRightChildColor: 'rgba(107, 107, 107, 0.7)', //头部右侧下拉字体颜色,
                     headerRightColorThis: '#565656', //头部右侧鼠标选中,
                     headerRightNavMore: 'rgba(160, 160, 160, 0.7)', //头部右侧更多下拉颜色,
-                    headerRightNavMoreBg: '#1E9FFF', //头部右侧更多下拉列表选中背景色,
+                    headerRightNavMoreBg: '#16b777', //头部右侧更多下拉列表选中背景色,
                     headerRightNavMoreColor: '#ffffff', //头部右侧更多下拉列表字体色,
                     headerRightToolColor: '#565656', //头部缩放按钮样式,
-                    headerLogoBg: '#ffffff', //logo背景颜色,
-                    headerLogoColor: '#333333', //logo字体颜色,
-                    leftMenuNavMore: '#999999', //左侧菜单更多下拉样式,
-                    leftMenuBg: '#ffffff', //左侧菜单背景,
-                    leftMenuBgThis: '#f4f5f5', //左侧菜单选中背景,
-                    leftMenuChildBg: '#efefef', //左侧菜单子菜单背景,
-                    leftMenuColor: '#333333', //左侧菜单字体颜色,
-                    leftMenuColorThis: '#1E9FFF', //左侧菜单选中字体颜色,
-                    tabActiveColor: '#1e9fff', //tab选项卡选中颜色,
+                    headerLogoBg: '#232324', //logo背景颜色,
+                    headerLogoColor: '#ffffff', //logo字体颜色,
+                    leftMenuNavMore: 'rgba(255,255,255,.5)', //左侧菜单更多下拉样式,
+                    leftMenuBg: '#232324', //左侧菜单背景,
+                    leftMenuBgThis: '#16213e', //左侧菜单选中背景,
+                    leftMenuChildBg: '#232324', //左侧菜单子菜单背景,
+                    leftMenuColor: 'rgba(255,255,255,.85)', //左侧菜单字体颜色,
+                    leftMenuColorThis: '#16b777', //左侧菜单选中字体颜色,
+                    tabActiveColor: '#16b777', //tab选项卡选中颜色,
                     tabHeaderBg: '#efefef', //tab头部背景色
                     tabItemBg: '#ffffff', //tab选项背景色
                     tabColor: '#333333', //tab选项字体颜色
@@ -59,7 +59,7 @@ define(["jquery"], function ($) {
                     leftMenuChildBg: '#232324', //左侧菜单子菜单背景,
                     leftMenuColor: 'rgba(255,255,255,.85)', //左侧菜单字体颜色,
                     leftMenuColorThis: '#16b777', //左侧菜单选中字体颜色,
-                    tabActiveColor: '#16b777', //tab选项卡选中颜色,
+                    tabActiveColor: '#232324', //tab选项卡选中颜色,
                     tabColor: 'rgba(255,255,255,.85)', //tab选项字体颜色
                     leftBorderColor: 'rgba(255,255,255,0.06)', //左侧间隔线颜色
                     tabHeaderBg: '#efefef', //tab头部背景色
@@ -248,7 +248,7 @@ define(["jquery"], function ($) {
         render: function (options) {
             options.bgColorDefault = options.bgColorDefault || false;
             options.listen = options.listen || false;
-            var bgcolorId = localStorage.getItem('layuiminiBgColorId');
+            let bgcolorId = localStorage.getItem('layuiminiBgColorId');
             if (bgcolorId === null || bgcolorId === undefined || bgcolorId === '') {
                 bgcolorId = options.bgColorDefault;
             }
@@ -278,7 +278,7 @@ define(["jquery"], function ($) {
             if (bgcolorId === null || bgcolorId === undefined || bgcolorId === '') return false;
             let bgcolorData = miniTheme.config(bgcolorId);
             let mainColor = bgcolorData.headerRightBg
-            if (bgcolorId == 0) mainColor = '#16b777';
+            if (bgcolorId < 1) mainColor = bgcolorData.tabActiveColor || '#16b777';
             const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--ea8-theme-main-color');
             document.documentElement.style.setProperty('--ea8-theme-main-color', mainColor);
             const iframes = document.getElementsByTagName('iframe');
@@ -299,134 +299,136 @@ define(["jquery"], function ($) {
             if (!bgcolorId) {
                 return false;
             }
-            var bgcolorData = miniTheme.config(bgcolorId);
-            var styleHtml = '/*头部右侧背景色 headerRightBg */\n' +
-                '.layui-layout-admin .layui-header {\n' +
-                '    background-color: ' + bgcolorData.headerRightBg + ' !important;\n' +
-                '}\n' +
-                '\n' +
-                '/*头部右侧选中背景色 headerRightBgThis */\n' +
-                '.layui-layout-admin .layui-header .layuimini-header-content > ul > .layui-nav-item.layui-this, .layuimini-tool i:hover {\n' +
-                '    background-color: ' + bgcolorData.headerRightBgThis + ' !important;\n' +
-                '}\n' +
-                '\n' +
-                '/*头部右侧字体颜色 headerRightColor */\n' +
-                '.layui-layout-admin .layui-header .layui-nav .layui-nav-item a {\n' +
-                '    color:  ' + bgcolorData.headerRightColor + ';\n' +
-                '}\n' +
-                '/**头部右侧下拉字体颜色 headerRightChildColor */\n' +
-                '.layui-layout-admin .layui-header .layui-nav .layui-nav-item .layui-nav-child a {\n' +
-                '    color:  ' + bgcolorData.headerRightChildColor + '!important;\n' +
-                '}\n' +
-                '\n' +
-                '/*头部右侧鼠标选中 headerRightColorThis */\n' +
-                '.layui-header .layuimini-menu-header-pc.layui-nav .layui-nav-item a:hover, .layui-header .layuimini-header-menu.layuimini-pc-show.layui-nav .layui-this a {\n' +
-                '    color: ' + bgcolorData.headerRightColorThis + ' !important;\n' +
-                '}\n' +
-                '\n' +
-                '/*头部右侧更多下拉颜色 headerRightNavMore */\n' +
-                '.layui-header .layui-nav .layui-nav-more {\n' +
-                '    border-top-color: ' + bgcolorData.headerRightNavMore + ' !important;\n' +
-                '}\n' +
-                '\n' +
-                '/*头部右侧更多下拉颜色 headerRightNavMore */\n' +
-                '.layui-header .layui-nav .layui-nav-mored, .layui-header .layui-nav-itemed > a .layui-nav-more {\n' +
-                '    border-color: transparent transparent ' + bgcolorData.headerRightNavMore + ' !important;\n' +
-                '}\n' +
-                '\n' +
-                '/**头部右侧更多下拉配置色 headerRightNavMoreBg headerRightNavMoreColor */\n' +
-                '.layui-header .layui-nav .layui-nav-child dd.layui-this a, .layui-header .layui-nav-child dd.layui-this, .layui-layout-admin .layui-header .layui-nav .layui-nav-item .layui-nav-child .layui-this a {\n' +
-                '    background-color: ' + bgcolorData.headerRightNavMoreBg + ' !important;\n' +
-                '    color:' + bgcolorData.headerRightNavMoreColor + ' !important;\n' +
-                '}\n' +
-                '\n' +
-                '/*头部缩放按钮样式 headerRightToolColor */\n' +
-                '.layui-layout-admin .layui-header .layuimini-tool i {\n' +
-                '    color: ' + bgcolorData.headerRightToolColor + ';\n' +
-                '}\n' +
-                '\n' +
-                '/*logo背景颜色 headerLogoBg */\n' +
-                '.layui-layout-admin .layuimini-logo {\n' +
-                '    background-color: ' + bgcolorData.headerLogoBg + ' !important;\n' +
-                '}\n' +
-                '\n' +
-                '/*logo字体颜色 headerLogoColor */\n' +
-                '.layui-layout-admin .layuimini-logo h1 {\n' +
-                '    color: ' + bgcolorData.headerLogoColor + ';\n' +
-                '}\n' +
-                '\n' +
-                '/*左侧菜单更多下拉样式 leftMenuNavMore */\n' +
-                '.layuimini-menu-left .layui-nav .layui-nav-more,.layuimini-menu-left-zoom.layui-nav .layui-nav-more {\n' +
-                '    border-top-color: ' + bgcolorData.leftMenuNavMore + ';\n' +
-                '}\n' +
-                '\n' +
-                '/*左侧菜单更多下拉样式 leftMenuNavMore */\n' +
-                '.layuimini-menu-left .layui-nav .layui-nav-mored, .layuimini-menu-left .layui-nav-itemed > a .layui-nav-more,   .layuimini-menu-left-zoom.layui-nav .layui-nav-mored, .layuimini-menu-left-zoom.layui-nav-itemed > a .layui-nav-more {\n' +
-                '    border-color: transparent transparent  ' + bgcolorData.leftMenuNavMore + ' !important;\n' +
-                '}\n' +
-                '\n' +
-                '/*左侧菜单背景 leftMenuBg */\n' +
-                '.layui-side.layui-bg-black, .layui-side.layui-bg-black > .layuimini-menu-left > ul, .layuimini-menu-left-zoom > ul {\n' +
-                '    background-color:  ' + bgcolorData.leftMenuBg + ' !important;\n' +
-                '}\n' +
-                '\n' +
-                '/*左侧菜单选中背景 leftMenuBgThis */\n' +
-                '.layuimini-menu-left .layui-nav-tree .layui-this, .layuimini-menu-left .layui-nav-tree .layui-this > a, .layuimini-menu-left .layui-nav-tree .layui-nav-child dd.layui-this, .layuimini-menu-left .layui-nav-tree .layui-nav-child dd.layui-this a, .layuimini-menu-left-zoom.layui-nav-tree .layui-this, .layuimini-menu-left-zoom.layui-nav-tree .layui-this > a, .layuimini-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this, .layuimini-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this a {\n' +
-                '    background-color: ' + bgcolorData.leftMenuBgThis + ' !important\n' +
-                '}\n' +
-                '\n' +
-                '/*左侧菜单子菜单背景 leftMenuChildBg */\n' +
-                '.layuimini-menu-left .layui-nav-itemed > .layui-nav-child{\n' +
-                '    background-color: ' + bgcolorData.leftMenuChildBg + ' !important;\n' +
-                '}\n' +
-                '\n' +
-                '/*左侧菜单字体颜色 leftMenuColor */\n' +
-                '.layuimini-menu-left .layui-nav .layui-nav-item a, .layuimini-menu-left-zoom.layui-nav .layui-nav-item a {\n' +
-                '    color:  ' + bgcolorData.leftMenuColor + ' !important;\n' +
-                '}\n' +
-                '\n' +
-                '/*左侧菜单选中字体颜色 leftMenuColorThis */\n' +
-                '.layuimini-menu-left .layui-nav .layui-nav-item a:hover, .layuimini-menu-left .layui-nav .layui-this a, .layuimini-menu-left-zoom.layui-nav .layui-nav-item a:hover, .layuimini-menu-left-zoom.layui-nav .layui-this a {\n' +
-                '    color:' + bgcolorData.leftMenuColorThis + ' !important;\n' +
-                '}\n' +
-                '\n' +
-                '/**tab选项卡样式 */\n' +
-                (function() {
-                    var isDark = localStorage.getItem('layuiminiElemStyleName') === 'dark';
-                    var accentColor = bgcolorData.tabActiveColor || '#1e9fff';
-                    var headerBg = bgcolorData.tabHeaderBg || bgcolorData.leftMenuChildBg || '#efefef';
-                    var tabCss = '';
+            let bgcolorData = miniTheme.config(bgcolorId);
+            let styleHtml = `/*头部右侧背景色 headerRightBg */
+.layui-layout-admin .layui-header {
+    background-color: ${bgcolorData.headerRightBg} !important;
+}
 
-                    if (isDark) {
-                        tabCss += '.layuimini-tab .layui-tabs-header { background-color: rgba(255,255,255,0.03) !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tabs-header li { color: rgba(255,255,255,0.55) !important; background: rgba(255,255,255,0.06) !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tabs-header li span { color: rgba(255,255,255,0.55) !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tabs-header .layui-this { background: ' + accentColor + ' !important; color: #fff !important; transition: none !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tabs-header .layui-this span { color: #fff !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tab-control > li { color: rgba(255,255,255,0.4) !important; background: transparent !important; }\n';
-                    } else if (parseInt(bgcolorId) >= 2) {
-                        tabCss += '.layuimini-tab .layui-tabs-header { background-color: transparent !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tabs-header li { color: #888 !important; background: rgba(0,0,0,0.04) !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tabs-header li span { color: #888 !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tabs-header .layui-this { background: ' + accentColor + ' !important; color: #fff !important; transition: none !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tabs-header .layui-this span { color: #fff !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tab-control > li { color: #999 !important; background: transparent !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tab-control > li:hover { color: ' + accentColor + ' !important; }\n';
-                    } else {
-                        tabCss += '.layuimini-tab .layui-tabs-header { background-color: transparent !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tabs-header li { color: #888 !important; background: rgba(0,0,0,0.04) !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tabs-header li span { color: #888 !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tabs-header .layui-this { background: ' + accentColor + ' !important; color: #fff !important; transition: none !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tabs-header .layui-this span { color: #fff !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tab-control > li { color: #999 !important; background: transparent !important; }\n';
-                        tabCss += '.layuimini-tab .layui-tab-control > li:hover { color: ' + accentColor + ' !important; }\n';
-                    }
-                    return tabCss;
-                })();
+/*头部右侧选中背景色 headerRightBgThis */
+.layui-layout-admin .layui-header .layuimini-header-content > ul > .layui-nav-item.layui-this, .layuimini-tool i:hover {
+    background-color: ${bgcolorData.headerRightBgThis} !important;
+}
+
+/*头部右侧字体颜色 headerRightColor */
+.layui-layout-admin .layui-header .layui-nav .layui-nav-item a {
+    color:  ${bgcolorData.headerRightColor};
+}
+/**头部右侧下拉字体颜色 headerRightChildColor */
+.layui-layout-admin .layui-header .layui-nav .layui-nav-item .layui-nav-child a {
+    color:  ${bgcolorData.headerRightChildColor}!important;
+}
+
+/*头部右侧鼠标选中 headerRightColorThis */
+.layui-header .layuimini-menu-header-pc.layui-nav .layui-nav-item a:hover, .layui-header .layuimini-header-menu.layuimini-pc-show.layui-nav .layui-this a {
+    color: ${bgcolorData.headerRightColorThis} !important;
+}
+
+/*头部右侧更多下拉颜色 headerRightNavMore */
+.layui-header .layui-nav .layui-nav-more {
+    border-top-color: ${bgcolorData.headerRightNavMore} !important;
+}
+
+/*头部右侧更多下拉颜色 headerRightNavMore */
+.layui-header .layui-nav .layui-nav-mored, .layui-header .layui-nav-itemed > a .layui-nav-more {
+    border-color: transparent transparent ${bgcolorData.headerRightNavMore} !important;
+}
+
+/**头部右侧更多下拉配置色 headerRightNavMoreBg headerRightNavMoreColor */
+.layui-header .layui-nav .layui-nav-child dd.layui-this a, .layui-header .layui-nav-child dd.layui-this, .layui-layout-admin .layui-header .layui-nav .layui-nav-item .layui-nav-child .layui-this a {
+    background-color: ${bgcolorData.headerRightNavMoreBg} !important;
+    color:${bgcolorData.headerRightNavMoreColor} !important;
+}
+
+/*头部缩放按钮样式 headerRightToolColor */
+.layui-layout-admin .layui-header .layuimini-tool i {
+    color: ${bgcolorData.headerRightToolColor};
+}
+
+/*logo背景颜色 headerLogoBg */
+.layui-layout-admin .layuimini-logo {
+    background-color: ${bgcolorData.headerLogoBg} !important;
+}
+
+/*logo字体颜色 headerLogoColor */
+.layui-layout-admin .layuimini-logo h1 {
+    color: ${bgcolorData.headerLogoColor};
+}
+
+/*左侧菜单更多下拉样式 leftMenuNavMore */
+.layuimini-menu-left .layui-nav .layui-nav-more,.layuimini-menu-left-zoom.layui-nav .layui-nav-more {
+    border-top-color: ${bgcolorData.leftMenuNavMore};
+}
+
+/*左侧菜单更多下拉样式 leftMenuNavMore */
+.layuimini-menu-left .layui-nav .layui-nav-mored, .layuimini-menu-left .layui-nav-itemed > a .layui-nav-more,   .layuimini-menu-left-zoom.layui-nav .layui-nav-mored, .layuimini-menu-left-zoom.layui-nav-itemed > a .layui-nav-more {
+    border-color: transparent transparent  ${bgcolorData.leftMenuNavMore} !important;
+}
+
+/*左侧菜单背景 leftMenuBg */
+.layui-side.layui-bg-black, .layui-side.layui-bg-black > .layuimini-menu-left > ul, .layuimini-menu-left-zoom > ul {
+    background-color:  ${bgcolorData.leftMenuBg} !important;
+}
+
+/*左侧菜单选中背景 leftMenuBgThis */
+.layuimini-menu-left .layui-nav-tree .layui-this, .layuimini-menu-left .layui-nav-tree .layui-this > a, .layuimini-menu-left .layui-nav-tree .layui-nav-child dd.layui-this, .layuimini-menu-left .layui-nav-tree .layui-nav-child dd.layui-this a, .layuimini-menu-left-zoom.layui-nav-tree .layui-this, .layuimini-menu-left-zoom.layui-nav-tree .layui-this > a, .layuimini-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this, .layuimini-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this a {
+    background-color: ${bgcolorData.leftMenuBgThis} !important
+}
+
+/*左侧菜单子菜单背景 leftMenuChildBg */
+.layuimini-menu-left .layui-nav-itemed > .layui-nav-child{
+    background-color: ${bgcolorData.leftMenuChildBg} !important;
+}
+
+/*左侧菜单字体颜色 leftMenuColor */
+.layuimini-menu-left .layui-nav .layui-nav-item a, .layuimini-menu-left-zoom.layui-nav .layui-nav-item a {
+    color:  ${bgcolorData.leftMenuColor} !important;
+}
+
+/*左侧菜单选中字体颜色 leftMenuColorThis */
+.layuimini-menu-left .layui-nav .layui-nav-item a:hover, .layuimini-menu-left .layui-nav .layui-this a, .layuimini-menu-left-zoom.layui-nav .layui-nav-item a:hover, .layuimini-menu-left-zoom.layui-nav .layui-this a {
+    color:${bgcolorData.leftMenuColorThis} !important;
+}
+
+/**tab选项卡样式 */
+${(function() {
+                let isDark = localStorage.getItem('layuiminiElemStyleName') === 'dark';
+                let accentColor = bgcolorData.tabActiveColor || '#16b777';
+                let tabCss = '';
+
+                if (isDark) {
+                    tabCss += `.layuimini-tab .layui-tabs-header { background-color: rgba(255,255,255,0.03) !important; }
+.layuimini-tab .layui-tabs-header li { color: rgba(255,255,255,0.55) !important; background: rgba(255,255,255,0.06) !important; }
+.layuimini-tab .layui-tabs-header li span { color: rgba(255,255,255,0.55) !important; }
+.layuimini-tab .layui-tabs-header .layui-this { background: ${accentColor} !important; color: #fff !important; transition: none !important; }
+.layuimini-tab .layui-tabs-header .layui-this span { color: #fff !important; }
+.layuimini-tab .layui-tab-control > li { color: rgba(255,255,255,0.4) !important; background: transparent !important; }
+`;
+                } else if (parseInt(bgcolorId) >= 2) {
+                    tabCss += `.layuimini-tab .layui-tabs-header { background-color: transparent !important; }
+.layuimini-tab .layui-tabs-header li { color: #888 !important; background: rgba(0,0,0,0.04) !important; }
+.layuimini-tab .layui-tabs-header li span { color: #888 !important; }
+.layuimini-tab .layui-tabs-header .layui-this { background: ${accentColor} !important; color: #fff !important; transition: none !important; }
+.layuimini-tab .layui-tabs-header .layui-this span { color: #fff !important; }
+.layuimini-tab .layui-tab-control > li { color: #999 !important; background: transparent !important; }
+.layuimini-tab .layui-tab-control > li:hover { color: ${accentColor} !important; }
+`;
+                } else {
+                    tabCss += `.layuimini-tab .layui-tabs-header { background-color: transparent !important; }
+.layuimini-tab .layui-tabs-header li { color: #888 !important; background: rgba(0,0,0,0.04) !important; }
+.layuimini-tab .layui-tabs-header li span { color: #888 !important; }
+.layuimini-tab .layui-tabs-header .layui-this { background: ${accentColor} !important; color: #fff !important; transition: none !important; }
+.layuimini-tab .layui-tabs-header .layui-this span { color: #fff !important; }
+.layuimini-tab .layui-tab-control > li { color: #999 !important; background: transparent !important; }
+.layuimini-tab .layui-tab-control > li:hover { color: ${accentColor} !important; }
+`;
+                }
+                return tabCss;
+            })()}`;
             $('#layuimini-bg-color').html(styleHtml);
         },
         configElemStyle() {
-            var listElemStyle = [
+            return [
                 {
                     title: '标准',
                     className: 'normal'
@@ -462,11 +464,10 @@ define(["jquery"], function ($) {
                 {
                     title: '暗黑',
                     className: 'dark',
-                    defaultColorConfig: '1'
+                    defaultColorConfig: 0
 
                 },
-            ]
-            return listElemStyle;
+            ];
         },
         buildBodyElemStyle(className) {
             let listElemStyle = miniTheme.configElemStyle()
@@ -480,28 +481,27 @@ define(["jquery"], function ($) {
             htmlEle.addClass(className)
         },
         buildElemStyleHtml(options) {
-            var elemStyleName = localStorage.getItem('layuiminiElemStyleName');
+            let elemStyleName = localStorage.getItem('layuiminiElemStyleName');
             if (!elemStyleName) elemStyleName = options.elemStyleDefault;
-            var listElemStyle = miniTheme.configElemStyle()
-            var html = '';
+            let listElemStyle = miniTheme.configElemStyle()
+            let html = '';
             $.each(listElemStyle, function (key, val) {
-
                 if (typeof val.defaultColorConfig == 'undefined') {
                     val.defaultColorConfig = '0'
                 }
-
                 if (val.className === elemStyleName) {
-                    html += '<li class="layui-this style-item" data-select-style="' + val.className + '" data-default-color-config="' + val.defaultColorConfig + '">\n';
+                    html += `<li class="layui-this style-item" data-select-style="${val.className}" data-default-color-config="${val.defaultColorConfig}">
+${val.title}
+</li>`;
                 } else {
-                    html += '<li id="' + val.className + '" class="style-item"  data-select-style="' + val.className + '" data-default-color-config="' + val.defaultColorConfig + '">\n';
+                    html += `<li id="${val.className}" class="style-item"  data-select-style="${val.className}" data-default-color-config="${val.defaultColorConfig}">
+${val.title}
+</li>`;
                 }
-                html +=
-                    val.title +
-
-                    '</li>';
             });
             return html;
         },
+
         /**
          * 构建主题选择html
          * @param options
@@ -509,21 +509,26 @@ define(["jquery"], function ($) {
          */
         buildBgColorHtml: function (options) {
             options.bgColorDefault = options.bgColorDefault || 0;
-            var bgcolorId = parseInt(localStorage.getItem('layuiminiBgColorId'));
+            let bgcolorId = parseInt(localStorage.getItem('layuiminiBgColorId'));
             if (isNaN(bgcolorId)) bgcolorId = options.bgColorDefault;
-            var bgColorConfig = miniTheme.config();
-            var html = '';
+            let bgColorConfig = miniTheme.config();
+            let html = '';
             $.each(bgColorConfig, function (key, val) {
                 if (key === bgcolorId) {
-                    html += '<li class="layui-this" data-select-bgcolor="' + key + '">\n';
+                    html += `<li class="layui-this" data-select-bgcolor="${key}">
+<a href="javascript:;" data-skin="skin-blue" style="" class="clearfix full-opacity-hover">
+<div><span style="display:block; width: 20%; float: left; height: 12px; background: ${val.headerLogoBg};"></span><span style="display:block; width: 80%; float: left; height: 12px; background: ${val.headerRightBg};"></span></div>
+<div><span style="display:block; width: 20%; float: left; height: 40px; background: ${val.leftMenuBg};"></span><span style="display:block; width: 80%; float: left; height: 40px; background: #ffffff;"></span></div>
+</a>
+</li>`;
                 } else {
-                    html += '<li  data-select-bgcolor="' + key + '">\n';
+                    html += `<li  data-select-bgcolor="${key}">
+<a href="javascript:;" data-skin="skin-blue" style="" class="clearfix full-opacity-hover">
+<div><span style="display:block; width: 20%; float: left; height: 12px; background: ${val.headerLogoBg};"></span><span style="display:block; width: 80%; float: left; height: 12px; background: ${val.headerRightBg};"></span></div>
+<div><span style="display:block; width: 20%; float: left; height: 40px; background: ${val.leftMenuBg};"></span><span style="display:block; width: 80%; float: left; height: 40px; background: #ffffff;"></span></div>
+</a>
+</li>`;
                 }
-                html += '<a href="javascript:;" data-skin="skin-blue" style="" class="clearfix full-opacity-hover">\n' +
-                    '<div><span style="display:block; width: 20%; float: left; height: 12px; background: ' + val.headerLogoBg + ';"></span><span style="display:block; width: 80%; float: left; height: 12px; background: ' + val.headerRightBg + ';"></span></div>\n' +
-                    '<div><span style="display:block; width: 20%; float: left; height: 40px; background: ' + val.leftMenuBg + ';"></span><span style="display:block; width: 80%; float: left; height: 40px; background: #ffffff;"></span></div>\n' +
-                    '</a>\n' +
-                    '</li>';
             });
             return html;
         },
@@ -534,20 +539,21 @@ define(["jquery"], function ($) {
          */
         listen: function (options) {
             $('body').on('click', '[data-bgcolor]', function () {
-                var loading = layer.load(0, {shade: false, time: 2 * 1000});
-                var clientHeight = (document.documentElement.clientHeight) - 60;
-                var bgColorHtml = miniTheme.buildBgColorHtml(options);
-                var html = '<div class="layuimini-color">\n' +
-                    '<div class="color-title">\n' +
-                    '<span>配色方案</span>\n' +
-                    '</div>\n' +
-                    '<div class="color-content">\n' +
-                    '<ul>\n' + bgColorHtml + '</ul>\n' +
-                    '</div>\n' +
-                    '<div class="more-menu-list">\n' +
-                    '<a class="more-menu-item" href="https://gitee.com/wolf18/easyAdmin8" target="_blank"><i class="layui-icon layui-icon-tabs" style="font-size: 16px;"></i> 开源地址</a>\n' +
-                    '</div>' +
-                    '</div>';
+                let loading = layer.load(0, {shade: false, time: 2 * 1000});
+                let clientHeight = (document.documentElement.clientHeight) - 60;
+                let bgColorHtml = miniTheme.buildBgColorHtml(options);
+                let html = `<div class="layuimini-color">
+<div class="color-title">
+<span>配色方案</span>
+</div>
+<div class="color-content">
+<ul>
+${bgColorHtml}
+</ul>
+</div>
+<div class="more-menu-list">
+<a class="more-menu-item" href="https://gitee.com/EasyAdmin8/EasyAdmin8" target="_blank"><i class="layui-icon layui-icon-tabs" style="font-size: 16px;"></i> 开源地址</a>
+</div></div>`;
                 layer.open({
                     type: 1,
                     title: false,
@@ -556,7 +562,7 @@ define(["jquery"], function ($) {
                     anim: 2,
                     shadeClose: true,
                     id: 'layuiminiBgColor',
-                    area: ['340px', clientHeight + 'px'],
+                    area: ['340px', `${clientHeight}px`],
                     offset: 'rb',
                     content: html,
                     success: function (index, layero) {
@@ -569,7 +575,7 @@ define(["jquery"], function ($) {
             });
 
             $('body').on('click', '[data-select-bgcolor]', function () {
-                var bgcolorId = $(this).attr('data-select-bgcolor');
+                let bgcolorId = $(this).attr('data-select-bgcolor');
                 $('.layuimini-color .color-content ul .layui-this').attr('class', '');
                 $(this).attr('class', 'layui-this');
                 localStorage.setItem('layuiminiBgColorId', bgcolorId);
@@ -580,11 +586,11 @@ define(["jquery"], function ($) {
                 miniTheme.changeThemeMainColor()
             });
             $('body').on('click', '[data-select-style]', function () {
-                var elemStyleName = $(this).attr('data-select-style');
+                let elemStyleName = $(this).attr('data-select-style');
 
                 $(this).attr('class', 'layui-this').siblings().removeClass('layui-this');
 
-                var defaultColorConfig = $(this).attr('data-default-color-config');
+                let defaultColorConfig = $(this).attr('data-default-color-config');
 
                 if (defaultColorConfig && defaultColorConfig.length > 0) {
                     localStorage.setItem('layuiminiBgColorId', defaultColorConfig);
