@@ -697,17 +697,20 @@ body {
 /**
 菜单缩放
  */
+.popup-tips {
+    border-radius: 0 !important;
+}
+
 .popup-tips .layui-layer-TipsG {
     display: none;
 }
 
 .popup-tips.layui-layer-tips .layui-layer-content {
     padding: 0;
-    background: var(--lay-color-bg-1) !important;
 }
 
 .popup-tips .layui-nav {
-    background-color: var(--lay-color-bg-1);
+    /*background-color: var(--lay-color-bg-1);*/
     /*border-radiu*/
 }
 
