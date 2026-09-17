@@ -3,6 +3,7 @@
 namespace app\admin\controller;
 
 use app\admin\model\SystemAdmin;
+use app\admin\service\annotation\MiddlewareAnnotation;
 use app\admin\service\IpService;
 use app\common\controller\AdminController;
 use app\common\utils\Helper;
@@ -22,8 +23,6 @@ use Wolfcode\CloudflareTurnstile\Widget;
 class Login extends AdminController
 {
 
-    protected bool $ignoreLogin = true;
-
     public function initialize(): void
     {
         parent::initialize();
@@ -42,7 +41,10 @@ class Login extends AdminController
      * @throws DbException
      * @throws ModelNotFoundException
      */
-    #[RateLimitingMiddleware(key: [Helper::class, 'getIp'], seconds: 1, limit: 1, message: '请求过于频繁')]
+    #[
+        RateLimitingMiddleware(key: [Helper::class, 'getIp'], seconds: 1, limit: 1, message: '请求过于频繁'),
+        MiddlewareAnnotation(ignore: MiddlewareAnnotation::IGNORE_LOGIN),
+    ]
     public function index(Request $request): string
     {
         $captcha     = env('EASYADMIN.CAPTCHA', false);
@@ -119,6 +121,7 @@ class Login extends AdminController
      * 验证码
      * @return Response
      */
+    #[MiddlewareAnnotation(ignore: MiddlewareAnnotation::IGNORE_LOGIN)]
     public function captcha(): Response
     {
         // 验证码规则 4位纯数字（可以自己添加英文字母）
