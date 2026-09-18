@@ -26,42 +26,38 @@ class CheckLogin
         $controllerClass = 'app\\admin\\controller\\' . $controller;
         $classObj        = new ReflectionClass($controllerClass);
         $properties      = $classObj->getDefaultProperties();
-        // 整个控制器是否忽略登录
-        $ignoreLogin   = $properties['ignoreLogin'] ?? false;
-        $adminUserInfo = session('admin');
-        if (!$ignoreLogin) {
-            $noNeedCheck = $properties['noNeedCheck'] ?? [];
-            if (in_array($action, $noNeedCheck)) {
-                return $next($request);
+        $adminUserInfo   = session('admin');
+        $noNeedCheck     = $properties['noNeedCheck'] ?? [];
+        if (in_array($action, $noNeedCheck)) {
+            return $next($request);
+        }
+        try {
+            $reflectionMethod = new \ReflectionMethod($controllerClass, $action);
+            $attributes       = $reflectionMethod->getAttributes(MiddlewareAnnotation::class);
+            foreach ($attributes as $attribute) {
+                $annotation = $attribute->newInstance();
+                $_ignore    = (array)$annotation->ignore;
+                // 控制器中的某个方法忽略登录
+                if (in_array('LOGIN', $_ignore)) return $next($request);
             }
-            try {
-                $reflectionMethod = new \ReflectionMethod($controllerClass, $action);
-                $attributes       = $reflectionMethod->getAttributes(MiddlewareAnnotation::class);
-                foreach ($attributes as $attribute) {
-                    $annotation = $attribute->newInstance();
-                    $_ignore    = (array)$annotation->ignore;
-                    // 控制器中的某个方法忽略登录
-                    if (in_array('LOGIN', $_ignore)) return $next($request);
-                }
-            }catch (\Throwable) {
-            }
-            if (empty($adminUserInfo)) {
-                return redirect(__url('login/index'));
-            }
-            if (!$this->chekSign($request, $adminUserInfo)) {
-                session('admin', null);
-                session('admin_sign', null);
-                return redirect(__url('login/index'));
-            }
-            // 判断是否登录过期
-            $expireTime = $adminUserInfo['expire_time'];
-            if ($expireTime !== 0 && time() > $expireTime) {
-                session('admin', null);
-                $this->error('登录已过期，请重新登录', [], __url(env('EASYADMIN.ADMIN') . '/login/index'));
-            }
-            if (($adminUserInfo['ip_check'] ?? 2) === 1) {
-                if (!IpService::whiteCheck()) $this->error('IP环境不在授信范围中，请联系管理员');
-            }
+        } catch (\Throwable) {
+        }
+        if (empty($adminUserInfo)) {
+            return redirect(__url('login/index'));
+        }
+        if (!$this->chekSign($request, $adminUserInfo)) {
+            session('admin', null);
+            session('admin_sign', null);
+            return redirect(__url('login/index'));
+        }
+        // 判断是否登录过期
+        $expireTime = $adminUserInfo['expire_time'];
+        if ($expireTime !== 0 && time() > $expireTime) {
+            session('admin', null);
+            $this->error('登录已过期，请重新登录', [], __url(env('EASYADMIN.ADMIN') . '/login/index'));
+        }
+        if (($adminUserInfo['ip_check'] ?? 2) === 1) {
+            if (!IpService::whiteCheck()) $this->error('IP环境不在授信范围中，请联系管理员');
         }
         $request->adminUserInfo = $adminUserInfo ?: [];
         return $next($request);
