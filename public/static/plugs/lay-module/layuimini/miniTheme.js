@@ -278,7 +278,10 @@ define(["jquery"], function ($) {
             if (bgcolorId === null || bgcolorId === undefined || bgcolorId === '') return false;
             let bgcolorData = miniTheme.config(bgcolorId);
             let mainColor = bgcolorData.headerRightBg
-            if (bgcolorId < 1) mainColor = bgcolorData.tabActiveColor || '#16b777';
+            if (bgcolorId < 2) {
+                mainColor = bgcolorData.tabActiveColor || '#16b777';
+                if (localStorage.getItem('layuiminiElemStyleName') === 'dark') mainColor = '#16b777';
+            }
             const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--ea8-theme-main-color');
             document.documentElement.style.setProperty('--ea8-theme-main-color', mainColor);
             const iframes = document.getElementsByTagName('iframe');

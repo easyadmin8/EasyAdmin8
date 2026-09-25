@@ -464,16 +464,25 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                     // 默认关闭搜索表单自动补全功能
                     let searchTableAutocomplete = $(elem).attr('searchTableAutocomplete') || 'false'
 
-                    let tableSearchClass = searchTableShow === 'false' ? 'table-search-fieldset layui-hide' : 'table-search-fieldset'
+                    let tableSearchExpanded = searchTableShow !== 'false'
+                    let tableSearchClass = tableSearchExpanded ? 'table-search-fieldset' : 'table-search-fieldset table-search-collapsed'
+                    let tableSearchToggleIcon = tableSearchExpanded ? 'fa-angle-double-up' : 'fa-angle-double-down'
+                    let tableSearchToggleText = tableSearchExpanded ? '隐藏' : '展开'
                     $(elem).before('<fieldset id="searchFieldset_' + tableId + '" class="' + tableSearchClass + '">\n' +
-                        '<form class="layui-form layui-form-pane form-search">\n' +
+                        '<form id="searchForm_' + tableId + '" class="layui-form layui-form-pane form-search">\n' +
                         formHtml +
-                        '<div class="layui-form-item layui-inline" style="margin-left: 115px">\n' +
+                        '<div class="layui-form-item table-search-actions">\n' +
                         '<button type="submit" class="layui-btn layui-btn-normal" data-type="tableSearch" data-table="' + tableId + '" lay-submit lay-filter="' + tableId + '_filter"> 搜 索</button>\n' +
                         '<button type="reset" class="layui-btn layui-btn-primary" data-table-reset="' + tableId + '"> 重 置 </button>\n' +
+                        '<button type="button" class="layui-btn layui-btn-primary table-search-toggle" data-table-search-toggle="' + tableId + '" aria-expanded="' + tableSearchExpanded + '" aria-controls="searchForm_' + tableId + '">\n' +
+                        '<i class="fa ' + tableSearchToggleIcon + '"></i> <span>' + tableSearchToggleText + '</span></button>\n' +
                         ' </div>' +
                         '</form>' +
                         '</fieldset>');
+
+                    $('#searchFieldset_' + tableId + ' [data-table-search-toggle]').on('click', function () {
+                        admin.table.toggleSearch(tableId);
+                    });
 
                     admin.table.listenTableSearch(tableId);
 
@@ -935,6 +944,15 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                     return false;
                 });
             },
+            toggleSearch: function (tableId) {
+                var searchFieldset = $('#searchFieldset_' + tableId);
+                var collapsed = searchFieldset.toggleClass('table-search-collapsed').hasClass('table-search-collapsed');
+                var expanded = !collapsed;
+                var toggle = searchFieldset.find('[data-table-search-toggle]');
+                toggle.attr('aria-expanded', expanded);
+                toggle.find('i').attr('class', expanded ? 'fa fa-angle-double-up' : 'fa fa-angle-double-down');
+                toggle.find('span').text(expanded ? '隐藏' : '展开');
+            },
             listenSwitch: function (option, ok) {
                 option.filter = option.filter || '';
                 option.url = option.url || '';
@@ -978,13 +996,7 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                     // 搜索表单的显示
                     switch (obj.event) {
                         case 'TABLE_SEARCH':
-                            var searchFieldsetId = 'searchFieldset_' + tableId;
-                            var _that = $("#" + searchFieldsetId);
-                            if (_that.hasClass("layui-hide")) {
-                                _that.removeClass('layui-hide');
-                            } else {
-                                _that.addClass('layui-hide');
-                            }
+                            admin.table.toggleSearch(tableId);
                             break;
                     }
                 });

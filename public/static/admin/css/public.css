@@ -55,7 +55,7 @@ pre, code, .code-box {
     position: relative;
     background-color: var(--lay-color-bg-1);
     color: var(--lay-color-text-2);
-    border-radius: 5px;
+    border-radius: 0;
     min-height: 100vh;
     padding-bottom: 7px;
 }
@@ -265,7 +265,7 @@ xm-select > .xm-body .xm-option-content {
     white-space: nowrap;
     text-align: center;
     background-color: #777777;
-    border-radius: 10px;
+    border-radius: 0;
 }
 
 /**vue隐藏样式*/
@@ -276,14 +276,14 @@ xm-select > .xm-body .xm-option-content {
 /**表格url样式*/
 .layuimini-table-url {
     color: #1497f3;
-    border-radius: 3px;
+    border-radius: 0;
     size: 8px !important;
     padding: 2px
 }
 
 .layuimini-table-url:hover {
     color: #1497f3;
-    border-radius: 3px;
+    border-radius: 0;
     size: 8px !important;
     padding: 2px
 }
@@ -304,7 +304,7 @@ xm-select > .xm-body .xm-option-content {
 table样式
  */
 .layuimini-container .layui-laypage .layui-laypage-curr .layui-laypage-em {
-    border-radius: 30px !important;
+    border-radius: 0 !important;
     background-color: #1e9fff !important;
 }
 
@@ -596,8 +596,8 @@ table样式
     --ea-bg: #f3f4f6;
     --ea-surface: #ffffff;
     --ea-surface-2: #f9fafb;
-    --ea-radius: 8px;
-    --ea-radius-lg: 12px;
+    --ea-radius: 0;
+    --ea-radius-lg: 0;
     --ea-shadow-sm: 0 1px 2px rgba(0,0,0,.05);
     --ea-shadow: 0 2px 8px rgba(0,0,0,.06);
     --ea-shadow-lg: 0 12px 40px rgba(0,0,0,.12);
@@ -625,7 +625,7 @@ html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 body { background-color: var(--ea-bg); color: var(--ea-text); }
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(120,120,120,.35); border-radius: 4px; border: 2px solid transparent; background-clip: content-box; }
+::-webkit-scrollbar-thumb { background: rgba(120,120,120,.35); border-radius: 0; border: 2px solid transparent; background-clip: content-box; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(120,120,120,.55); }
 
 /* ===== 内容容器 ===== */
@@ -633,7 +633,7 @@ body { background-color: var(--ea-bg); color: var(--ea-text); }
 .layuimini-main {
     background-color: var(--ea-surface) !important;
     color: var(--ea-text);
-    border-radius: var(--ea-radius-lg) !important;
+    border-radius: 0 !important;
     border: 1px solid var(--ea-border) !important;
     box-shadow: var(--ea-shadow) !important;
     padding: 20px !important;
@@ -644,7 +644,7 @@ body { background-color: var(--ea-bg); color: var(--ea-text); }
 .layui-card {
     background-color: var(--ea-surface) !important;
     border: 1px solid var(--ea-border) !important;
-    border-radius: var(--ea-radius-lg) !important;
+    border-radius: 0 !important;
     box-shadow: var(--ea-shadow-sm) !important;
     overflow: hidden;
     transition: box-shadow .25s ease;
@@ -652,10 +652,11 @@ body { background-color: var(--ea-bg); color: var(--ea-text); }
 .layui-card:hover { box-shadow: var(--ea-shadow) !important; }
 .layui-card-header { font-weight: 600 !important; color: var(--ea-text) !important; padding: 14px 18px !important; background-color: transparent !important; border-bottom-color: var(--ea-border) !important; }
 .layui-card-body { padding: 18px !important; color: var(--ea-text); }
-.layui-border { border-color: var(--ea-border) !important; border-radius: var(--ea-radius) !important; }
+.layui-border { border-color: var(--ea-border) !important; border-radius: 0 !important; }
 
 /* ===== 按钮 ===== */
 .layui-btn {
+    border-radius: 0 !important;
     font-weight: 500 !important;
     letter-spacing: .2px;
     transition: all .2s ease !important;
@@ -672,6 +673,7 @@ body { background-color: var(--ea-bg); color: var(--ea-text); }
 /* ===== 输入控件 ===== */
 .layui-input, .layui-textarea {
     border-color: var(--ea-border) !important;
+    border-radius: 0 !important;
     background-color: var(--ea-surface) !important;
     color: var(--ea-text) !important;
     transition: border-color .2s ease, box-shadow .2s ease !important;
@@ -686,7 +688,7 @@ body { background-color: var(--ea-bg); color: var(--ea-text); }
 
 /* 下拉 */
 .layui-form-select dl {
-    border-radius: 0 0 var(--ea-radius) var(--ea-radius) !important;
+    border-radius: 0 !important;
     border: 1px solid var(--ea-border) !important;
     box-shadow: var(--ea-shadow-lg) !important;
     background-color: var(--ea-surface) !important;
@@ -698,13 +700,13 @@ body { background-color: var(--ea-bg); color: var(--ea-text); }
 /* 开关 / 复选 */
 .layui-form-switch { border-radius: 20px !important; transition: all .2s ease !important; }
 .layui-form-onswitch { background-color: var(--ea-primary) !important; border-color: var(--ea-primary) !important; }
-.layui-form-checkbox[lay-skin="primary"] i { border-radius: 4px !important; transition: all .15s ease !important; }
+.layui-form-checkbox[lay-skin="primary"] i { border-radius: 0 !important; transition: all .15s ease !important; }
 .layui-form-checked[lay-skin="primary"] i { background-color: var(--ea-primary) !important; border-color: var(--ea-primary) !important; }
 .layui-form-checked[lay-skin="primary"] i:after { color: #ffffff !important; }
 
 /* ===== 表格 ===== */
 .layuimini-container .layui-table {
-    border-radius: var(--ea-radius-lg) !important;
+    border-radius: 0 !important;
     overflow: hidden;
     background-color: var(--ea-surface) !important;
     box-shadow: var(--ea-shadow-sm);
@@ -724,33 +726,35 @@ body { background-color: var(--ea-bg); color: var(--ea-text); }
 
 /* 搜索区 */
 .layuimini-container .table-search-fieldset {
-    background-color: var(--ea-surface-2) !important;
-    border: 1px solid var(--ea-border) !important;
-    border-radius: var(--ea-radius) !important;
-    padding: 18px 14px 14px !important;
-    margin-bottom: 16px !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--ea-border) !important;
+    border-radius: 0 !important;
+    padding: 12px 0 0 !important;
+    margin-bottom: 12px !important;
 }
 
 /* 分页 */
 .layuimini-container .layui-laypage a,
 .layuimini-container .layui-laypage span {
-    border-radius: 6px !important;
-    border: 1px solid var(--ea-border) !important;
+    border-radius: 0 !important;
     margin: 0 2px !important;
     background-color: var(--ea-surface) !important;
     color: var(--ea-text) !important;
     transition: all .2s ease !important;
+    padding: 0 12px;
+    text-align: center;
 }
 .layuimini-container .layui-laypage a:hover { color: var(--ea-primary) !important; border-color: var(--ea-primary) !important; }
 .layuimini-container .layui-laypage .layui-laypage-curr { margin: 0 2px !important; background: transparent !important; }
 .layuimini-container .layui-laypage .layui-laypage-curr .layui-laypage-em {
-    border-radius: 6px !important;
-    background-color: var(--ea-primary) !important;
+    border-radius: 30px !important;
+    background-color: var(--ea8-theme-main-color) !important;
 }
 
 /* ===== 弹层 (只加圆角与阴影，标题/按钮沿用 Layui 原装) ===== */
 .layui-layer {
-    border-radius: var(--ea-radius-lg) !important;
+    border-radius: 0 !important;
     overflow: hidden;
     box-shadow: 0 24px 64px rgba(0,0,0,.2) !important;
 }
@@ -761,29 +765,29 @@ body { background-color: var(--ea-bg); color: var(--ea-text); }
 /* ===== 头部 (颜色由配色方案 miniTheme 控制，这里只加过渡/圆角，不覆盖背景/文字色) ===== */
 .layui-layout-admin .layui-header { box-shadow: 0 1px 6px rgba(0,0,0,.08) !important; }
 .layui-layout-admin .layuimini-logo h1 { font-weight: 700 !important; letter-spacing: .5px; }
-.layui-header .layuimini-tool i { border-radius: 6px; transition: all .2s ease; width: 34px; height: 34px; line-height: 34px; }
-.layui-header .layui-nav .layui-nav-item a { transition: all .2s ease; border-radius: 6px; }
+.layui-header .layuimini-tool i { border-radius: 0; transition: all .2s ease; width: 34px; height: 34px; line-height: 34px; }
+.layui-header .layui-nav .layui-nav-item a { transition: all .2s ease; border-radius: 0; }
 
 /* 头部下拉 (浮层，配色方案不管，用主色系) */
 .layui-header .layui-nav .layui-nav-child {
-    border-radius: var(--ea-radius) !important;
+    border-radius: 0 !important;
     box-shadow: var(--ea-shadow-lg) !important;
     border: 1px solid var(--ea-border) !important;
     background-color: var(--ea-surface) !important;
 }
-.layui-header .layui-nav .layui-nav-child dd a { border-radius: 6px; transition: all .15s ease; color: var(--ea-text) !important; }
+.layui-header .layui-nav .layui-nav-child dd a { border-radius: 0; transition: all .15s ease; color: var(--ea-text) !important; }
 .layui-header .layui-nav .layui-nav-child dd a:hover { background-color: var(--ea-primary-soft) !important; color: var(--ea-primary) !important; }
 .dark .layui-header .layui-nav .layui-nav-child { background-color: var(--ea-surface) !important; }
 .dark .layui-header .layui-nav .layui-nav-child dd a { color: var(--ea-text) !important; }
 
 /* ===== 侧边栏 (颜色由配色方案控制，这里只加圆角/过渡/间距) ===== */
-.layuimini-menu-left .layui-nav-tree .layui-nav-item a { border-radius: 6px; transition: all .2s ease; margin: 2px 10px !important; }
+.layuimini-menu-left .layui-nav-tree .layui-nav-item a { border-radius: 0; transition: all .2s ease; margin: 2px 10px !important; }
 .dark .layuimini-menu-left .layui-nav-tree .layui-nav-child { background-color: rgba(0,0,0,.2) !important; }
 
 /* ===== 页签 (扁平矩形风，配色方案的 tabActiveColor 仍控制选中色) ===== */
 .layuimini-tab .layui-tabs-header { gap: 2px; height: 42px; padding: 0 6px; }
 .layuimini-tab .layui-tabs-header li {
-    border-radius: 4px !important;
+    border-radius: 0 !important;
     height: 30px !important;
     line-height: 30px !important;
     padding: 0 14px !important;
@@ -792,24 +796,24 @@ body { background-color: var(--ea-bg); color: var(--ea-text); }
 }
 .layuimini-tab .layui-tabs-header li:not(.layui-this):hover { background: rgba(0,0,0,.05) !important; color: var(--ea-text); }
 .dark .layuimini-tab .layui-tabs-header li:not(.layui-this):hover { background: rgba(255,255,255,.06) !important; }
-.layuimini-tab .layui-tabs-header .layui-this { border-radius: 4px !important; }
+.layuimini-tab .layui-tabs-header .layui-this { border-radius: 0 !important; }
 .layuimini-tab .layui-tab-control > li { transition: all .2s ease; }
 
 /* ===== 菜单(角色列表等) ===== */
-.layui-menu { border-radius: var(--ea-radius); background-color: var(--ea-surface); }
-.layui-menu .layui-menu-body-title { border-radius: 6px; margin: 2px 0; transition: all .15s ease; color: var(--ea-text); }
+.layui-menu { border-radius: 0; background-color: var(--ea-surface); }
+.layui-menu .layui-menu-body-title { border-radius: 0; margin: 2px 0; transition: all .15s ease; color: var(--ea-text); }
 .layui-menu .layui-menu-body-title:hover { background-color: var(--ea-primary-soft); color: var(--ea-primary); }
 .layui-menu .layui-menu-item-checked,
 .layui-menu .layui-menu-item-checked2 { background-color: var(--ea-primary-soft) !important; color: var(--ea-primary) !important; }
 
 /* ===== 卡片式页签 / 面板 ===== */
-.layui-tabs-card { border-radius: var(--ea-radius); }
+.layui-tabs-card { border-radius: 0; }
 .layui-tabs-card .layui-tabs-header { background-color: var(--ea-surface-2) !important; border-bottom: 1px solid var(--ea-border) !important; }
 .layui-tabs-card .layui-tabs-header li.layui-this { color: var(--ea-primary); }
-.layui-panel { border-radius: var(--ea-radius); box-shadow: var(--ea-shadow-sm); background-color: var(--ea-surface); border: 1px solid var(--ea-border); }
+.layui-panel { border-radius: 0; box-shadow: var(--ea-shadow-sm); background-color: var(--ea-surface); border: 1px solid var(--ea-border); }
 
 /* ===== 上传 ===== */
-.layuimini-upload-show li { border-radius: var(--ea-radius); transition: all .2s ease; border: 1px solid var(--ea-border) !important; background-color: var(--ea-surface); }
+.layuimini-upload-show li { border-radius: 0; transition: all .2s ease; border: 1px solid var(--ea-border) !important; background-color: var(--ea-surface); }
 .layuimini-upload-show li:hover { box-shadow: var(--ea-shadow) !important; border-color: var(--ea-primary) !important; }
 
 /* ===== 表单 ===== */
@@ -820,15 +824,15 @@ body { background-color: var(--ea-bg); color: var(--ea-text); }
 .layuimini-form > .layui-form-item > .layui-inline tip { color: var(--ea-muted) !important; }
 
 /* ===== 表格链接 ===== */
-.layuimini-table-url { border-radius: 4px !important; padding: 1px 6px; transition: all .15s ease; color: var(--ea-primary) !important; }
+.layuimini-table-url { border-radius: 0 !important; padding: 1px 6px; transition: all .15s ease; color: var(--ea-primary) !important; }
 .layuimini-table-url:hover { background-color: var(--ea-primary-soft); color: var(--ea-primary-dark) !important; }
 
 /* ===== 加载层 ===== */
 .layuimini-loader { background-color: var(--ea-bg); }
 
 /* ===== 树表 / 代码块 ===== */
-.treeTable { border-radius: var(--ea-radius) !important; overflow: hidden; }
-.layui-code { border-radius: var(--ea-radius) !important; background-color: var(--ea-surface-2) !important; color: var(--ea-text); }
+.treeTable { border-radius: 0 !important; overflow: hidden; }
+.layui-code { border-radius: 0 !important; background-color: var(--ea-surface-2) !important; color: var(--ea-text); }
 
 /* ===== 横线 ===== */
 .hr-line { border: none !important; border-top: 1px dashed var(--ea-border) !important; margin: 24px 0 !important; }
@@ -844,3 +848,58 @@ body { background-color: var(--ea-bg); color: var(--ea-text); }
 .dark .layui-layer-content { color: var(--ea-text); }
 .dark .layui-layer-btn { background-color: var(--ea-surface) !important; border-top-color: var(--ea-border) !important; }
 .dark xm-select > .xm-body .selected .xm-option-icon { color: var(--ea-text) !important; }
+
+
+.form-search .table-search-actions {
+    display: flex;
+    align-items: center;
+}
+
+.form-search .table-search-actions .table-search-toggle {
+    margin-left: auto;
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: var(--ea8-theme-main-color) !important;
+    box-shadow: none !important;
+}
+
+.form-search .table-search-actions .table-search-toggle:hover {
+    background-color: transparent !important;
+    color: var(--ea8-theme-main-color) !important;
+    filter: none !important;
+    box-shadow: none !important;
+}
+
+.form-search .table-search-actions .table-search-toggle:focus {
+    box-shadow: 0 0 0 1px var(--ea8-theme-main-color) !important;
+}
+
+.layuimini-container .table-search-fieldset.table-search-collapsed {
+    min-height: 0;
+    margin: 0 0 4px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.layuimini-container .table-search-fieldset.table-search-collapsed .form-search > .layui-form-item:not(.table-search-actions) {
+    display: none;
+}
+
+.layuimini-container .table-search-fieldset.table-search-collapsed .table-search-actions {
+    justify-content: flex-end;
+    min-height: 24px;
+    margin: 0;
+}
+
+.layuimini-container .table-search-fieldset.table-search-collapsed .table-search-actions > button:not(.table-search-toggle) {
+    display: none;
+}
+
+.layuimini-container .table-search-fieldset.table-search-collapsed .table-search-toggle {
+    height: 24px;
+    line-height: 20px;
+    padding: 0 6px;
+}
