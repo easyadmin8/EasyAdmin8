@@ -137,7 +137,7 @@ trait JumpTrait
      * @param int $code
      * @return Json
      */
-    protected function jsonSuccess(object|array $data, int|string $count, string $msg = 'success', int $code = 0): Json
+    protected function jsonSuccess(object|array $data, int|string $count, string $msg = 'success', int $code = 1): Json
     {
         return json(compact('code', 'msg', 'data', 'count'));
     }

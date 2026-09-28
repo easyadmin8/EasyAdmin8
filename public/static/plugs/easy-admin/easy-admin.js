@@ -293,6 +293,11 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                     };
                 }
 
+                // 重定义 response 时 statusCode 的默认值
+                options.response = {
+                    statusCode: options?.response?.statusCode || 1,
+                }
+
                 // 初始化表格
                 var newTable = table.render(options);
 
