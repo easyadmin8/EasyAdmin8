@@ -40,12 +40,7 @@ class Schedule extends AdminController
     {
         if ($request->isAjax()) {
             $list = $this->getCrontabFiles();
-            return json([
-                            'code'  => 0,
-                            'msg'   => '',
-                            'count' => count($list),
-                            'data'  => $list,
-                        ]);
+            return $this->jsonSuccess($list, count($list));
         }
         return $this->fetch();
     }
@@ -140,9 +135,9 @@ class Schedule extends AdminController
             ->data(file_get_contents($logFile))
             ->contentType('text/plain; charset=utf-8')
             ->header([
-                         'Content-Disposition' => 'attachment; filename="' . basename($logFile) . '"',
-                         'Content-Length'      => (string)filesize($logFile),
-                     ]);
+                'Content-Disposition' => 'attachment; filename="' . basename($logFile) . '"',
+                'Content-Length'      => (string)filesize($logFile),
+            ]);
     }
 
     /**
