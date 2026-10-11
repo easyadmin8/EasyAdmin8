@@ -21,7 +21,7 @@
     "topthink/think-orm": "^4.0",
     "topthink/think-multi-app": "^1.1.0",
     "topthink/think-view": "^2.0",
-    "topthink/think-filesystem": "^2.0",
+    "topthink/think-filesystem": "^3.0",
     "aliyuncs/oss-sdk-php": "^2.7.2",
     "qcloud/cos-sdk-v5": "^2.6",
     "doctrine/annotations": "^2.0.0",
