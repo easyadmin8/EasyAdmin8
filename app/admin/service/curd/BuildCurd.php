@@ -265,6 +265,9 @@ class BuildCurd
 
     public function setTablePrefix($prefix): static
     {
+        if ($prefix !== '' && !preg_match('/^[A-Za-z0-9_]+$/', (string)$prefix)) {
+            throw new TableException('表前缀不合法，仅允许字母、数字、下划线');
+        }
         $this->tablePrefix = $prefix;
         return $this;
     }
@@ -277,6 +280,9 @@ class BuildCurd
      */
     public function setTable($table): static
     {
+        if (!preg_match('/^[A-Za-z0-9_]+$/', (string)$table)) {
+            throw new TableException('表名不合法，仅允许字母、数字、下划线');
+        }
         $this->table = $table;
         try {
 
@@ -342,6 +348,9 @@ class BuildCurd
      */
     public function setRelation($relationTable, $foreignKey, $primaryKey = null, $modelFilename = null, array $onlyShowFields = [], $bindSelectField = null): static
     {
+        if (!preg_match('/^[A-Za-z0-9_]+$/', (string)$relationTable)) {
+            throw new TableException('关联表名不合法，仅允许字母、数字、下划线');
+        }
         if (!isset($this->tableColumns[$foreignKey])) {
             throw new TableException("主表不存在外键字段：{$foreignKey}");
         }
@@ -412,6 +421,7 @@ class BuildCurd
      */
     public function setControllerFilename($controllerFilename): static
     {
+        $this->assertSafeFilename((string)$controllerFilename);
         $this->controllerFilename = str_replace('/', $this->DS, $controllerFilename);
         $this->buildViewJsUrl();
         return $this;
@@ -424,9 +434,37 @@ class BuildCurd
      */
     public function setModelFilename($modelFilename): static
     {
+        $this->assertSafeFilename((string)$modelFilename);
         $this->modelFilename = str_replace('/', $this->DS, $modelFilename);
         $this->buildViewJsUrl();
         return $this;
+    }
+
+    /**
+     * 校验生成文件名，禁止路径穿越
+     */
+    protected function assertSafeFilename(string $filename): void
+    {
+        if ($filename === '' || str_contains($filename, '..') || !preg_match('/^[A-Za-z0-9_\/\\\\]+$/', $filename)) {
+            throw new FileException('非法的文件名：' . $filename);
+        }
+    }
+
+    /**
+     * 校验最终写入/删除路径必须位于项目根目录内
+     */
+    protected function assertSafeFilePath(string $path): void
+    {
+        if (str_contains($path, '..')) {
+            throw new FileException('非法的文件路径：' . $path);
+        }
+        $rootReal = realpath($this->rootDir);
+        $dirReal  = realpath(dirname($path));
+        if ($rootReal !== false && $dirReal !== false) {
+            if (!str_starts_with($dirReal . $this->DS, $rootReal . $this->DS)) {
+                throw new FileException('非法的文件路径：' . $path);
+            }
+        }
     }
 
     /**
@@ -1478,7 +1516,7 @@ class BuildCurd
     {
         $this->check();
         foreach ($this->fileList as $key => $val) {
-
+            $this->assertSafeFilePath($key);
             // 判断文件夹是否存在,不存在就创建
             $fileArray = explode($this->DS, $key);
             array_pop($fileArray);
@@ -1501,6 +1539,7 @@ class BuildCurd
     {
         $deleteFile = [];
         foreach ($this->fileList as $key => $val) {
+            $this->assertSafeFilePath($key);
             if (is_file($key)) {
                 unlink($key);
                 $deleteFile[] = $key;
@@ -1570,6 +1609,6 @@ class BuildCurd
 
     protected function formatNotesScript(): string
     {
-        return '    let notes = JSON.parse(\'{$notes|json_encode=256|raw}\');';
+        return '    let notes = {:json_encode($notes, 15)};';
     }
 }

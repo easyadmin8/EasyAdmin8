@@ -51,12 +51,12 @@ class CheckLogin
             return redirect(__url('login/index'));
         }
         // 判断是否登录过期
-        $expireTime = $adminUserInfo['expire_time'];
+        $expireTime = (int)($adminUserInfo['expire_time'] ?? 0);
         if ($expireTime !== 0 && time() > $expireTime) {
             session('admin', null);
             $this->error('登录已过期，请重新登录', [], __url(env('EASYADMIN.ADMIN') . '/login/index'));
         }
-        if (($adminUserInfo['ip_check'] ?? 2) === 1) {
+        if ((int)($adminUserInfo['ip_check'] ?? 2) === 1) {
             if (!IpService::whiteCheck()) $this->error('IP环境不在授信范围中，请联系管理员');
         }
         $request->adminUserInfo = $adminUserInfo ?: [];

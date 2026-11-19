@@ -48,13 +48,17 @@ class Goods extends AdminController
         empty($row) && $this->error('数据不存在');
         if ($request->isPost()) {
             $post = $request->post();
-            $rule = [];
+            $rule = [
+                'stock|入库数量' => 'require|integer|egt:0',
+            ];
             $this->validate($post, $rule);
             try {
-                $post['total_stock'] = $row->total_stock + $post['stock'];
-                $post['stock']       = $row->stock + $post['stock'];
-                $save                = $row->save($post);
-            }catch (\Exception $e) {
+                $stock = (int)$post['stock'];
+                $save  = $row->allowField(['stock', 'total_stock'])->save([
+                    'stock'       => (int)$row->stock + $stock,
+                    'total_stock' => (int)$row->total_stock + $stock,
+                ]);
+            }catch (\Throwable $e) {
                 $this->error('保存失败');
             }
             $save ? $this->success('保存成功') : $this->error('保存失败');

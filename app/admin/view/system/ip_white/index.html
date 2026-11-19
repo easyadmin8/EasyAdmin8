@@ -12,5 +12,5 @@
 </div>
 
 <script>
-    let notes = JSON.parse('{$notes|json_encode=256|raw}');
+    let notes = {:json_encode($notes, 15)};
 </script>

@@ -89,8 +89,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
                     $.each(res.data, function (idx, item) {
                         if (item.status === 1) {
                             $(`tr[data-index="${idx}"]`).css({
-                                'background': 'linear-gradient(to left, #77eb7c, #bbffbe, #ffffff, transparent)',
-                                'border': 'none',
+                                'background': `linear-gradient(to left, var(--ea8-theme-main-color), var(--ea-surface), transparent)`,
                             })
                         }
                     })
@@ -158,7 +157,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
             var demo1 = xmSelect.render({
                 el: '#demo1',
                 name: 'xxx', // form表单提交的name
-                theme: {color: getComputedStyle(document.documentElement).getPropertyValue('--ea8-theme-main-color') || '#16b777'},
+                theme: {color: getComputedStyle(document.documentElement).getPropertyValue('--ea8-theme-main-color') || '#1e9fff'},
                 data: [
                     {name: 'Make', value: 1},
                     {name: 'PHP', value: 2},
@@ -180,7 +179,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
             var demo1 = xmSelect.render({
                 el: '#demo1',
                 name: 'xxx', // form表单提交的name
-                theme: {color: getComputedStyle(document.documentElement).getPropertyValue('--ea8-theme-main-color') || '#16b777'},
+                theme: {color: getComputedStyle(document.documentElement).getPropertyValue('--ea8-theme-main-color') || '#1e9fff'},
                 data: [
                     {name: 'Make', value: 1},
                     {name: 'PHP', value: 2, selected: true,},

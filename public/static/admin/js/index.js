@@ -36,6 +36,40 @@ define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTh
                 },
             })
 
+            // 代码块高亮 & 页签
+            layui.use(['tabs', 'code'], function () {
+                layui.code({elem: '.code-install'});
+            });
+
+            // 顶部日期
+            (function () {
+                var el = document.getElementById('w-today');
+                if (!el) return;
+                var d = new Date();
+                var week = ['日', '一', '二', '三', '四', '五', '六'];
+                el.textContent = d.getFullYear() + ' 年 ' + (d.getMonth() + 1) + ' 月 ' + d.getDate() + ' 日 星期' + week[d.getDay()];
+            })();
+
+            // 向 AI 同事求助提示词浮动层：点击标题栏收起/展开
+            (function () {
+                var $tip = $('#wAiTip');
+                if (!$tip.length) return;
+                var $head = $('#wAiTipToggle');
+
+                function toggle() {
+                    var collapsed = $tip.toggleClass('is-collapsed').hasClass('is-collapsed');
+                    $head.attr('aria-expanded', collapsed ? 'false' : 'true');
+                    $head.find('.w-ai-tip-action i').attr('class', collapsed ? 'fa fa-plus' : 'fa fa-minus');
+                }
+
+                $head.on('click', toggle).on('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggle();
+                    }
+                });
+            })();
+
             /**
              * 查看公告信息
              **/
@@ -43,13 +77,13 @@ define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTh
                 var title = $(this).children('.layuimini-notice-title').text(),
                     noticeTime = $(this).children('.layuimini-notice-extra').text(),
                     content = $(this).children('.layuimini-notice-content').html();
-                var html = '<div style="padding:15px 20px; text-align:justify; line-height: 22px;border-bottom:1px solid #e2e2e2;background-color: #2f4056;color: #ffffff">\n' +
-                    '<div style="text-align: center;margin-bottom: 20px;font-weight: bold;border-bottom:1px solid #718fb5;padding-bottom: 5px"><h4 class="text-danger">' + title + '</h4></div>\n' +
+                var html = '<div style="padding:15px 20px; text-align:justify; line-height: 22px;border-bottom:1px solid #e2eefb;background-color: #f8fcff;color: #31414a">\n' +
+                    '<div style="text-align: center;margin-bottom: 20px;font-weight: bold;border-bottom:1px solid #cfe4fb;padding-bottom: 5px"><h4 class="text-danger">' + title + '</h4></div>\n' +
                     '<div style="font-size: 12px">' + content + '</div>\n' +
                     '</div>\n';
                 layer.open({
                     type: 1,
-                    title: '系统公告' + '<span style="float: right;right: 1px;font-size: 12px;color: #b1b3b9;margin-top: 1px">' + noticeTime + '</span>',
+                    title: '系统公告' + '<span style="float: right;right: 1px;font-size: 12px;color: #7b8b95;margin-top: 1px">' + noticeTime + '</span>',
                     area: '300px;',
                     shade: 0.8,
                     id: 'layuimini-notice',
@@ -73,125 +107,126 @@ define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTh
             $(function () {
                 $('#layui-version').text('v' + layui.v);
                 let echartsRecordsEl = document.getElementById('echarts-records');
-                if (echartsRecordsEl) {
-                    let echartsRecords = echarts.init(echartsRecordsEl, 'walden');
+                if (!echartsRecordsEl) return;
 
-                    let optionRecords = {
-                        tooltip: {
-                            trigger: 'axis',
-                            axisPointer: {
-                                type: 'shadow'
-                            }
+                let echartsRecords = echarts.init(echartsRecordsEl);
+
+                const week = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+                const axisLabel = {color: '#8a9994', fontSize: 12};
+                const gradient = (rgb, alphaTop) => new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                    {offset: 0, color: 'rgba(' + rgb + ',' + alphaTop + ')'},
+                    {offset: 1, color: 'rgba(' + rgb + ',0)'}
+                ]);
+
+                let optionRecords = {
+                    color: ['#1e9fff', '#17d641'],
+                    animationDuration: 1200,
+                    animationEasing: 'linear',
+                    animationDurationUpdate: 700,
+                    tooltip: {
+                        trigger: 'axis',
+                        backgroundColor: 'rgba(47, 54, 60, .92)',
+                        borderWidth: 0,
+                        padding: [10, 14],
+                        textStyle: {color: '#fff', fontSize: 12},
+                        axisPointer: {type: 'line', lineStyle: {color: 'rgba(120, 160, 150, .45)', type: 'dashed'}}
+                    },
+                    legend: {
+                        top: 0,
+                        right: 0,
+                        icon: 'circle',
+                        itemWidth: 8,
+                        itemHeight: 8,
+                        itemGap: 18,
+                        textStyle: {color: '#8a9994', fontSize: 12}
+                    },
+                    grid: {left: 6, right: 12, top: 44, bottom: 0, containLabel: true},
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: week,
+                        axisLine: {lineStyle: {color: 'rgba(140, 150, 146, .25)'}},
+                        axisTick: {show: false},
+                        axisLabel: axisLabel
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLabel: axisLabel,
+                        splitLine: {lineStyle: {type: 'dashed', color: 'rgba(140, 150, 146, .16)'}}
+                    },
+                    series: [
+                        {
+                            name: '访问量',
+                            type: 'line',
+                            smooth: true,
+                            showSymbol: false,
+                            symbol: 'circle',
+                            symbolSize: 7,
+                            animationDelay: 0,
+                            lineStyle: {width: 3},
+                            itemStyle: {borderWidth: 2, borderColor: '#ffffff'},
+                            areaStyle: {color: gradient('30, 159, 255', 0.30)},
+                            data: [1280, 1362, 1290, 1434, 1690, 1730, 1685]
                         },
-                        legend: {},
-                        xAxis: [
-                            {
-                                type: 'category',
-                                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-                            }
-                        ],
-                        yAxis: [
-                            {
-                                type: 'value'
-                            }
-                        ],
-                        series: [
-                            {
-                                name: 'Direct',
-                                type: 'bar',
-                                emphasis: {
-                                    focus: 'series'
-                                },
-                                data: [320, 332, 301, 334, 390, 330, 320]
-                            },
-                            {
-                                name: 'Email',
-                                type: 'bar',
-                                stack: 'Ad',
-                                emphasis: {
-                                    focus: 'series'
-                                },
-                                data: [120, 132, 101, 134, 90, 230, 210]
-                            },
-                            {
-                                name: 'Union Ads',
-                                type: 'bar',
-                                stack: 'Ad',
-                                emphasis: {
-                                    focus: 'series'
-                                },
-                                data: [220, 182, 191, 234, 290, 330, 310]
-                            },
-                            {
-                                name: 'Video Ads',
-                                type: 'bar',
-                                stack: 'Ad',
-                                emphasis: {
-                                    focus: 'series'
-                                },
-                                data: [150, 232, 201, 154, 190, 330, 410]
-                            },
-                            {
-                                name: 'Search Engine',
-                                type: 'bar',
-                                data: [862, 1018, 964, 1026, 1679, 1600, 1570],
-                                emphasis: {
-                                    focus: 'series'
-                                },
-                                markLine: {
-                                    lineStyle: {
-                                        type: 'dashed'
-                                    },
-                                    data: [[{ type: 'min' }, { type: 'max' }]]
-                                }
-                            },
-                            {
-                                name: 'Baidu',
-                                type: 'bar',
-                                barWidth: 5,
-                                stack: 'Search Engine',
-                                emphasis: {
-                                    focus: 'series'
-                                },
-                                data: [620, 732, 701, 734, 1090, 1130, 1120]
-                            },
-                            {
-                                name: 'Google',
-                                type: 'bar',
-                                stack: 'Search Engine',
-                                emphasis: {
-                                    focus: 'series'
-                                },
-                                data: [120, 132, 101, 134, 290, 230, 220]
-                            },
-                            {
-                                name: 'Bing',
-                                type: 'bar',
-                                stack: 'Search Engine',
-                                emphasis: {
-                                    focus: 'series'
-                                },
-                                data: [60, 72, 71, 74, 190, 130, 110]
-                            },
-                            {
-                                name: 'Others',
-                                type: 'bar',
-                                stack: 'Search Engine',
-                                emphasis: {
-                                    focus: 'series'
-                                },
-                                data: [62, 82, 91, 84, 109, 110, 120]
-                            }
-                        ]
+                        {
+                            name: '访客数',
+                            type: 'line',
+                            smooth: true,
+                            showSymbol: false,
+                            symbol: 'circle',
+                            symbolSize: 7,
+                            animationDelay: 100,
+                            lineStyle: {width: 3},
+                            itemStyle: {borderWidth: 2, borderColor: '#ffffff'},
+                            areaStyle: {color: gradient('124, 196, 255', 0.26)},
+                            data: [820, 932, 901, 934, 1090, 1130, 1080]
+                        }
+                    ]
+                };
+
+                setTimeout(function () {
+                    echartsRecords.setOption(optionRecords);
+                    requestAnimationFrame(function () {
+                        echartsRecordsEl.classList.add('is-ready');
+                    });
+
+                    // 记录初始尺寸，忽略 observe 触发的首次（尺寸未变化）回调，
+                    // 避免 resize 打断折线首帧的绘制动画
+                    let lastW = echartsRecordsEl.clientWidth;
+                    let lastH = echartsRecordsEl.clientHeight;
+                    let animating = true;
+                    let pendingResize = false;
+
+                    const doResize = function () {
+                        if (animating) {
+                            pendingResize = true;
+                            return;
+                        }
+                        echartsRecords.resize();
                     };
+
                     setTimeout(function () {
-                        echartsRecords.setOption(optionRecords);
-                        window.addEventListener("resize", function () {
+                        animating = false;
+                        if (pendingResize) {
+                            pendingResize = false;
                             echartsRecords.resize();
-                        });
-                    }, 100)
-                }
-            })
+                        }
+                    }, 100);
+
+                    window.addEventListener("resize", doResize);
+                    // 页签切换导致 iframe 宽度变化时自动重算尺寸
+                    if (window.ResizeObserver) {
+                        new ResizeObserver(function () {
+                            let w = echartsRecordsEl.clientWidth;
+                            let h = echartsRecordsEl.clientHeight;
+                            if (w === lastW && h === lastH) return;
+                            lastW = w;
+                            lastH = h;
+                            doResize();
+                        }).observe(echartsRecordsEl);
+                    }
+                }, 70);
+            });
 
             let util = layui.util;
             util.on({
@@ -257,7 +292,18 @@ define(["jquery", "easy-admin", "echarts", "echarts-theme", "miniAdmin", "miniTh
                     ea.open('绑定谷歌验证码', ea.url('index/set2fa'), width, '75%')
                 }
             });
-            ea.listen();
+            ea.listen(null, function (res) {
+                ea.msg.success(res.msg || '保存成功', function () {
+                    // 同步更新父页面右上角头像，无需刷新整个后台
+                    let avatar = (res.data && res.data.avatar) || $("input[name='avatar']").val();
+                    if (!avatar || window.parent === window) return;
+                    let $parent = window.parent.jQuery || window.parent.$ || (window.parent.layui && window.parent.layui.$);
+                    if ($parent) {
+                        $parent('.layuimini-setting .layui-nav-img').attr('src', avatar);
+                    }
+                });
+                return false;
+            });
         },
         editPassword: function () {
             ea.listen();

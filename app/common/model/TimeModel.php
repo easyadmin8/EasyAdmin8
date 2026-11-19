@@ -21,7 +21,7 @@ class TimeModel extends Model
     protected function getOptions(): array
     {
         return [
-            'autoWriteTimestamp' => true,
+            'autoWriteTimestamp' => 'datetime',
             'createTime'         => 'create_time',
             'updateTime'         => 'update_time',
             'deleteTime'         => false,

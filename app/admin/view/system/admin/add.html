@@ -4,10 +4,10 @@
         <div class="layui-form-item">
             <label class="layui-form-label required">用户头像</label>
             <div class="layui-input-block layuimini-upload">
-                <input name="head_img" class="layui-input layui-col-xs6" lay-verify="required" lay-reqtext="请上传用户头像" placeholder="请上传用户头像" value="">
+                <input name="avatar" class="layui-input layui-col-xs6" lay-verify="required" lay-reqtext="请上传用户头像" placeholder="请上传用户头像" value="">
                 <div class="layuimini-upload-btn">
-                    <span><a class="layui-btn" data-upload="head_img" data-upload-number="one" data-upload-exts="png|jpg|ico|jpeg" data-upload-icon="image" data-upload-mimetype="image/*"><i class="fa fa-upload"></i> 上传</a></span>
-                    <span><a class="layui-btn layui-btn-normal" id="select_head_img" data-upload-select="head_img" data-upload-number="one"><i class="fa fa-list"></i> 选择</a></span>
+                    <span><a class="layui-btn" data-upload="avatar" data-upload-number="one" data-upload-exts="png|jpg|ico|jpeg" data-upload-icon="image" data-upload-mimetype="image/*"><i class="fa fa-upload"></i> 上传</a></span>
+                    <span><a class="layui-btn layui-btn-normal" id="select_avatar" data-upload-select="avatar" data-upload-number="one"><i class="fa fa-list"></i> 选择</a></span>
                 </div>
             </div>
         </div>
@@ -22,8 +22,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label ">登录密码</label>
             <div class="layui-input-block">
-                <input type="password" name="password" class="layui-input" placeholder="请输入登录密码" value="" readonly onclick="this.removeAttribute('readonly');">
-                <tip>为空默认 123456</tip>
+                <input type="password" name="password" class="layui-input" placeholder="请输入登录密码（至少6位）" value="" readonly onclick="this.removeAttribute('readonly');">
+                <tip>为空将自动生成随机初始密码，并在保存成功后提示。</tip>
             </div>
         </div>
 

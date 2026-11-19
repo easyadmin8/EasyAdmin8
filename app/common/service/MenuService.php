@@ -52,21 +52,31 @@ class MenuService
         return $this->buildMenuChild(0, $this->getMenuData(), $authServer);
     }
 
-    private function buildMenuChild($pid, $menuList, AuthService $authServer)
+    private function buildMenuChild($pid, $menuList, AuthService $authServer, array $visited = [])
     {
         $treeList = [];
-        foreach ($menuList as &$v) {
+        foreach ($menuList as $v) {
+            if ($pid != $v['pid']) continue;
+            $nodeId = (int)$v['id'];
+            // 防止异常数据形成环导致无限递归
+            if (isset($visited[$nodeId])) continue;
             $check = empty($v['href']) || $authServer->checkNode($v['href']);
-            !empty($v['href']) && $v['href'] = __url($v['href']);
-            if ($pid == $v['pid'] && $check) {
-                $node  = $v;
-                $child = $this->buildMenuChild($v['id'], $menuList, $authServer);
-                if (!empty($child)) {
-                    $node['child'] = $child;
-                }
-                if (!empty($v['href']) || !empty($child)) {
-                    $treeList[] = $node;
-                }
+            if (!$check) continue;
+
+            $nextVisited          = $visited;
+            $nextVisited[$nodeId] = true;
+
+            $node = $v;
+            // 只在命中当前节点时转换一次，避免多层递归重复转换 href
+            if (!empty($node['href'])) {
+                $node['href'] = __url($node['href']);
+            }
+            $child = $this->buildMenuChild($v['id'], $menuList, $authServer, $nextVisited);
+            if (!empty($child)) {
+                $node['child'] = $child;
+            }
+            if (!empty($node['href']) || !empty($child)) {
+                $treeList[] = $node;
             }
         }
         return $treeList;

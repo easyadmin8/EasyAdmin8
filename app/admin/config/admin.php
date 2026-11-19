@@ -33,4 +33,13 @@ return [
         'EasyMDE'    => 'EasyMDE(markdown)',
     ],
 
+    // 登录页模板
+    'login_templates'    => [
+        'index' => '经典卡通(默认)',
+        'card'  => '简约卡片',
+        'split' => '左右分栏',
+        'glass' => '毛玻璃',
+        'dark'  => '暗色科技',
+    ],
+
 ];

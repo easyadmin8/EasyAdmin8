@@ -4,6 +4,7 @@ namespace app\admin\controller;
 
 use app\admin\model\SystemUploadfile;
 use app\admin\service\UploadService;
+use app\common\constants\AdminConstant;
 use app\common\controller\AdminController;
 use app\common\service\MenuService;
 use app\Request;
@@ -49,6 +50,10 @@ class Ajax extends AdminController
      */
     public function clearCache(): void
     {
+        // Ajax 控制器整体免权限校验，这里单独限制为超级管理员
+        if ((int)$this->adminUid !== AdminConstant::SUPER_ADMIN_ID) {
+            $this->error('无权限操作');
+        }
         Cache::clear();
         $this->success('清理缓存成功');
     }
@@ -77,7 +82,7 @@ class Ajax extends AdminController
         $upload_type = $data['upload_type'];
         try {
             $upload = UploadService::instance()->setConfig($uploadConfig)->$upload_type($data['file'], $type);
-        }catch (\Exception $e) {
+        }catch (\Throwable $e) {
             $this->error($e->getMessage());
         }
         $code = $upload['code'] ?? 0;
@@ -110,9 +115,9 @@ class Ajax extends AdminController
     public function getUploadFiles(Request $request): Json
     {
         $get   = $request->get();
-        $page  = !empty($get['page']) ? $get['page'] : 1;
-        $limit = !empty($get['limit']) ? $get['limit'] : 10;
-        $title = !empty($get['title']) ? $get['title'] : null;
+        $page  = max(1, (int)($get['page'] ?? 1));
+        $limit = max(1, min((int)($get['limit'] ?? 10), 200));
+        $title = !empty($get['title']) ? (string)$get['title'] : null;
         $count = SystemUploadfile::where(function(Query $query) use ($title) {
             !empty($title) && $query->where('original_name', 'like', "%{$title}%");
         })
@@ -179,6 +184,13 @@ class Ajax extends AdminController
             case 'attachment':
             case 'video':
                 if ($this->isDemo) return json(['state' => '演示环境下不允许修改']);
+                if (!$file instanceof \think\file\UploadedFile) {
+                    return json(['state' => '未接收到上传文件']);
+                }
+                $rule = [
+                    'file|文件' => "require|file|fileExt:{$uploadConfig['upload_allow_ext']}|fileSize:{$uploadConfig['upload_allow_size']}",
+                ];
+                $this->validate(['file' => $file], $rule);
                 try {
                     $upload = UploadService::instance()->setConfig($uploadConfig)->$upload_type($file);
                     $code   = $upload['code'] ?? 0;
@@ -187,7 +199,7 @@ class Ajax extends AdminController
                     }else {
                         return json(['state' => 'SUCCESS', 'url' => $upload['data']['url'] ?? '']);
                     }
-                }catch (\Exception $e) {
+                }catch (\Throwable $e) {
                     $this->error($e->getMessage());
                 }
                 break;

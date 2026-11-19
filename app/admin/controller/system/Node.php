@@ -85,6 +85,8 @@ class Node extends AdminController
     {
         $this->checkPostRequest();
         $nodeList = (new NodeService())->getNodeList();
+        // 解析结果为空时禁止清理，避免误删全部节点
+        if (empty($nodeList)) $this->error('未解析到任何节点，已中止清理');
         try {
             $existNodeList  = $this->model->field('id,node,title,type,is_auth')->select()->toArray();
             $formatNodeList = array_format_key($nodeList, 'node');

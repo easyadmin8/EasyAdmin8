@@ -113,7 +113,6 @@ class LogAnalyzer extends AdminController
                 $dirName = basename($subDir);
                 $dirData = [
                     'name'          => $dirName,
-                    'path'          => $subDir,
                     'relative_path' => ltrim(str_replace($runtimePath, '', $subDir), DIRECTORY_SEPARATOR),
                     'has_logs'      => false,
                     'files'         => [],
@@ -128,7 +127,6 @@ class LogAnalyzer extends AdminController
                             $stat               = stat($file);
                             $dirData['files'][] = [
                                 'name'          => basename($file),
-                                'path'          => $file,
                                 'relative_path' => ltrim(str_replace($runtimePath, '', $file), DIRECTORY_SEPARATOR),
                                 'size'          => $stat['size'],
                                 'size_format'   => $this->formatFileSize($stat['size']),
@@ -172,13 +170,18 @@ class LogAnalyzer extends AdminController
         }
 
         $fileNames = $this->request->param('file_names/a', []);
-        $maxLines  = $this->request->param('max_lines/d', 200);
+        $maxLines  = (int)$this->request->param('max_lines/d', 200);
+        $maxLines  = max(1, min($maxLines, 5000));
 
-        if (empty($fileNames)) {
+        if (empty($fileNames) || !is_array($fileNames)) {
             $this->error('请选择至少一个日志文件');
         }
 
         $runtimePath = app()->getRuntimePath();
+        $runtimeRoot = realpath($runtimePath);
+        if ($runtimeRoot === false) {
+            $this->error('Runtime 目录不存在');
+        }
         $loadedFiles = [];
         $totalLines  = 0;
         $logText     = '';
@@ -187,10 +190,19 @@ class LogAnalyzer extends AdminController
             if ($remainingLines <= 0) {
                 break;
             }
+            if (!is_string($relativePath) || str_contains($relativePath, "\0")) {
+                continue;
+            }
 
-            $filePath = $runtimePath . $relativePath;
-
-            if (!file_exists($filePath)) {
+            // 仅允许读取 runtime 目录内的 .log 文件，防止路径穿越
+            $filePath = realpath($runtimePath . ltrim($relativePath, '/\\'));
+            if ($filePath === false || !is_file($filePath)) {
+                continue;
+            }
+            if (!str_starts_with($filePath, $runtimeRoot . DIRECTORY_SEPARATOR)) {
+                continue;
+            }
+            if (strtolower(pathinfo($filePath, PATHINFO_EXTENSION)) !== 'log') {
                 continue;
             }
 

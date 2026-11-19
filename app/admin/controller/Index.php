@@ -40,7 +40,8 @@ class Index extends AdminController
         $sqlVersion = $pdo->getAttribute(\PDO::ATTR_SERVER_VERSION);
         $sqlVersion = $dbType . "（{$sqlVersion}）";
         $phpVersion = phpversion();
-        $jitStatus  = function_exists('opcache_get_status') ? (opcache_get_status()['jit']['on'] ?? false) : false;
+        $opcache    = function_exists('opcache_get_status') ? opcache_get_status() : false;
+        $jitStatus  = is_array($opcache) ? ($opcache['jit']['on'] ?? false) : false;
         $versions   = compact('tpVersion', 'sqlVersion', 'phpVersion', 'jitStatus');
         $quick_list = SystemQuick::field('id,title,icon,href')
             ->where(['status' => 1])->order('sort', 'desc')->limit(50)->select()->toArray();
@@ -81,19 +82,40 @@ class Index extends AdminController
                         $this->error('请至少添加一个可用的 IP 白名单');
                     }
                 }
-                $save = $row->allowField(['head_img', 'phone', 'remark', 'update_time', 'login_type', 'ip_check'])->save($post);
+                $save = $row->allowField(['avatar', 'phone', 'remark', 'update_time', 'login_type', 'ip_check'])->save($post);
+                if ($save) {
+                    // 同步 session 中的管理员信息，保证右上角头像等展示实时生效
+                    $this->syncAdminSession($row);
+                }
                 if ($ip_check == 1 && $save) {
-                    $this->success('保存成功，退出后重新登录可使IP规则生效');
+                    $this->success('保存成功，退出后重新登录可使IP规则生效', ['avatar' => $row->avatar]);
                 }
             }catch (\PDOException $e) {
                 $this->error('保存失败');
             }
-            $save ? $this->success('保存成功') : $this->error('保存失败');
+            $save ? $this->success('保存成功', ['avatar' => $row->avatar]) : $this->error('保存失败');
         }
         $this->assign('row', $row);
         $notes = (new SystemAdmin())->notes;
         $this->assign('notes', $notes);
         return $this->fetch();
+    }
+
+    /**
+     * 将管理员资料同步到 session，避免页面展示的还是登录时的旧数据
+     * @param SystemAdmin $row
+     * @return void
+     */
+    private function syncAdminSession(SystemAdmin $row): void
+    {
+        $admin = session('admin');
+        if (!is_array($admin)) {
+            return;
+        }
+        foreach (['avatar', 'phone', 'remark', 'login_type', 'ip_check'] as $field) {
+            $admin[$field] = $row->getAttr($field);
+        }
+        session('admin', $admin);
     }
 
     /**
@@ -114,12 +136,17 @@ class Index extends AdminController
             $post = $request->post();
             $this->isDemo && $this->error('演示环境下不允许修改');
             $rule = [
-                'password|登录密码'       => 'require',
+                'old_password|原密码'     => 'require',
+                'password|登录密码'       => 'require|min:6',
                 'password_again|确认密码' => 'require',
             ];
             $this->validate($post, $rule);
             if ($post['password'] != $post['password_again']) {
                 $this->error('两次密码输入不一致');
+            }
+            $dbPassword = (new SystemAdmin())->where('id', $id)->value('password');
+            if (!password_verify((string)$post['old_password'], (string)$dbPassword)) {
+                $this->error('原密码不正确');
             }
 
             try {

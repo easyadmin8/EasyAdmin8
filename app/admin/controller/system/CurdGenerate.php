@@ -34,6 +34,7 @@ class CurdGenerate extends AdminController
                 $tb_prefix = $request->param('tb_prefix/s', '');
                 $tb_name   = $request->param('tb_name/s', '');
                 if (empty($tb_name)) $this->error('参数错误');
+                $this->checkTableName($tb_prefix, $tb_name);
 
                 try {
                     $list = Db::query("SHOW FULL COLUMNS FROM {$tb_prefix}{$tb_name}");
@@ -57,6 +58,7 @@ class CurdGenerate extends AdminController
                 $tb_prefix = $request->param('tb_prefix/s', '');
                 $tb_name   = $request->param('tb_name/s', '');
                 if (empty($tb_name)) $this->error('参数错误');
+                $this->checkTableName($tb_prefix, $tb_name);
 
                 $tb_fields = $request->param('tb_fields');
                 $force     = $request->post('force/d', 0);
@@ -123,6 +125,7 @@ class CurdGenerate extends AdminController
                 $tb_prefix = $request->param('tb_prefix/s', '');
                 $tb_name   = $request->param('tb_name/s', '');
                 if (empty($tb_name)) $this->error('参数错误');
+                $this->checkTableName($tb_prefix, $tb_name);
 
                 try {
                     $build    = (new BuildCurd())->setTablePrefix($tb_prefix)->setTable($tb_name);
@@ -140,6 +143,11 @@ class CurdGenerate extends AdminController
                 if (empty($command)) $this->error('请输入命令');
                 $commandExp = explode(' ', $command);
                 $commandExp = array_values(array_filter($commandExp));
+                foreach ($commandExp as $_token) {
+                    if (!preg_match('/^[A-Za-z0-9_\-=,.\/]+$/', $_token) || str_contains($_token, '..')) {
+                        $this->error('命令包含非法字符');
+                    }
+                }
                 try {
 
                     $output = Console::call('curd', [...$commandExp]);
@@ -152,6 +160,19 @@ class CurdGenerate extends AdminController
             default:
                 $this->error('参数错误');
                 break;
+        }
+    }
+
+    /**
+     * 校验表前缀/表名，仅允许字母、数字、下划线
+     */
+    protected function checkTableName(string $prefix, string $name): void
+    {
+        if ($prefix !== '' && !preg_match('/^[A-Za-z0-9_]+$/', $prefix)) {
+            $this->error('表前缀不合法');
+        }
+        if (!preg_match('/^[A-Za-z0-9_]+$/', $name)) {
+            $this->error('表名不合法');
         }
     }
 }

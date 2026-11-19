@@ -36,7 +36,7 @@ trait JumpTrait
             'data'      => $data,
             'url'       => $url,
             'wait'      => $wait,
-            '__token__' => request()->buildToken('__token__'),
+            '__token__' => csrf_token(),
         ];
 
         $type = $this->getResponseType();
@@ -72,7 +72,7 @@ trait JumpTrait
             'data'      => $data,
             'url'       => $url,
             'wait'      => $wait,
-            '__token__' => request()->buildToken('__token__'),
+            '__token__' => csrf_token(),
         ];
         if ($type == 'html') {
             $response = view(config('app.dispatch_error_tmpl'), $result);
@@ -126,7 +126,7 @@ trait JumpTrait
      */
     protected function getResponseType(): string
     {
-        return (request()->isJson() || request()->isAjax() || request()->isPost()) ? 'json' : 'html';
+        return (request()->isJson() || request()->isAjax()) ? 'json' : 'html';
     }
 
     /**

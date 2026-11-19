@@ -44,8 +44,13 @@ class Auth extends AdminController
     {
         $this->checkPostRequest();
         $id   = $request->post('id');
-        $node = $request->post('node', "[]");
-        $node = json_decode($node, true);
+        $node = $request->post('node', '[]');
+        $node = json_decode((string)$node, true);
+        if (!is_array($node)) {
+            $this->error('授权数据格式错误');
+        }
+        $node = array_filter($node, 'is_scalar');
+        $node = array_values(array_unique(array_filter(array_map('intval', $node), fn($v) => $v > 0)));
         $row  = $this->model->find($id);
         empty($row) && $this->error('数据不存在');
         try {

@@ -2,19 +2,13 @@
 
 namespace app\admin\service;
 
-use think\facade\Cache;
-
 class ConfigService
 {
 
     public static function getVersion()
     {
-        $version = cache('site_version');
-        if (empty($version)) {
-            $version = sysConfig('site', 'site_version');
-            cache('site_version', $version);
-        }
-        return $version;
+        // 直接复用 sysConfig 的 tag 缓存，配置更新时可通过 TriggerService::updateSysConfig() 统一失效
+        return sysConfig('site', 'site_version') ?: '';
     }
 
 }

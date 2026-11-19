@@ -1,5 +1,7 @@
 body {
     text-align: center;
+    background: #f2f9f7;
+    color: #33413d;
 }
 
 h1 {
@@ -14,7 +16,7 @@ h1 img {
 h2 {
     font-size: 28px;
     font-weight: normal;
-    color: #3C5675;
+    color: #2f4a44;
     margin-bottom: 0
 }
 
@@ -37,12 +39,12 @@ h2 {
     border: 1px solid #fff;
     border-radius: 3px;
     padding: 14px 14px;
-    box-shadow: 0 0 8px #cccccc;
+    box-shadow: 0 4px 16px rgba(46, 116, 104, .10);
 }
 
 .content form .bg .layui-card {
-    background-color: #fafafa;
-    color: #ff8080;
+    background-color: #f4faf8;
+    color: #f87171;
     font-size: 15px;
     font-weight: bold;
 }
@@ -83,7 +85,7 @@ h2 {
 }
 
 .content .desc a {
-    color: #07adeb;
+    color: #23a98e;
     margin-right: 10px;
 }
 
@@ -92,7 +94,7 @@ h2 {
 }
 
 .error {
-    background: #D83E3E;
+    background: #ef4444;
     color: #fff;
     padding: 15px 20px;
     border-radius: 5px;

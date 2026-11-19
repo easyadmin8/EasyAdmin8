@@ -870,7 +870,7 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                 }
                 return '<span>' + value + '</span>';
             },
-            //时间戳转日期
+            //时间戳转日期 兼容 datetime 字符串与 Unix 时间戳
             date: function (data, option) {
                 var option = data.LAY_COL || {};
                 var field = option.field, value = '';
@@ -879,7 +879,11 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                 } catch (e) {
                 }
                 if (!admin.empty(value)) {
-                    value = util.toDateString(value * 1000, option.format || 'yyyy-MM-dd HH:mm:ss');
+                    if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}/.test(value)) {
+                        // 已是 datetime 字符串
+                    } else if (typeof value === 'number' || /^\d+$/.test(String(value))) {
+                        value = util.toDateString(value * 1000, option.format || 'yyyy-MM-dd HH:mm:ss');
+                    }
                 }
                 return '<span>' + value + '</span>';
             },
@@ -920,7 +924,7 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                         init.xmSelectModel[index] = xmSelect.render({
                             el: '.xmSelect-' + index, language: 'zn', data: keysArray, name: index,
                             filterable: true, paging: true, pageSize: 10, toolbar: {show: true},
-                            theme: {color: getComputedStyle(document.documentElement).getPropertyValue('--ea8-theme-main-color') || '#16b777'}
+                            theme: {color: getComputedStyle(document.documentElement).getPropertyValue('--ea8-theme-main-color') || '#35c2a6'}
                         })
                     })
                 }
@@ -1743,6 +1747,9 @@ define(["jquery", "tableSelect", "switchSelect", "miniTheme", "xmSelect", "lazyl
                             ],
                             table: {
                                 url: admin.url('ajax/getUploadFiles'),
+                                response: {
+                                    statusCode: 1,
+                                },
                                 cols: [[
                                     {type: selectCheck},
                                     {field: 'id', title: 'ID'},

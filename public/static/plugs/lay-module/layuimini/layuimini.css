@@ -199,7 +199,7 @@ body {
 }
 
 .layuimini-tab .layui-tabs-header .layui-this {
-    background: var(--ea8-theme-main-color, #1e9fff) !important;
+    background: var(--ea8-theme-main-color, #35c2a6) !important;
     color: #ffffff !important;
     font-weight: 600;
     transition: none !important;
@@ -261,7 +261,7 @@ body {
 }
 
 .layuimini-tab .layui-tab-control > li:hover {
-    color: var(--ea8-theme-main-color, #1e9fff);
+    color: var(--ea8-theme-main-color, #35c2a6);
 }
 
 .layuimini-tab .layuimini-tab-roll-left {
@@ -581,7 +581,7 @@ body {
     margin: -75px 0 0 -75px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: #1E9FFF;
+    border-top-color: var(--ea8-theme-main-color, #35c2a6);
     animation: spin 2s linear infinite;
 }
 
@@ -594,7 +594,7 @@ body {
     bottom: 5px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: #1E9FFF;
+    border-top-color: var(--ea8-theme-main-color, #35c2a6);
     animation: spin 3s linear infinite;
 }
 
@@ -607,7 +607,7 @@ body {
     bottom: 15px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: #1E9FFF;
+    border-top-color: var(--ea8-theme-main-color, #35c2a6);
     animation: spin 1.5s linear infinite;
 }
 

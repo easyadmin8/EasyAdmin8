@@ -26,7 +26,7 @@ class Admin extends AdminController
         parent::__construct($app);
         $this->model = new SystemAdmin();
         $this->assign('auth_list', $this->model->getAuthList());
-        $this->assign('notes',  $this->model->notes);
+        $this->assign('notes', $this->model->notes);
     }
 
     #[NodeAnnotation(title: '列表', auth: true)]
@@ -57,14 +57,19 @@ class Admin extends AdminController
             $post['auth_ids'] = implode(',', array_keys($authIds));
             $rule             = [];
             $this->validate($post, $rule);
-            if (empty($post['password'])) $post['password'] = '123456';
-            $post['password'] = password($post['password']);
+            $plainPassword = (string)($post['password'] ?? '');
+            if ($plainPassword === '') {
+                $plainPassword = \think\helper\Str::random(10);
+            } elseif (strlen($plainPassword) < 6) {
+                $this->error('密码不能少于6位');
+            }
+            $post['password'] = password($plainPassword);
             try {
-                $save = $this->model::create($post);
-            }catch (\Exception $e) {
+                $save = $this->model->allowField(['username', 'password', 'avatar', 'phone', 'remark', 'auth_ids', 'login_type', 'ip_check', 'status'])->save($post);
+            } catch (\Exception $e) {
                 $this->error('保存失败' . $e->getMessage());
             }
-            $save ? $this->success('保存成功') : $this->error('保存失败');
+            $save ? $this->success('保存成功，初始密码：' . $plainPassword) : $this->error('保存失败');
         }
         return $this->fetch();
     }
@@ -81,9 +86,9 @@ class Admin extends AdminController
             $rule             = [];
             $this->validate($post, $rule);
             try {
-                $save = $row->save($post);
+                $save = $row->allowField(['username', 'avatar', 'phone', 'remark', 'auth_ids', 'login_type', 'ip_check', 'status'])->save($post);
                 TriggerService::updateMenu($id);
-            }catch (\Exception $e) {
+            } catch (\Exception $e) {
                 $this->error('保存失败' . $e->getMessage());
             }
             $save ? $this->success('保存成功') : $this->error('保存失败');
@@ -109,9 +114,9 @@ class Admin extends AdminController
             }
             try {
                 $save = $row->save([
-                                       'password' => password_hash($post['password'], PASSWORD_DEFAULT),
-                                   ]);
-            }catch (\Exception $e) {
+                    'password' => password_hash($post['password'], PASSWORD_DEFAULT),
+                ]);
+            } catch (\Exception $e) {
                 $this->error('保存失败');
             }
             $save ? $this->success('保存成功') : $this->error('保存失败');
@@ -135,7 +140,7 @@ class Admin extends AdminController
         }
         try {
             $save = $row->delete();
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $this->error('删除失败');
         }
         $save ? $this->success('删除成功') : $this->error('删除失败');
@@ -162,9 +167,9 @@ class Admin extends AdminController
         empty($row) && $this->error('数据不存在');
         try {
             $row->save([
-                           $post['field'] => $post['value'],
-                       ]);
-        }catch (\Exception $e) {
+                $post['field'] => $post['value'],
+            ]);
+        } catch (\Exception $e) {
             $this->error($e->getMessage());
         }
         $this->success('保存成功');

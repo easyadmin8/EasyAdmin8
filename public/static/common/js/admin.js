@@ -190,7 +190,7 @@ if (self === top) {
         "color:#5672cd; font-family: Consolas, Monaco, monospace;",
         "color:#ff5722;font-weight:bold;font-size:1rem; font-family: Consolas, Monaco, monospace;",
         "color:#5672cd; font-family: Consolas, Monaco, monospace;",
-        "color:#ffffff;font-weight:bold;font-size:1rem;background:#1e9fff; font-family: Consolas, Monaco, monospace;padding:5px;"
+        "color:#ffffff;font-weight:bold;font-size:1rem;background:#35c2a6; font-family: Consolas, Monaco, monospace;padding:5px;"
     );
     console.groupEnd();
 }

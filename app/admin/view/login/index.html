@@ -46,7 +46,7 @@
     <div class="right">
         <div class="form-box">
             <div class="header">
-                <h1>{:sysconfig('site','site_name')}</h1>
+                <h1>{:htmlspecialchars((string)sysConfig('site', 'site_name'), ENT_QUOTES)}</h1>
                 <p class="demo {if !$isDemo}layui-hide{/if}">用户名:admin 密码:123456</p>
             </div>
             <form id="loginForm" class="layui-form">
@@ -110,7 +110,7 @@
         </div>
     </div>
     <div class="footer">
-        {:sysConfig('site','site_copyright')}<span class="padding-5">|</span><a target="_blank" href="http://www.miitbeian.gov.cn">{:sysConfig('site','site_beian')}</a>
+        {:htmlspecialchars((string)sysConfig('site', 'site_copyright'), ENT_QUOTES)}<span class="padding-5">|</span><a target="_blank" href="http://www.miitbeian.gov.cn">{:htmlspecialchars((string)sysConfig('site', 'site_beian'), ENT_QUOTES)}</a>
     </div>
 </div>
 
@@ -366,5 +366,5 @@
     requestAnimationFrame(render);
 </script>
 <script>
-    let backgroundUrl = "{:sysConfig('site','admin_background')}"
+    let backgroundUrl = {:json_encode(sysConfig('site', 'admin_background'))};
 </script>

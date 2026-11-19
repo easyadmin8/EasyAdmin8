@@ -15,6 +15,7 @@ class BaseEntity extends Entity
                 'create_time' => DateTime::class,
                 'update_time' => DateTime::class,
                 'delete_time' => DateTime::class,
+                'upload_time' => DateTime::class,
             ],
         ];
     }

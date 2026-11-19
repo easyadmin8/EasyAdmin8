@@ -3,6 +3,7 @@
 use app\admin\middleware\CheckInstall;
 use app\admin\middleware\CheckLogin;
 use app\admin\middleware\CheckAuth;
+use app\admin\middleware\Csrf;
 use app\admin\middleware\SystemLog;
 use app\admin\middleware\RateLimiting;
 
@@ -17,6 +18,8 @@ use app\admin\middleware\RateLimiting;
 
 return [
     'middleware' => [
+        // CSRF 校验（由 EASYADMIN.IS_CSRF 控制）
+        Csrf::class,
         // 限流中间件
         RateLimiting::class,
         // 判断是否已经安装后台系统

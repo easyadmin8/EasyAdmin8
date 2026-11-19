@@ -10,9 +10,9 @@ class SystemAdmin extends TimeModel
 
     protected function getOptions(): array
     {
-        return [
+        return array_merge(parent::getOptions(), [
             'deleteTime' => 'delete_time',
-        ];
+        ]);
     }
 
     public array $notes = [
@@ -26,7 +26,7 @@ class SystemAdmin extends TimeModel
         ],
     ];
 
-    public static function getAuthIdsAttr($value): array
+    public function getAuthIdsAttr($value): array
     {
         if (!$value) return [];
         return explode(',', $value);

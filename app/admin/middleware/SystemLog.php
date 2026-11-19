@@ -22,8 +22,17 @@ class SystemLog
     protected array $sensitiveParams = [
         'password',
         'password_again',
+        'old_password',
+        'new_password',
+        'password_confirm',
         'phone',
         'mobile',
+        'ga_secret',
+        'ga_code',
+        'secret',
+        'captcha',
+        'token',
+        '__token__',
     ];
 
     /**
@@ -35,9 +44,7 @@ class SystemLog
         if (!env('APP_ADMIN_SYSTEM_LOG', true)) return $response;
         $params = $request->param();
         if (isset($params['s'])) unset($params['s']);
-        foreach ($params as $key => $val) {
-            in_array($key, $this->sensitiveParams) && $params[$key] = "***********";
-        }
+        $params = $this->maskSensitive($params);
         $method = strtolower($request->method());
         $url    = $request->url();
 
@@ -82,9 +89,13 @@ class SystemLog
                 }
 
                 $ip = $request->ip();
-                // 限制记录的响应内容，避免过大
-                $_response = json_encode($response->getData(), JSON_UNESCAPED_UNICODE);
-                $_response = mb_substr($_response, 0, 3000, 'utf-8');
+                // 限制记录的响应内容，避免过大；同时脱敏响应中的 CSRF Token
+                $responseData = $response->getData();
+                if (is_array($responseData) && array_key_exists('__token__', $responseData)) {
+                    $responseData['__token__'] = '***********';
+                }
+                $_response = json_encode($responseData, JSON_UNESCAPED_UNICODE);
+                $_response = mb_substr((string)$_response, 0, 3000, 'utf-8');
 
                 $data = [
                     'admin_id'    => $request->session('admin.id', 0),
@@ -95,11 +106,26 @@ class SystemLog
                     'content'     => json_encode($params, JSON_UNESCAPED_UNICODE),
                     'response'    => $_response,
                     'useragent'   => $request->server('HTTP_USER_AGENT'),
-                    'create_time' => time(),
+                    'create_time' => date('Y-m-d H:i:s'),
                 ];
                 SystemLogService::instance()->save($data);
             }
         }
         return $response;
+    }
+
+    /**
+     * 递归脱敏敏感字段
+     */
+    protected function maskSensitive(array $data): array
+    {
+        foreach ($data as $key => $val) {
+            if (in_array(strtolower((string)$key), $this->sensitiveParams, true)) {
+                $data[$key] = '***********';
+            } elseif (is_array($val)) {
+                $data[$key] = $this->maskSensitive($val);
+            }
+        }
+        return $data;
     }
 }

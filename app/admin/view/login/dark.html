@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="/static/admin/css/login-templates.css?v={$version}" media="all">
+
+<div class="lt-page lt-dark">
+    <span class="lt-dark-glow"></span>
+    <span class="lt-dark-grid"></span>
+
+    <div class="lt-box">
+        <div class="lt-brand">
+            <img class="lt-logo" src="{:htmlspecialchars((string)sysConfig('site', 'logo_image'), ENT_QUOTES)}" alt="logo">
+            <div class="lt-brand-txt">
+                <h1>{:htmlspecialchars((string)sysConfig('site', 'site_name'), ENT_QUOTES)}</h1>
+                <p>SECURE ADMIN CONSOLE</p>
+            </div>
+        </div>
+
+        <p class="lt-demo {if !$isDemo}layui-hide{/if}">用户名：admin　密码：123456</p>
+
+        <form id="loginForm" class="layui-form lt-form">
+            <div class="lt-field">
+                <label for="username">账号</label>
+                <div class="lt-input">
+                    <i class="fa fa-user"></i>
+                    <input lay-verify="required" class="layui-input" id="username" name="username" type="text" placeholder="请输入账号" autocomplete="off" maxlength="24"/>
+                </div>
+            </div>
+
+            <div class="lt-field">
+                <label for="password">密码</label>
+                <div class="lt-input">
+                    <i class="fa fa-lock"></i>
+                    <input lay-verify="required" class="layui-input" id="password" type="password" name="password" placeholder="请输入密码" autocomplete="off" maxlength="20"/>
+                    <button type="button" class="lt-eye" aria-label="显示密码"><i class="fa fa-eye"></i></button>
+                </div>
+            </div>
+
+            <div class="lt-field layui-hide" id="gaCode">
+                <label for="ga_code">谷歌验证码</label>
+                <div class="lt-input">
+                    <i class="fa fa-shield-halved"></i>
+                    <input type="text" class="layui-input" name="ga_code" placeholder="请输入谷歌验证码" maxlength="6"/>
+                </div>
+            </div>
+
+            {if $captcha == 1}
+            <div class="lt-field">
+                <label for="captcha">验证码</label>
+                <div class="lt-captcha">
+                    <div class="lt-input">
+                        <i class="fa fa-image"></i>
+                        <input type="text" class="layui-input" name="captcha" placeholder="请输入验证码" maxlength="4"/>
+                    </div>
+                    <img alt="captcha" id="refreshCaptcha" class="lt-captcha-img" src="{:url('login/captcha')}" onclick="this.src='{:url(\'login/captcha\')}?seed='+Math.random()">
+                </div>
+            </div>
+            {/if}
+
+            {if $cfTurnstile == 1}
+            <div class="lt-field">{:$widget->renderComplete()}</div>
+            {/if}
+
+            <div class="lt-row">
+                <label class="lt-remember"><input type="checkbox" class="icon-nocheck"/>保持登录</label>
+                <a href="javascript:;">忘记密码？</a>
+            </div>
+
+            <button type="button" class="lt-btn login-btn" lay-submit>登 录</button>
+        </form>
+    </div>
+
+    <div class="lt-footer">
+        {:htmlspecialchars((string)sysConfig('site', 'site_copyright'), ENT_QUOTES)}<span class="lt-sep">|</span><a target="_blank" href="http://www.miitbeian.gov.cn">{:htmlspecialchars((string)sysConfig('site', 'site_beian'), ENT_QUOTES)}</a>
+    </div>
+</div>

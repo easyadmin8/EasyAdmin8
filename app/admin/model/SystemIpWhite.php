@@ -9,9 +9,9 @@ class SystemIpWhite extends TimeModel
 
     protected function getOptions(): array
     {
-        return [
-            'deleteTime' => "delete_time",
-        ];
+        return array_merge(parent::getOptions(), [
+            'deleteTime' => 'delete_time',
+        ]);
     }
 
     public array $notes = [

@@ -10,9 +10,9 @@ class MallCate extends TimeModel
 
     protected function getOptions(): array
     {
-        return [
+        return array_merge(parent::getOptions(), [
             'deleteTime' => 'delete_time',
-        ];
+        ]);
     }
 
 }

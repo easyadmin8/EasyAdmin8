@@ -19,14 +19,14 @@ define(["jquery"], function ($) {
             let bgColorConfig = [
                 {
                     headerRightBg: '#ffffff', //头部右侧背景色
-                    headerRightBgThis: '#f4f5f5', //头部右侧选中背景色,
-                    headerRightColor: 'rgba(107, 107, 107, 0.7)', //头部右侧字体颜色,
-                    headerRightChildColor: 'rgba(107, 107, 107, 0.7)', //头部右侧下拉字体颜色,
-                    headerRightColorThis: '#565656', //头部右侧鼠标选中,
-                    headerRightNavMore: 'rgba(160, 160, 160, 0.7)', //头部右侧更多下拉颜色,
-                    headerRightNavMoreBg: '#16b777', //头部右侧更多下拉列表选中背景色,
+                    headerRightBgThis: '#e7f3ff', //头部右侧选中背景色,
+                    headerRightColor: 'rgba(51, 65, 61, 0.85)', //头部右侧字体颜色,
+                    headerRightChildColor: '#31414a', //头部右侧下拉字体颜色,
+                    headerRightColorThis: '#0c7fd4', //头部右侧鼠标选中,
+                    headerRightNavMore: 'rgba(122, 148, 142, 0.7)', //头部右侧更多下拉颜色,
+                    headerRightNavMoreBg: '#1e9fff', //头部右侧更多下拉列表选中背景色,
                     headerRightNavMoreColor: '#ffffff', //头部右侧更多下拉列表字体色,
-                    headerRightToolColor: '#565656', //头部缩放按钮样式,
+                    headerRightToolColor: '#5b6b76', //头部缩放按钮样式,
                     headerLogoBg: '#232324', //logo背景颜色,
                     headerLogoColor: '#ffffff', //logo字体颜色,
                     leftMenuNavMore: 'rgba(255,255,255,.5)', //左侧菜单更多下拉样式,
@@ -34,12 +34,12 @@ define(["jquery"], function ($) {
                     leftMenuBgThis: '#16213e', //左侧菜单选中背景,
                     leftMenuChildBg: '#232324', //左侧菜单子菜单背景,
                     leftMenuColor: 'rgba(255,255,255,.85)', //左侧菜单字体颜色,
-                    leftMenuColorThis: '#16b777', //左侧菜单选中字体颜色,
-                    tabActiveColor: '#16b777', //tab选项卡选中颜色,
-                    tabHeaderBg: '#efefef', //tab头部背景色
+                    leftMenuColorThis: '#1e9fff', //左侧菜单选中字体颜色,
+                    tabActiveColor: '#1e9fff', //tab选项卡选中颜色,
+                    tabHeaderBg: '#f5faff', //tab头部背景色
                     tabItemBg: '#ffffff', //tab选项背景色
-                    tabColor: '#333333', //tab选项字体颜色
-                    leftBorderColor: '#efefef', //左侧间隔线颜色
+                    tabColor: '#4a5a56', //tab选项字体颜色
+                    leftBorderColor: 'rgba(255,255,255,0.08)', //左侧间隔线颜色
                 },
                 {
                     headerRightBg: '#232324', //头部右侧背景色
@@ -48,9 +48,9 @@ define(["jquery"], function ($) {
                     headerRightChildColor: 'var(--lay-color-text-1)', //头部右侧下拉字体颜色,
                     headerRightColorThis: '#ffffff', //头部右侧鼠标选中,
                     headerRightNavMore: 'rgba(255,255,255,.6)', //头部右侧更多下拉颜色,
-                    headerRightNavMoreBg: '#16b777', //头部右侧更多下拉列表选中背景色,
+                    headerRightNavMoreBg: '#1e9fff', //头部右侧更多下拉列表选中背景色,
                     headerRightNavMoreColor: '#ffffff', //头部右侧更多下拉列表字体色,
-                    headerRightToolColor: '#16b777', //头部缩放按钮样式,
+                    headerRightToolColor: '#1e9fff', //头部缩放按钮样式,
                     headerLogoBg: '#232324', //logo背景颜色,
                     headerLogoColor: 'rgba(255,255,255,.8)', //logo字体颜色,
                     leftMenuNavMore: 'rgba(255,255,255,.5)', //左侧菜单更多下拉样式,
@@ -58,8 +58,8 @@ define(["jquery"], function ($) {
                     leftMenuBgThis: '#16213e', //左侧菜单选中背景,
                     leftMenuChildBg: '#232324', //左侧菜单子菜单背景,
                     leftMenuColor: 'rgba(255,255,255,.85)', //左侧菜单字体颜色,
-                    leftMenuColorThis: '#16b777', //左侧菜单选中字体颜色,
-                    tabActiveColor: '#232324', //tab选项卡选中颜色,
+                    leftMenuColorThis: '#1e9fff', //左侧菜单选中字体颜色,
+                    tabActiveColor: '#1e9fff', //tab选项卡选中颜色,
                     tabColor: 'rgba(255,255,255,.85)', //tab选项字体颜色
                     leftBorderColor: 'rgba(255,255,255,0.06)', //左侧间隔线颜色
                     tabHeaderBg: '#efefef', //tab头部背景色
@@ -90,24 +90,24 @@ define(["jquery"], function ($) {
                     tabItemBg: '#ffffff', //tab选项背景色
                 },
                 {
-                    headerRightBg: '#16b777', //头部右侧背景色
-                    headerRightBgThis: '#0e9c68', //头部右侧选中背景色,
+                    headerRightBg: '#13c2c2', //头部右侧背景色
+                    headerRightBgThis: '#0aa8a8', //头部右侧选中背景色,
                     headerRightColor: '#ffffff', //头部右侧字体颜色,
                     headerRightChildColor: 'var(--lay-color-text-1)', //头部右侧下拉字体颜色,
                     headerRightColorThis: '#ffffff', //头部右侧鼠标选中,
                     headerRightNavMore: 'rgba(255,255,255,.7)', //头部右侧更多下拉颜色,
                     headerRightNavMoreBg: '#ffffff', //头部右侧更多下拉列表选中背景色,
-                    headerRightNavMoreColor: '#16b777', //头部右侧更多下拉列表字体色,
+                    headerRightNavMoreColor: '#13c2c2', //头部右侧更多下拉列表字体色,
                     headerRightToolColor: '#ffffff', //头部缩放按钮样式,
                     headerLogoBg: '#23262e', //logo背景颜色,
                     headerLogoColor: 'rgba(255,255,255,.85)', //logo字体颜色,
                     leftMenuNavMore: 'rgba(255,255,255,.5)', //左侧菜单更多下拉样式,
                     leftMenuBg: '#23262e', //左侧菜单背景,
-                    leftMenuBgThis: '#16b777', //左侧菜单选中背景,
+                    leftMenuBgThis: '#13c2c2', //左侧菜单选中背景,
                     leftMenuChildBg: 'rgba(0,0,0,.3)', //左侧菜单子菜单背景,
                     leftMenuColor: 'rgba(255,255,255,.85)', //左侧菜单字体颜色,
                     leftMenuColorThis: '#ffffff', //左侧菜单选中字体颜色,
-                    tabActiveColor: '#16b777', //tab选项卡选中颜色,
+                    tabActiveColor: '#13c2c2', //tab选项卡选中颜色,
                     tabColor: '#333333', //tab选项字体颜色
                     leftBorderColor: 'rgba(255,255,255,0.08)', //左侧间隔线颜色
                     tabHeaderBg: '#f6f8fa', //tab头部背景色
@@ -279,17 +279,44 @@ define(["jquery"], function ($) {
             let bgcolorData = miniTheme.config(bgcolorId);
             let mainColor = bgcolorData.headerRightBg
             if (bgcolorId < 2) {
-                mainColor = bgcolorData.tabActiveColor || '#16b777';
-                if (localStorage.getItem('layuiminiElemStyleName') === 'dark') mainColor = '#16b777';
+                mainColor = bgcolorData.tabActiveColor || '#1e9fff';
+                if (localStorage.getItem('layuiminiElemStyleName') === 'dark') mainColor = '#1e9fff';
             }
-            const bgColor = window.getComputedStyle(document.documentElement).getPropertyValue('--ea8-theme-main-color');
-            document.documentElement.style.setProperty('--ea8-theme-main-color', mainColor);
+            const isDark = localStorage.getItem('layuiminiElemStyleName') === 'dark';
+            // 由主题色派生 --ea-primary* 系列变量，使按钮底色/hover 深浅色跟随配色方案；
+            // 暗色模式下清除内联值，交还给 CSS 的 .dark 变量块
+            const derivedVars = isDark ? null : (function (hex) {
+                const m = /^#?([0-9a-f]{6})$/i.exec(String(hex).trim());
+                if (!m) return {'--ea8-theme-main-color': hex};
+                const n = parseInt(m[1], 16);
+                const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+                const dk = (c) => Math.round(c * 0.85);
+                const hx = (c) => c.toString(16).padStart(2, '0');
+                return {
+                    '--ea8-theme-main-color': hex,
+                    '--ea-primary': hex,
+                    '--ea-primary-dark': '#' + hx(dk(r)) + hx(dk(g)) + hx(dk(b)),
+                    '--ea-primary-soft': 'rgba(' + r + ',' + g + ',' + b + ',0.12)',
+                    '--ea-primary-ring': 'rgba(' + r + ',' + g + ',' + b + ',0.20)',
+                };
+            })(mainColor);
+            const eaPrimaryKeys = ['--ea-primary', '--ea-primary-dark', '--ea-primary-soft', '--ea-primary-ring'];
+            const applyVars = (doc) => {
+                const el = doc.documentElement;
+                if (derivedVars) {
+                    Object.keys(derivedVars).forEach((k) => el.style.setProperty(k, derivedVars[k]));
+                } else {
+                    el.style.setProperty('--ea8-theme-main-color', mainColor);
+                    eaPrimaryKeys.forEach((k) => el.style.removeProperty(k));
+                }
+            };
+            applyVars(document);
             const iframes = document.getElementsByTagName('iframe');
             if (iframes.length === 0) return false;
             $.each(iframes, (i, iframe) => {
                 if (iframe === '' || iframe === undefined) return false;
                 const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-                iframeDocument.documentElement.style.setProperty('--ea8-theme-main-color', mainColor);
+                applyVars(iframeDocument);
             })
         },
 
@@ -393,40 +420,22 @@ define(["jquery"], function ($) {
     color:${bgcolorData.leftMenuColorThis} !important;
 }
 
-/**tab选项卡样式 */
 ${(function() {
-                let isDark = localStorage.getItem('layuiminiElemStyleName') === 'dark';
-                let accentColor = bgcolorData.tabActiveColor || '#16b777';
-                let tabCss = '';
-
-                if (isDark) {
-                    tabCss += `.layuimini-tab .layui-tabs-header { background-color: rgba(255,255,255,0.03) !important; }
-.layuimini-tab .layui-tabs-header li { color: rgba(255,255,255,0.55) !important; background: rgba(255,255,255,0.06) !important; }
-.layuimini-tab .layui-tabs-header li span { color: rgba(255,255,255,0.55) !important; }
-.layuimini-tab .layui-tabs-header .layui-this { background: ${accentColor} !important; color: #fff !important; transition: none !important; }
-.layuimini-tab .layui-tabs-header .layui-this span { color: #fff !important; }
-.layuimini-tab .layui-tab-control > li { color: rgba(255,255,255,0.4) !important; background: transparent !important; }
+                // 页签统一柔和填充风格（无线条），颜色跟随主题变量
+                return `.layuimini-tab .layui-tabs-header { background-color: transparent !important; border: none !important; }
+.layuimini-tab .layui-tabs-header::after { display: none !important; content: none !important; }
+.layuimini-tab .layui-tabs-header li { color: var(--ea-muted, #8a9994) !important; background: transparent !important; }
+.layuimini-tab .layui-tabs-header li span { color: inherit !important; }
+.layuimini-tab .layui-tabs-header li.layui-this { background: var(--ea-primary-soft, rgba(30,159,255,.12)) !important; color: var(--ea8-theme-main-color, #1e9fff) !important; }
+.layuimini-tab .layui-tabs-header li.layui-this span { color: inherit !important; }
+.layuimini-tab .layui-tabs-header li.layui-this::after { display: none !important; content: none !important; }
+.layuimini-tab .layui-tab-control > li { color: var(--ea-muted, #8a9994) !important; background: transparent !important; }
+.layuimini-tab .layui-tab-control > li:hover { color: var(--ea8-theme-main-color, #1e9fff) !important; }
 `;
-                } else if (parseInt(bgcolorId) >= 2) {
-                    tabCss += `.layuimini-tab .layui-tabs-header { background-color: transparent !important; }
-.layuimini-tab .layui-tabs-header li { color: #888 !important; background: rgba(0,0,0,0.04) !important; }
-.layuimini-tab .layui-tabs-header li span { color: #888 !important; }
-.layuimini-tab .layui-tabs-header .layui-this { background: ${accentColor} !important; color: #fff !important; transition: none !important; }
-.layuimini-tab .layui-tabs-header .layui-this span { color: #fff !important; }
-.layuimini-tab .layui-tab-control > li { color: #999 !important; background: transparent !important; }
-.layuimini-tab .layui-tab-control > li:hover { color: ${accentColor} !important; }
-`;
-                } else {
-                    tabCss += `.layuimini-tab .layui-tabs-header { background-color: transparent !important; }
-.layuimini-tab .layui-tabs-header li { color: #888 !important; background: rgba(0,0,0,0.04) !important; }
-.layuimini-tab .layui-tabs-header li span { color: #888 !important; }
-.layuimini-tab .layui-tabs-header .layui-this { background: ${accentColor} !important; color: #fff !important; transition: none !important; }
-.layuimini-tab .layui-tabs-header .layui-this span { color: #fff !important; }
-.layuimini-tab .layui-tab-control > li { color: #999 !important; background: transparent !important; }
-.layuimini-tab .layui-tab-control > li:hover { color: ${accentColor} !important; }
-`;
-                }
-                return tabCss;
+            })()}
+${(function() {
+                // 侧边栏恢复默认深色后，无需额外注入 hover 细节
+                return '';
             })()}`;
             $('#layuimini-bg-color').html(styleHtml);
         },
@@ -582,11 +591,29 @@ ${bgColorHtml}
                 $('.layuimini-color .color-content ul .layui-this').attr('class', '');
                 $(this).attr('class', 'layui-this');
                 localStorage.setItem('layuiminiBgColorId', bgcolorId);
+
+                // 暗色主题只有唯一一套：一旦选择其它配色方案，就退出暗色回到亮色主题
+                const wasDark = localStorage.getItem('layuiminiElemStyleName') === 'dark';
+                if (wasDark) {
+                    localStorage.setItem('layuiminiElemStyleName', 'normal');
+                }
+
                 miniTheme.render({
                     bgColorDefault: bgcolorId,
                     listen: false,
                 });
-                miniTheme.changeThemeMainColor()
+
+                if (wasDark) {
+                    // 同步 html 的 dark 类、右上角主题开关、各 iframe 及主色
+                    if (typeof window.onInitElemStyle === 'function') {
+                        window.onInitElemStyle();
+                    } else {
+                        miniTheme.renderElemStyle();
+                        miniTheme.changeThemeMainColor();
+                    }
+                } else {
+                    miniTheme.changeThemeMainColor();
+                }
             });
             $('body').on('click', '[data-select-style]', function () {
                 let elemStyleName = $(this).attr('data-select-style');

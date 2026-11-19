@@ -1153,31 +1153,39 @@
 .dark .layui-layout-admin .layui-body {
   background-color: rgb(2, 17, 20) !important;
 }
+/* 页签：暗色下也是下划线风格 */
+/* 页签：暗色下柔和填充，无任何线条 */
 .dark .layuimini-tab .layui-tabs-header {
-  background-color: rgba(255, 255, 255, 0.03) !important;
+  background-color: transparent !important;
+  border: none !important;
+}
+.dark .layuimini-tab .layui-tabs-header::after {
+  display: none !important;
+  content: none !important;
 }
 .dark .layuimini-tab .layui-tabs-header li {
-  background: rgba(255, 255, 255, 0.06) !important;
-  color: rgba(255, 255, 255, 0.55) !important;
+  background: transparent !important;
+  color: var(--ea-muted, #8a8a8a) !important;
 }
 .dark .layuimini-tab .layui-tabs-header li span {
-  color: rgba(255, 255, 255, 0.55) !important;
+  color: inherit !important;
 }
 .dark .layuimini-tab .layui-tabs-header li:not(.layui-this):hover {
   background: rgba(255, 255, 255, 0.06) !important;
-  color: rgba(255, 255, 255, 0.55) !important;
+  color: var(--ea-text, #e5e6eb) !important;
 }
 .dark .layuimini-tab .layui-tabs-header .layui-this {
-  background: #16b777 !important;
-  color: #fff !important;
+  background: var(--ea-primary-soft, rgba(92, 178, 255, .14)) !important;
+  color: var(--ea8-theme-main-color, #1e9fff) !important;
   transition: none !important;
 }
 .dark .layuimini-tab .layui-tabs-header .layui-this span {
-  color: #fff !important;
+  color: inherit !important;
 }
 .dark .layuimini-tab .layui-tabs-header .layui-this:after {
   display: none !important;
   content: none !important;
+  border: none !important;
 }
 .dark .layuimini-tab .layui-tabs-header .layui-tab-close {
   color: inherit !important;

@@ -32,5 +32,5 @@
 </div>
 
 <script>
-    let auth_list = JSON.parse('{$auth_list|json_encode=256|raw}')
+    let auth_list = {:json_encode($auth_list, 15)}
 </script>

@@ -22,6 +22,12 @@ class Menu extends AdminController
         'id'   => 'asc',
     ];
 
+    /**
+     * 允许写入的菜单字段
+     * @var array
+     */
+    protected array $menuFields = ['pid', 'title', 'icon', 'href', 'params', 'target', 'sort', 'status', 'remark'];
+
     public function __construct(App $app)
     {
         parent::__construct($app);
@@ -59,7 +65,7 @@ class Menu extends AdminController
             ];
             $this->validate($post, $rule);
             try {
-                $save = $this->model::create($post);
+                $save = $this->model->allowField($this->menuFields)->save($post);
             }catch (\Exception $e) {
                 $this->error('保存失败');
             }
@@ -91,7 +97,7 @@ class Menu extends AdminController
             $this->validate($post, $rule);
             if ($row->pid == MenuConstant::HOME_PID) $post['pid'] = MenuConstant::HOME_PID;
             try {
-                $save = $row->save($post);
+                $save = $row->allowField($this->menuFields)->save($post);
             }catch (\Exception $e) {
                 $this->error('保存失败');
             }
@@ -116,7 +122,27 @@ class Menu extends AdminController
     {
         $this->checkPostRequest();
         $id  = $request->param('id');
-        $row = $this->model->whereIn('id', $id)->select();
+        $ids = is_array($id) ? $id : explode(',', (string)$id);
+        $ids = array_values(array_unique(array_filter(array_map('intval', $ids))));
+        if (empty($ids)) $this->error('参数错误');
+
+        $homeId = $this->model->where(['pid' => MenuConstant::HOME_PID])->value('id');
+        if ($homeId && in_array((int)$homeId, $ids, true)) {
+            $this->error('首页菜单不允许删除');
+        }
+
+        // 递归收集所有子菜单，避免产生孤儿数据
+        $allIds = $ids;
+        $queue  = $ids;
+        while (!empty($queue) && count($allIds) < 10000) {
+            $childIds = $this->model->whereIn('pid', $queue)->column('id');
+            $childIds = array_values(array_diff(array_map('intval', $childIds), $allIds));
+            if (empty($childIds)) break;
+            $allIds = array_merge($allIds, $childIds);
+            $queue  = $childIds;
+        }
+
+        $row = $this->model->whereIn('id', $allIds)->select();
         empty($row) && $this->error('数据不存在');
         try {
             $save = $row->delete();

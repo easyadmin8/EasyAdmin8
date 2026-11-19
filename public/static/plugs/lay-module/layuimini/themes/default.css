@@ -1,3 +1,8 @@
+/* 页面底色（覆盖 layuimini.css 的 #efefef，跟随亮/暗主题变量） */
+body {
+    background-color: var(--ea-bg, #f5faff);
+}
+
 /*头部右侧背景色 headerRightBg */
 .layui-layout-admin .layui-header {
     background-color: #ffffff !important;
@@ -5,7 +10,7 @@
 
 /*头部右侧选中背景色 headerRightBgThis */
 .layui-layout-admin .layui-header .layuimini-header-content > ul > .layui-nav-item.layui-this, .layuimini-tool i:hover {
-    background-color: #e4e4e4 !important;
+    background-color: #e7f3ff !important;
 }
 
 /*头部右侧字体颜色 headerRightColor */
@@ -20,7 +25,7 @@
 
 /*头部右侧鼠标选中 headerRightColorThis */
 .layui-header .layuimini-menu-header-pc.layui-nav .layui-nav-item a:hover, .layui-header .layuimini-header-menu.layuimini-pc-show.layui-nav .layui-this a {
-    color: #565656 !important;
+    color: #0c7fd4 !important;
 }
 
 /*头部右侧更多下拉颜色 headerRightNavMore */
@@ -35,28 +40,28 @@
 
 /**头部右侧更多下拉配置色 headerRightNavMoreBg headerRightNavMoreColor */
 .layui-header .layui-nav .layui-nav-child dd.layui-this a, .layui-header .layui-nav-child dd.layui-this, .layui-layout-admin .layui-header .layui-nav .layui-nav-item .layui-nav-child .layui-this a {
-    background-color: #1E9FFF !important;
+    background-color: #1e9fff !important;
     color: #ffffff !important;
 }
 
 /*头部缩放按钮样式 headerRightToolColor */
 .layui-layout-admin .layui-header .layuimini-tool i {
-    color: #565656;
+    color: #5b6b76;
 }
 
 /*logo背景颜色 headerLogoBg */
 .layui-layout-admin .layuimini-logo {
-    background-color: #ffffff !important;
+    background-color: #232324 !important;
 }
 
 /*logo字体颜色 headerLogoColor */
 .layui-layout-admin .layuimini-logo h1 {
-    color: #333333;
+    color: #ffffff;
 }
 
 /*左侧菜单更多下拉样式 leftMenuNavMore */
 .layuimini-menu-left .layui-nav .layui-nav-more, .layuimini-menu-left-zoom.layui-nav .layui-nav-more {
-    border-top-color: #999999;
+    border-top-color: rgba(255,255,255,.5);
     display: inline-block;
     margin: 0 auto !important;
     line-height: inherit;
@@ -64,72 +69,80 @@
 
 /*左侧菜单更多下拉样式 leftMenuNavMore */
 .layuimini-menu-left .layui-nav .layui-nav-mored, .layuimini-menu-left .layui-nav-itemed > a .layui-nav-more, .layuimini-menu-left-zoom.layui-nav .layui-nav-mored, .layuimini-menu-left-zoom.layui-nav-itemed > a .layui-nav-more {
-    border-color: transparent transparent #999999 !important;
+    border-color: transparent transparent rgba(255,255,255,.5) !important;
 }
 
 /*左侧菜单背景 leftMenuBg */
 .layui-side.layui-bg-black, .layui-side.layui-bg-black > .layuimini-menu-left > ul, .layuimini-menu-left-zoom > ul {
-    background-color: #ffffff !important;
+    background-color: #232324 !important;
 }
 
 /*左侧菜单选中背景 leftMenuBgThis */
 .layuimini-menu-left .layui-nav-tree .layui-this, .layuimini-menu-left .layui-nav-tree .layui-this > a, .layuimini-menu-left .layui-nav-tree .layui-nav-child dd.layui-this, .layuimini-menu-left .layui-nav-tree .layui-nav-child dd.layui-this a, .layuimini-menu-left-zoom.layui-nav-tree .layui-this, .layuimini-menu-left-zoom.layui-nav-tree .layui-this > a, .layuimini-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this, .layuimini-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this a {
-    background-color: #e4e4e4 !important
+    background-color: #16213e !important
 }
 
 /*左侧菜单子菜单背景 leftMenuChildBg */
 .layuimini-menu-left .layui-nav-itemed > .layui-nav-child {
-    background-color: #efefef !important;
+    background-color: #232324 !important;
 }
 
 /*左侧菜单字体颜色 leftMenuColor */
 .layuimini-menu-left .layui-nav .layui-nav-item a, .layuimini-menu-left-zoom.layui-nav .layui-nav-item a {
-    color: #333333 !important;
+    color: rgba(255,255,255,.85) !important;
 }
 
 /*左侧菜单选中字体颜色 leftMenuColorThis */
 .layuimini-menu-left .layui-nav .layui-nav-item a:hover, .layuimini-menu-left .layui-nav .layui-this a, .layuimini-menu-left-zoom.layui-nav .layui-nav-item a:hover, .layuimini-menu-left-zoom.layui-nav .layui-this a {
-    color: #1E9FFF !important;
+    color: #1e9fff !important;
 }
 
-/**tab选项卡 */
+/**tab选项卡（柔和填充，无线条） */
 .layuimini-tab .layui-tabs-header {
     background-color: transparent !important;
+    border: none !important;
+}
+.layuimini-tab .layui-tabs-header::after {
+    display: none !important;
+    content: none !important;
 }
 .layuimini-tab .layui-tabs-header li {
-    color: #888 !important;
-    background: rgba(0,0,0,0.04) !important;
+    color: var(--ea-muted, #8a9994) !important;
+    background: transparent !important;
 }
 .layuimini-tab .layui-tabs-header li span {
-    color: #888 !important;
+    color: inherit !important;
 }
 .layuimini-tab .layui-tabs-header li:not(.layui-this):hover {
     background: rgba(0,0,0,0.04) !important;
-    color: #888 !important;
+    color: var(--ea-text, #31414a) !important;
 }
 .layuimini-tab .layui-tabs-header .layui-this {
-    background: #1e9fff !important;
-    color: #fff !important;
-    transition: none !important;
+    background: var(--ea-primary-soft, rgba(30,159,255,.12)) !important;
+    color: var(--ea8-theme-main-color, #1e9fff) !important;
 }
 .layuimini-tab .layui-tabs-header .layui-this span {
-    color: #fff !important;
+    color: inherit !important;
 }
 .layuimini-tab .layui-tabs-header .layui-this:after {
     display: none !important;
     content: none !important;
+    border: none !important;
 }
 .layuimini-tab .layui-tab-control > li {
-    color: #999 !important;
+    color: var(--ea-muted, #8a9994) !important;
     background: transparent !important;
 }
 .layuimini-tab .layui-tab-control > li:hover {
-    color: #1e9fff !important;
+    color: var(--ea8-theme-main-color, #1e9fff) !important;
 }
 .layuimini-tab .layui-tabs-header .layui-this .layui-tab-close {
-    opacity: .7 !important;
+    opacity: .55 !important;
+}
+.layuimini-tab .layui-tabs-header li:hover .layui-tab-close {
+    opacity: .55;
 }
 .layuimini-tab .layui-tabs-header .layui-tab-close:hover {
-    background: rgba(0,0,0,0.08) !important;
+    background: rgba(0,0,0,0.1) !important;
     opacity: 1 !important;
 }

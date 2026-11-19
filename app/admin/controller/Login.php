@@ -27,7 +27,7 @@ class Login extends AdminController
     {
         parent::initialize();
         $action = $this->request->action();
-        if (!empty($this->adminUid) && !in_array($action, ['out'])) {
+        if (!empty($this->adminUid) && !in_array($action, ['out', 'captcha'])) {
             $adminModuleName = config('admin.alias_name');
             $this->success('已登录，无需再次登录', [], __url("@{$adminModuleName}"));
         }
@@ -54,7 +54,11 @@ class Login extends AdminController
                 $widget = (new Widget(siteKey: env('CF_TURNSTILE_SITE_KEY'), theme: 'light', size: 'flexible'));
                 $this->assign(compact('widget'));
             }
-            return $this->fetch('', compact('captcha', 'cfTurnstile'));
+            $loginTemplates = config('admin.login_templates');
+            $loginTemplate  = (string)(sysConfig('site', 'login_template') ?: 'index');
+            if (!array_key_exists($loginTemplate, $loginTemplates)) $loginTemplate = 'index';
+            $template = $loginTemplate === 'index' ? '' : 'login/' . $loginTemplate;
+            return $this->fetch($template, compact('captcha', 'cfTurnstile', 'loginTemplate'));
         }
         $post = $request->post();
         $rule = [
@@ -63,8 +67,8 @@ class Login extends AdminController
             'keep_login|是否保持登录' => 'require',
         ];
         if ($captcha) {
-            $_captcha = $request->post('captcha');
-            if (strtolower($_captcha) !== session('captcha')) {
+            $_captcha = strtolower((string)$request->post('captcha', ''));
+            if ($_captcha === '' || $_captcha !== (string)session('captcha')) {
                 $this->error('输入的验证码不正确');
             }
         }
@@ -79,7 +83,7 @@ class Login extends AdminController
         if ($admin->status == 0) {
             $this->error('账号已被禁用');
         }
-        if ($admin->ip_check === 1) {
+        if ((int)$admin->ip_check === 1) {
             if (!IpService::whiteCheck()) $this->error('IP环境不在授信范围中，请联系管理员');
         }
         if ($cfTurnstile) {
@@ -93,7 +97,7 @@ class Login extends AdminController
         if ($admin->login_type == 2) {
             if (empty($post['ga_code'])) $this->error('请输入谷歌验证码', ['is_ga_code' => true]);
             $ga = new \Wolfcode\Authenticator\google\PHPGangstaGoogleAuthenticator();
-            if (!$ga->verifyCode($admin->ga_secret, $post['ga_code'])) $this->error('谷歌验证码错误');;
+            if (!$ga->verifyCode($admin->ga_secret, $post['ga_code'])) $this->error('谷歌验证码错误');
         }
         $admin->login_num += 1;
         $salt             = Str::random(6);
@@ -102,6 +106,10 @@ class Login extends AdminController
         $admin = $admin->toArray();
         unset($admin['password']);
         $admin['expire_time'] = $post['keep_login'] == 1 ? 0 : time() + 7200;
+        // 登录成功后重新生成 Session ID，防止会话固定
+        \think\facade\Session::regenerate();
+        // 轮换 CSRF Token，避免登录前获取的 token 在登录后继续可用
+        session('__csrf_token__', null);
         session('admin', $admin);
         $sign = md5($request->header('user-agent') . $admin['id'] . $salt);
         session('admin_sign', $sign);

@@ -42,6 +42,25 @@ if (!function_exists('password')) {
 }
 
 
+if (!function_exists('csrf_token')) {
+
+    /**
+     * 获取会话级稳定的 CSRF Token
+     * 不使用框架 token()，因为 checkToken() 会在校验后销毁 token，
+     * 同一页面多次 Ajax 请求会导致后续请求失败。
+     * @return string
+     */
+    function csrf_token(): string
+    {
+        $token = session('__csrf_token__');
+        if (empty($token)) {
+            $token = bin2hex(random_bytes(16));
+            session('__csrf_token__', $token);
+        }
+        return $token;
+    }
+}
+
 if (!function_exists('sysConfig')) {
 
     /**
@@ -52,7 +71,8 @@ if (!function_exists('sysConfig')) {
      */
     function sysConfig($group, $name = null): mixed
     {
-        $where = config('database.default') == 'pgsql' ? ['"group"' => $group] : ['group' => $group];
+        // group 为 SQL 关键字，交由 ORM 统一做标识符转义（MySQL 反引号 / PgSQL 双引号）
+        $where = ['group' => $group];
         $value = empty($name) ? Cache::get("sysConfig_{$group}") : Cache::get("sysConfig_{$group}_{$name}");
         if (empty($value)) {
             if (!empty($name)) {
@@ -113,6 +133,9 @@ if (!function_exists('auth')) {
 function editor_textarea(?string $detail, string $name = 'desc', string $placeholder = '请输入'): string
 {
     $editor_type = sysConfig('site', 'editor_type');
+    $name        = htmlspecialchars($name, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    $placeholder = htmlspecialchars($placeholder, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    $detail      = htmlspecialchars((string)$detail, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     return match ($editor_type) {
         'ckeditor' => "<textarea name='{$name}' rows='20' class='layui-textarea editor' placeholder='{$placeholder}'>{$detail}</textarea>",
         'ueditor'  => "<script type='text/plain' id='{$name}' name='{$name}' class='editor' data-content='{$detail}'></script>",
@@ -155,10 +178,18 @@ function exportExcel(array $header = [], array $list = [], string $fileName = ''
     foreach (range('A', $sheet->getHighestColumn()) as $col) {
         $sheet->getColumnDimension($col)->setAutoSize(true);
     }
+    $downloadName = $fileName . '.xlsx';
+    $asciiName    = preg_replace('/[^\x20-\x7e]/', '_', $downloadName);
+    $disposition  = 'attachment; filename="' . str_replace('"', '', $asciiName) . '"; filename*=UTF-8\'\'' . rawurlencode($downloadName);
+
+    if (ob_get_level() > 0) {
+        @ob_end_clean();
+    }
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Disposition: attachment;filename="' . $fileName . '.xlsx"');
+    header('Content-Disposition: ' . $disposition);
     header('Cache-Control: max-age=0');
     $writer = new Xlsx($spreadsheet);
     $writer->save('php://output');
-    die();
+    $spreadsheet->disconnectWorksheets();
+    exit();
 }

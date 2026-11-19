@@ -4,7 +4,6 @@ namespace app\admin\service\auth;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Annotations\DocParser;
 use app\admin\service\annotation\ControllerAnnotation;
 use app\admin\service\annotation\NodeAnnotation;
@@ -53,7 +52,6 @@ class Node
         list($nodeList, $controllerList) = [[], $this->getControllerList()];
 
         if (!empty($controllerList)) {
-            AnnotationRegistry::loadAnnotationClass('class_exists');
             $parser = new DocParser();
             $parser->setIgnoreNotImportedAnnotations(true);
             $reader = new AnnotationReader($parser);
@@ -79,7 +77,14 @@ class Node
                     $attributes = $reflectionClass->getMethod($method->name)->getAttributes(NodeAnnotation::class);
                     foreach ($attributes as $attribute) {
                         $annotation = $attribute->newInstance();
-                        if (!empty($annotation->ignore)) if (strtolower($annotation->ignore) == 'node') continue;
+                        $ignore     = $annotation->ignore;
+                        if (!empty($ignore)) {
+                            if (is_array($ignore)) {
+                                if (in_array('node', array_map('strtolower', $ignore), true)) continue;
+                            } elseif (strtolower((string)$ignore) === 'node') {
+                                continue;
+                            }
+                        }
                         $actionList[] = [
                             'node'    => $controllerFormat . '/' . $method->name,
                             'title'   => $annotation->title ?? null,

@@ -4,7 +4,7 @@ namespace app\admin\service;
 
 use app\admin\model\SystemUploadfile;
 use OSS\Core\OssException;
-use OSS\Credentials\EnvironmentVariableCredentialsProvider;
+use OSS\Credentials\StaticCredentialsProvider;
 use OSS\OssClient;
 use think\facade\Env;
 use think\file\UploadedFile;
@@ -16,9 +16,29 @@ use Qiniu\Auth;
 
 class UploadService
 {
+    /**
+     * 无论配置如何，都不允许上传的后缀（避免落到 public/storage 被解析执行）
+     * @var array
+     */
+    private const DANGEROUS_EXT = [
+        'php', 'php3', 'php4', 'php5', 'php7', 'php8', 'phtml', 'phar', 'pht',
+        'shtml', 'shtm', 'jsp', 'jspx', 'asp', 'aspx', 'cer', 'asa', 'cgi',
+        'pl', 'py', 'sh', 'bash', 'exe', 'bat', 'cmd', 'com', 'vbs', 'htaccess',
+    ];
+
     public static ?UploadService $_instance = null;
     protected array              $options   = [];
     private array                $saveData;
+
+    /**
+     * 校验是否为危险可执行后缀
+     * @param UploadedFile $file
+     * @return bool
+     */
+    protected function isDangerousFile(UploadedFile $file): bool
+    {
+        return in_array(strtolower($file->extension()), self::DANGEROUS_EXT, true);
+    }
 
     public static function instance(): ?UploadService
     {
@@ -68,7 +88,7 @@ class UploadService
             'mime_type'     => $file->getMime(),
             'file_size'     => $file->getSize(),
             'file_ext'      => strtolower($file->extension()),
-            'create_time'   => time(),
+            'create_time'   => date('Y-m-d H:i:s'),
         ];
         $this->saveData = $data;
         return $this;
@@ -83,20 +103,22 @@ class UploadService
      */
     public function local(UploadedFile $file, string $type = ''): array
     {
-        if ($file->isValid()) {
-            $base_path = '/storage/' . date('Ymd') . '/';
-            // 上传文件的目标文件夹
-            $destinationPath = public_path() . $base_path;
-            $this->setSaveData($file);
-            // 将文件移动到目标文件夹中
-            $move = $file->move($destinationPath, Str::random(3) . time() . Str::random() . session('admin.id') . '.' . $file->extension());
-            $url  = $base_path . $move->getFilename();
-            $data = ['url' => $url];
-            $this->save($url);
-            return ['code' => 1, 'data' => $data];
+        if (!$file->isValid()) {
+            return ['code' => 0, 'data' => '上传失败'];
         }
-        $data = '上传失败';
-        return ['code' => 0, 'data' => $data];
+        if ($this->isDangerousFile($file)) {
+            return ['code' => 0, 'data' => '不允许上传该类型文件'];
+        }
+        $base_path = '/storage/' . date('Ymd') . '/';
+        // 上传文件的目标文件夹
+        $destinationPath = public_path() . $base_path;
+        $this->setSaveData($file);
+        // 将文件移动到目标文件夹中
+        $move = $file->move($destinationPath, Str::random(3) . time() . Str::random() . '.' . $file->extension());
+        $url  = $base_path . $move->getFilename();
+        $data = ['url' => $url];
+        $this->save($url);
+        return ['code' => 1, 'data' => $data];
     }
 
     /**
@@ -114,10 +136,9 @@ class UploadService
         $endpoint        = $config['oss_endpoint'];
         $bucket          = $config['oss_bucket'];
         // 升级 aliyuncs/oss-sdk-php 到 v2.7.2 以上, 使用签名 v4 版本
-        putenv('OSS_ACCESS_KEY_ID=' . $accessKeyId);
-        putenv('OSS_ACCESS_KEY_SECRET=' . $accessKeySecret);
+        // 直接使用静态凭证，避免 putenv 污染进程环境变量
         $region   = str_replace(['http://oss-', 'https://oss-', 'oss-'], '', explode('.aliyuncs.com', $endpoint)[0] ?? '');
-        $provider = new EnvironmentVariableCredentialsProvider();
+        $provider = new StaticCredentialsProvider($accessKeyId, $accessKeySecret);
         $args     = [
             "provider"         => $provider,
             "endpoint"         => $endpoint,
@@ -125,6 +146,7 @@ class UploadService
             "region"           => $region
         ];
         if ($file->isValid()) {
+            if ($this->isDangerousFile($file)) return ['code' => 0, 'data' => '不允许上传该类型文件'];
             $object = $this->setFilePath($file, Env::get('EASYADMIN.OSS_STATIC_PREFIX', 'easyadmin8') . '/');
             try {
                 $ossClient       = new OssClient($args);
@@ -158,6 +180,7 @@ class UploadService
         $secretKey = $config['cos_secret_key'];             //替换为用户的 secretKey，请登录访问管理控制台进行查看和管理，https://console.cloud.tencent.com/cam/capi
         $region    = $config['cos_region'];                 //替换为用户的 region，已创建桶归属的region可以在控制台查看，https://console.cloud.tencent.com/cos5/bucket
         if ($file->isValid()) {
+            if ($this->isDangerousFile($file)) return ['code' => 0, 'data' => '不允许上传该类型文件'];
             $cosClient = new Client(
                 [
                     'region'      => $region,
@@ -197,7 +220,8 @@ class UploadService
      */
     public function qnoss(UploadedFile $file, string $type = ''): array
     {
-        if (!$file->isValid()) return ['code' => 1, 'data' => '上传验证失败'];
+        if (!$file->isValid()) return ['code' => 0, 'data' => '上传验证失败'];
+        if ($this->isDangerousFile($file)) return ['code' => 0, 'data' => '不允许上传该类型文件'];
         $uploadMgr = new UploadManager();
         $config    = $this->getConfig();
         $accessKey = $config['qnoss_access_key'];
@@ -220,7 +244,7 @@ class UploadService
     {
         $data                = $this->saveData;
         $data['url']         = $url;
-        $data['upload_time'] = time();
+        $data['upload_time'] = date('Y-m-d H:i:s');
         return (new SystemUploadfile())->save($data);
     }
 }

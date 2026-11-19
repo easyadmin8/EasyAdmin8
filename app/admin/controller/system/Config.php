@@ -22,6 +22,8 @@ class Config extends AdminController
         $this->model = new SystemConfig();
         $this->assign('upload_types', config('admin.upload_types'));
         $this->assign('editor_types', config('admin.editor_types'));
+        $this->assign('login_templates', config('admin.login_templates'));
+        $this->assign('login_template', sysConfig('site', 'login_template') ?: 'index');
     }
 
     #[NodeAnnotation(title: '列表', auth: true)]
@@ -38,17 +40,26 @@ class Config extends AdminController
         $notAddFields = ['_token', 'file', 'group'];
         try {
             $group = $post['group'] ?? '';
-            if (empty($group)) $this->error('保存失败');
+            if (!is_string($group) || !preg_match('/^[A-Za-z0-9_]+$/', $group)) $this->error('保存失败');
             if ($group == 'upload') {
                 $upload_types = config('admin.upload_types');
                 // 兼容旧版本
-                $this->model->where('name', 'upload_allow_type')->update(['value' => implode(',', array_keys($upload_types))]);
+                $this->model->where('name', 'upload_allow_type')->where('group', 'upload')->update(['value' => implode(',', array_keys($upload_types))]);
             }
             foreach ($post as $key => $val) {
                 if (in_array($key, $notAddFields)) continue;
-                if ($this->model->where('name', $key)->count()) {
-                    $this->model->where('name', $key)->update(['value' => $val,]);
-                }else {
+                if (!is_string($key) || !preg_match('/^[A-Za-z0-9_]+$/', $key)) continue;
+                if (is_array($val)) {
+                    $this->error('配置值格式错误：' . $key);
+                }
+                // name 在数据库中唯一：存在时校验分组，避免跨分组误覆盖
+                $exist = $this->model->where('name', $key)->find();
+                if ($exist) {
+                    if ((string)$exist['group'] !== $group) {
+                        $this->error('配置项 ' . $key . ' 属于其他分组，禁止在此处修改');
+                    }
+                    $exist->save(['value' => $val]);
+                } else {
                     $this->model::create(
                         [
                             'name'  => $key,
@@ -56,7 +67,6 @@ class Config extends AdminController
                             'group' => $group,
                         ]);
                 }
-                if (Cache::has($key)) Cache::set($key, $val);
             }
             TriggerService::updateMenu();
             TriggerService::updateSysConfig();

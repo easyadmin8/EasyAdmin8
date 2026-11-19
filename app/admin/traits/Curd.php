@@ -43,7 +43,7 @@ trait Curd
                 Db::transaction(function() use ($post, &$save) {
                     $save = $this->model::create($post);
                 });
-            }catch (\Exception $e) {
+            } catch (\Exception $e) {
                 $this->error('新增失败:' . $e->getMessage());
             }
             $save ? $this->success('新增成功') : $this->error('新增失败');
@@ -64,7 +64,7 @@ trait Curd
                 Db::transaction(function() use ($post, $row, &$save) {
                     $save = $row->save($post);
                 });
-            }catch (\Exception $e) {
+            } catch (\Exception $e) {
                 $this->error('保存失败');
             }
             $save ? $this->success('保存成功') : $this->error('保存失败');
@@ -83,7 +83,7 @@ trait Curd
         $row->isEmpty() && $this->error('数据不存在');
         try {
             $save = $row->delete();
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $this->error('删除失败');
         }
         $save ? $this->success('删除成功') : $this->error('删除失败');
@@ -117,7 +117,7 @@ trait Curd
             ->toArray();
         try {
             exportExcel($header, $list);
-        }catch (\Throwable $exception) {
+        } catch (\Throwable $exception) {
             $this->error('导出失败: ' . $exception->getMessage() . PHP_EOL . $exception->getFile() . PHP_EOL . $exception->getLine());
         }
     }
@@ -143,10 +143,10 @@ trait Curd
         try {
             Db::transaction(function() use ($post, $row) {
                 $row->save([
-                               $post['field'] => $post['value'],
-                           ]);
+                    $post['field'] => $post['value'],
+                ]);
             });
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $this->error($e->getMessage());
         }
         $this->success('保存成功');
@@ -165,9 +165,7 @@ trait Curd
         if (!$deleteTimeField) $this->success($defaultErrorMsg);
         switch ($type) {
             case 'restore':
-                $update_time = time();
-                if ($this->model->getFieldType('update_time') !== 'int') $update_time = date('Y-m-d H:i:s');
-                $this->model->withTrashed()->whereIn('id', $id)->strict(false)->update([$deleteTimeField => null, 'update_time' => $update_time]);
+                $this->model->withTrashed()->whereIn('id', $id)->strict(false)->update([$deleteTimeField => null, 'update_time' => date('Y-m-d H:i:s')]);
                 $this->success('success');
                 break;
             case 'delete':

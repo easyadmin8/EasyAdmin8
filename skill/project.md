@@ -2,18 +2,18 @@
 
 ## 项目概述
 
-`EasyAdmin8` 是基于 `EasyAdmin` 重构的后台管理系统，使用 `ThinkPHP 8.1+` 和 `Layui 2.x` 构建。
+`EasyAdmin8` 是基于 `EasyAdmin` 重构的后台管理系统，使用 `ThinkPHP 8.1+` 和 `Layui 2.9.x` 构建。
 
 - 官网：http://easyadmin8.top
 - 演示：http://thinkphp.easyadmin8.top/admin
-- PHP 版本要求：>= 8.2
+- PHP 版本要求：>= 8.3
 - 数据库：MySQL >= 5.7
 
 ## 技术栈
 
 | 技术     | 版本   | 说明         |
 |----------|--------|--------------|
-| PHP      | >= 8.2 | 服务端语言   |
+| PHP      | >= 8.3 | 服务端语言   |
 | ThinkPHP | 8.1+   | PHP 框架     |
 | Layui    | 2.x    | 前端 UI 框架 |
 | MySQL    | >= 5.7 | 数据库       |
@@ -52,10 +52,13 @@
 git clone https://gitee.com/EasyAdmin8/EasyAdmin8
 
 # 安装依赖
-composer install --ignore-platform-reqs
+composer install
 
-# 复制环境配置 修改数据库配置
+# 复制环境配置
 cp .example.env .env
+
+# 修改数据库配置
+# 编辑 .env 文件
 ```
 
 ### 生成 CURD

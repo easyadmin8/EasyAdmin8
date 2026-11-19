@@ -404,7 +404,11 @@ PHP;
      */
     protected function phpCli(): string
     {
-        $env = env('SCHEDULE_PHP_CLI', '');
+        $env = trim((string)env('SCHEDULE_PHP_CLI', ''));
+        // 只允许安全的可执行路径字符，避免命令注入
+        if ($env !== '' && !preg_match('/^[A-Za-z0-9_.\/\\\\:\- ]+$/', $env)) {
+            $env = '';
+        }
         return $env !== '' ? $env : 'php';
     }
 
@@ -414,8 +418,16 @@ PHP;
     protected function tail(string $file, int $lines = 30): string
     {
         if (!is_file($file)) return '';
-        $content = @file_get_contents($file);
-        if ($content === false) return '';
+        $lines = max(1, $lines);
+        $size  = @filesize($file);
+        if ($size === false || $size <= 0) return '';
+        // 只读取文件尾部，避免大日志一次性读入内存
+        $chunk = min($size, min(2 * 1024 * 1024, max(64 * 1024, $lines * 1024)));
+        $fp    = @fopen($file, 'r');
+        if (!$fp) return '';
+        @fseek($fp, -$chunk, SEEK_END);
+        $content = (string)@fread($fp, $chunk);
+        @fclose($fp);
         $arr = preg_split("/\r?\n/", rtrim($content, "\r\n"));
         if (!$arr) return '';
         return $this->toUtf8(implode("\n", array_slice($arr, -$lines)));

@@ -23,12 +23,11 @@ class Install extends BaseController
             // $this->redirect('/');
             $isInstall = true;
             $errorInfo = '已安装系统，如需重新安装请删除文件：/config/install/lock/install.lock，或者删除 /install 路由';
-        } elseif (version_compare(phpversion(), '8.2.0', '<')) {
-            $errorInfo = 'PHP版本不能小于8.2.0';
-        } elseif (!extension_loaded("PDO")) {
+        } elseif (version_compare(phpversion(), '8.3.0', '<')) {
+            $errorInfo = 'PHP版本不能小于8.3.0';
+        } elseif (!extension_loaded('PDO')) {
             $errorInfo = '当前未开启PDO，无法进行安装';
-        }
-        if (!is_file(root_path() . '.env')) {
+        } elseif (!is_file(root_path() . '.env')) {
             $errorInfo = '.env 文件不存在，请先配置 .env 文件';
         }
         if (!$request->isAjax()) {
@@ -48,29 +47,40 @@ class Install extends BaseController
         }
         if ($errorInfo) $this->error($errorInfo);
         $post       = $request->post();
-        $charset    = $post['db_charset'];
-        $cover      = $post['cover'] == 1;
-        $db_type    = $post['db_type'];
-        $database   = $post['database'];
-        $hostname   = $post['hostname'];
-        $hostport   = $post['hostport'];
-        $dbUsername = $post['db_username'];
-        $dbPassword = $post['db_password'];
-        $prefix     = $post['prefix'];
-        $adminUrl   = $post['admin_url'];
-        $username   = $post['username'];
-        $password   = $post['password'] ?: '123456';
+        $charset    = (string)$request->post('db_charset', 'utf8mb4');
+        $cover      = (int)$request->post('cover', 0) === 1;
+        $db_type    = (string)$request->post('db_type', 'mysql');
+        $database   = (string)$request->post('database', '');
+        $hostname   = (string)$request->post('hostname', '');
+        $hostport   = (string)$request->post('hostport', '3306');
+        $dbUsername = (string)$request->post('db_username', '');
+        $dbPassword = (string)$request->post('db_password', '');
+        $prefix     = (string)$request->post('prefix', '');
+        $adminUrl   = (string)$request->post('admin_url', 'admin');
+        $username   = (string)$request->post('username', '');
+        $password   = (string)$request->post('password', '') ?: '123456';
         // 参数验证
         $validateError = null;
-        // 判断是否有特殊字符
-        $check = preg_match('/[0-9a-zA-Z]+$/', $adminUrl, $matches);
-        if (!$check) {
-            $validateError = '后台地址不能含有特殊字符, 只能包含字母或数字。';
+        // 只允许 mysql / pgsql
+        if (!in_array($db_type, ['mysql', 'pgsql'], true)) {
+            $this->error('不支持的数据库类型');
+        }
+        // 数据库标识符白名单，避免 SQL 注入
+        if (!preg_match('/^[A-Za-z0-9_]+$/', $database)) {
+            $this->error('数据库名称只能包含字母、数字和下划线');
+        }
+        if (!preg_match('/^[A-Za-z0-9_]*$/', $prefix)) {
+            $this->error('数据表前缀只能包含字母、数字和下划线');
+        }
+        if (!preg_match('/^[A-Za-z0-9_]+$/', $charset)) {
+            $this->error('数据库字符集不合法');
+        }
+        // 后台地址只能包含字母或数字
+        if (!preg_match('/^[0-9a-zA-Z]{2,}$/', $adminUrl)) {
+            $validateError = '后台地址不能含有特殊字符, 只能包含字母或数字，且不少于2位。';
             $this->error($validateError);
         }
-        if (strlen($adminUrl) < 2) {
-            $validateError = '后台的地址不能小于2位数';
-        } elseif (strlen($password) < 5) {
+        if (strlen($password) < 5) {
             $validateError = '管理员密码不能小于5位数';
         } elseif (strlen($username) < 4) {
             $validateError = '管理员账号不能小于4位数';
@@ -95,19 +105,48 @@ class Install extends BaseController
         // 导入sql语句等等
         $config = array_merge($config, ['database' => $database]);
         $this->install($username, $password, $config);
+        $this->updateEnvAdmin($adminUrl);
         session('admin', null);
         SystemLogService::instance()->clearLogCache();
         $this->success('系统安装成功，正在跳转登录页面');
     }
 
+    /**
+     * 将安装时填写的后台地址写回 .env（[EASYADMIN] 段的 ADMIN）
+     */
+    protected function updateEnvAdmin(string $adminUrl): void
+    {
+        $envFile = root_path() . '.env';
+        if (!is_file($envFile) || !is_writable($envFile)) {
+            return;
+        }
+        $content = (string)file_get_contents($envFile);
+        if ($content === '') {
+            return;
+        }
+        $pattern = '/(\[EASYADMIN\](?:(?!\[).)*?\bADMIN\s*=)[^\r\n]*/s';
+        if (preg_match($pattern, $content)) {
+            $content = (string)preg_replace($pattern, '${1}' . $adminUrl, $content, 1);
+        } elseif (str_contains($content, '[EASYADMIN]')) {
+            $content = preg_replace('/(\[EASYADMIN\][^\r\n]*\r?\n)/', '$1ADMIN=' . $adminUrl . PHP_EOL, $content, 1);
+        } else {
+            $content = rtrim($content, "\r\n") . PHP_EOL . PHP_EOL . '[EASYADMIN]' . PHP_EOL . 'ADMIN=' . $adminUrl . PHP_EOL;
+        }
+        @file_put_contents($envFile, $content, LOCK_EX);
+    }
+
     protected function install(string $username, string $password, array $config): ?bool
     {
         $installPath = config_path() . DIRECTORY_SEPARATOR . 'install' . DIRECTORY_SEPARATOR;
-        $driver      = $config['driver'];
+        $driver      = $config['driver'] ?? 'mysql';
         $sqlPath     = match ($driver) {
-            'mysql' => file_get_contents($installPath . 'sql' . DIRECTORY_SEPARATOR . 'install.sql'),
-            'pgsql' => file_get_contents($installPath . 'sql' . DIRECTORY_SEPARATOR . 'install_pgsql.sql'),
+            'mysql' => @file_get_contents($installPath . 'sql' . DIRECTORY_SEPARATOR . 'install.sql'),
+            'pgsql' => @file_get_contents($installPath . 'sql' . DIRECTORY_SEPARATOR . 'install_pgsql.sql'),
+            default => false,
         };
+        if ($sqlPath === false) {
+            $this->error('未找到对应的数据库安装脚本');
+        }
         $sqlArray    = $this->parseSql($sqlPath, $config['prefix'], 'ea_');
         $dsn         = $this->pdoDsn($config, true);
         try {
@@ -119,13 +158,14 @@ class Install extends BaseController
             $tableName      = 'system_admin';
             $update         = [
                 'username'    => $username,
-                'head_img'    => '/static/admin/images/head.jpg',
+                'avatar'    => '/static/admin/images/head.jpg',
                 'password'    => $hashedPassword,
-                'create_time' => time(),
-                'update_time' => time()
+                'create_time' => date('Y-m-d H:i:s'),
+                'update_time' => date('Y-m-d H:i:s')
             ];
             foreach ($update as $_k => $_up) {
-                $pdo->query("UPDATE {$config['prefix']}{$tableName} SET {$_k} = '{$_up}' WHERE id = 1");
+                $stmt = $pdo->prepare("UPDATE {$config['prefix']}{$tableName} SET {$_k} = :value WHERE id = 1");
+                $stmt->execute([':value' => $_up]);
             }
             if ($driver == 'pgsql') {
                 // 文件原型 /vendor/topthink/think-orm/src/db/connector/pgsql12.sql
@@ -182,10 +222,20 @@ class Install extends BaseController
 
     protected function createDatabase($database, $config): bool
     {
+        if (!preg_match('/^[A-Za-z0-9_]+$/', (string)$database)) {
+            $this->error('数据库名称只能包含字母、数字和下划线');
+        }
+        if (!preg_match('/^[A-Za-z0-9_]+$/', (string)($config['charset'] ?? ''))) {
+            $this->error('数据库字符集不合法');
+        }
+        $driver = $config['driver'] ?? 'mysql';
+        if (!in_array($driver, ['mysql', 'pgsql'], true)) {
+            $this->error('不支持的数据库类型');
+        }
         $dsn = $this->pdoDsn($config);
         try {
             $pdo        = new \PDO($dsn, $config['username'] ?? 'root', $config['password'] ?? '');
-            $create_sql = match ($config['driver'] ?? 'mysql') {
+            $create_sql = match ($driver) {
                 'mysql' => <<<SQL
 CREATE DATABASE IF NOT EXISTS `{$database}` DEFAULT CHARACTER SET {$config['charset']} COLLATE=utf8mb4_general_ci;
 SQL,
@@ -202,24 +252,22 @@ SQL,
 
     protected function checkDatabase($database, $config): bool
     {
+        if (!preg_match('/^[A-Za-z0-9_]+$/', (string)$database)) {
+            return false;
+        }
+        $driver = $config['driver'] ?? 'mysql';
         try {
-            $sql   = match ($config['driver'] ?? 'mysql') {
-                'mysql' => <<<SQL
-SELECT * FROM information_schema.schemata WHERE schema_name='{$database}'
-SQL,
-                'pgsql' => <<<SQL
-SELECT 1 FROM pg_database WHERE datname='{$database}'
-SQL,
-            };
-            $check = Db::query($sql);
+            if ($driver === 'pgsql') {
+                $check = Db::query('SELECT 1 FROM pg_database WHERE datname = :name', ['name' => $database]);
+            } elseif ($driver === 'mysql') {
+                $check = Db::query('SELECT SCHEMA_NAME FROM information_schema.schemata WHERE SCHEMA_NAME = :name', ['name' => $database]);
+            } else {
+                return false;
+            }
         } catch (\Throwable $exception) {
             $check = false;
         }
-        if (empty($check)) {
-            return false;
-        } else {
-            return true;
-        }
+        return !empty($check);
     }
 
     protected function checkConnect(array $config): ?bool
@@ -241,6 +289,8 @@ SQL,
                         $this->error('pgsql版本最低要求 12.x');
                     }
                     break;
+                default:
+                    $this->error('不支持的数据库类型');
             }
         } catch (\PDOException $e) {
             $this->error($e->getMessage());
@@ -260,7 +310,7 @@ SQL,
         $port     = $config['port'] ?? '3306';
         $charset  = $config['charset'] ?? 'utf8mb4';
         $driver   = $config['driver'] ?? 'mysql';
-        $dsn      = "{$config['driver']}:host=$host;port=$port;";
+        $dsn      = "{$driver}:host=$host;port=$port;";
         if ($needDatabase) $dsn = $dsn . "dbname=$database;";
         if ($driver == 'mysql') $dsn = $dsn . "charset=$charset;";
         return $dsn;

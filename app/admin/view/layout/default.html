@@ -2,11 +2,11 @@
 <html lang="zh" class="">
 <head>
     <meta charset="utf-8">
-    <title>{:sysConfig('site','site_name')}</title>
+    <title>{:htmlspecialchars((string)sysConfig('site', 'site_name'), ENT_QUOTES)}</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="icon" href="{:sysConfig('site', 'site_ico')}" type="image/x-icon">
+    <link rel="icon" href="{:htmlspecialchars((string)sysConfig('site', 'site_ico'), ENT_QUOTES)}" type="image/x-icon">
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
@@ -21,7 +21,7 @@
             AUTOLOAD_JS: "{$autoloadJs|default='false'}",
             IS_SUPER_ADMIN: "{$isSuperAdmin|default='false'}",
             VERSION: "{$version|default='1.0.0'}",
-            CSRF_TOKEN: "{:token()}",
+            CSRF_TOKEN: "{:csrf_token()}",
             ADMIN_UPLOAD_URL: "{$adminUploadUrl|default=''}",
             IFRAME_OPEN_TOP: "{$iframeOpenTop|default=0}",
             MAX_FILE_SIZE: "{$maxFileSize|default=2 * 1024 * 1024}",

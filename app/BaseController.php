@@ -71,9 +71,10 @@ abstract class BaseController
             $v = new Validate();
             $v->rule($validate);
         }else {
-            if (strpos($validate, '.')) {
+            $scene = '';
+            if (str_contains($validate, '.')) {
                 // 支持场景
-                [$validate, $scene] = explode('.', $validate);
+                [$validate, $scene] = explode('.', $validate, 2);
             }
             $class = str_contains($validate, '\\') ? $validate : $this->app->parseClass('validate', $validate);
             $v     = new $class();

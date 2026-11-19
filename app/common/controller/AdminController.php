@@ -149,7 +149,7 @@ class AdminController extends BaseController
     {
         try {
             parent::validate($data, $validate, $message, $batch);
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $this->error($e->getMessage());
         }
         return true;
@@ -172,9 +172,16 @@ class AdminController extends BaseController
         $ops      = json_decode($ops, true);
         $where    = [];
         $excludes = [];
+        if (!is_array($filters) || !is_array($ops)) {
+            $this->error('筛选参数格式错误');
+        }
         // 判断是否关联查询
         $tableName = Str::snake(lcfirst($this->model->getName()));
         foreach ($filters as $key => $val) {
+            // 仅允许合法的字段名（支持关联字段 table.field），防止字段名注入
+            if (!is_string($key) || !preg_match('/^[A-Za-z0-9_.]+$/', $key)) {
+                continue;
+            }
             if (in_array($key, $excludeFields)) {
                 $excludes[$key] = $val;
                 continue;
@@ -204,12 +211,10 @@ class AdminController extends BaseController
                     $where[] = ['', 'exp', Db::raw("FIND_IN_SET(:param,$key)", ['param' => $val])];
                     break;
                 case 'range':
-                    [$beginTime, $endTime] = explode(' - ', $val);
-                    $where[] = [$key, '>=', strtotime($beginTime)];
-                    $where[] = [$key, '<=', strtotime($endTime)];
-                    break;
                 case 'datetime':
-                    [$beginTime, $endTime] = explode(' - ', $val);
+                    $range = explode(' - ', (string)$val);
+                    if (count($range) !== 2) break;
+                    [$beginTime, $endTime] = $range;
                     $where[] = [$key, '>=', $beginTime];
                     $where[] = [$key, '<=', $endTime];
                     break;
@@ -226,7 +231,15 @@ class AdminController extends BaseController
      */
     public function selectList(): Json
     {
-        $fields = input('selectFields');
+        $fields = input('selectFields', '');
+        if (is_array($fields)) {
+            $fields = implode(',', $fields);
+        }
+        $fields = trim((string)$fields);
+        if ($fields !== '' && !preg_match('/^[A-Za-z0-9_,.*\s]+$/', $fields)) {
+            $this->error('字段参数不合法');
+        }
+        $fields = $fields === '' ? '*' : $fields;
         $data   = $this->model->where($this->selectWhere)->field($fields)->select()->toArray();
         $this->success(null, $data);
     }

@@ -24,7 +24,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
                     {field: 'id', width: 80, title: 'ID', searchOp: '='},
                     {field: 'sort', width: 80, title: '排序', edit: 'text'},
                     {field: 'username', minWidth: 80, title: '登录账户'},
-                    {field: 'head_img', minWidth: 80, title: '头像', search: false, templet: ea.table.image},
+                    {field: 'avatar', minWidth: 80, title: '头像', search: false, templet: ea.table.image},
                     {field: 'phone', minWidth: 80, title: '手机'},
                     {field: 'login_num', minWidth: 80, title: '登录次数'},
                     {
@@ -117,7 +117,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
                     {type: "checkbox"},
                     {field: 'sort', width: 80, title: '排序', edit: 'text'},
                     {field: 'username', minWidth: 80, title: '登录账户'},
-                    {field: 'head_img', minWidth: 80, title: '头像', search: false, templet: ea.table.image},
+                    {field: 'avatar', minWidth: 80, title: '头像', search: false, templet: ea.table.image},
                     {field: 'phone', minWidth: 80, title: '手机'},
                     {field: 'login_num', minWidth: 80, title: '登录次数'},
                     {field: 'remark', minWidth: 80, title: '备注信息'},

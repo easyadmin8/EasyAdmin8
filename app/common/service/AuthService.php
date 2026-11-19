@@ -120,6 +120,9 @@ class AuthService
         $controller = request()->controller();
         try {
             $controllerExplode = explode('.', $controller);
+            if (count($controllerExplode) < 2) {
+                return false;
+            }
             [$_name, $_controller] = $controllerExplode;
             $nodeExplode     = explode('/', $node);
             $action          = end($nodeExplode);

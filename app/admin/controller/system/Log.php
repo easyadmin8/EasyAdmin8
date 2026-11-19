@@ -32,7 +32,7 @@ class Log extends AdminController
                 return $this->selectList();
             }
             [$page, $limit, $where, $excludeFields] = $this->buildTableParams(['month']);
-            $month = !empty($excludeFields['month']) ? date('Ym', strtotime($excludeFields['month'])) : date('Ym');
+            $month = $this->parseMonth($excludeFields['month'] ?? null);
             $model = $this->model->setSuffix("_$month")->with('admin')->where($where);
             try {
                 $count = $model->count();
@@ -59,17 +59,29 @@ class Log extends AdminController
             $this->error('演示环境下不允许操作');
         }
         [$page, $limit, $where, $excludeFields] = $this->buildTableParams(['month']);
-        $month     = !empty($excludeFields['month']) ? date('Ym', strtotime($excludeFields['month'])) : date('Ym');
-        $tableName = $this->model->setSuffix("_$month")->getName();
-        $tableName = CommonTool::humpToLine(lcfirst($tableName));
-        $prefix    = config('database.connections.mysql.prefix');
-        $dbList    = Db::query("show full columns from {$prefix}{$tableName}");
-        $header    = [];
-        foreach ($dbList as $vo) {
-            $comment = !empty($vo['Comment']) ? $vo['Comment'] : $vo['Field'];
-            if (!in_array($vo['Field'], $this->noExportFields)) {
-                $header[] = [$comment, $vo['Field']];
+        $month     = $this->parseMonth($excludeFields['month'] ?? null);
+        $driver    = (string)config('database.default');
+        $prefix    = (string)config("database.connections.{$driver}.prefix", '');
+        $baseName  = CommonTool::humpToLine(lcfirst($this->model->getName()));
+        $tableName = $prefix . $baseName . "_{$month}";
+        $header = [];
+        try {
+            if ($driver === 'pgsql') {
+                $dbList = Db::query(
+                    "SELECT column_name AS \"Field\", '' AS \"Comment\" FROM information_schema.columns WHERE table_name = :table ORDER BY ordinal_position",
+                    ['table' => $tableName]
+                );
+            } else {
+                $dbList = Db::query("show full columns from `{$tableName}`");
             }
+            foreach ($dbList as $vo) {
+                $comment = !empty($vo['Comment']) ? $vo['Comment'] : $vo['Field'];
+                if (!in_array($vo['Field'], $this->noExportFields)) {
+                    $header[] = [$comment, $vo['Field']];
+                }
+            }
+        } catch (\Throwable $exception) {
+            $this->error('日志表不存在或读取失败');
         }
         $model = $this->model->setSuffix("_$month")->with('admin')->where($where);
         try {
@@ -101,23 +113,29 @@ class Log extends AdminController
         $monthsAgo = $request->param('month/d', 0);
         if ($monthsAgo < 1) $this->error('月份错误');
 
-        $currentDate = new \DateTime();
-        $currentDate->modify("-$monthsAgo months");
-
-        $dbPrefix   = env('DB_PREFIX');
+        $driver     = (string)config('database.default');
+        $dbPrefix   = (string)env('DB_PREFIX', '');
         $dbLike     = "{$dbPrefix}system_log_";
-        $tables     = Db::query("SHOW TABLES LIKE '$dbLike%'");
+        $like       = addcslashes($dbLike, '_%\\') . '%';
         $threshold  = date('Ym', strtotime("-$monthsAgo month"));
         $tableNames = [];
         try {
+            if ($driver === 'pgsql') {
+                $tables  = Db::query("SELECT tablename FROM pg_tables WHERE schemaname = 'public' AND tablename LIKE :like", ['like' => $like]);
+                $nameKey = 'tablename';
+                $quote   = '"';
+            } else {
+                $tables  = Db::query("SELECT table_name AS name FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name LIKE :like", ['like' => $like]);
+                $nameKey = 'name';
+                $quote   = '`';
+            }
+            $regex = '/^' . preg_quote($dbLike, '/') . '\d{6}$/';
             foreach ($tables as $table) {
-                $tableName = current($table);
-                if (!preg_match("/^$dbLike\d{6}$/", $tableName)) continue;
-                $datePart   = substr($tableName, -6);
-                $issetTable = Db::query("SHOW TABLES LIKE '$tableName'");
-                if (!$issetTable) continue;
+                $tableName = $nameKey !== null ? ($table[$nameKey] ?? '') : (string)current($table);
+                if ($tableName === '' || !preg_match($regex, $tableName)) continue;
+                $datePart = substr($tableName, -6);
                 if ($datePart - $threshold <= 0) {
-                    Db::execute("DROP TABLE `$tableName`");
+                    Db::execute("DROP TABLE {$quote}{$tableName}{$quote}");
                     $tableNames[] = $tableName;
                 }
             }
@@ -125,6 +143,26 @@ class Log extends AdminController
         }
         if (empty($tableNames)) $this->error('没有需要删除的表');
         $this->success('操作成功 - 共删除 ' . count($tableNames) . ' 张表<br/>' . implode('<br>', $tableNames));
+    }
+
+    /**
+     * 解析月份筛选参数为 Ym 格式
+     * @param mixed $value
+     * @return string
+     */
+    protected function parseMonth($value): string
+    {
+        if (empty($value)) {
+            return date('Ym');
+        }
+        if (!is_string($value) || !preg_match('/^\d{4}-\d{2}(-\d{2})?$/', $value)) {
+            $this->error('月份参数格式错误');
+        }
+        $ts = strtotime($value);
+        if ($ts === false) {
+            $this->error('月份参数格式错误');
+        }
+        return date('Ym', $ts);
     }
 
     #[

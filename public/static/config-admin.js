@@ -4,7 +4,7 @@ require.config({
     urlArgs: "v=" + CONFIG.VERSION,
     baseUrl: BASE_URL,
     paths: {
-        "jquery": ["plugs/jquery-4.x/jquery-4.0.0.min"],
+        "jquery": ["plugs/jquery-4.x/jquery-4.1.0.min"],
         "echarts": ["plugs/echarts/echarts.min"],
         "echarts-theme": ["plugs/echarts/echarts-theme"],
         "easy-admin": ["plugs/easy-admin/easy-admin"],

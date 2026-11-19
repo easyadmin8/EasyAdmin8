@@ -22,12 +22,12 @@
     }
     echarts.registerTheme('walden',{
         "color": [
-            "#3fb1e3",
-            "#6be6c1",
-            "#626c91",
-            "#a0a7e6",
-            "#c4ebad",
-            "#96dee8"
+            "#35c2a6",
+            "#7fd4c8",
+            "#6ec6e0",
+            "#a8e6d5",
+            "#9ad0f0",
+            "#b9e8c9"
         ],
         "backgroundColor": "rgba(252,252,252,0)",
         "textStyle": {},

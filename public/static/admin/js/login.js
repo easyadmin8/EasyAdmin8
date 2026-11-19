@@ -6,7 +6,7 @@ define(["jquery", "easy-admin"], function ($, ea) {
                 top.location = self.location;
             }
             $(function () {
-                if (backgroundUrl) {
+                if (typeof backgroundUrl !== 'undefined' && backgroundUrl) {
                     $('body').css('background', 'url(' + backgroundUrl + ') 0% 0% / cover no-repeat')
                 }
                 $('.bind-password').on('click', function () {
@@ -27,6 +27,13 @@ define(["jquery", "easy-admin"], function ($, ea) {
                     }
                 });
 
+                $('body').on('click', '.lt-eye', function () {
+                    let input = $(this).siblings('input');
+                    let show = input.attr('type') === 'password';
+                    input.attr('type', show ? 'text' : 'password');
+                    $(this).find('i').toggleClass('fa-eye', !show).toggleClass('fa-eye-slash', show);
+                });
+
                 document.addEventListener('keydown', function (event) {
                     if (event.key === 'Enter' || event.keyCode === 13) {
                         $('.login-btn').trigger('click')
@@ -38,7 +45,8 @@ define(["jquery", "easy-admin"], function ($, ea) {
                 });
 
                 ea.listen(function (data) {
-                    data['keep_login'] = $('.icon-nocheck').hasClass('icon-check') ? 1 : 0;
+                    let checkbox = $('.icon-nocheck');
+                    data['keep_login'] = checkbox.hasClass('icon-check') || checkbox.prop('checked') ? 1 : 0;
                     return data;
                 }, function (res) {
                     ea.msg.success(res.msg, function () {

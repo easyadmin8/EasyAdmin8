@@ -41,7 +41,8 @@ class SystemLogService
      */
     protected function __construct()
     {
-        $this->tablePrefix = Config::get('database.connections.mysql.prefix');
+        $dbType            = (string)config('database.default');
+        $this->tablePrefix = (string)Config::get("database.connections.{$dbType}.prefix", '');
         $this->tableSuffix = date('Ym', time());
         $this->tableName   = "{$this->tablePrefix}system_log_{$this->tableSuffix}";
     }
@@ -94,10 +95,10 @@ class SystemLogService
             default => Db::query("show tables like '{$this->tableName}'"),
         };
         if (empty($check)) {
-            $sql = $this->getCreateSql();
-            Db::execute($sql);
+            Db::execute($this->getCreateSql());
         }
-        Cache::set($_key, !empty($check));
+        // 表已存在（或本次已创建）都缓存为 true，避免每次请求重复检测
+        Cache::set($_key, true);
         return true;
     }
 
@@ -129,7 +130,7 @@ CREATE TABLE IF NOT EXISTS {$this->tableName} (
     response JSON,
     ip VARCHAR(50) NOT NULL DEFAULT '',
     useragent VARCHAR(255) DEFAULT '',
-    create_time INTEGER
+    create_time TIMESTAMP
 );
 EOT,
             default => <<<EOT
@@ -143,7 +144,7 @@ CREATE TABLE `{$this->tableName}` (
   `response` json DEFAULT NULL COMMENT '回调数据',
   `ip` varchar(50) NOT NULL DEFAULT '' COMMENT 'IP',
   `useragent` varchar(255) DEFAULT '' COMMENT 'User-Agent',
-  `create_time` int(10) DEFAULT NULL COMMENT '操作时间',
+  `create_time` datetime DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='后台操作日志表 - {$this->tableSuffix}';
 EOT,

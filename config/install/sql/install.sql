@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : localhost
 Source Server Version : 50727
 Source Host           : localhost:3306
-Source Database       : easyadmin
+Source Database       : EasyAdmin8
 
 Target Server Type    : MYSQL
 Target Server Version : 50727
 File Encoding         : 65001
 
-Date: 2020-05-17 23:24:06
+Date: 2026-11-18 11:27:18
 */
 
 SET
@@ -28,9 +28,9 @@ CREATE TABLE `ea_mall_cate`
     `sort`        int(11) DEFAULT '0' COMMENT '排序',
     `status`      tinyint(1) unsigned DEFAULT '1' COMMENT '状态(1:禁用,2:启用)',
     `remark`      varchar(255) DEFAULT NULL COMMENT '备注说明',
-    `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
-    `update_time` int(11) DEFAULT NULL COMMENT '更新时间',
-    `delete_time` int(11) DEFAULT NULL COMMENT '删除时间',
+    `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+    `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+    `delete_time` datetime DEFAULT NULL COMMENT '删除时间',
     PRIMARY KEY (`id`),
     UNIQUE KEY `title` (`title`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='商品分类';
@@ -39,9 +39,9 @@ CREATE TABLE `ea_mall_cate`
 -- Records of ea_mall_cate
 -- ----------------------------
 INSERT INTO `ea_mall_cate`
-VALUES ('1', '电器', '/static/common/images/logo-1.png', '0', '1', '', '1589440437', '1589440437', null);
+VALUES ('1', '电器', '/static/common/images/logo-1.png', '0', '1', '', '2020-05-14 15:13:57', '2020-05-14 15:13:57', null);
 INSERT INTO `ea_mall_cate`
-VALUES ('2', '3C', '/static/common/images/logo-1.png', '0', '1', '', '1589440437', '1589440437', null);
+VALUES ('2', '3C', '/static/common/images/logo-1.png', '0', '1', '', '2020-05-14 15:13:57', '2020-05-14 15:13:57', null);
 
 -- ----------------------------
 -- Table structure for ea_mall_goods
@@ -64,9 +64,9 @@ CREATE TABLE `ea_mall_goods`
     `sort`           int(11) DEFAULT '0' COMMENT '排序',
     `status`         tinyint(1) unsigned DEFAULT '1' COMMENT '状态(1:禁用,2:启用)',
     `remark`         varchar(255)   DEFAULT NULL COMMENT '备注说明',
-    `create_time`    int(11) DEFAULT NULL COMMENT '创建时间',
-    `update_time`    int(11) DEFAULT NULL COMMENT '更新时间',
-    `delete_time`    int(11) DEFAULT NULL COMMENT '删除时间',
+    `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+    `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+    `delete_time` datetime DEFAULT NULL COMMENT '删除时间',
     PRIMARY KEY (`id`),
     KEY              `cate_id` (`cate_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='商品列表';
@@ -76,9 +76,9 @@ CREATE TABLE `ea_mall_goods`
 -- ----------------------------
 INSERT INTO `ea_mall_goods`
 VALUES ('1', '1', '落地-风扇', '/static/common/images/logo-1.png', '/static/common/images/logo-1.png|/static/common/images/logo-1.png|/static/common/images/logo-1.png|/static/common/images/logo-1.png',
-        '<p>76654757</p>\n\n<p><img alt=\"\" src=\"/static/common/images/logo-1.png\" style=\"height:689px; width:790px\" /></p>\n\n<p><img alt=\"\" src=\"/static/common/images/logo-1.png\" style=\"height:877px; width:790px\" /></p>\n', '599.00', '368.00', '0', '594', '0', '0', '675', '1', '', '1589454309', '1589567016', null);
+        '<p>76654757</p>\n\n<p><img alt=\"\" src=\"/static/common/images/logo-1.png\" style=\"height:689px; width:790px\" /></p>\n\n<p><img alt=\"\" src=\"/static/common/images/logo-1.png\" style=\"height:877px; width:790px\" /></p>\n', '599.00', '368.00', '0', '594', '0', '0', '675', '0', '', '2020-05-14 19:05:09', '2020-05-16 02:23:36', null);
 INSERT INTO `ea_mall_goods`
-VALUES ('2', '2', '电脑', '/static/common/images/logo-1.png', '/static/common/images/logo-1.png', '<p>477</p>\n', '0.00', '0.00', '0', '0', '115', '320', '0', '1', '', '1589465215', '1589476345', null);
+VALUES ('2', '2', '电脑', '/static/common/images/logo-1.png', '/static/common/images/logo-1.png', '<p>477</p>\n', '0.00', '0.00', '0', '0', '115', '320', '0', '1', '', '2020-05-14 22:06:55', '2020-05-15 01:12:25', null);
 
 -- ----------------------------
 -- Table structure for ea_system_admin
@@ -88,7 +88,7 @@ CREATE TABLE `ea_system_admin`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT,
     `auth_ids`    varchar(255)         DEFAULT NULL COMMENT '角色权限ID',
-    `head_img`    varchar(255)         DEFAULT NULL COMMENT '头像',
+    `avatar`    varchar(255)         DEFAULT NULL COMMENT '头像',
     `username`    varchar(50) NOT NULL DEFAULT '' COMMENT '用户登录名',
     `password`    varchar(255)    NOT NULL DEFAULT '' COMMENT '用户登录密码',
     `phone`       varchar(16)          DEFAULT NULL COMMENT '联系手机号',
@@ -96,9 +96,9 @@ CREATE TABLE `ea_system_admin`
     `login_num`   bigint(20) unsigned DEFAULT '0' COMMENT '登录次数',
     `sort`        int(11) DEFAULT '0' COMMENT '排序',
     `status`      tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态(0:禁用,1:启用,)',
-    `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
-    `update_time` int(11) DEFAULT NULL COMMENT '更新时间',
-    `delete_time` int(11) DEFAULT NULL COMMENT '删除时间',
+    `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+    `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+    `delete_time` datetime DEFAULT NULL COMMENT '删除时间',
     `login_type` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '登录方式',
     `ga_secret` varchar(32) NOT NULL DEFAULT '' COMMENT '谷歌验证码秘钥',
     `salt` varchar(6) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
@@ -112,7 +112,7 @@ CREATE TABLE `ea_system_admin`
 -- Records of ea_system_admin
 -- ----------------------------
 INSERT INTO `ea_system_admin`
-VALUES ('1', null, '/static/admin/images/head.jpg', 'admin', 'a33b679d5581a8692988ec9f92ad2d6a2259eaa7', 'admin', 'admin', '0', '0', '1', '1589454169', '1589476815', null, 1, '', '', 2);
+VALUES ('1', null, '/static/admin/images/head.jpg', 'admin', 'a33b679d5581a8692988ec9f92ad2d6a2259eaa7', '13800138000', 'admin', '0', '0', '1', '2020-05-14 19:02:49', '2020-05-15 01:20:15', null, 1, '', '', 2);
 
 -- ----------------------------
 -- Table structure for ea_system_auth
@@ -125,9 +125,9 @@ CREATE TABLE `ea_system_auth`
     `sort`        int(11) DEFAULT '0' COMMENT '排序',
     `status`      tinyint(1) unsigned DEFAULT '1' COMMENT '状态(1:禁用,2:启用)',
     `remark`      varchar(255) DEFAULT NULL COMMENT '备注说明',
-    `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
-    `update_time` int(11) DEFAULT NULL COMMENT '更新时间',
-    `delete_time` int(11) DEFAULT NULL COMMENT '删除时间',
+    `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+    `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+    `delete_time` datetime DEFAULT NULL COMMENT '删除时间',
     PRIMARY KEY (`id`),
     UNIQUE KEY `title` (`title`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='系统权限表';
@@ -136,9 +136,9 @@ CREATE TABLE `ea_system_auth`
 -- Records of ea_system_auth
 -- ----------------------------
 INSERT INTO `ea_system_auth`
-VALUES ('1', '管理员', '1', '1', '测试管理员', '1588921753', '1589614331', null);
+VALUES ('1', '管理员', '1', '1', '测试管理员', '2020-05-08 15:09:13', '2020-05-16 15:32:11', null);
 INSERT INTO `ea_system_auth`
-VALUES ('2', '游客权限', '0', '1', '', '1588227513', '1589591751', '1589591751');
+VALUES ('2', '游客权限', '0', '1', '', '2020-04-30 14:18:33', '2020-05-16 09:15:51', '2020-05-16 09:15:51');
 
 -- ----------------------------
 -- Table structure for ea_system_auth_node
@@ -202,8 +202,8 @@ CREATE TABLE `ea_system_config`
     `value`       text COMMENT '变量值',
     `remark`      varchar(100)         DEFAULT '' COMMENT '备注信息',
     `sort`        int(10) DEFAULT '0',
-    `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
-    `update_time` int(11) DEFAULT NULL COMMENT '更新时间',
+    `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+    `update_time` datetime DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`),
     UNIQUE KEY `name` (`name`),
     KEY           `group` (`group`)
@@ -237,11 +237,11 @@ VALUES ('11', 'oss_bucket', 'upload', '填你的', '阿里云oss空间名称', '
 INSERT INTO `ea_system_config`
 VALUES ('12', 'oss_domain', 'upload', '填你的', '阿里云oss访问域名', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('13', 'logo_title', 'site', 'EasyAdmin', 'LOGO标题', '0', null, null);
+VALUES ('13', 'logo_title', 'site', 'EasyAdmin8', 'LOGO标题', '0', null, null);
 INSERT INTO `ea_system_config`
 VALUES ('14', 'logo_image', 'site', '/static/common/images/logo-1.png', 'logo图片', '0', null, null);
 INSERT INTO `ea_system_config`
-VALUES ('15', 'site_name', 'site', 'EasyAdmin后台系统', '站点名称', '0', null, null);
+VALUES ('15', 'site_name', 'site', 'EasyAdmin8后台系统', '站点名称', '0', null, null);
 INSERT INTO `ea_system_config`
 VALUES ('16', 'site_ico', 'site', '/favicon.ico', '浏览器图标', '0', null, null);
 INSERT INTO `ea_system_config`
@@ -276,6 +276,8 @@ INSERT INTO `ea_system_config`
 VALUES ('31', 'qnoss_bucket', 'upload', '填你的', '存储空间', '0', null, null);
 INSERT INTO `ea_system_config`
 VALUES ('32', 'qnoss_domain', 'upload', '填你的', '访问域名', '0', null, null);
+INSERT INTO `ea_system_config`
+VALUES ('33', 'login_template', 'site', 'index', '登录页模板', '0', null, null);
 
 -- ----------------------------
 -- Table structure for ea_system_menu
@@ -293,9 +295,9 @@ CREATE TABLE `ea_system_menu`
     `sort`        int(11) DEFAULT '0' COMMENT '菜单排序',
     `status`      tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态(0:禁用,1:启用)',
     `remark`      varchar(255)          DEFAULT NULL,
-    `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
-    `update_time` int(11) DEFAULT NULL COMMENT '更新时间',
-    `delete_time` int(11) DEFAULT NULL COMMENT '删除时间',
+    `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+    `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+    `delete_time` datetime DEFAULT NULL COMMENT '删除时间',
     PRIMARY KEY (`id`),
     KEY           `title` (`title`),
     KEY           `href` (`href`)
@@ -305,45 +307,45 @@ CREATE TABLE `ea_system_menu`
 -- Records of ea_system_menu
 -- ----------------------------
 INSERT INTO `ea_system_menu`
-VALUES ('1', '99999999', '后台首页', 'fa fa-home', 'index/welcome', '', '_self', '0', '1', null, null, '1573120497', null);
+VALUES ('1', '99999999', '后台首页', 'fa fa-home', 'index/welcome', '', '_self', '0', '1', null, null, '2019-11-07 17:54:57', null);
 INSERT INTO `ea_system_menu`
-VALUES ('2', '0', '系统管理', 'fa fa-cog', '', '', '_self', '0', '1', '', null, '1588999529', null);
+VALUES ('2', '0', '系统管理', 'fa fa-cog', '', '', '_self', '0', '1', '', null, '2020-05-09 12:45:29', null);
 INSERT INTO `ea_system_menu`
-VALUES ('3', '2', '菜单管理', 'fa fa-tree', 'system.menu/index', '', '_self', '10', '1', '', null, '1588228555', null);
+VALUES ('3', '2', '菜单管理', 'fa fa-tree', 'system.menu/index', '', '_self', '10', '1', '', null, '2020-04-30 14:35:55', null);
 INSERT INTO `ea_system_menu`
-VALUES ('4', '2', '管理员管理', 'fa fa-user', 'system.admin/index', '', '_self', '12', '1', '', '1573185011', '1588228573', null);
+VALUES ('4', '2', '管理员管理', 'fa fa-user', 'system.admin/index', '', '_self', '12', '1', '', '2019-11-08 11:50:11', '2020-04-30 14:36:13', null);
 INSERT INTO `ea_system_menu`
-VALUES ('5', '2', '角色管理', 'fa fa-square-person-confined', 'system.auth/index', '', '_self', '11', '1', '', '1573435877', '1588228634', null);
+VALUES ('5', '2', '角色管理', 'fa fa-square-person-confined', 'system.auth/index', '', '_self', '11', '1', '', '2019-11-11 09:31:17', '2020-04-30 14:37:14', null);
 INSERT INTO `ea_system_menu`
-VALUES ('6', '2', '节点管理', 'fa fa-list', 'system.node/index', '', '_self', '9', '1', '', '1573435919', '1588228648', null);
+VALUES ('6', '2', '节点管理', 'fa fa-list', 'system.node/index', '', '_self', '9', '1', '', '2019-11-11 09:31:59', '2020-04-30 14:37:28', null);
 INSERT INTO `ea_system_menu`
-VALUES ('7', '2', '配置管理', 'fa fa-asterisk', 'system.config/index', '', '_self', '8', '1', '', '1573457448', '1588228566', null);
+VALUES ('7', '2', '配置管理', 'fa fa-asterisk', 'system.config/index', '', '_self', '8', '1', '', '2019-11-11 15:30:48', '2020-04-30 14:36:06', null);
 INSERT INTO `ea_system_menu`
-VALUES ('8', '2', '上传管理', 'fa fa-arrow-up', 'system.uploadfile/index', '', '_self', '7', '1', '', '1573542953', '1588228043', null);
+VALUES ('8', '2', '上传管理', 'fa fa-arrow-up', 'system.uploadfile/index', '', '_self', '7', '1', '', '2019-11-12 15:15:53', '2020-04-30 14:27:23', null);
 INSERT INTO `ea_system_menu`
-VALUES ('9', '0', '商城管理', 'fa fa-list', '', '', '_self', '0', '1', '', '1589439884', '1589439884', null);
+VALUES ('9', '0', '商城管理', 'fa fa-list', '', '', '_self', '0', '1', '', '2020-05-14 15:04:44', '2020-05-14 15:04:44', null);
 INSERT INTO `ea_system_menu`
-VALUES ('10', '9', '商品分类', 'fa fa-calendar-check', 'mall.cate/index', '', '_self', '0', '1', '', '1589439910', '1589439966', null);
+VALUES ('10', '9', '商品分类', 'fa fa-calendar-check', 'mall.cate/index', '', '_self', '0', '1', '', '2020-05-14 15:05:10', '2020-05-14 15:06:06', null);
 INSERT INTO `ea_system_menu`
-VALUES ('11', '9', '商品管理', 'fa fa-store-alt', 'mall.goods/index', '', '_self', '0', '1', '', '1589439931', '1589439942', null);
+VALUES ('11', '9', '商品管理', 'fa fa-store-alt', 'mall.goods/index', '', '_self', '0', '1', '', '2020-05-14 15:05:31', '2020-05-14 15:05:42', null);
 INSERT INTO `ea_system_menu`
-VALUES ('12', '2', '快捷入口', 'fa fa-tachometer-alt-fast', 'system.quick/index', '', '_self', '6', '1', '', '1589623683', '1589623683', null);
+VALUES ('12', '2', '快捷入口', 'fa fa-tachometer-alt-fast', 'system.quick/index', '', '_self', '6', '1', '', '2020-05-16 18:08:03', '2020-05-16 18:08:03', null);
 INSERT INTO `ea_system_menu`
-VALUES ('13', '2', '日志管理', 'fa fa-sticky-note', 'system.log/index', '', '_self', '0', '1', '5', '1589623684', '1589623684', null);
+VALUES ('13', '2', '日志管理', 'fa fa-sticky-note', 'system.log/index', '', '_self', '0', '1', '5', '2020-05-16 18:08:04', '2020-05-16 18:08:04', null);
 INSERT INTO `ea_system_menu`
-VALUES ('14', '2', 'CURD可视化', 'fa fa fa-shower', 'system.curd_generate/index', '', '_self', '4', '1', '', '1589623684', '1589623684', null);
+VALUES ('14', '2', 'CURD可视化', 'fa fa fa-shower', 'system.curd_generate/index', '', '_self', '4', '1', '', '2020-05-16 18:08:04', '2020-05-16 18:08:04', null);
 INSERT INTO `ea_system_menu`
-VALUES ('15', '2', '其他页面', 'fa fa-square-share-nodes', '', '', '_self', '0', '1', '', '1589623684', '1589623684', null);
+VALUES ('15', '2', '其他页面', 'fa fa-square-share-nodes', '', '', '_self', '0', '1', '', '2020-05-16 18:08:04', '2020-05-16 18:08:04', null);
 INSERT INTO `ea_system_menu`
-VALUES ('16', '15', '官网', 'fa fa-home', 'https://easyadmin8.top', '', '_self', '3', '1', '', '1589623684', '1589623684', null);
+VALUES ('16', '15', '官网', 'fa fa-home', 'https://easyadmin8.top', '', '_self', '3', '1', '', '2020-05-16 18:08:04', '2020-05-16 18:08:04', null);
 INSERT INTO `ea_system_menu`
-VALUES ('17', '15', '问答社区', 'fa fa-comments', 'https://meta.easyadmin8.top', '', '_blank', '0', '1', '', '1589623684', '1589623684', null);
+VALUES ('17', '15', '问答社区', 'fa fa-comments', 'https://meta.easyadmin8.top', '', '_blank', '0', '1', '', '2020-05-16 18:08:04', '2020-05-16 18:08:04', null);
 INSERT INTO `ea_system_menu`
-VALUES ('18', '15', '常见问题', 'fa fa-circle-question', 'https://easyadmin8.top/guide/question.html', '', '_self', '2', '1', '', '1589623684', '1589623684', null);
+VALUES ('18', '15', '常见问题', 'fa fa-circle-question', 'https://easyadmin8.top/guide/question.html', '', '_self', '2', '1', '', '2020-05-16 18:08:04', '2020-05-16 18:08:04', null);
 INSERT INTO `ea_system_menu`
-VALUES ('19', '2', '日志分析', 'fa fa-robot', 'system.log_analyzer/index', '', '_self', '1', '1', '', '1589623684', '1589623684', null);
+VALUES ('19', '2', '日志分析', 'fa fa-robot', 'system.log_analyzer/index', '', '_self', '1', '1', '', '2020-05-16 18:08:04', '2020-05-16 18:08:04', null);
 INSERT INTO `ea_system_menu`
-VALUES ('20', '2', 'IP白名单', 'fa fa-p', 'system.ip_white/index', '', '_self', '1', '1', '', '1589623684', '1589623684', null);
+VALUES ('20', '2', 'IP白名单', 'fa fa-p', 'system.ip_white/index', '', '_self', '1', '1', '', '2020-05-16 18:08:04', '2020-05-16 18:08:04', null);
 
 -- ----------------------------
 -- Table structure for ea_system_node
@@ -356,8 +358,8 @@ CREATE TABLE `ea_system_node`
     `title`       varchar(500) DEFAULT NULL COMMENT '节点标题',
     `type`        tinyint(1) DEFAULT '3' COMMENT '节点类型（1：控制器，2：节点）',
     `is_auth`     tinyint(1) unsigned DEFAULT '1' COMMENT '是否启动RBAC权限控制',
-    `create_time` int(10) DEFAULT NULL COMMENT '创建时间',
-    `update_time` int(10) DEFAULT NULL COMMENT '更新时间',
+    `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+    `update_time` datetime DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`),
     KEY           `node` (`node`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='系统节点表';
@@ -366,153 +368,153 @@ CREATE TABLE `ea_system_node`
 -- Records of ea_system_node
 -- ----------------------------
 INSERT INTO `ea_system_node`
-VALUES ('1', 'system.admin', '管理员管理', '1', '1', '1589580432', '1589580432');
+VALUES ('1', 'system.admin', '管理员管理', '1', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('2', 'system.admin/index', '列表', '2', '1', '1589580432', '1589580432');
+VALUES ('2', 'system.admin/index', '列表', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('3', 'system.admin/add', '添加', '2', '1', '1589580432', '1589580432');
+VALUES ('3', 'system.admin/add', '添加', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('4', 'system.admin/edit', '编辑', '2', '1', '1589580432', '1589580432');
+VALUES ('4', 'system.admin/edit', '编辑', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('5', 'system.admin/password', '编辑', '2', '1', '1589580432', '1589580432');
+VALUES ('5', 'system.admin/password', '编辑', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('6', 'system.admin/delete', '删除', '2', '1', '1589580432', '1589580432');
+VALUES ('6', 'system.admin/delete', '删除', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('7', 'system.admin/modify', '属性修改', '2', '1', '1589580432', '1589580432');
+VALUES ('7', 'system.admin/modify', '属性修改', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('8', 'system.admin/export', '导出', '2', '1', '1589580432', '1589580432');
+VALUES ('8', 'system.admin/export', '导出', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('9', 'system.auth', '角色权限管理', '1', '1', '1589580432', '1589580432');
+VALUES ('9', 'system.auth', '角色权限管理', '1', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('10', 'system.auth/authorize', '授权', '2', '1', '1589580432', '1589580432');
+VALUES ('10', 'system.auth/authorize', '授权', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('11', 'system.auth/saveAuthorize', '授权保存', '2', '1', '1589580432', '1589580432');
+VALUES ('11', 'system.auth/saveAuthorize', '授权保存', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('12', 'system.auth/index', '列表', '2', '1', '1589580432', '1589580432');
+VALUES ('12', 'system.auth/index', '列表', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('13', 'system.auth/add', '添加', '2', '1', '1589580432', '1589580432');
+VALUES ('13', 'system.auth/add', '添加', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('14', 'system.auth/edit', '编辑', '2', '1', '1589580432', '1589580432');
+VALUES ('14', 'system.auth/edit', '编辑', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('15', 'system.auth/delete', '删除', '2', '1', '1589580432', '1589580432');
+VALUES ('15', 'system.auth/delete', '删除', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('16', 'system.auth/export', '导出', '2', '1', '1589580432', '1589580432');
+VALUES ('16', 'system.auth/export', '导出', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('17', 'system.auth/modify', '属性修改', '2', '1', '1589580432', '1589580432');
+VALUES ('17', 'system.auth/modify', '属性修改', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('18', 'system.config', '系统配置管理', '1', '1', '1589580432', '1589580432');
+VALUES ('18', 'system.config', '系统配置管理', '1', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('19', 'system.config/index', '列表', '2', '1', '1589580432', '1589580432');
+VALUES ('19', 'system.config/index', '列表', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('20', 'system.config/save', '保存', '2', '1', '1589580432', '1589580432');
+VALUES ('20', 'system.config/save', '保存', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('21', 'system.menu', '菜单管理', '1', '1', '1589580432', '1589580432');
+VALUES ('21', 'system.menu', '菜单管理', '1', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('22', 'system.menu/index', '列表', '2', '1', '1589580432', '1589580432');
+VALUES ('22', 'system.menu/index', '列表', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('23', 'system.menu/add', '添加', '2', '1', '1589580432', '1589580432');
+VALUES ('23', 'system.menu/add', '添加', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('24', 'system.menu/edit', '编辑', '2', '1', '1589580432', '1589580432');
+VALUES ('24', 'system.menu/edit', '编辑', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('25', 'system.menu/delete', '删除', '2', '1', '1589580432', '1589580432');
+VALUES ('25', 'system.menu/delete', '删除', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('26', 'system.menu/modify', '属性修改', '2', '1', '1589580432', '1589580432');
+VALUES ('26', 'system.menu/modify', '属性修改', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('27', 'system.menu/getMenuTips', '添加菜单提示', '2', '1', '1589580432', '1589580432');
+VALUES ('27', 'system.menu/getMenuTips', '添加菜单提示', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('28', 'system.menu/export', '导出', '2', '1', '1589580432', '1589580432');
+VALUES ('28', 'system.menu/export', '导出', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('29', 'system.node', '系统节点管理', '1', '1', '1589580432', '1589580432');
+VALUES ('29', 'system.node', '系统节点管理', '1', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('30', 'system.node/index', '列表', '2', '1', '1589580432', '1589580432');
+VALUES ('30', 'system.node/index', '列表', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('31', 'system.node/refreshNode', '系统节点更新', '2', '1', '1589580432', '1589580432');
+VALUES ('31', 'system.node/refreshNode', '系统节点更新', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('32', 'system.node/clearNode', '清除失效节点', '2', '1', '1589580432', '1589580432');
+VALUES ('32', 'system.node/clearNode', '清除失效节点', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('33', 'system.node/add', '添加', '2', '1', '1589580432', '1589580432');
+VALUES ('33', 'system.node/add', '添加', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('34', 'system.node/edit', '编辑', '2', '1', '1589580432', '1589580432');
+VALUES ('34', 'system.node/edit', '编辑', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('35', 'system.node/delete', '删除', '2', '1', '1589580432', '1589580432');
+VALUES ('35', 'system.node/delete', '删除', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('36', 'system.node/export', '导出', '2', '1', '1589580432', '1589580432');
+VALUES ('36', 'system.node/export', '导出', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('37', 'system.node/modify', '属性修改', '2', '1', '1589580432', '1589580432');
+VALUES ('37', 'system.node/modify', '属性修改', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('38', 'system.uploadfile', '上传文件管理', '1', '1', '1589580432', '1589580432');
+VALUES ('38', 'system.uploadfile', '上传文件管理', '1', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('39', 'system.uploadfile/index', '列表', '2', '1', '1589580432', '1589580432');
+VALUES ('39', 'system.uploadfile/index', '列表', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('40', 'system.uploadfile/add', '添加', '2', '1', '1589580432', '1589580432');
+VALUES ('40', 'system.uploadfile/add', '添加', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('41', 'system.uploadfile/edit', '编辑', '2', '1', '1589580432', '1589580432');
+VALUES ('41', 'system.uploadfile/edit', '编辑', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('42', 'system.uploadfile/delete', '删除', '2', '1', '1589580432', '1589580432');
+VALUES ('42', 'system.uploadfile/delete', '删除', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('43', 'system.uploadfile/export', '导出', '2', '1', '1589580432', '1589580432');
+VALUES ('43', 'system.uploadfile/export', '导出', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('44', 'system.uploadfile/modify', '属性修改', '2', '1', '1589580432', '1589580432');
+VALUES ('44', 'system.uploadfile/modify', '属性修改', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('45', 'mall.cate', '商品分类管理', '1', '1', '1589580432', '1589580432');
+VALUES ('45', 'mall.cate', '商品分类管理', '1', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('46', 'mall.cate/index', '列表', '2', '1', '1589580432', '1589580432');
+VALUES ('46', 'mall.cate/index', '列表', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('47', 'mall.cate/add', '添加', '2', '1', '1589580432', '1589580432');
+VALUES ('47', 'mall.cate/add', '添加', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('48', 'mall.cate/edit', '编辑', '2', '1', '1589580432', '1589580432');
+VALUES ('48', 'mall.cate/edit', '编辑', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('49', 'mall.cate/delete', '删除', '2', '1', '1589580432', '1589580432');
+VALUES ('49', 'mall.cate/delete', '删除', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('50', 'mall.cate/export', '导出', '2', '1', '1589580432', '1589580432');
+VALUES ('50', 'mall.cate/export', '导出', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('51', 'mall.cate/modify', '属性修改', '2', '1', '1589580432', '1589580432');
+VALUES ('51', 'mall.cate/modify', '属性修改', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('52', 'mall.goods', '商城商品管理', '1', '1', '1589580432', '1589580432');
+VALUES ('52', 'mall.goods', '商城商品管理', '1', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('53', 'mall.goods/index', '列表', '2', '1', '1589580432', '1589580432');
+VALUES ('53', 'mall.goods/index', '列表', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('54', 'mall.goods/stock', '入库', '2', '1', '1589580432', '1589580432');
+VALUES ('54', 'mall.goods/stock', '入库', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('55', 'mall.goods/add', '添加', '2', '1', '1589580432', '1589580432');
+VALUES ('55', 'mall.goods/add', '添加', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('56', 'mall.goods/edit', '编辑', '2', '1', '1589580432', '1589580432');
+VALUES ('56', 'mall.goods/edit', '编辑', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('57', 'mall.goods/delete', '删除', '2', '1', '1589580432', '1589580432');
+VALUES ('57', 'mall.goods/delete', '删除', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('58', 'mall.goods/export', '导出', '2', '1', '1589580432', '1589580432');
+VALUES ('58', 'mall.goods/export', '导出', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('59', 'mall.goods/modify', '属性修改', '2', '1', '1589580432', '1589580432');
+VALUES ('59', 'mall.goods/modify', '属性修改', '2', '1', '2020-05-16 06:07:12', '2020-05-16 06:07:12');
 INSERT INTO `ea_system_node`
-VALUES ('60', 'system.quick', '快捷入口管理', '1', '1', '1589623188', '1589623188');
+VALUES ('60', 'system.quick', '快捷入口管理', '1', '1', '2020-05-16 17:59:48', '2020-05-16 17:59:48');
 INSERT INTO `ea_system_node`
-VALUES ('61', 'system.quick/index', '列表', '2', '1', '1589623188', '1589623188');
+VALUES ('61', 'system.quick/index', '列表', '2', '1', '2020-05-16 17:59:48', '2020-05-16 17:59:48');
 INSERT INTO `ea_system_node`
-VALUES ('62', 'system.quick/add', '添加', '2', '1', '1589623188', '1589623188');
+VALUES ('62', 'system.quick/add', '添加', '2', '1', '2020-05-16 17:59:48', '2020-05-16 17:59:48');
 INSERT INTO `ea_system_node`
-VALUES ('63', 'system.quick/edit', '编辑', '2', '1', '1589623188', '1589623188');
+VALUES ('63', 'system.quick/edit', '编辑', '2', '1', '2020-05-16 17:59:48', '2020-05-16 17:59:48');
 INSERT INTO `ea_system_node`
-VALUES ('64', 'system.quick/delete', '删除', '2', '1', '1589623188', '1589623188');
+VALUES ('64', 'system.quick/delete', '删除', '2', '1', '2020-05-16 17:59:48', '2020-05-16 17:59:48');
 INSERT INTO `ea_system_node`
-VALUES ('65', 'system.quick/export', '导出', '2', '1', '1589623188', '1589623188');
+VALUES ('65', 'system.quick/export', '导出', '2', '1', '2020-05-16 17:59:48', '2020-05-16 17:59:48');
 INSERT INTO `ea_system_node`
-VALUES ('66', 'system.quick/modify', '属性修改', '2', '1', '1589623188', '1589623188');
+VALUES ('66', 'system.quick/modify', '属性修改', '2', '1', '2020-05-16 17:59:48', '2020-05-16 17:59:48');
 INSERT INTO `ea_system_node`
-VALUES ('67', 'system.log', '操作日志管理', '1', '1', '1589623188', '1589623188');
+VALUES ('67', 'system.log', '操作日志管理', '1', '1', '2020-05-16 17:59:48', '2020-05-16 17:59:48');
 INSERT INTO `ea_system_node`
-VALUES ('68', 'system.log/index', '列表', '2', '1', '1589623188', '1589623188');
+VALUES ('68', 'system.log/index', '列表', '2', '1', '2020-05-16 17:59:48', '2020-05-16 17:59:48');
 INSERT INTO `ea_system_node`
-VALUES ('69', 'system.curd_generate', 'CURD可视化管理', '1', '1', '1589623188', '1589623188');
+VALUES ('69', 'system.curd_generate', 'CURD可视化管理', '1', '1', '2020-05-16 17:59:48', '2020-05-16 17:59:48');
 INSERT INTO `ea_system_node`
-VALUES ('70', 'system.curd_generate/index', '列表', '2', '1', '1589623188', '1589623188');
+VALUES ('70', 'system.curd_generate/index', '列表', '2', '1', '2020-05-16 17:59:48', '2020-05-16 17:59:48');
 INSERT INTO `ea_system_node`
-VALUES ('71', 'system.curd_generate/save', '操作', '2', '1', '1589623188', '1589623188');
+VALUES ('71', 'system.curd_generate/save', '操作', '2', '1', '2020-05-16 17:59:48', '2020-05-16 17:59:48');
 INSERT INTO `ea_system_node`
-VALUES ('72', 'system.ip_white', 'IP白名单', '1', '1', '1589623188', '1589623188');
+VALUES ('72', 'system.ip_white', 'IP白名单', '1', '1', '2020-05-16 17:59:48', '2020-05-16 17:59:48');
 INSERT INTO `ea_system_node`
-VALUES ('73', 'system.ip_white/index', '列表', '2', '1', '1589623188', '1589623188');
+VALUES ('73', 'system.ip_white/index', '列表', '2', '1', '2020-05-16 17:59:48', '2020-05-16 17:59:48');
 INSERT INTO `ea_system_node`
-VALUES ('75', 'system.ip_white/save', '操作', '2', '1', '1589623188', '1589623188');
+VALUES ('75', 'system.ip_white/save', '操作', '2', '1', '2020-05-16 17:59:48', '2020-05-16 17:59:48');
 
 -- ----------------------------
 -- Table structure for ea_system_quick
@@ -527,9 +529,9 @@ CREATE TABLE `ea_system_quick`
     `sort`        int(11) DEFAULT '0' COMMENT '排序',
     `status`      tinyint(1) unsigned DEFAULT '1' COMMENT '状态(1:禁用,2:启用)',
     `remark`      varchar(255) DEFAULT NULL COMMENT '备注说明',
-    `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
-    `update_time` int(11) DEFAULT NULL COMMENT '更新时间',
-    `delete_time` int(11) DEFAULT NULL COMMENT '删除时间',
+    `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+    `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+    `delete_time` datetime DEFAULT NULL COMMENT '删除时间',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='系统快捷入口表';
 
@@ -537,21 +539,21 @@ CREATE TABLE `ea_system_quick`
 -- Records of ea_system_quick
 -- ----------------------------
 INSERT INTO `ea_system_quick`
-VALUES ('1', '管理员管理', 'fa fa-user', 'system.admin/index', '0', '1', '', '1589624097', '1589624792', null);
+VALUES ('1', '管理员管理', 'fa fa-user', 'system.admin/index', '0', '1', '', '2020-05-16 18:14:57', '2020-05-16 18:26:32', null);
 INSERT INTO `ea_system_quick`
-VALUES ('2', '角色管理', 'fa fa-square-person-confined', 'system.auth/index', '0', '1', '', '1589624772', '1589624781', null);
+VALUES ('2', '角色管理', 'fa fa-square-person-confined', 'system.auth/index', '0', '1', '', '2020-05-16 18:26:12', '2020-05-16 18:26:21', null);
 INSERT INTO `ea_system_quick`
-VALUES ('3', '菜单管理', 'fa fa-tree', 'system.menu/index', '0', '1', null, '1589624097', '1589624792', null);
+VALUES ('3', '菜单管理', 'fa fa-tree', 'system.menu/index', '0', '1', null, '2020-05-16 18:14:57', '2020-05-16 18:26:32', null);
 INSERT INTO `ea_system_quick`
-VALUES ('6', '节点管理', 'fa fa-list', 'system.node/index', '0', '1', null, '1589624772', '1589624781', null);
+VALUES ('6', '节点管理', 'fa fa-list', 'system.node/index', '0', '1', null, '2020-05-16 18:26:12', '2020-05-16 18:26:21', null);
 INSERT INTO `ea_system_quick`
-VALUES ('7', '配置管理', 'fa fa-asterisk', 'system.config/index', '0', '1', null, '1589624097', '1589624792', null);
+VALUES ('7', '配置管理', 'fa fa-asterisk', 'system.config/index', '0', '1', null, '2020-05-16 18:14:57', '2020-05-16 18:26:32', null);
 INSERT INTO `ea_system_quick`
-VALUES ('8', '上传管理', 'fa fa-arrow-up', 'system.uploadfile/index', '0', '1', null, '1589624772', '1589624781', null);
+VALUES ('8', '上传管理', 'fa fa-arrow-up', 'system.uploadfile/index', '0', '1', null, '2020-05-16 18:26:12', '2020-05-16 18:26:21', null);
 INSERT INTO `ea_system_quick`
-VALUES ('10', '商品分类', 'fa fa-calendar-check', 'mall.cate/index', '0', '1', null, '1589624097', '1589624792', null);
+VALUES ('10', '商品分类', 'fa fa-calendar-check', 'mall.cate/index', '0', '1', null, '2020-05-16 18:14:57', '2020-05-16 18:26:32', null);
 INSERT INTO `ea_system_quick`
-VALUES ('11', '商品管理', 'fa fa-store-alt', 'mall.goods/index', '0', '1', null, '1589624772', '1589624781', null);
+VALUES ('11', '商品管理', 'fa fa-store-alt', 'mall.goods/index', '0', '1', null, '2020-05-16 18:26:12', '2020-05-16 18:26:21', null);
 
 -- ----------------------------
 -- Table structure for ea_system_uploadfile
@@ -571,9 +573,9 @@ CREATE TABLE `ea_system_uploadfile`
     `file_size`     int(10) unsigned NOT NULL DEFAULT 0 COMMENT '文件大小',
     `file_ext`      varchar(100)          DEFAULT '',
     `sha1`          varchar(40)  NOT NULL DEFAULT '' COMMENT '文件 sha1编码',
-    `create_time`   int(10) DEFAULT NULL COMMENT '创建日期',
-    `update_time`   int(10) DEFAULT NULL COMMENT '更新时间',
-    `upload_time`   int(10) DEFAULT NULL COMMENT '上传时间',
+    `create_time` datetime DEFAULT NULL COMMENT '创建日期',
+    `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+    `upload_time` datetime DEFAULT NULL COMMENT '上传时间',
     PRIMARY KEY (`id`),
     KEY             `upload_type` (`upload_type`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='上传文件表';
@@ -582,17 +584,17 @@ CREATE TABLE `ea_system_uploadfile`
 -- Records of ea_system_uploadfile
 -- ----------------------------
 INSERT INTO `ea_system_uploadfile`
-VALUES ('1', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/0a6de1ac058ee134301501899b84ecb1.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
+VALUES ('1', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/0a6de1ac058ee134301501899b84ecb1.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', '2019-11-13 10:33:57', null, null);
 INSERT INTO `ea_system_uploadfile`
-VALUES ('2', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/46d7384f04a3bed331715e86a4095d15.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
+VALUES ('2', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/46d7384f04a3bed331715e86a4095d15.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', '2019-11-13 10:33:57', null, null);
 INSERT INTO `ea_system_uploadfile`
-VALUES ('3', 'oss', 'image/x-icon', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/7d32671f4c1d1b01b0b28f45205763f9.ico', '', '', '', '0', 'image/x-icon', '0', 'ico', '', 1573612437, null, null);
+VALUES ('3', 'oss', 'image/x-icon', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/7d32671f4c1d1b01b0b28f45205763f9.ico', '', '', '', '0', 'image/x-icon', '0', 'ico', '', '2019-11-13 10:33:57', null, null);
 INSERT INTO `ea_system_uploadfile`
-VALUES ('4', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/28cefa547f573a951bcdbbeb1396b06f.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
+VALUES ('4', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/28cefa547f573a951bcdbbeb1396b06f.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', '2019-11-13 10:33:57', null, null);
 INSERT INTO `ea_system_uploadfile`
-VALUES ('5', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/2c412adf1b30c8be3a913e603c7b6e4a.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
+VALUES ('5', 'oss', 'image/jpeg', 'https://lxn-99php.oss-cn-shenzhen.aliyuncs.com/upload/20191111/2c412adf1b30c8be3a913e603c7b6e4a.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', '2019-11-13 10:33:57', null, null);
 INSERT INTO `ea_system_uploadfile`
-VALUES ('6', 'cos', 'image/jpeg', 'https://easyadmin-1251997243.cos.ap-guangzhou.myqcloud.com/upload/20191114/2381eaf81208ac188fa994b6f2579953.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', 1573612437, null, null);
+VALUES ('6', 'cos', 'image/jpeg', 'https://easyadmin-1251997243.cos.ap-guangzhou.myqcloud.com/upload/20191114/2381eaf81208ac188fa994b6f2579953.jpg', '', '', '', '0', 'image/jpeg', '0', 'jpg', '', '2019-11-13 10:33:57', null, null);
 
 -- ----------------------------
 -- Table structure for ea_system_log
@@ -609,7 +611,7 @@ CREATE TABLE `ea_system_log`
     `response` json DEFAULT NULL COMMENT '回调数据',
     `ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT 'IP',
     `useragent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT 'User-Agent',
-    `create_time` int DEFAULT NULL COMMENT '操作时间',
+    `create_time` datetime DEFAULT NULL COMMENT '操作时间',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=COMPACT COMMENT='后台操作日志表 - 202412';
 
@@ -623,9 +625,9 @@ CREATE TABLE `ea8_system_ip_white`
     `ip`          varchar(45) COLLATE utf8mb4_general_ci                        NOT NULL DEFAULT '' COMMENT 'IP地址',
     `status`      tinyint unsigned NOT NULL DEFAULT '1' COMMENT '状态(1:禁用,2:启用)',
     `remark`      varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '备注说明',
-    `create_time` int                                                                    DEFAULT NULL COMMENT '创建时间',
-    `update_time` int                                                                    DEFAULT NULL COMMENT '更新时间',
-    `delete_time` int                                                                    DEFAULT NULL COMMENT '删除时间',
+    `create_time` datetime                                                                    DEFAULT NULL COMMENT '创建时间',
+    `update_time` datetime                                                                    DEFAULT NULL COMMENT '更新时间',
+    `delete_time` datetime                                                                    DEFAULT NULL COMMENT '删除时间',
     PRIMARY KEY (`id`),
     UNIQUE KEY `ip` (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
